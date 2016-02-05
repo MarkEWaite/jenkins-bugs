@@ -12,3 +12,17 @@ Steps I took trying to duplicate the problem:
 * Create a develop branch: `git checkout -b JENKINS-11337/develop`
 * Initialize git flow branching: `git flow init`
 * Start a feature branch named bug-check-1: `git flow feature start bug-check-1`
+
+The resulting git config file looked like this:
+```
+[gitflow "branch"]
+        master = JENKINS-11337/master
+        develop = JENKINS-11337/develop
+[gitflow "prefix"]
+        feature = JENKINS-11337/feature/
+        release = JENKINS-11337/release/
+        hotfix = JENKINS-11337/hotfix/
+        support = JENKINS-11337/support/
+        versiontag = JENKINS-11337-
+
+```
