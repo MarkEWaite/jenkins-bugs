@@ -27,7 +27,9 @@ git flow init
 # 	hotfix = JENKINS-11337/hotfix/
 # 	support = JENKINS-11337/support/
 # 	versiontag = JENKINS-11337-
-
-# Start a feature branch named bug-check-1
+```
+* Start a feature branch named bug-check-1
+```
 git flow feature start bug-check-1
 ```
+
