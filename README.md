@@ -32,4 +32,14 @@ git flow init
 ```
 git flow feature start bug-check-1
 ```
-
+* Finish the feature bug-check-1
+```
+git flow feature finish bug-check-1
+```
+* Release the feature
+```
+git flow release start my-bug-check-release-1.0.0
+git flow release publish my-bug-check-release-1.0.0
+git flow release finish my-bug-check-release-1.0.0
+git push --tags
+```
