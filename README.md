@@ -1,4 +1,4 @@
-# jenkins-bugs
+# Jenkins Bug Verification
 Public repository for Jenkins bug verification.
 
 Many of the bug reports on the Jenkins git plugin and the Jenkins git client plugin 
