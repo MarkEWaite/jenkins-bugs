@@ -43,3 +43,19 @@ git flow release publish my-bug-check-release-1.0.0
 git flow release finish my-bug-check-release-1.0.0
 git push --tags
 ```
+* Create a feature branch for my-bug-check-2
+```
+git flow feature start my-bug-check-2
+```
+* Make needed changes on that branch
+* Finish the feature branch
+```
+git flow feature finish my-bug-check-2
+```
+* Release the my-bug-check-2 feature
+```
+git flow release start my-bug-check-release-1.0.1
+git flow release publish my-bug-check-release-1.0.1
+git flow release finish my-bug-check-release-1.0.1
+git push --tags
+```
