@@ -54,8 +54,8 @@ git flow feature finish my-bug-check-2
 ```
 * Release the my-bug-check-2 feature
 ```
-git flow release start my-bug-check-release-1.0.1
-git flow release publish my-bug-check-release-1.0.1
-git flow release finish my-bug-check-release-1.0.1
+git flow release start bug-check-release-1.0.1
+git flow release publish bug-check-release-1.0.1
+git flow release finish bug-check-release-1.0.1
 git push --tags
 ```
