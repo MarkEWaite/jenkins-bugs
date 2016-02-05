@@ -7,7 +7,7 @@ branches.
 
 Steps I took trying to duplicate the problem:
 
-* Install git-flow on my Ubuntu development machine
+* Install git-flow on my Ubuntu development machine: `sudo apt-get install git-flow`
 * Initialize the git-flow branching: `git checkout -b JENKINS-11337/master`
 * Create a develop branch: `git checkout -b JENKINS-11337/develop`
 * Initialize git flow branching: `git flow init`
