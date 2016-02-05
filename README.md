@@ -59,3 +59,10 @@ git flow release publish bug-check-release-1.0.1
 git flow release finish bug-check-release-1.0.1
 git push --tags
 ```
+* Release another version
+```
+git flow release start bug-check-release-1.0.2
+git flow release publish bug-check-release-1.0.2
+git flow release finish bug-check-release-1.0.2
+git push --tags
+```
