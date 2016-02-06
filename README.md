@@ -1,7 +1,4 @@
-# Jenkins Bug Verification
-Public repository for Jenkins bug verification.
+[JENKINS-6203](https://issues.jenkins-ci.org/browse/JENKINS-6203) - UTF-8 not used to read changelog
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git client plugin 
-need a repository which contains specific configurations to duplicate the bug.  This
-repository captures some of those configurations in a way that is publicly visible
-so that automated tests can use this repository.
+The git changelog was previously processed with the default runtime
+character set, even though git writes it (by default) as UTF-8.
