@@ -1,8 +1,15 @@
 <project name="JENKINS-33433" default="increment" basedir=".">
 
-  <!-- Increment build number, commit the change -->
-  <target name="increment" description="Show JENKINS-33433 is not repeatable">
-    <echo>java is ${java.version}</echo>
+  <available file="JENKINS-33433-branch-1"  property="branch-1.found"/>
+  <available file="JENKINS-33433-branch-2"  property="branch-2.found"/>
+  <condition property="branch-1-and-2.found">
+    <and>
+      <available file="JENKINS-33433-branch-1"/>
+      <available file="JENKINS-33433-branch-2"/>
+    </and>
+  </condition>
+
+  <target name="master-branch" if="branch-1-and-2.found" description="Tasks for master branch">
     <buildnumber/>
     <echo>Build number was ${build.number}</echo>
     <exec executable="git">
@@ -16,6 +23,50 @@
       <arg value="${user.name} on JENKINS-33433, build was ${build.number}"/>
       <arg value="build.number"/>
     </exec>
+    <exec executable="git">
+      <arg value="merge"/>
+      <arg value="-s"/>
+      <arg value="octopus"/>
+      <arg value="origin/JENKINS-33433-branch-1"/>
+      <arg value="origin/JENKINS-33433-branch-2"/>
+    </exec>
+  </target>
+
+  <target name="one" if="branch-1.found" unless="branch-2.found" description="Tasks for branch-1">
+    <tstamp>
+      <format property="current.time" pattern="yyyy-MM-dd HH:mm:ss" />
+    </tstamp>
+    <concat destfile="JENKINS-33433-branch-1" append="true">${current.time}</concat>
+    <exec executable="git">
+      <arg value="add"/>
+      <arg value="JENKINS-33433-branch-1"/>
+    </exec>
+    <exec executable="git">
+      <arg value="commit"/>
+      <arg value="-m"/>
+      <arg value="Added date stamp ${current.time} on branch-1"/>
+    </exec>
+  </target>
+
+  <target name="two" if="branch-2.found" unless="branch-1.found" description="Tasks for branch-2">
+    <tstamp>
+      <format property="current.time" pattern="yyyy-MM-dd HH:mm:ss" />
+    </tstamp>
+    <concat destfile="JENKINS-33433-branch-2" append="true">${current.time}</concat>
+    <exec executable="git">
+      <arg value="add"/>
+      <arg value="JENKINS-33433-branch-1"/>
+    </exec>
+    <exec executable="git">
+      <arg value="commit"/>
+      <arg value="-m"/>
+      <arg value="Added date stamp ${current.time} on branch-2"/>
+    </exec>
+  </target>
+
+  <!-- Increment build number, commit the change -->
+  <target name="increment" depends="master-branch,one,two" description="Show JENKINS-33433 is not repeatable">
+    <echo>java is ${java.version}</echo>
   </target>
 
 </project>
