@@ -24,6 +24,5 @@
       <arg value="JENKINS-33433-branch-2"/>
     </exec>
   </target>
-  </target>
 
 </project>
