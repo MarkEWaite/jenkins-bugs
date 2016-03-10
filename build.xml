@@ -16,6 +16,14 @@
       <arg value="${user.name} on JENKINS-33433, build was ${build.number}"/>
       <arg value="build.number"/>
     </exec>
+    <exec executable="git">
+      <arg value="merge"/>
+      <arg value="-s"/>
+      <arg value="octopus"/>
+      <arg value="JENKINS-33433-branch-1"/>
+      <arg value="JENKINS-33433-branch-2"/>
+    </exec>
+  </target>
   </target>
 
 </project>
