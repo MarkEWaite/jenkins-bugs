@@ -37,6 +37,15 @@
       <format property="current.time" pattern="yyyy-MM-dd HH:mm:ss" />
     </tstamp>
     <concat destfile="JENKINS-33433-branch-1" append="true">${current.time}</concat>
+    <exec executable="git">
+      <arg value="add"/>
+      <arg value="JENKINS-33433-branch-1"/>
+    </exec>
+    <exec executable="git">
+      <arg value="commit"/>
+      <arg value="-m"/>
+      <arg value="Added date stamp ${current.time} on branch-1"/>
+    </exec>
   </target>
 
   <target name="two" if="branch-2.found" unless="branch-1.found" description="Tasks for branch-2">
