@@ -20,7 +20,7 @@
 
   <!-- Fail job if BuildChooserSetting count is not 4 -->
   <target name="count" description="Show JENKINS-33695 is fixed">
-    <echo>The file '${config.file}' has ${file.lines} matching lines.</echo>
+    <echo>The file '${config.file}' has ${file.lines} matching lines, 4 expected.</echo>
     <fail message="Not 4 BuildChooserSetting lines in ${config.file}">
       <condition>
 	<not>
