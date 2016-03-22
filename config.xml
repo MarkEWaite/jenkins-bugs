@@ -101,6 +101,9 @@ ignored-user2</excludedUsers>
         </sparseCheckoutPaths>
       </hudson.plugins.git.extensions.impl.SparseCheckoutPaths>
       <hudson.plugins.git.extensions.impl.BuildChooserSetting>
+	<buildChooser class="hudson.plugins.git.util.InverseBuildChooser"/>
+      </hudson.plugins.git.extensions.impl.BuildChooserSetting>
+      <hudson.plugins.git.extensions.impl.BuildChooserSetting>
         <buildChooser class="hudson.plugins.git.util.AncestryBuildChooser">
           <maximumAgeInDays>13</maximumAgeInDays>
           <ancestorCommitSha1>SHA1-of-ancestor-commit-which-must-be-in-branch-history</ancestorCommitSha1>
