@@ -7,7 +7,7 @@ be built with various branch choosing strategies and the defined branch specs.
 It is hoped that someday this might be used to automatically create jobs which test these
 conditions are satisfied.  Until then, this is a reference for interactive testing.
 
-## BranchSpec: \*/master, \*/JENKINS-1\*, \*/JENKINS-\*2, \*/JENKINS-\*3
+## BranchSpec: \*/master, \*/JENKINS-1\*, \*/JENKINS-\*\*2, \*/JENKINS-\*3
 
 | Branch                   | Default | Inverse | Ancestry | Default + Inverse | Inverse + Ancestry | Inverse + Inverse |
 |--------------------------|---------|---------|----------|-------------------|--------------------|-------------------|
