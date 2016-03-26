@@ -1,4 +1,4 @@
-<project name="JENKINS-33695" default="count" basedir=".">
+<project name="JENKINS-33827" default="count" basedir=".">
 
   <!-- Relies on this job running on the master node -->
   <!-- Caller needs to override this property with -Dconfig.file=../config.xml -->
@@ -19,7 +19,7 @@
   </resourcecount>
 
   <!-- Fail job if BuildChooserSetting count is not 4 -->
-  <target name="count" description="Show JENKINS-33695 is fixed">
+  <target name="count" description="Show JENKINS-33827 is fixed">
     <echo>The file '${config.file}' has ${file.lines} matching lines, 4 expected.</echo>
     <fail message="Not 4 BuildChooserSetting lines in ${config.file}">
       <condition>

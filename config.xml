@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>[JENKINS-33695](https://issues.jenkins-ci.org/browse/JENKINS-33695) build chooser settings lost on reload</description>
+  <description>[JENKINS-33827](https://issues.jenkins-ci.org/browse/JENKINS-33827) build chooser settings lost on reload</description>
   <keepDependencies>false</keepDependencies>
   <properties>
     <org.bstick12.jenkinsci.plugins.leastload.LeastLoadDisabledProperty plugin="leastload@1.0.3">
@@ -17,7 +17,7 @@
     </userRemoteConfigs>
     <branches>
       <hudson.plugins.git.BranchSpec>
-        <name>*/JENKINS-33695</name>
+        <name>*/JENKINS-33827</name>
       </hudson.plugins.git.BranchSpec>
     </branches>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
