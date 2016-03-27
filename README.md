@@ -11,21 +11,23 @@ reference for interactive testing.
 
 ## BranchSpec: \*/master, \*/JENKINS-1\*, \*/JENKINS-\*\*2, \*/JENKINS-\*3
 
-| Branch                   | Default | Inverse | Ancestry | Default + Inverse | Inverse + Ancestry | Inverse + Inverse |
-|--------------------------|---------|---------|----------|-------------------|--------------------|-------------------|
-|    JENKINS-11337/develop |         |    X    |          |         O         |          Y         |         Y         |
-|     JENKINS-11337/master |         |    O    |          |         O         |                    |                   |
-|            JENKINS-14798 |    X    |         |          |         Y         |                    |         O         |
-|            JENKINS-33202 |    X    |         |          |         Y         |                    |         O         |
-| JENKINS-33202-x/branch-1 |         |    X    |          |         O         |          Y         |         Y         |
-| JENKINS-33202-x/branch-2 |    X    |         |          |         Y         |                    |         O         |
-|   JENKINS-33433-branch-1 |         |    X    |          |         O         |          O         |         Y         |
-|   JENKINS-33433-branch-2 |    X    |         |          |         Y         |          X         |         O         |
-|     JENKINS-33433-master |         |    X    |          |         O         |          X         |         Y         |
-|            JENKINS-33695 |         |    O    |          |         O         |                    |                   |
-|            JENKINS-33827 |         |    X    |          |         O         |          Y         |         Y         |
-|             JENKINS-6203 |    X    |         |          |         Y         |                    |         O         |
-|                   master |    O    |         |          |                   |                    |         O         |
+| Branch                   | D | I | A | D + I | I + A | I + I |
+|--------------------------|---|---|---|-------|-------|-------|
+|    JENKINS-11337/develop |   | X |   |   O   |   Y   |   Y   |
+|     JENKINS-11337/master |   | O |   |   O   |       |       |
+|            JENKINS-14798 | X |   |   |   Y   |       |   O   |
+|            JENKINS-33202 | X |   |   |   Y   |       |   O   |
+| JENKINS-33202-x/branch-1 |   | X |   |   O   |   Y   |   Y   |
+| JENKINS-33202-x/branch-2 | X |   |   |   Y   |       |   O   |
+|   JENKINS-33433-branch-1 |   | X |   |   O   |   O   |   Y   |
+|   JENKINS-33433-branch-2 | X |   |   |   Y   |   X   |   O   |
+|     JENKINS-33433-master |   | X |   |   O   |   X   |   Y   |
+|            JENKINS-33695 |   | O |   |   O   |       |       |
+|            JENKINS-33827 |   | X |   |   O   |   Y   |   Y   |
+|             JENKINS-6203 | X |   |   |   Y   |       |   O   |
+|                   master | O |   |   |       |       |   O   |
+
+"D" is "Default", "I" is "Inverse", and "A" is "Ancestry with 554eec0303829d1b2774a636fcd9623bf6f3aab0".
 
 In columns where there are mixes of "X" and "O", the "O" means that I
 predicted that branch would be built, but it was not built in the git
