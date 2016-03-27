@@ -11,19 +11,19 @@ conditions are satisfied.  Until then, this is a reference for interactive testi
 
 | Branch                   | Default | Inverse | Ancestry | Default + Inverse | Inverse + Ancestry | Inverse + Inverse |
 |--------------------------|---------|---------|----------|-------------------|--------------------|-------------------|
-|    JENKINS-11337/develop |         |    X    |          |         O         |          Y         |                   |
+|    JENKINS-11337/develop |         |    X    |          |         O         |          Y         |         Y         |
 |     JENKINS-11337/master |         |    O    |          |         O         |                    |                   |
-|            JENKINS-14798 |    X    |         |          |         Y         |                    |         X         |
-|            JENKINS-33202 |    X    |         |          |         Y         |                    |         X         |
-| JENKINS-33202-x/branch-1 |         |    X    |          |         O         |          Y        |                   |
-| JENKINS-33202-x/branch-2 |    X    |         |          |         Y         |                    |         X         |
-|   JENKINS-33433-branch-1 |         |    X    |          |         O         |          O         |                   |
-|   JENKINS-33433-branch-2 |    X    |         |          |         Y         |          X         |         X         |
-|     JENKINS-33433-master |         |    X    |          |         O         |          X         |                   |
+|            JENKINS-14798 |    X    |         |          |         Y         |                    |         O         |
+|            JENKINS-33202 |    X    |         |          |         Y         |                    |         O         |
+| JENKINS-33202-x/branch-1 |         |    X    |          |         O         |          Y         |         Y         |
+| JENKINS-33202-x/branch-2 |    X    |         |          |         Y         |                    |         O         |
+|   JENKINS-33433-branch-1 |         |    X    |          |         O         |          O         |         Y        |
+|   JENKINS-33433-branch-2 |    X    |         |          |         Y         |          X         |         O         |
+|     JENKINS-33433-master |         |    X    |          |         O         |          X         |         Y         |
 |            JENKINS-33695 |         |    O    |          |         O         |                    |                   |
-|            JENKINS-33827 |         |    X    |          |         O         |          Y         |                   |
-|             JENKINS-6203 |    X    |         |          |         Y         |                    |         X         |
-|                   master |    O    |         |          |                   |                    |         X         |
+|            JENKINS-33827 |         |    X    |          |         O         |          Y         |         Y         |
+|             JENKINS-6203 |    X    |         |          |         Y         |                    |         O         |
+|                   master |    O    |         |          |                   |                    |         O         |
 
 In columns where there are mixes of "X" and "O", the "O" means that I predicted that branch
 would be built, but it was not built in the git plugin 2.4.4 test that I ran with Jenkins 2.0 beta.
@@ -36,3 +36,6 @@ as though the additional "Inverse" build chooser was completely ignored.
 The "Inverse + Ancestry" column is close to the "Inverse" column, but does not match it exactly
 as the "Default + Inverse" exactly machines the "Default" column.  I don't understand why
 JENKINS-33433-branch-1 was built in "Default" but was not built in "Inverse + Ancestry".
+
+The "Inverse + Inverse" matches exactly with "Inverse" rather than matching with "Default"
+which I expected (inverting an inversion seems like it should return to the default state).
