@@ -11,17 +11,17 @@ conditions are satisfied.  Until then, this is a reference for interactive testi
 
 | Branch                   | Default | Inverse | Ancestry | Default + Inverse | Inverse + Ancestry | Inverse + Inverse |
 |--------------------------|---------|---------|----------|-------------------|--------------------|-------------------|
-|    JENKINS-11337/develop |         |    X    |          |         O         |                    |                   |
+|    JENKINS-11337/develop |         |    X    |          |         O         |          Y         |                   |
 |     JENKINS-11337/master |         |    O    |          |         O         |                    |                   |
 |            JENKINS-14798 |    X    |         |          |         Y         |                    |         X         |
 |            JENKINS-33202 |    X    |         |          |         Y         |                    |         X         |
-| JENKINS-33202-x/branch-1 |         |    X    |          |         O         |                    |                   |
+| JENKINS-33202-x/branch-1 |         |    X    |          |         O         |          Y        |                   |
 | JENKINS-33202-x/branch-2 |    X    |         |          |         Y         |                    |         X         |
-|   JENKINS-33433-branch-1 |         |    X    |          |         O         |          X         |                   |
+|   JENKINS-33433-branch-1 |         |    X    |          |         O         |          O         |                   |
 |   JENKINS-33433-branch-2 |    X    |         |          |         Y         |          X         |         X         |
 |     JENKINS-33433-master |         |    X    |          |         O         |          X         |                   |
 |            JENKINS-33695 |         |    O    |          |         O         |                    |                   |
-|            JENKINS-33827 |         |    X    |          |         O         |                    |                   |
+|            JENKINS-33827 |         |    X    |          |         O         |          Y         |                   |
 |             JENKINS-6203 |    X    |         |          |         Y         |                    |         X         |
 |                   master |    O    |         |          |                   |                    |         X         |
 
@@ -32,3 +32,7 @@ though I predicted it would not be built.
 
 In the "Default + Inverse" column, it appears that the column exactly matches the "Default" column,
 as though the additional "Inverse" build chooser was completely ignored.
+
+The "Inverse + Ancestry" column is close to the "Inverse" column, but does not match it exactly
+as the "Default + Inverse" exactly machines the "Default" column.  I don't understand why
+JENKINS-33433-branch-1 was built in "Default" but was not built in "Inverse + Ancestry".
