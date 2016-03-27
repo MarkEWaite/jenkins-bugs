@@ -23,4 +23,7 @@ conditions are satisfied.  Until then, this is a reference for interactive testi
 |            JENKINS-33695 |         |    X    |          |         X         |                    |                   |
 |            JENKINS-33827 |         |    X    |          |         X         |                    |                   |
 |             JENKINS-6203 |    X    |         |          |                   |                    |         X         |
-|                   master |    X    |         |          |                   |                    |         X         |
+|                   master |    O    |         |          |                   |                    |         X         |
+
+In columns where there are mixes of "X" and "O", the "O" means that I predicted that branch
+would be built, but it was not built in the git plugin 2.4.4 test that I ran with Jenkins 2.0
