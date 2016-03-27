@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>Check [JENKINS-33827](https://issues.jenkins-ci.org/browse/JENKINS-33827) - default build chooser</description>
+  <description>Check [JENKINS-33827](https://issues.jenkins-ci.org/browse/JENKINS-33827) - ancestry build chooser</description>
   <keepDependencies>false</keepDependencies>
   <properties>
     <jenkins.model.BuildDiscarderProperty>
@@ -37,9 +37,6 @@
       <hudson.plugins.git.BranchSpec>
         <name>*/JENKINS-*3</name>
       </hudson.plugins.git.BranchSpec>
-      <hudson.plugins.git.BranchSpec>
-        <name>*/**33433**</name>
-      </hudson.plugins.git.BranchSpec>
     </branches>
     <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
     <submoduleCfg class="list"/>
@@ -49,9 +46,6 @@
           <ancestorCommitSha1>554eec0303829d1b2774a636fcd9623bf6f3aab0</ancestorCommitSha1>
         </buildChooser>
       </hudson.plugins.git.extensions.impl.BuildChooserSetting>
-      <hudson.plugins.git.extensions.impl.LocalBranch>
-        <localBranch>**</localBranch>
-      </hudson.plugins.git.extensions.impl.LocalBranch>
     </extensions>
   </scm>
   <quietPeriod>0</quietPeriod>

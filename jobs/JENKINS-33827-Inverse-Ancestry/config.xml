@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project>
   <actions/>
-  <description>Check [JENKINS-33827](https://issues.jenkins-ci.org/browse/JENKINS-33827) - inverse build chooser</description>
+  <description>Check [JENKINS-33827](https://issues.jenkins-ci.org/browse/JENKINS-33827) - inverse + ancestry build chooser</description>
   <keepDependencies>false</keepDependencies>
   <properties>
     <jenkins.model.BuildDiscarderProperty>
@@ -44,9 +44,6 @@
       <hudson.plugins.git.extensions.impl.BuildChooserSetting>
         <buildChooser class="hudson.plugins.git.util.InverseBuildChooser"/>
       </hudson.plugins.git.extensions.impl.BuildChooserSetting>
-      <hudson.plugins.git.extensions.impl.LocalBranch>
-        <localBranch>**</localBranch>
-      </hudson.plugins.git.extensions.impl.LocalBranch>
       <hudson.plugins.git.extensions.impl.BuildChooserSetting>
         <buildChooser class="hudson.plugins.git.util.AncestryBuildChooser">
           <ancestorCommitSha1>554eec0303829d1b2774a636fcd9623bf6f3aab0</ancestorCommitSha1>

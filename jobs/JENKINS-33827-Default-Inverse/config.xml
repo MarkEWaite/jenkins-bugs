@@ -44,9 +44,6 @@
       <hudson.plugins.git.extensions.impl.BuildChooserSetting>
         <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
       </hudson.plugins.git.extensions.impl.BuildChooserSetting>
-      <hudson.plugins.git.extensions.impl.LocalBranch>
-        <localBranch>**</localBranch>
-      </hudson.plugins.git.extensions.impl.LocalBranch>
       <hudson.plugins.git.extensions.impl.BuildChooserSetting>
         <buildChooser class="hudson.plugins.git.util.InverseBuildChooser"/>
       </hudson.plugins.git.extensions.impl.BuildChooserSetting>
