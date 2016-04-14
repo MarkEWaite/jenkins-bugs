@@ -10,3 +10,4 @@ character set, even though git writes it (by default) as UTF-8.
 
 A commit after a commit on the feature branch should show the problem.
 Problem is, I don't have the google-source-plugin installed.
+Other problem is, I'm not sure it would show the problem even with it.
