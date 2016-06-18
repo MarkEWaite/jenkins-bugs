@@ -8,3 +8,4 @@ so that automated tests can use this repository.
 COLEEN-PC2
 WAITE2011
 MWAITE-DESKTOP
+COLEEN-PC3
