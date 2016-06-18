@@ -6,3 +6,4 @@ need a repository which contains specific configurations to duplicate the bug.  
 repository captures some of those configurations in a way that is publicly visible
 so that automated tests can use this repository.
 COLEEN-PC2
+WAITE2011
