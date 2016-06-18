@@ -7,3 +7,4 @@ repository captures some of those configurations in a way that is publicly visib
 so that automated tests can use this repository.
 COLEEN-PC2
 WAITE2011
+MWAITE-DESKTOP
