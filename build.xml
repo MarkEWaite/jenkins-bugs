@@ -13,7 +13,7 @@
     <exec executable="git">
       <arg value="commit"/>
       <arg value="-m"/>
-      <arg value="${user.name} multiple refspecs, build number incremented, was ${build.number}"/>
+      <arg value="${user.name} production/JENKINS-29796 commit, build number was ${build.number}"/>
       <arg value="build.number"/>
     </exec>
   </target>
