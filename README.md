@@ -1,7 +1,6 @@
-# Jenkins Bug Verification
-Public repository for Jenkins bug verification.
+[JENKINS-29796](https://issues.jenkins-ci.org/browse/JENKINS-29796) multiple refspecs were matched by AND rather than OR
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git client plugin 
-need a repository which contains specific configurations to duplicate the bug.  This
-repository captures some of those configurations in a way that is publicly visible
-so that automated tests can use this repository.
+When a repository was defined with two refspecs, the git polling required
+that both refspecs be matched before a change would be detected on a
+branch. Both refspecs could never match, so polling would never detect
+changes for repositories which contain more than 1 refspec.

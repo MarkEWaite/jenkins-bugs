@@ -1,0 +1,21 @@
+<project name="JENKINS-29796" default="increment" basedir=".">
+
+  <!-- Increment build number, commit the change -->
+  <target name="increment" description="Show JENKINS-29796 is a bug">
+    <echo>java is ${java.version}</echo>
+    <buildnumber/>
+    <echo>Build number was ${build.number}</echo>
+    <exec executable="git">
+      <arg value="add"/>
+      <arg value="build.number"/>
+      <arg value="."/>
+    </exec>
+    <exec executable="git">
+      <arg value="commit"/>
+      <arg value="-m"/>
+      <arg value="${user.name} multiple refspecs, build number incremented, was ${build.number}"/>
+      <arg value="build.number"/>
+    </exec>
+  </target>
+
+</project>
