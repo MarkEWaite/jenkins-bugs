@@ -1,7 +1,7 @@
-<project name="JENKINS-31393" default="increment" basedir=".">
+<project name="JENKINS-31828" default="increment" basedir=".">
 
   <!-- Increment build number, commit the change -->
-  <target name="increment" description="Show JENKINS-31393 is fixed">
+  <target name="increment" description="Show JENKINS-31828 is fixed">
     <echo>java is ${java.version}</echo>
     <buildnumber/>
     <echo>Build number was ${build.number}</echo>
@@ -13,7 +13,7 @@
     <exec executable="git">
       <arg value="commit"/>
       <arg value="-m"/>
-      <arg value="${user.name} JENKINS-31393, was ${build.number}"/>
+      <arg value="${user.name} JENKINS-31828, was ${build.number}"/>
       <arg value="build.number"/>
     </exec>
   </target>
