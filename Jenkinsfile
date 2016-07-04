@@ -22,6 +22,7 @@ node("!windows") { // Not Windows, my Windows machines garble Japanese commit me
     manager.createSummary("warning.gif").appendText("<h1>Missing localized text!</h1>", false, false, false, "red")
     manager.buildUnstable()
   }
+  println("Manager build is " + manager.build)
 }
 
 /* Run ant from tool "ant-latest" */
