@@ -23,9 +23,9 @@ node("!windows") { // Not Windows, my Windows machines garble Japanese commit me
     manager.buildUnstable()
   }
   println("Manager methods are")
-  printAllMethods(manager)
+  println(manager.metaClass.methods)
   println("Manager build methods are")
-  printAllMethods(manager.build)
+  println(manager.build.metaClass.methods)
 }
 
 /* Run ant from tool "ant-latest" */
@@ -49,20 +49,4 @@ void ant(def args) {
       bat "${antHome}\\bin\\ant ${args}"
     }
   }
-}
-
-void printAllMethods( obj ) {
-  if (!obj) {
-    println( "Object is null\r\n");
-    return;
-  }
-  if (!obj.metaClass && obj.getClass()) {
-    printAllMethods( obj.getClass() );
-    return;
-  }
-  def str = "class ${obj.getClass().getName()} functions:\r\n";
-  obj.metaClass.methods.getName().unique().each {
-    str += it+"(); "; 
-  }
-  println "${str}\r\n";
 }
