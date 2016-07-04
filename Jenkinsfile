@@ -60,8 +60,8 @@ void printAllMethods( obj ) {
     printAllMethods( obj.getClass() );
     return;
   }
-  def str = "class ${obj.getClass().name} functions:\r\n";
-  obj.metaClass.methods.name.unique().each {
+  def str = "class ${obj.getClass().getName()} functions:\r\n";
+  obj.metaClass.methods.getName().unique().each {
     str += it+"(); "; 
   }
   println "${str}\r\n";
