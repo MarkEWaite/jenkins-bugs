@@ -13,6 +13,9 @@ node("!windows") { // Not Windows, my Windows machines garble Japanese commit me
   ant "increment"
 
   stage 'Verify'
+  // Does not check the actual bug report
+  // Bug report was that recent changes are not in the recent changes list
+  // This checks that the log writes Japanese, not that the recent changes do
   if (!manager.logContains(".*ビルド番号をインクリメント.*") ||
       !manager.logContains(".*でした.*")) {
     manager.addWarningBadge("Missing localized text.")
