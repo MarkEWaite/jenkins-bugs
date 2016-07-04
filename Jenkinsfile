@@ -22,7 +22,10 @@ node("!windows") { // Not Windows, my Windows machines garble Japanese commit me
     manager.createSummary("warning.gif").appendText("<h1>Missing localized text!</h1>", false, false, false, "red")
     manager.buildUnstable()
   }
-  println("Manager build methods are " + manager.build.metaClass.methods*.name)
+  println("Manager methods are")
+  printAllMethods(manager)
+  println("Manager build methods are")
+  printAllMethods(manager.build)
 }
 
 /* Run ant from tool "ant-latest" */
@@ -46,4 +49,20 @@ void ant(def args) {
       bat "${antHome}\\bin\\ant ${args}"
     }
   }
+}
+
+void printAllMethods( obj ) {
+  if (!obj) {
+    println( "Object is null\r\n");
+    return;
+  }
+  if (!obj.metaClass && obj.getClass()) {
+    printAllMethods( obj.getClass() );
+    return;
+  }
+  def str = "class ${obj.getClass().name} functions:\r\n";
+  obj.metaClass.methods.name.unique().each {
+    str += it+"(); "; 
+  }
+  println "${str}\r\n";
 }
