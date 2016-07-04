@@ -14,7 +14,7 @@ node("!windows") { // Not Windows, my Windows machines garble Japanese commit me
   ant "info"
 
   stage 'Verify'
-  if (!manager.logContains(".*[*] .*detached from .*")) {
+  if (!manager.logContains(".*[*] .*master")) {
     manager.addWarningBadge("Missing branch name.")
     manager.createSummary("warning.gif").appendText("<h1>Missing branch name!</h1>", false, false, false, "red")
     manager.buildUnstable()
