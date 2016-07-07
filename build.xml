@@ -1,26 +1,33 @@
-<project name="jenkins-bugs-master-branch" default="sync" basedir=".">
+<project name="JENKINS-34309" default="push" basedir=".">
 
   <!-- Synchronize repositories -->
-  <target name="sync" description="Synchronize git repositories">
+  <target name="push" description="Push a change with Ctrl-M in the message to this branch">
     <echo>java is ${java.version}</echo>
-    <git command="pull">
+    <buildnumber/>
+    <git command="add">
       <args>
-        <arg value="--all"/>
+        <arg value="build.number"/>
       </args>
     </git>
-    <git command="push">
+    <git command="commit">
       <args>
-        <arg value="cache"/>
-        <arg value="--mirror"/>
+        <arg value="-m"/>
+        <arg value="Message contains Ctrl-M in the middle of line 1"/>
       </args>
     </git>
   </target>
 
-  <!-- Synchronize repositories -->
+  <!-- Report info about this repo -->
   <target name="info" description="Report info about this repo">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
+    <git command="log">
+      <args>
+        <arg value="-n"/>
+        <arg value="3"/>
+      </args>
+    </git>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
