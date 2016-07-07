@@ -1,7 +1,7 @@
 <project name="JENKINS-34309" default="push" basedir=".">
 
   <!-- Synchronize repositories -->
-  <target name="push" description="Push a change with Ctrl-M in the message to this branch">
+  <target name="push" description="Push a change with Ctrl-M&#13; in the commit message">
     <echo>java is ${java.version}</echo>
     <buildnumber/>
     <git command="add">
@@ -12,9 +12,10 @@
     <git command="commit">
       <args>
         <arg value="-m"/>
-        <arg value="Message contains Ctrl-M in the middle of line 1"/>
+        <arg value="Commit message has Ctrl-M&#13; in middle of line 1"/>
       </args>
     </git>
+    <git command="push" />
   </target>
 
   <!-- Report info about this repo -->
