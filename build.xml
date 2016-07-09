@@ -12,7 +12,7 @@
     <git command="commit">
       <args>
         <arg value="-m"/>
-        <arg value="num was ${build.number}, message has trailing Ctrl-M&#13;"/>
+        <arg value="num was ${build.number}, message has trailing Ctrl-M&#13;x"/>
       </args>
     </git>
     <git command="push" />
