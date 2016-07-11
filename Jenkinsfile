@@ -14,9 +14,9 @@ node("!windows") { // Not Windows, my Windows machines garble Japanese commit me
   ant "info"
 
   stage 'Verify'
-  if (!manager.logContains(".*[*] .*master")) {
-    manager.addWarningBadge("Missing branch name.")
-    manager.createSummary("warning.gif").appendText("<h1>Missing branch name!</h1>", false, false, false, "red")
+  if (!manager.logContains(".*[*] JENKINS-34309")) {
+    manager.addWarningBadge("Missing JENKINS-34309 branch name.")
+    manager.createSummary("warning.gif").appendText("<h1>Missing JENKINS-34309 branch name!</h1>", false, false, false, "red")
     manager.buildUnstable()
   }
 }
