@@ -8,3 +8,5 @@ repository.
 
 Ant doesn't seem to allow a trailing ^M when creating the commit, or
 rather ant's invocation of command line git doesn't seem to allow it.
+Even command line git is struggling to allow it, though it might allow
+it with a multi-line commit where the first line ends in ^M
