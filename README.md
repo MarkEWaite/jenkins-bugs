@@ -18,4 +18,4 @@ the job is assumed to have failed.
 
 Moved the assertions into Jenkinsfile so they can be coded in groovy.
 
-Not clear why the job missed the second change I submitted.
+Not clear why the job missed the second change I submitted.  More checks needed.
