@@ -17,3 +17,5 @@ use curl to read the last few commits. If no change is reported, then
 the job is assumed to have failed.
 
 Moved the assertions into Jenkinsfile so they can be coded in groovy.
+
+Not clear why the job missed the second change I submitted.
