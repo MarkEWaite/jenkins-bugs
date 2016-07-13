@@ -12,14 +12,12 @@
   <!-- Info about branches -->
   <target name="info" description="Report info about this repo">
     <echo>java is ${java.version}</echo>
-    <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
   </target>
 
   <!-- Git log -->
   <target name="log" description="Show log for this repo">
     <echo>java is ${java.version}</echo>
-    <echo>user dir is ${user.dir}</echo>
     <git command="log" />
   </target>
 
