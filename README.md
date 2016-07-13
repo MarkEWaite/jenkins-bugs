@@ -15,3 +15,5 @@ there is only a single notifyCommit).
 More investigation is still required. The bug check job is now configured to
 use curl to read the last few commits. If no change is reported, then
 the job is assumed to have failed.
+
+Moved the assertions into Jenkinsfile so it can be coded in groovy.
