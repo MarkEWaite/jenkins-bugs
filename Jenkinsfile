@@ -15,6 +15,7 @@ node {
 
   stage 'Verify'
   String changesURL = "http://localhost:8080/job/bugs/job/JENKINS-36637-changes-list-incomplete/${currentBuild.number}/api/xml?wrapper=changes&xpath=//changeSet//comment"
+  changesURL = "${env.BUILD_URL}/${currentBuild.number}/api/xml?wrapper=changes&xpath=//changeSet//comment"
   String changeDescription =
     new URL(changesURL).getText(connectTimeout: 1000,
                                 readTimeout: 5000,
