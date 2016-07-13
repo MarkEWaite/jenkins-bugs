@@ -19,7 +19,7 @@ node {
     manager.createSummary("warning.gif").appendText("<h1>Missing branch name!</h1>", false, false, false, "red")
     manager.buildUnstable()
   }
-  for (GitChangeSet s : currentBuild.rawBuild.changeSets) {
+  for (Object s : currentBuild.rawBuild.changeSets) {
     println s
   }
 }
