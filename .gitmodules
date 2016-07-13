@@ -1,0 +1,3 @@
+[submodule "bad"]
+	path = bad
+	url = git@github.com:MarkEWaite/big-list-of-naughty-strings.git
