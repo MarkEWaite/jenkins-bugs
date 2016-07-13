@@ -14,14 +14,14 @@ node {
   ant "info"
 
   stage 'Verify'
-  String changesURL = "http://localhost:8080/job/bugs/job/JENKINS-36637-changes-list-incomplete/${currentBuild.number}/api/xml?wrapper=changes&xpath=//changeSet//comment")
+  String changesURL = "http://localhost:8080/job/bugs/job/JENKINS-36637-changes-list-incomplete/${currentBuild.number}/api/xml?wrapper=changes&xpath=//changeSet//comment"
   String changeDescription =
     new URL(changesURL).getText(connectTimeout: 1000,
                                 readTimeout: 5000,
                                 useCaches: false,
                                 allowUserInteraction: false,
                                 requestProperties: ['Connection': 'close'])
-  println "Change URL is '" + changesURL + "'"
+  println "Change description is '" + changeDescription + "'"
   println "Change description is '" + changeDescription + "'"
   if (changeDescription.contains("<changes/>") ||
       !changeDescription.contains("<changes>")) {
