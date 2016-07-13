@@ -6,6 +6,7 @@
     <exec executable="python" output="output">
       <arg value="submit_changes.py" />
     </exec>
+    <delete file="output" quiet="true"/>
   </target>
 
   <!-- Info about branches -->
