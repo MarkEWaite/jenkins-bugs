@@ -32,7 +32,7 @@ Submit problem change log messages to a git repo.   Use -h for help."""
 
     messages = commit_messages()
     for commit_message in messages:
-        if commit_message == "":
+        if commit_message.strip() == "":
             continue
         print(commit_message)
         git_command = [
