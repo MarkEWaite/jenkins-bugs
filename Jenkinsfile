@@ -29,7 +29,7 @@ node {
                             useCaches: false,
                             allowUserInteraction: false,
                             requestProperties: ['Connection': 'close'])
-  println "Change URL is '" + changesURL + "'"
+  println "Job URL is '" + jobURL + "'"
   println "Change description is '" + changeDescription + "'"
   if (changeDescription.contains("<changes/>") ||
       !changeDescription.contains("<changes>")) {
