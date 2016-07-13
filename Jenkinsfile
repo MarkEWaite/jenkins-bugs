@@ -23,7 +23,7 @@ node {
     manager.buildUnstable()
   }
   for (GitChangeSet s : currentBuild.rawBuild.changeSets) {
-    println s
+    println s.getCommitId()
   }
 }
 
