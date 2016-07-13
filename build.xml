@@ -1,12 +1,11 @@
 <project name="JENKINS-36637" default="submit-changes" basedir=".">
 
   <!-- Submit changes to repository using bad strings -->
-  <target name="submit-changes" description="SUbmit changes">
+  <target name="submit-changes" description="Submit changes">
     <echo>java is ${java.version}</echo>
     <exec executable="python">
       <arg value="submit_changes.py" />
     </exec>
-    <git command="push" />
   </target>
 
   <!-- Info about branches -->
@@ -14,6 +13,13 @@
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
+  </target>
+
+  <!-- Git log -->
+  <target name="log" description="Show log for this repo">
+    <echo>java is ${java.version}</echo>
+    <echo>user dir is ${user.dir}</echo>
+    <git command="log" />
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
