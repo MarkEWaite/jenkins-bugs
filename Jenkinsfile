@@ -1,8 +1,5 @@
 #!groovy
 
-import hudson.plugins.git.GitChangeSetList
-import hudson.plugins.git.GitChangeSet
-
 /* Only keep the 10 most recent builds. */
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
@@ -22,6 +19,12 @@ node {
     manager.createSummary("warning.gif").appendText("<h1>Missing branch name!</h1>", false, false, false, "red")
     manager.buildUnstable()
   }
+  String result = new URL("").getText(connectTimeout: 1000,
+                                      readTimeout: 5000,
+                                      useCaches: false,
+                                      allowUserInteraction: false,
+                                      requestProperties: ['Connection': 'close'])
+  println "Result is '" + result + "'"
 }
 
 /* Run ant from tool "ant-latest" */
