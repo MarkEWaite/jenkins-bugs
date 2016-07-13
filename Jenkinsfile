@@ -27,11 +27,16 @@ node {
                             requestProperties: ['Connection': 'close'])
   println "Change description is '" + changeDescription + "'"
   if (changeDescription.contains("<changes/>") ||
-      !changeDescription.contains("<changes>")) {
+      !changeDescription.contains("<changes>") ||
+      countSubstrings(changeDescription, "<comment>") < 2) { // Always expect at least 2 changes
     manager.addWarningBadge("Missing recent changes output")
     manager.createSummary("warning.gif").appendText("<h1>Missing recent changes!</h1>", false, false, false, "red")
     manager.buildUnstable()
   }
+}
+
+int countSubstrings(String str, String subStr) {
+  return (str.length() - str.replace(subStr, "").length()) / subStr.length();
 }
 
 /* Run ant from tool "ant-latest" */
