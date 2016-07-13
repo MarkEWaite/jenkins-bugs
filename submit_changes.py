@@ -16,7 +16,7 @@ def commit_messages():
     with open("bad/blns.json") as data_file:
         data = json.load(data_file)
     random.shuffle(data)
-    return data
+    return data[0:20]
 
 #-----------------------------------------------------------------------
 
