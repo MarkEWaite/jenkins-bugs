@@ -19,12 +19,14 @@ node {
     manager.createSummary("warning.gif").appendText("<h1>Missing branch name!</h1>", false, false, false, "red")
     manager.buildUnstable()
   }
-  String result = new URL("http://localhost:8080/job/bugs/job/JENKINS-36637-changes-list-incomplete/${currentBuild.number}/api/xml?wrapper=changes&xpath=//changeSet//comment")
-                             .getText(connectTimeout: 1000,
-                                      readTimeout: 5000,
-                                      useCaches: false,
-                                      allowUserInteraction: false,
-                                      requestProperties: ['Connection': 'close'])
+  println "Trying " + "http://localhost:8080/job/bugs/job/JENKINS-36637-changes-list-incomplete/${currentBuild.number}/api/xml?wrapper=changes&xpath=//changeSet//comment"
+  String result =
+    new URL("http://localhost:8080/job/bugs/job/JENKINS-36637-changes-list-incomplete/${currentBuild.number}/api/xml?wrapper=changes&xpath=//changeSet//comment")
+    .getText(connectTimeout: 1000,
+             readTimeout: 5000,
+             useCaches: false,
+             allowUserInteraction: false,
+             requestProperties: ['Connection': 'close'])
   println "Result is '" + result + "'"
 }
 
