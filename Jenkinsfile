@@ -14,20 +14,19 @@ node {
   ant "info"
 
   stage 'Verify'
-  if (!manager.logContains(".*[*] .*JENKINS-36637")) {
-    manager.addWarningBadge("Missing branch name.")
-    manager.createSummary("warning.gif").appendText("<h1>Missing branch name!</h1>", false, false, false, "red")
-    manager.buildUnstable()
-  }
-  println "Trying " + "http://localhost:8080/job/bugs/job/JENKINS-36637-changes-list-incomplete/${currentBuild.number}/api/xml?wrapper=changes&xpath=//changeSet//comment"
-  String result =
+  String changeDescription =
     new URL("http://localhost:8080/job/bugs/job/JENKINS-36637-changes-list-incomplete/${currentBuild.number}/api/xml?wrapper=changes&xpath=//changeSet//comment")
     .getText(connectTimeout: 1000,
              readTimeout: 5000,
              useCaches: false,
              allowUserInteraction: false,
              requestProperties: ['Connection': 'close'])
-  println "Result is '" + result + "'"
+  if (changeDescription.contains("<changes/>") ||
+      !changeDescription.contains("<changes>")) {
+    manager.addWarningBadge("Missing recent changes output")
+    manager.createSummary("warning.gif").appendText("<h1>Missing recent changes!</h1>", false, false, false, "red")
+    manager.buildUnstable()
+  }
 }
 
 /* Run ant from tool "ant-latest" */
