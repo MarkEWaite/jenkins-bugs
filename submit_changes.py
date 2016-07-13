@@ -27,8 +27,7 @@ Submit problem change log messages to a git repo.   Use -h for help."""
 
     options, arg_hosts = parser.parse_args()
 
-    messages = commit_messages()
-    for commit_message in messages:
+    for commit_message in commit_messages():
         if commit_message.strip() == "":
             continue
         git_command = [ "git", "commit",
