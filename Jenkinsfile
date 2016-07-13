@@ -15,21 +15,20 @@ node {
 
   stage 'Verify'
   println "JOB_NAME is '${env.JOB_NAME}'"
-  println "BUILD_NUMBER is '${env.BUILD_NUMBER}'"
   String jobName = "${env.JOB_NAME}" // bugs/JENKINS-36419-multi-branch-pipeline-AbstractMethodError/JENKINS-36637
-  String jobPath = "job/" + jobName.replace("/", "/job/") + "/"
+  String jobPath = "job/" + jobName.replace("/", "/job/")
   println "job path is '${jobPath}'"
   String buildNumber = "${currentBuild.number}"
   println "build number is '${buildNumber}'"
   String jobURL = "http://localhost:8080/${jobPath}/${buildNumber}/api/xml?wrapper=changes&xpath=//changeSet//comment"
   println "job URL is '${jobURL}'"
-  String changesURL = "http://localhost:8080/job/bugs/job/JENKINS-36637-changes-list-incomplete/${currentBuild.number}/api/xml?wrapper=changes&xpath=//changeSet//comment"
+  // String changesURL = "http://localhost:8080/job/bugs/job/JENKINS-36637-changes-list-incomplete/${currentBuild.number}/api/xml?wrapper=changes&xpath=//changeSet//comment"
   String changeDescription =
-    new URL(changesURL).getText(connectTimeout: 1000,
-                                readTimeout: 5000,
-                                useCaches: false,
-                                allowUserInteraction: false,
-                                requestProperties: ['Connection': 'close'])
+    new URL(jobURL).getText(connectTimeout: 1000,
+                            readTimeout: 5000,
+                            useCaches: false,
+                            allowUserInteraction: false,
+                            requestProperties: ['Connection': 'close'])
   println "Change URL is '" + changesURL + "'"
   println "Change description is '" + changeDescription + "'"
   if (changeDescription.contains("<changes/>") ||
