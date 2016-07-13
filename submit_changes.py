@@ -2,6 +2,7 @@
 
 import optparse
 import os
+import random
 import re
 import subprocess
 import shutil
@@ -13,7 +14,9 @@ import json
 
 def commit_messages():
     with open("bad/blns.json") as data_file:
-        return json.load(data_file)
+        data = json.load(data_file)
+    random.shuffle(data)
+    return data
 
 #-----------------------------------------------------------------------
 
