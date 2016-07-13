@@ -1,4 +1,7 @@
-# Public repository for Jenkins bug verification.
+# JENKINS-36637 change list incomplete with some characters
+
+Certain characters seem to damage the git plugin changelog.  This branch
+shows that problem.
 
 Many of the bug reports on the Jenkins git plugin and the Jenkins git
 client plugin need a repository which contains specific configurations to
