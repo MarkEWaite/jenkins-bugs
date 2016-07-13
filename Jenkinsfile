@@ -24,10 +24,6 @@ node {
   String jobURL = "http://localhost:8080/${jobPath}/${buildNumber}/api/xml?wrapper=changes&xpath=//changeSet//comment"
   println "job URL is '${jobURL}'"
   String changesURL = "http://localhost:8080/job/bugs/job/JENKINS-36637-changes-list-incomplete/${currentBuild.number}/api/xml?wrapper=changes&xpath=//changeSet//comment"
-  println "BUILD_URL is '${env.BUILD_URL}'"
-  println "GIT_COMMIT is '${env.GIT_COMMIT}'"
-  println "GIT_URL is '${env.GIT_URL}'"
-  println "GIT_BRANCH is '${env.GIT_BRANCH}'"
   String changeDescription =
     new URL(changesURL).getText(connectTimeout: 1000,
                                 readTimeout: 5000,
