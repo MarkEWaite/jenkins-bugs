@@ -13,12 +13,12 @@
   <target name="info" description="Report info about this repo">
     <echo>java is ${java.version}</echo>
     <git command="branch" />
-  </target>
-
-  <!-- Git log -->
-  <target name="log" description="Show log for this repo">
-    <echo>java is ${java.version}</echo>
-    <git command="log" />
+    <git command="log">
+      <args>
+        <arg value="-n" />
+        <arg value="20" />
+      </args>
+    </git>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
