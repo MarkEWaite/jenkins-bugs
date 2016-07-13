@@ -16,6 +16,15 @@ node {
   stage 'Verify'
   String changesURL = "http://localhost:8080/job/bugs/job/JENKINS-36637-changes-list-incomplete/${currentBuild.number}/api/xml?wrapper=changes&xpath=//changeSet//comment"
   changesURL = "${env.BUILD_URL}/${currentBuild.number}/api/xml?wrapper=changes&xpath=//changeSet//comment"
+  println "BUILD_URL is '${env.BUILD_URL}'"
+  println "BUILD_NUMBER is '${env.BUILD_NUMBER}'"
+  println "NODE_NAME is '${env.NODE_NAME}'"
+  println "JOB_NAME is '${env.JOB_NAME}'"
+  println "BUILD_TAG is '${env.BUILD_TAG}'"
+  println "JENKINS_URL is '${env.JENKINS_URL}'"
+  println "GIT_COMMIT is '${env.GIT_COMMIT}'"
+  println "GIT_URL is '${env.GIT_URL}'"
+  println "GIT_BRANCH is '${env.GIT_BRANCH}'"
   String changeDescription =
     new URL(changesURL).getText(connectTimeout: 1000,
                                 readTimeout: 5000,
