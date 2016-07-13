@@ -13,10 +13,7 @@ import json
 
 def commit_messages():
     with open("bad/blns.json") as data_file:
-        data = json.load(data_file)
-    data.append("abcdef")
-    data.append("xyz")
-    return data
+        return json.load(data_file)
 
 #-----------------------------------------------------------------------
 
@@ -34,10 +31,7 @@ Submit problem change log messages to a git repo.   Use -h for help."""
     for commit_message in messages:
         if commit_message.strip() == "":
             continue
-        print(commit_message)
-        git_command = [
-                        "git",
-                        "commit",
+        git_command = [ "git", "commit",
                         "--allow-empty",
                         "-m", commit_message
                       ]
