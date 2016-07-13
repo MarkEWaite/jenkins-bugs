@@ -19,7 +19,9 @@ node {
     manager.createSummary("warning.gif").appendText("<h1>Missing branch name!</h1>", false, false, false, "red")
     manager.buildUnstable()
   }
-  print currentBuild.rawBuild.changeSets
+  currentBuild.rawBuild.changeSets.each {
+    println it
+  }
 }
 
 /* Run ant from tool "ant-latest" */
