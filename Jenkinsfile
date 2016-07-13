@@ -14,7 +14,7 @@ node {
   ant "info"
 
   stage 'Verify'
-  if (!manager.logContains(".*[*] .*JENKINS-36637")) {
+  if (!manager.logContains(".*[*] .*JENKINS-36337")) {
     manager.addWarningBadge("Missing branch name.")
     manager.createSummary("warning.gif").appendText("<h1>Missing branch name!</h1>", false, false, false, "red")
     manager.buildUnstable()
