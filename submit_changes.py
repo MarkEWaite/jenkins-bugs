@@ -30,7 +30,7 @@ Submit problem change log messages to a git repo.   Use -h for help."""
     for commit_message in commit_messages():
         if commit_message.strip() == "":
             continue
-        if re.match("^[ .A-Za-z0-9_-]+$", commit_message):
+        if re.match("^[ ./:A-Za-z0-9_-]+$", commit_message):
             continue
         git_command = [ "git", "commit",
                         "--allow-empty",
