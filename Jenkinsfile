@@ -1,5 +1,8 @@
 #!groovy
 
+import hudson.plugins.git.GitChangeSetList
+import hudson.plugins.git.GitChangeSet
+
 /* Only keep the 10 most recent builds. */
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
@@ -19,7 +22,7 @@ node {
     manager.createSummary("warning.gif").appendText("<h1>Missing branch name!</h1>", false, false, false, "red")
     manager.buildUnstable()
   }
-  for (Object s : currentBuild.rawBuild.changeSets) {
+  for (GitChangeSet s : currentBuild.rawBuild.changeSets) {
     println s
   }
 }
