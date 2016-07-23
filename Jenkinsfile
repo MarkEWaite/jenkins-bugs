@@ -6,7 +6,11 @@ properties([[$class: 'BuildDiscarderProperty',
 
 node {
   stage 'Checkout'
-  checkout scm
+  checkout([$class: 'GitSCM',
+            branches: [[name: '*/master']],
+            browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
+            extensions: [[$class: 'LocalBranch', localBranch: '**']],
+            userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
 
   stage 'Build'
 
