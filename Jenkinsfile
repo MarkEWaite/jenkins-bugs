@@ -24,9 +24,10 @@ node {
                           noTags: true,
                           reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
                           shallow: true,
-                          timeout: 3]],
+                          timeout: 3],
                          [$class: 'LocalBranch', localBranch: '**'],
                          [$class: 'PruneStaleBranch'],
+                        ]
            ])
 
   stage 'Build'
