@@ -1,26 +1,14 @@
-<project name="jenkins-bugs-master-branch" default="sync" basedir=".">
+<project name="JENKINS-36507" default="info" basedir=".">
 
-  <!-- Synchronize repositories -->
-  <target name="sync" description="Synchronize git repositories">
-    <echo>java is ${java.version}</echo>
-    <git command="pull">
-      <args>
-        <arg value="--all"/>
-      </args>
-    </git>
-    <git command="push">
-      <args>
-        <arg value="cache"/>
-        <arg value="--mirror"/>
-      </args>
-    </git>
-  </target>
-
-  <!-- Synchronize repositories -->
+  <!-- Report all branch names as info about this repository -->
   <target name="info" description="Report info about this repo">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
-    <git command="branch" />
+    <git command="branch">
+      <args>
+        <arg value="-a"/>
+      </args>
+    </git>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->

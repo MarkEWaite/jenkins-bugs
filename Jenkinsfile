@@ -4,9 +4,31 @@
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
+def branch="JENKINS-36507"
+
 node {
   stage 'Checkout'
-  checkout scm
+  checkout([$class: 'GitSCM',
+            userRemoteConfigs: [[name: 'bugs-origin',
+                                 refspec: "+refs/heads/${branch}:refs/remotes/bugs-origin/${branch}",
+                                 url: 'https://github.com/MarkEWaite/jenkins-bugs']],
+            branches: [[name: "*/${branch}"]],
+            browser: [$class: 'GithubWeb',
+                      repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
+            extensions: [[$class: 'AuthorInChangelog'],
+                         [$class: 'CheckoutOption', timeout: 37],
+                         [$class: 'CleanBeforeCheckout'],
+                         [$class: 'CloneOption',
+                          depth: 3,
+                          honorRefspec: false,
+                          noTags: true,
+                          reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
+                          shallow: true,
+                          timeout: 3],
+                         [$class: 'LocalBranch', localBranch: '**'],
+                         [$class: 'PruneStaleBranch'],
+                        ]
+           ])
 
   stage 'Build'
 
@@ -15,8 +37,13 @@ node {
 
   stage 'Verify'
   if (!manager.logContains(".*[*] JENKINS-36507")) {
-    manager.addWarningBadge("Missing branch name.")
-    manager.createSummary("warning.gif").appendText("<h1>Missing branch name!</h1>", false, false, false, "red")
+    manager.addWarningBadge("Missing current branch name.")
+    manager.createSummary("warning.gif").appendText("<h1>Missing current branch name!</h1>", false, false, false, "red")
+    manager.buildUnstable()
+  }
+  if (!manager.logContains(".*JENKINS-22547")) {
+    manager.addWarningBadge("Missing extra branch name JENKINS-22547.")
+    manager.createSummary("warning.gif").appendText("<h1>Missing extra branch name JENKINS-22547!</h1>", false, false, false, "red")
     manager.buildUnstable()
   }
 }
