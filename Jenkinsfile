@@ -15,11 +15,9 @@ node {
             branches: [[name: "*/${branch}"]],
             browser: [$class: 'GithubWeb',
                       repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
-            extensions: [[$class: 'CheckoutOption', timeout: 37],
+            extensions: [[$class: 'AuthorInChangelog'],
+                         [$class: 'CheckoutOption', timeout: 37],
                          [$class: 'CleanBeforeCheckout'],
-                         [$class: 'LocalBranch', localBranch: '**'],
-                         [$class: 'PruneStaleBranch'],
-                         [$class: 'AuthorInChangelog'],
                          [$class: 'CloneOption',
                           depth: 3,
                           honorRefspec: true,
@@ -27,6 +25,8 @@ node {
                           reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
                           shallow: true,
                           timeout: 3]],
+                         [$class: 'LocalBranch', localBranch: '**'],
+                         [$class: 'PruneStaleBranch'],
            ])
 
   stage 'Build'
