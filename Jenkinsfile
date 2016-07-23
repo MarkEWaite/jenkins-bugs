@@ -10,9 +10,9 @@ node {
   stage 'Checkout'
   checkout([$class: 'GitSCM',
             userRemoteConfigs: [[name: 'bugs-origin',
-                                 refspec: '+refs/heads/${branch}:refs/remotes/bugs-origin/${branch}',
+                                 refspec: "+refs/heads/${branch}:refs/remotes/bugs-origin/${branch}",
                                  url: 'https://github.com/MarkEWaite/jenkins-bugs']],
-            branches: [[name: '*/${branch}']],
+            branches: [[name: "*/${branch}"]],
             browser: [$class: 'GithubWeb',
                       repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
             extensions: [[$class: 'CheckoutOption', timeout: 37],
