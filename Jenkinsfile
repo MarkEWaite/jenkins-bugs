@@ -1,8 +1,8 @@
 #!groovy
 
-/* Only keep the 10 most recent builds. */
+/* Only keep the 7 most recent builds. */
 properties([[$class: 'BuildDiscarderProperty',
-                strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
+                strategy: [$class: 'LogRotator', numToKeepStr: '7']]])
 
 def branch="JENKINS-36507"
 
@@ -20,7 +20,7 @@ node {
                          [$class: 'CleanBeforeCheckout'],
                          [$class: 'CloneOption',
                           depth: 3,
-                          honorRefspec: false,
+                          honorRefspec: true,
                           noTags: true,
                           reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
                           shallow: true,
@@ -41,9 +41,9 @@ node {
     manager.createSummary("warning.gif").appendText("<h1>Missing current branch name!</h1>", false, false, false, "red")
     manager.buildUnstable()
   }
-  if (!manager.logContains(".*JENKINS-22547")) {
-    manager.addWarningBadge("Missing extra branch name JENKINS-22547.")
-    manager.createSummary("warning.gif").appendText("<h1>Missing extra branch name JENKINS-22547!</h1>", false, false, false, "red")
+  if ( manager.logContains(".*JENKINS-22547")) {
+    manager.addWarningBadge("Found extra branch name JENKINS-22547.")
+    manager.createSummary("warning.gif").appendText("<h1>Found extra branch name JENKINS-22547!</h1>", false, false, false, "red")
     manager.buildUnstable()
   }
 }
