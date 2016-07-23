@@ -4,13 +4,30 @@
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
+def branch="JENKINS-22547"
+
 node {
   stage 'Checkout'
   checkout([$class: 'GitSCM',
-            branches: [[name: '*/JENKINS-22547']],
-            browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
-            extensions: [[$class: 'LocalBranch', localBranch: '**']],
-            userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
+            userRemoteConfigs: [[name: 'bugs-origin',
+                                 refspec: '+refs/heads/${branch}:refs/remotes/bugs-origin/${branch}',
+                                 url: 'https://github.com/MarkEWaite/jenkins-bugs']]
+            branches: [[name: '*/${branch}']],
+            browser: [$class: 'GithubWeb',
+                      repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
+            extensions: [[$class: 'CheckoutOption', timeout: 37],
+                         [$class: 'CleanBeforeCheckout'],
+                         [$class: 'LocalBranch', localBranch: '**'],
+                         [$class: 'PruneStaleBranch'],
+                         [$class: 'AuthorInChangelog'],
+                         [$class: 'CloneOption',
+                          depth: 3,
+                          honorRefspec: true,
+                          noTags: true,
+                          reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
+                          shallow: true,
+                          timeout: 3]],
+           ])
 
   stage 'Build'
 
@@ -18,9 +35,19 @@ node {
   ant "info"
 
   stage 'Verify'
+  if (!manager.logContains(".*git.*fetch.*timeout=3")) {
+    manager.addWarningBadge("Missing clone timeout.")
+    manager.createSummary("warning.gif").appendText("<h1>Missing clone timeout!</h1>", false, false, false, "red")
+    manager.buildUnstable()
+  }
   if (!manager.logContains(".*git.*checkout.*timeout=37")) {
-    manager.addWarningBadge("Missing timeout setting.")
-    manager.createSummary("warning.gif").appendText("<h1>Missing timeout setting!</h1>", false, false, false, "red")
+    manager.addWarningBadge("Missing checkout timeout.")
+    manager.createSummary("warning.gif").appendText("<h1>Missing checkout timeout!</h1>", false, false, false, "red")
+    manager.buildUnstable()
+  }
+  if (!manager.logContains(".*[*] ${branch}")) {
+    manager.addWarningBadge("Missing local branch checkout to ${branch}.")
+    manager.createSummary("warning.gif").appendText("<h1>Missing local branch checkout to ${branch}!</h1>", false, false, false, "red")
     manager.buildUnstable()
   }
 }
