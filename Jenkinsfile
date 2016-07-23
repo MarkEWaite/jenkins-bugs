@@ -45,7 +45,7 @@ node {
     manager.createSummary("warning.gif").appendText("<h1>Missing checkout timeout!</h1>", false, false, false, "red")
     manager.buildUnstable()
   }
-  if (!manager.logContains(".*[*] ${branch}")) {
+  if (!manager.logContains(".* On branch ${branch}")) {
     manager.addWarningBadge("Missing local branch checkout to ${branch}.")
     manager.createSummary("warning.gif").appendText("<h1>Missing local branch checkout to ${branch}!</h1>", false, false, false, "red")
     manager.buildUnstable()
