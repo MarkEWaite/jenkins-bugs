@@ -4,7 +4,7 @@
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-node("!windows") { // Not Windows, my Windows machines garble Japanese commit message
+node {
   stage 'Checkout'
   checkout scm
 
