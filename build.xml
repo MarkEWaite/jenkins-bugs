@@ -1,40 +1,25 @@
-<project name="jenkins-bugs-master-branch" default="sync" basedir=".">
+<project name="bin" default="create-file" basedir=".">
 
-  <!-- Synchronize repositories -->
-  <target name="sync" description="Synchronize git repositories">
-    <echo>java is ${java.version}</echo>
-    <git command="pull">
-      <args>
-        <arg value="--all"/>
-      </args>
-    </git>
-    <git command="push">
-      <args>
-        <arg value="cache"/>
-        <arg value="--mirror"/>
-      </args>
-    </git>
+  <hostinfo prefix="hostinfo"/>
+
+  <target name="create-file" description="Report environment information">
+    <tempfile property="temporary.file" destdir="." prefix="info-" suffix=".txt"/>
+    <echo file="${temporary.file}" append="true">
+java version is ${java.version}
+java runtime version is ${java.runtime.version}
+build file is ${ant.file}
+basedir is ${basedir}
+ant java version is ${ant.java.version}
+IPv4 address is ${hostinfo.ADDR4}
+IPv6 address is ${hostinfo.ADDR6}
+</echo>
   </target>
 
-  <!-- Synchronize repositories -->
-  <target name="info" description="Report info about this repo">
-    <echo>java is ${java.version}</echo>
-    <echo>user dir is ${user.dir}</echo>
-    <git command="branch" />
+  <target name="clean">
+    <exec executable="git" failonerror="true">
+      <arg value="clean"/>
+      <arg value="-xffd"/>
+    </exec>
   </target>
-
-  <!-- From https://gist.github.com/davejlong/874521 -->
-  <macrodef name="git">
-    <attribute name="command" />
-    <attribute name="dir" default="" />
-    <element name="args" optional="true" />
-    <sequential>
-      <echo message="git @{command}" />
-      <exec executable="git" dir="@{dir}">
-        <arg value="@{command}" />
-        <args/>
-      </exec>
-    </sequential>
-  </macrodef>
 
 </project>
