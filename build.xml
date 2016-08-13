@@ -15,13 +15,31 @@ IPv6 address is ${hostinfo.ADDR6}
 </echo>
   </target>
 
-  <target name="info" description="Report environment information">
+  <target name="info" description="Report environment information" depends="increment">
     <echo>
 java version is ${java.version}
 java runtime version is ${java.runtime.version}
     </echo>
     <exec executable="git" failonerror="true">
       <arg value="branch"/>
+    </exec>
+  </target>
+
+  <!-- Increment build number, commit the change -->
+  <target name="increment" description="Show JENKINS-28529 builds when it shouldn't">
+    <echo>java is ${java.version}</echo>
+    <buildnumber/>
+    <echo>Build number was ${build.number}</echo>
+    <exec executable="git">
+      <arg value="add"/>
+      <arg value="build.number"/>
+      <arg value="."/>
+    </exec>
+    <exec executable="git">
+      <arg value="commit"/>
+      <arg value="-m"/>
+      <arg value="${user.name} incremented build number, was ${build.number}"/>
+      <arg value="build.number"/>
     </exec>
   </target>
 
