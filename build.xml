@@ -20,6 +20,10 @@ IPv6 address is ${hostinfo.ADDR6}
 java version is ${java.version}
 java runtime version is ${java.runtime.version}
     </echo>
+    <exec executable="git" failonerror="true">
+      <arg value="branch"/>
+      <arg value="-a"/>
+    </exec>
   </target>
 
   <target name="clean">
