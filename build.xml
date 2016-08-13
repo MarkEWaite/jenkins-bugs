@@ -1,4 +1,4 @@
-<project name="bin" default="create-file" basedir=".">
+<project name="JENKINS-28529" default="create-file" basedir=".">
 
   <hostinfo prefix="hostinfo"/>
 
@@ -13,6 +13,13 @@ ant java version is ${ant.java.version}
 IPv4 address is ${hostinfo.ADDR4}
 IPv6 address is ${hostinfo.ADDR6}
 </echo>
+  </target>
+
+  <target name="info" description="Report environment information">
+    <echo>
+java version is ${java.version}
+java runtime version is ${java.runtime.version}
+    </echo>
   </target>
 
   <target name="clean">
