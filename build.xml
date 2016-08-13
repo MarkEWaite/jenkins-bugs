@@ -22,7 +22,6 @@ java runtime version is ${java.runtime.version}
     </echo>
     <exec executable="git" failonerror="true">
       <arg value="branch"/>
-      <arg value="-a"/>
     </exec>
   </target>
 
