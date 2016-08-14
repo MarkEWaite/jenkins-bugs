@@ -18,4 +18,12 @@
     </exec>
   </target>
 
+  <!-- Info -->
+  <target name="info" description="Information">
+    <echo>java is ${java.version}</echo>
+    <exec executable="git">
+      <arg value="branch"/>
+    </exec>
+  </target>
+
 </project>
