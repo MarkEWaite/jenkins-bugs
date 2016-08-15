@@ -9,8 +9,8 @@ def branch="JENKINS-36507"
 node {
   stage 'Checkout'
   checkout([$class: 'GitSCM',
-            userRemoteConfigs: [[name: 'bugs-origin',
-                                 refspec: "+refs/heads/${branch}:refs/remotes/bugs-origin/${branch}",
+            userRemoteConfigs: [[name: 'origin',
+                                 refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}",
                                  url: 'https://github.com/MarkEWaite/jenkins-bugs']],
             branches: [[name: "*/${branch}"]],
             browser: [$class: 'GithubWeb',
@@ -19,7 +19,7 @@ node {
                          [$class: 'CheckoutOption', timeout: 37],
                          [$class: 'CleanBeforeCheckout'],
                          [$class: 'CloneOption',
-                          depth: 3,
+                          depth: 2,
                           honorRefspec: false,
                           noTags: true,
                           reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
