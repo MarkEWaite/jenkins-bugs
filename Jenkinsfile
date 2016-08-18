@@ -21,7 +21,7 @@ node {
     sha1 = readFile ".sha1"
     sh "rm .sha1"
   } else {
-    bat "git rev-parse refs/remotes/origin/features/JENKINS-37263^{commit} > .sha1"
+    bat "git rev-parse refs/remotes/origin/features/JENKINS-37263^^{commit} > .sha1"
     sha1 = readFile ".sha1"
     bat "del .sha1"
   }
