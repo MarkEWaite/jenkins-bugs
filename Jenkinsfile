@@ -39,6 +39,7 @@ def getSHA1(def commit) {
     sha1 = readFile ".sha1"
     sh "rm .sha1"
   } else {
+    // Windows treats caret as special character, must escape it
     if (commit.contains("^")) {
       commit = commit.replace("^", "^^")
     }
