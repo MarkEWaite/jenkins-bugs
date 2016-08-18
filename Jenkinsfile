@@ -15,23 +15,9 @@ node {
 
   stage 'Verify'
 
-  def latest_sha1 = "unknown"
-  def current_sha1 = "unknown"
-  if (isUnix()) {
-    sh "git rev-parse refs/remotes/origin/features/JENKINS-37263^{commit} > .latest_sha1"
-    latest_sha1 = readFile ".latest_sha1"
-    sh "rm .latest_sha1"
-    sh "git rev-parse HEAD > .current_sha1"
-    current_sha1 = readFile ".current_sha1"
-    sh "rm .current_sha1"
-  } else {
-    bat "git rev-parse refs/remotes/origin/features/JENKINS-37263^^{commit} > .latest_sha1"
-    latest_sha1 = readFile ".latest_sha1"
-    bat "del .latest_sha1"
-    bat "git rev-parse HEAD > .current_sha1"
-    current_sha1 = readFile ".current_sha1"
-    bat "del .current_sha1"
-  }
+  def latest_sha1 = getSHA1("refs/remotes/origin/features/JENKINS-37263^{commit}")
+  def current_sha1 = "HEAD"
+
   echo "Latest sha1 is ${latest_sha1}"
   echo "Current sha1 is ${current_sha1}"
 
@@ -46,6 +32,22 @@ node {
     manager.buildUnstable()
   }
 
+}
+
+def getSHA1(def commit) {
+  if (isUnix()) {
+    sh "git rev-parse ${commit} > .sha1"
+    sha1 = readFile ".sha1"
+    sh "rm .sha1"
+  } else {
+    if (commit.contains("^")) {
+      commit = commit.replace("^", "^^")
+    }
+    bat "git rev-parse ${commit} > .sha1"
+    sha1 = readFile ".sha1"
+    bat "del .sha1"
+  }
+  return sha1
 }
 
 /* Run ant from tool "ant-latest" */
