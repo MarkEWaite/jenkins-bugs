@@ -15,21 +15,29 @@ node {
 
   stage 'Verify'
 
-  def sha1 = "unknown"
+  def latest_sha1 = "unknown"
+  def current_sha1 = "unknown"
   if (isUnix()) {
-    sh "git rev-parse refs/remotes/origin/features/JENKINS-37263^{commit} > .sha1"
-    sha1 = readFile ".sha1"
-    sh "rm .sha1"
+    sh "git rev-parse refs/remotes/origin/features/JENKINS-37263^{commit} > .latest_sha1"
+    latest_sha1 = readFile ".latest_sha1"
+    sh "rm .latest_sha1"
+    sh "git rev-parse HEAD > .current_sha1"
+    current_sha1 = readFile ".current_sha1"
+    sh "rm .current_sha1"
   } else {
-    bat "git rev-parse refs/remotes/origin/features/JENKINS-37263^^{commit} > .sha1"
-    sha1 = readFile ".sha1"
-    bat "del .sha1"
+    bat "git rev-parse refs/remotes/origin/features/JENKINS-37263^^{commit} > .latest_sha1"
+    latest_sha1 = readFile ".latest_sha1"
+    bat "del .latest_sha1"
+    bat "git rev-parse HEAD > .current_sha1"
+    current_sha1 = readFile ".current_sha1"
+    bat "del .current_sha1"
   }
-  echo "Latest sha1 is ${sha1}"
+  echo "Latest sha1 is ${latest_sha1}"
+  echo "Current sha1 is ${current_sha1}"
 
-  if (!manager.logContains(".*git checkout.*${sha1}.*")) {
-    manager.addWarningBadge("Missed latest commit ${sha1}.")
-    manager.createSummary("warning.gif").appendText("<h1>Missed latest commit ${sha1}!</h1>", false, false, false, "red")
+  if (latest_sha1 != current_sha1) {
+    manager.addWarningBadge("Missed latest: ${latest_sha1}, was ${current_sha1}.")
+    manager.createSummary("warning.gif").appendText("<h1>Missed latest commit ${latest_sha1}, was ${current_sha1}!</h1>", false, false, false, "red")
     manager.buildUnstable()
   }
   if (!manager.logContains(".*[*] features/JENKINS-37263")) {
