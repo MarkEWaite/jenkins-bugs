@@ -1,4 +1,4 @@
-<project name="jenkins-bugs-master-branch" default="sync" basedir=".">
+<project name="jenkins-bugs-master-branch" default="increment" basedir=".">
 
   <!-- Increment build number, commit the change -->
   <target name="increment" description="Show JENKINS-37263 is a bug">
