@@ -12,3 +12,5 @@ It appears that the first clone into a repository gets the correct
 SHA1. If that is the case, then "Wipe workspace" provides a work around,
 since it will completely recreate the workspace for each job.  That is
 not an attractive work-around, but it may be enough for short term use.
+When I remove the "wipe workspace" additional behavior from the pipeline
+job definition, the problem is again visible.
