@@ -25,8 +25,9 @@ node {
     sha1 = readFile ".sha1"
     bat "del .sha1"
   }
+  println "> git checkout -b features/JENKINS-37263 ${sha1}"
 
-  if (!manager.logContains("> git checkout -b features/JENKINS-37263 ${sha1}")) {
+  if (!manager.logContains(".*> git checkout -b features/JENKINS-37263 ${sha1}")) {
     manager.addWarningBadge("Missed latest commit ${sha1}.")
     manager.createSummary("warning.gif").appendText("<h1>Missed latest commit ${sha1}!</h1>", false, false, false, "red")
     manager.buildUnstable()
