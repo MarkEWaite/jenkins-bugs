@@ -1,11 +1,10 @@
-# Public repository for Jenkins bug verification.
+# [JENKINS-37263](https://issues.jenkins-ci.org/browse/JENKINS-37263) - LocalBranch extension causes silent checkout of wrong SHA1
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations to
-duplicate the bug.  This repository captures some of those configurations
-in a way that is publicly visible so that automated tests can use this
-repository.
-
-This repository will eventually be extended to have a Jenkinsfile pipeline
-definition file for those branches where the pipeline definition file
-can encapsulate the bug verification step.
+When the LocalBranch extension is used, it (correctly) creates a
+local branch.  Unfortunately, the local branch created (correctly) matches
+the branch name being tracked for changes.  When polling or notifyCommit
+detects a change, the change is seen and a build is started, but then the
+matching code detects that there are multiple matches to the branch name
+(the local branch and the remote branch).
+It seems to choose one of them, and often seems to choose exactly the wrong
+one.
