@@ -46,7 +46,7 @@ def getSHA1(def commit) {
     sha1 = readFile ".sha1"
     bat "del .sha1"
   }
-  return sha1
+  return sha1.replaceAll("\\s", "")
 }
 
 /* Run ant from tool "ant-latest" */
