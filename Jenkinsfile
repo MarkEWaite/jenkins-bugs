@@ -16,7 +16,7 @@ node {
   stage 'Verify'
 
   def latest_sha1 = getSHA1("refs/remotes/origin/features/JENKINS-37263^{commit}")
-  def current_sha1 = "HEAD"
+  def current_sha1 = getSHA1("HEAD")
 
   echo "Latest sha1 is ${latest_sha1}, current sha1 is ${current_sha1}"
 
