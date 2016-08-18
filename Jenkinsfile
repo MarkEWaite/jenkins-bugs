@@ -19,14 +19,13 @@ node {
   if (isUnix()) {
     sh "git rev-parse refs/remotes/origin/features/JENKINS-37263^{commit} > .sha1"
     sha1 = readFile ".sha1"
-    sh "echo sha1 is ${sha1}"
-    sh "cat .sha1"
     sh "rm .sha1"
   } else {
     bat "git rev-parse refs/remotes/origin/features/JENKINS-37263^{commit} > .sha1"
     sha1 = readFile ".sha1"
     bat "del .sha1"
   }
+  echo "sha1 is ${sha1}"
 
   if (!manager.logContains(".*> git checkout -b features/JENKINS-37263 ${sha1}")) {
     manager.addWarningBadge("Missed latest commit ${sha1}.")
