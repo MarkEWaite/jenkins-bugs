@@ -37,7 +37,7 @@ node {
   ant "info"
 
   stage 'Verify'
-  if (!manager.logContains("exec.*[*] JENKINS-36507")) {
+  if (!manager.logContains(".*exec.*[*] JENKINS-36507")) {
     manager.addWarningBadge("Missing current branch name.")
     manager.createSummary("warning.gif").appendText("<h1>Missing current branch name!</h1>", false, false, false, "red")
     manager.buildUnstable()
