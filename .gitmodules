@@ -1,3 +1,6 @@
 [submodule "github-bin"]
 	path = github-bin
 	url = git@github.com:MarkEWaite/bin
+[submodule "jenkins-bugs-private"]
+	path = jenkins-bugs-private
+	url = git@github.com:MarkEWaite/jenkins-bugs-private.git
