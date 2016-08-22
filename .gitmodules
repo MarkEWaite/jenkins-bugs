@@ -1,6 +1,3 @@
 [submodule "github-bin"]
 	path = github-bin
 	url = git@github.com:MarkEWaite/bin
-[submodule "bitbucket-bin"]
-	path = bitbucket-bin
-	url = git@bitbucket.org:markewaite/bin.git
