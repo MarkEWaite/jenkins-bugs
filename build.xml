@@ -1,6 +1,6 @@
 <project name="JENKINS-37727" default="push-new-branch" basedir=".">
 
-  <!-- Push a new branch -->
+  <!-- Push a new branch, remove old branches -->
   <target name="push-new-branch" description="Push a new branch">
     <echo>java is ${java.version}</echo>
     <buildnumber/>
@@ -19,6 +19,12 @@
       </args>
     </git>
     <git command="push"/>
+    <git command="remote">
+      <args>
+        <arg value="prune"/>
+        <arg value="origin"/>
+      </args>
+    </git>
     <exec executable="bash" dir=".">
       <arg value="remove-branches" />
     </exec>
