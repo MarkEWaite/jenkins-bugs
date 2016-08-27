@@ -19,6 +19,9 @@
       </args>
     </git>
     <git command="push"/>
+    <exec executable="bash" dir=".">
+      <arg value="remove-branches" />
+    </exec>
     <git command="checkout">
       <args>
         <arg value="-b"/>

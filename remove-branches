@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Remove remote and local branches which include "JENKINS-37727-" in
+# their name
+
+for branches in $(git branch -a | grep -F JENKINS-37727-); do
+    echo $branch
+done
