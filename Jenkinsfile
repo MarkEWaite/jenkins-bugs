@@ -15,7 +15,7 @@ node {
 
   stage 'Verify'
   // Not yet a useful assertion, needs more work
-  if (!manager.logContains(".*[*] .*JENKINS-37727")) {
+  if (!manager.logContains(".*[*] .*JENKINS-37727.*")) {
     manager.addWarningBadge("Missing branch name.")
     manager.createSummary("warning.gif").appendText("<h1>Missing branch name!</h1>", false, false, false, "red")
     manager.buildUnstable()
