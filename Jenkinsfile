@@ -14,10 +14,18 @@ node {
   ant "info"
 
   stage 'Verify'
-  // Not yet a useful assertion, needs more work
-  if (!manager.logContains(".*[*] .*JENKINS-37727.*")) {
-    manager.addWarningBadge("Missing branch name.")
-    manager.createSummary("warning.gif").appendText("<h1>Missing branch name!</h1>", false, false, false, "red")
+  pattern = ~/.*origin.*(JENKINS-37727-.*)/
+  def count = 0
+  manager.build.logFile.eachLine { line ->
+    matcher = pattern.matcher(line)
+    if (matcher.matches()) {
+      println "Matched " + line
+      count++
+    }
+  }
+  if(count > 1) {
+    manager.addWarningBadge("Too many JENKINS-37727-* branches.")
+    manager.createSummary("warning.gif").appendText("<h1>Too many JENKINS-37727-* branches!</h1>", false, false, false, "red")
     manager.buildUnstable()
   }
 }
