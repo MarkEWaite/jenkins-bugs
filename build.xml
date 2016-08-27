@@ -31,14 +31,14 @@
     <git command="checkout">
       <args>
         <arg value="-b"/>
-        <arg value="has-slash/JENKINS-37727-${build.number}"/>
+        <arg value="JENKINS-37727-${build.number}"/>
       </args>
     </git>
     <git command="push">
       <args>
         <arg value="origin"/>
         <arg value="--set-upstream"/>
-        <arg value="has-slash/JENKINS-37727-${build.number}"/>
+        <arg value="JENKINS-37727-${build.number}"/>
       </args>
     </git>
     <git command="checkout">
