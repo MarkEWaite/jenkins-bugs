@@ -14,15 +14,13 @@ node {
   ant "info"
 
   stage 'Verify'
-  pattern = ~/.*origin.*(JENKINS-37727-.*)/
-  def count = 0
-  manager.build.logFile.eachLine { line ->
-    matcher = pattern.matcher(line)
-    if (matcher.matches()) {
-      println "Matched " + line
+  count = 0
+  for (String logLine : currentBuild.rawBuild.getLog(100)) {
+    if (logLine.contains("origin") && logLine.contains("JENKINS-37727-")) {
       count++
     }
   }
+
   if(count > 1) {
     manager.addWarningBadge("Too many JENKINS-37727-* branches.")
     manager.createSummary("warning.gif").appendText("<h1>Too many JENKINS-37727-* branches!</h1>", false, false, false, "red")
