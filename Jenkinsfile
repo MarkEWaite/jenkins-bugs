@@ -14,11 +14,6 @@ node("git-1.8+") {
   ant "info"
 
   stage 'Verify'
-  if (!manager.logContains(".*[*] .*master")) {
-    manager.addWarningBadge("Missing branch name.")
-    manager.createSummary("warning.gif").appendText("<h1>Missing branch name!</h1>", false, false, false, "red")
-    manager.buildUnstable()
-  }
 }
 
 /* Run ant from tool "ant-latest" */
