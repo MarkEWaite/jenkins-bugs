@@ -4,7 +4,7 @@
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-node("git-1.8+") {
+node("git-1.8+" && "!windows") { // Windows garbles Japanese commit text
   stage 'Checkout'
   checkout scm
 
