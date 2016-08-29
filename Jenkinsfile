@@ -14,11 +14,7 @@ node("git-1.8+") {
   ant "info"
 
   stage 'Verify'
-  if (!manager.logContains(".*[*] .*JENKINS-28529")) {
-    manager.addWarningBadge("Missing branch name.")
-    manager.createSummary("warning.gif").appendText("<h1>Missing branch name!</h1>", false, false, false, "red")
-    manager.buildUnstable()
-  }
+  /* Requires a separate job which polls then reads workspace */
 }
 
 /* Run ant from tool "ant-latest" */
