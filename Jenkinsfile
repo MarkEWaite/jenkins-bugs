@@ -25,12 +25,6 @@ node {
     manager.createSummary("warning.gif").appendText("<h1>Missed latest commit ${latest_sha1}, was ${current_sha1}!</h1>", false, false, false, "red")
     manager.buildUnstable()
   }
-  if (!manager.logContains(".*[*] features/JENKINS-37263")) {
-    manager.addWarningBadge("Missing branch name.")
-    manager.createSummary("warning.gif").appendText("<h1>Missing branch name!</h1>", false, false, false, "red")
-    manager.buildUnstable()
-  }
-
 }
 
 def getSHA1(def commit) {
