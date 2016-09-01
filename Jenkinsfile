@@ -4,15 +4,19 @@
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
+stage 'Checkout'
 node("git-1.8+ && !windows") { // Windows garbles Japanese commit text
-  stage 'Checkout'
   checkout scm
+}
 
-  stage 'Build'
+stage 'Build'
+node("!windows") { // Windows garbles Japanese commit text
   /* Call the ant build. */
   ant "increment"
+}
 
-  stage 'Verify'
+stage 'Verify'
+node("!windows") { // Windows garbles Japanese commit text
   // Does not check the actual bug report
   // Bug report was that recent changes are not in the recent changes list
   // This checks that the log writes Japanese, not that the recent changes do
