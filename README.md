@@ -5,4 +5,5 @@ character set, even though git writes it (by default) as UTF-8.
 
 Other issues explored by this job include:
 
-* Jenkins pipeline warning "Using the ‘stage’ step without a block argument is deprecated"
+* Pipeline warning "Using the ‘stage’ step without a block argument is deprecated"
+* Private pipeline job fails to detect changes, while public detects
