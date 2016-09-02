@@ -11,10 +11,6 @@ node("master") { // relies on master node using default JENKINS_HOME value
     // checkout scm
   }
 
-  stage('Build') {
-    ant "info" /* Call the ant build. */
-  }
-
   stage('Verify') {
     if (!manager.logContains(".*Working directory is /var/jenkins_home/.*")) {
       manager.addWarningBadge("Missing expected working directory text.")
