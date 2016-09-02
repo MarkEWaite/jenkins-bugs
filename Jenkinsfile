@@ -14,7 +14,7 @@ node("master") {
 
   stage('Verify') {
     if (!manager.logContains(".*Working directory is ${env.JENKINS_HOME}.*") ||
-        !manager.logContains("^Working directory is ${env.JENKINS_HOME}$")) {
+        !manager.logContains("Working directory is ${env.JENKINS_HOME}")) {
       manager.addWarningBadge("Missing expected working directory text.")
       manager.createSummary("warning.gif").appendText("<h1>Missing expected working directory text.</h1>", false, false, false, "red")
       manager.buildUnstable()
