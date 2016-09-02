@@ -6,6 +6,8 @@ properties([[$class: 'BuildDiscarderProperty',
 
 node("master") { // relies on master node using default JENKINS_HOME value
   stage('Checkout') {
+    sh "echo Working directory is `pwd`"
+    sh "pwd"
     checkout scm
   }
 
