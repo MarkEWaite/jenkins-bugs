@@ -4,7 +4,7 @@
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-node("master") { // relies on master node using default JENKINS_HOME value
+node("master") { // relies on master node using Dockerfile default JENKINS_HOME value
   stage('Checkout') {
     sh "echo Working directory is `pwd`"
     sh "pwd"
