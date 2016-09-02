@@ -6,8 +6,9 @@ properties([[$class: 'BuildDiscarderProperty',
 
 node("master") { // relies on master node using Dockerfile default JENKINS_HOME value
   stage('Checkout') {
-    sh "echo Working directory is `pwd`"
-    sh "pwd"
+    sh 'echo Working directory is `pwd`'
+    sh 'echo JENKINS_HOME is $JENKINS_HOME' 
+    sh 'pwd'
     // checkout scm
   }
 
