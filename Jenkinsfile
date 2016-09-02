@@ -4,16 +4,22 @@
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-node("git-1.8+") {
-  stage 'Checkout'
-  checkout scm
+node("master") { // relies on master node using default JENKINS_HOME value
+  stage('Checkout') {
+    checkout scm
+  }
 
-  stage 'Build'
+  stage('Build') {
+    ant "info" /* Call the ant build. */
+  }
 
-  /* Call the ant build. */
-  ant "info"
-
-  stage 'Verify'
+  stage('Verify') {
+    if (!manager.logContains(".*Working directory is /var/jenkins_home/.*")) {
+      manager.addWarningBadge("Missing expected working directory text.")
+      manager.createSummary("warning.gif").appendText("<h1>Missing expected working directory text.</h1>", false, false, false, "red")
+      manager.buildUnstable()
+    }
+  }
 }
 
 /* Run ant from tool "ant-latest" */
