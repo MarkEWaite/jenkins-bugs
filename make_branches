@@ -6,10 +6,11 @@ for origin in $(git branch -a | grep JENKINS); do
         branch=$(echo $origin | sed 's!origin/!!g')
         dir=$(echo $origin | sed -e 's!.*JENKINS!JENKINS!g' -e 's!/!-!g')
         ( cd .. && \
-          git clone --reference /var/lib/git/mwaite/bugs/jenkins-bugs.git \
-                  --config remote.origin.fetch=+refs/heads/$branch:refs/remotes/origin/$branch \
-                  https://github.com/MarkEWaite/jenkins-bugs \
-                  $dir )
+          git clone --branch $branch \
+                    --single-branch \
+                    --reference /var/lib/git/mwaite/bugs/jenkins-bugs.git \
+                    https://github.com/MarkEWaite/jenkins-bugs \
+                    $dir )
         ( cd ../$dir && \
           git checkout -b $branch -t $origin && \
           git remote add cache /var/lib/git/mwaite/bugs/jenkins-bugs.git && \
