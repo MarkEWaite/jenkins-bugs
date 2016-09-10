@@ -1,9 +1,17 @@
 #!/bin/bash
 
-for origin in origin/JENKINS-11337/develop origin/JENKINS-11337/master origin/JENKINS-14798 origin/JENKINS-20941 origin/JENKINS-22547 origin/JENKINS-28529 origin/JENKINS-31393 origin/JENKINS-31828 origin/JENKINS-33202 origin/JENKINS-33202-x/branch-1 origin/JENKINS-33202-x/branch-2 origin/JENKINS-33433-branch-1 origin/JENKINS-33433-branch-2 origin/JENKINS-33433-feature-a origin/JENKINS-33433-master origin/JENKINS-33695 origin/JENKINS-33827 origin/JENKINS-34309 origin/JENKINS-36507 origin/JENKINS-36507-honorRefspec origin/JENKINS-36637 origin/JENKINS-37727 origin/JENKINS-37914 origin/JENKINS-6203 origin/develop/JENKINS-29796 origin/features/JENKINS-37263 origin/has-slash/JENKINS-37727-57 origin/production/JENKINS-29796; do
+# for origin in origin/JENKINS-11337/develop origin/JENKINS-11337/master origin/JENKINS-14798 origin/JENKINS-20941 origin/JENKINS-22547 origin/JENKINS-28529 origin/JENKINS-31393 origin/JENKINS-31828 origin/JENKINS-33202 origin/JENKINS-33202-x/branch-1 origin/JENKINS-33202-x/branch-2 origin/JENKINS-33433-branch-1 origin/JENKINS-33433-branch-2 origin/JENKINS-33433-feature-a origin/JENKINS-33433-master origin/JENKINS-33695 origin/JENKINS-33827 origin/JENKINS-34309 origin/JENKINS-36507 origin/JENKINS-36507-honorRefspec origin/JENKINS-36637 origin/JENKINS-37727 origin/JENKINS-37914 origin/JENKINS-6203 origin/develop/JENKINS-29796 origin/features/JENKINS-37263 origin/has-slash/JENKINS-37727-57 origin/production/JENKINS-29796; do
+for origin in $(git branch -a | grep JENKINS); do
         bug=$(echo $origin | sed -e 's!.*JENKINS!JENKINS!g' -e 's!/.*$!!g')
         branch=$(echo $origin | sed 's!origin/!!g')
         dir=$(echo $origin | sed -e 's!.*JENKINS!JENKINS!g' -e 's!/!-!g')
-        git clone --reference /var/lib/git/mwaite/bugs/jenkins-bugs.git https://github.com/MarkEWaite/jenkins-bugs $dir
-        ( cd $dir && git checkout -b $branch -t $origin && git remote add cache /var/lib/git/mwaite/bugs/jenkins-bugs.git && git pull --all --prune )
+        ( cd .. && \
+          git clone --reference /var/lib/git/mwaite/bugs/jenkins-bugs.git \
+                  --config remote.origin.fetch=+refs/heads/$branch:refs/remotes/origin/$branch \
+                  https://github.com/MarkEWaite/jenkins-bugs \
+                  $dir )
+        ( cd ../$dir && \
+          git checkout -b $branch -t $origin && \
+          git remote add cache /var/lib/git/mwaite/bugs/jenkins-bugs.git && \
+          git pull --all --prune )
 done
