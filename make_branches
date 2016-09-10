@@ -12,7 +12,6 @@ for origin in $(git branch -a | grep JENKINS | sed 's!remotes/!!g'); do
                     https://github.com/MarkEWaite/jenkins-bugs \
                     $dir )
         ( cd ../$dir && \
-          git checkout -b $branch -t $origin && \
           git remote add cache /var/lib/git/mwaite/bugs/jenkins-bugs.git && \
           git pull --all --prune )
 done
