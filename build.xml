@@ -1,4 +1,4 @@
-<project name="JENKINS-28529" default="create-file" basedir=".">
+<project name="JENKINS-28529" default="increment" basedir=".">
 
   <hostinfo prefix="hostinfo"/>
 
