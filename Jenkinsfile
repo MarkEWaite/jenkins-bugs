@@ -1,19 +1,56 @@
 #!groovy
 
-/* Only keep the 10 most recent builds. */
+/* Only keep the 7 most recent builds. */
 properties([[$class: 'BuildDiscarderProperty',
-                strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
+             strategy: [$class: 'LogRotator', numToKeepStr: '7']]])
 
-node("git-1.8+") {
-  stage 'Checkout'
-  checkout scm
+def branch="JENKINS-20941-https-simple"
 
-  stage 'Build'
+node {
+  stage('Checkout') {
+    checkout([$class: 'GitSCM',
+              userRemoteConfigs: [[url: 'git@github.com:MarkEWaite/jenkins-bugs',
+                                   name: 'jenkins-bugs-origin',
+                                   refspec: "+refs/heads/${branch}:refs/remotes/jenkins-bugs-origin/${branch}",
+                                  ]],
+              branches: [[name: "*/${branch}"]],
+              browser: [$class: 'GithubWeb',
+                        repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
+              extensions: [[$class: 'AuthorInChangelog'],
+                           [$class: 'CheckoutOption', timeout: 1],
+                           [$class: 'CleanCheckout'],
+                           [$class: 'CloneOption',
+                            depth: 3,
+                            honorRefspec: true,
+                            noTags: true,
+                            reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
+                            shallow: true,
+                            timeout: 3],
+                           [$class: 'LocalBranch', localBranch: '**'],
+                           [$class: 'PruneStaleBranch'],
+                           [$class: 'SubmoduleOption',
+                            disableSubmodules: false,
+                            recursiveSubmodules: true,
+                            reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
+                            trackingSubmodules: false],
+                           [$class: 'WipeWorkspace'],
+                           ],
+             ])
+  }
 
-  /* Call the ant build. */
-  ant "info"
+  stage('Build') {
+    /* Call the ant build. */
+    ant "info"
+  }
 
-  stage 'Verify'
+  stage('Verify') {
+    if (!manager.logContains(".* JENKINS-20941 base branch")) {
+      manager.addWarningBadge("No base branch comment.")
+      manager.createSummary("warning.gif").appendText("<h1>No base branch comment!</h1>", false, false, false, "red")
+      manager.buildUnstable()
+    }
+  }
+
 }
 
 /* Run ant from tool "ant-latest" */
