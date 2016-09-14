@@ -7,6 +7,7 @@ properties([[$class: 'BuildDiscarderProperty',
 def branch="JENKINS-33827"
 
 node('master') {
+
   stage('Checkout') {
     checkout([$class: 'GitSCM',
               userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
@@ -40,6 +41,7 @@ node('master') {
 
   stage('Build') {
     /* Call the ant build. */
+    sh "cat ../config.xml"
     ant "-Dconfig.file=../config.xml count"
     // ant "count"
   }
