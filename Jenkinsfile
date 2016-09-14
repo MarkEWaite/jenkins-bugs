@@ -40,11 +40,12 @@ node('master') {
 
   stage('Build') {
     /* Call the ant build. */
-    ant "-Dconfig.file=../config.xml count"
+    // ant "-Dconfig.file=../config.xml count"
+    ant "count"
   }
 
   stage('Verify') {
-    if (!manager.logContains(" has 4 matching lines, 4 expected")) {
+    if (!manager.logContains(".* has 4 matching lines, 4 expected.*")) {
       manager.addWarningBadge("No matching line count.")
       manager.createSummary("warning.gif").appendText("<h1>No matching line count!</h1>", false, false, false, "red")
       manager.buildUnstable()
