@@ -1,5 +1,8 @@
 #!groovy
 
+// Jenkinsfile based check not feasible, since this requires a dedicated
+// job configured with the expected build chooser
+
 /* Only keep the 7 most recent builds. */
 properties([[$class: 'BuildDiscarderProperty',
              strategy: [$class: 'LogRotator', numToKeepStr: '7']]])
@@ -41,9 +44,8 @@ node('master') {
 
   stage('Build') {
     /* Call the ant build. */
-    sh "cat ../config.xml"
-    ant "-Dconfig.file=../config.xml count"
-    // ant "count"
+    // ant " -Dconfig.file=../config.xml count" // Valid test of bug, but pipeline job def does not include a build chooser
+    ant "count" // Counts a file in current directory, not a valid test of the bug
   }
 
   stage('Verify') {
