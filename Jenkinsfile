@@ -40,8 +40,8 @@ node('master') {
 
   stage('Build') {
     /* Call the ant build. */
-    // ant "-Dconfig.file=../config.xml count"
-    ant "count"
+    ant "-Dconfig.file=../config.xml count"
+    // ant "count"
   }
 
   stage('Verify') {
