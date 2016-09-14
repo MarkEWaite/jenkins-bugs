@@ -1,4 +1,4 @@
-<project name="JENKINS-33695" default="count" basedir=".">
+<project name="JENKINS-33695" default="increment" basedir=".">
 
   <!-- Relies on this job running on the master node -->
   <!-- Caller needs to override this property with -Dconfig.file=../config.xml -->
@@ -28,6 +28,30 @@
 	</not>
       </condition>
     </fail>
+  </target>
+
+  <!-- Increment build number, commit the change -->
+  <target name="increment" description="Check JENKINS-33827 - muiltiple build chooser definitions">
+    <echo>java is ${java.version}</echo>
+    <buildnumber/>
+    <echo>Build number was ${build.number}</echo>
+    <exec executable="git">
+      <arg value="add"/>
+      <arg value="build.number"/>
+      <arg value="."/>
+    </exec>
+    <exec executable="git">
+      <arg value="commit"/>
+      <arg value="-m"/>
+      <arg value="${user.name} was ${build.number}"/>
+      <arg value="build.number"/>
+    </exec>
+  </target>
+
+  <!-- Info about this repository -->
+  <target name="info" description="Report info about this repo">
+    <echo>java is ${java.version}</echo>
+    <echo>user dir is ${user.dir}</echo>
   </target>
 
 </project>
