@@ -5,22 +5,25 @@ properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
 node("git-1.8+ && !windows") { // Windows garbles Japanese commit text
-  stage 'Checkout'
-  checkout scm
+  stage('Checkout') {
+    checkout scm
+  }
 
-  stage 'Build'
-  /* Call the ant build. */
-  ant "increment"
+  stage('Build') {
+    /* Call the ant build. */
+    ant "increment"
+  }
 
-  stage 'Verify'
-  // Does not check the actual bug report
-  // Bug report was that recent changes are not in the recent changes list
-  // This checks that the log writes Japanese, not that the recent changes do
-  if (!manager.logContains(".*ビルド番号をインクリメント.*") ||
-      !manager.logContains(".*でした.*")) {
-    manager.addWarningBadge("Missing localized text.")
-    manager.createSummary("warning.gif").appendText("<h1>Missing localized text!</h1>", false, false, false, "red")
-    manager.buildUnstable()
+  stage('Verify') {
+    // Does not check the actual bug report
+    // Bug report was that recent changes are not in the recent changes list
+    // This checks that the log writes Japanese, not that the recent changes do
+    if (!manager.logContains(".*ビルド番号をインクリメント.*") ||
+	!manager.logContains(".*でした.*")) {
+      manager.addWarningBadge("Missing localized text.")
+      manager.createSummary("warning.gif").appendText("<h1>Missing localized text!</h1>", false, false, false, "red")
+      manager.buildUnstable()
+    }
   }
 }
 
