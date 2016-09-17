@@ -7,45 +7,47 @@ properties([[$class: 'BuildDiscarderProperty',
 def branch="JENKINS-36507"
 
 node {
-  stage 'Checkout'
-  checkout([$class: 'GitSCM',
-            userRemoteConfigs: [[name: 'origin',
-                                 refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}",
-                                 url: 'https://github.com/MarkEWaite/jenkins-bugs']],
-            branches: [[name: "*/${branch}"]],
-            browser: [$class: 'GithubWeb',
-                      repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
-            extensions: [[$class: 'AuthorInChangelog'],
-                         [$class: 'CheckoutOption', timeout: 37],
-                         [$class: 'CleanBeforeCheckout'],
-                         [$class: 'CloneOption',
-                          depth: 2,
-                          honorRefspec: true,
-                          noTags: true,
-                          reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
-                          shallow: true,
-                          timeout: 3],
-                         [$class: 'LocalBranch', localBranch: '**'],
-                         [$class: 'PruneStaleBranch'],
-                         [$class: 'WipeWorkspace'],
-                        ]
-           ])
-
-  stage 'Build'
-
-  /* Call the ant build. */
-  ant "info"
-
-  stage 'Verify'
-  if (!manager.logContains(".*exec.*[*] JENKINS-36507")) {
-    manager.addWarningBadge("Missing current branch name.")
-    manager.createSummary("warning.gif").appendText("<h1>Missing current branch name!</h1>", false, false, false, "red")
-    manager.buildUnstable()
+  stage('Checkout') {
+    checkout([$class: 'GitSCM',
+	      userRemoteConfigs: [[name: 'origin',
+				   refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}",
+				   url: 'https://github.com/MarkEWaite/jenkins-bugs']],
+	      branches: [[name: "*/${branch}"]],
+	      browser: [$class: 'GithubWeb',
+			repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
+	      extensions: [[$class: 'AuthorInChangelog'],
+			   [$class: 'CheckoutOption', timeout: 37],
+			   [$class: 'CleanBeforeCheckout'],
+			   [$class: 'CloneOption',
+			    depth: 2,
+			    honorRefspec: true,
+			    noTags: true,
+			    reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
+			    shallow: true,
+			    timeout: 3],
+			   [$class: 'LocalBranch', localBranch: '**'],
+			   [$class: 'PruneStaleBranch'],
+			   [$class: 'WipeWorkspace'],
+			  ]
+	     ])
   }
-  if (manager.logContains("exec.*JENKINS-22547")) {
-    manager.addWarningBadge("Found extra branch name JENKINS-22547.")
-    manager.createSummary("warning.gif").appendText("<h1>Found extra branch name JENKINS-22547!</h1>", false, false, false, "red")
-    manager.buildUnstable()
+
+  stage('Build') {
+    /* Call the ant build. */
+    ant "info"
+  }
+
+  stage('Verify') {
+    if (!manager.logContains(".*exec.*[*] JENKINS-36507")) {
+      manager.addWarningBadge("Missing current branch name.")
+      manager.createSummary("warning.gif").appendText("<h1>Missing current branch name!</h1>", false, false, false, "red")
+      manager.buildUnstable()
+    }
+    if (manager.logContains("exec.*JENKINS-22547")) {
+      manager.addWarningBadge("Found extra branch name JENKINS-22547.")
+      manager.createSummary("warning.gif").appendText("<h1>Found extra branch name JENKINS-22547!</h1>", false, false, false, "red")
+      manager.buildUnstable()
+    }
   }
 }
 
