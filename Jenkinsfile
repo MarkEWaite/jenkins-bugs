@@ -5,34 +5,36 @@ properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
 node {
-  stage 'Checkout'
-  checkout([$class: 'GitSCM',
-            branches: [[name: 'origin/JENKINS-34309']],
-            browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
-            extensions: [[$class: 'CloneOption',
-                          honorRefspec: true,
-                          noTags: true,
-                          reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
-                          shallow: true,
-                          timeout: 3],
-                         [$class: 'LocalBranch', localBranch: 'JENKINS-34309'],
-                         [$class: 'AuthorInChangelog']],
-            gitTool: 'Default',
-            userRemoteConfigs: [[credentialsId: 'MarkEWaite-github-rsa-private-key',
-                                 name: 'origin',
-                                 refspec: '+refs/heads/JENKINS-34309:refs/remotes/origin/JENKINS-34309',
-                                 url: 'git@github.com:MarkEWaite/jenkins-bugs']]])
+  stage('Checkout') {
+    checkout([$class: 'GitSCM',
+	      branches: [[name: 'origin/JENKINS-34309']],
+	      browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
+	      extensions: [[$class: 'CloneOption',
+			    honorRefspec: true,
+			    noTags: true,
+			    reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
+			    shallow: true,
+			    timeout: 3],
+			   [$class: 'LocalBranch', localBranch: 'JENKINS-34309'],
+			   [$class: 'AuthorInChangelog']],
+	      gitTool: 'Default',
+	      userRemoteConfigs: [[credentialsId: 'MarkEWaite-github-rsa-private-key',
+				   name: 'origin',
+				   refspec: '+refs/heads/JENKINS-34309:refs/remotes/origin/JENKINS-34309',
+				   url: 'git@github.com:MarkEWaite/jenkins-bugs']]])
+  }
 
-  stage 'Build'
+  stage('Build') {
+    /* Call the ant build. */
+    ant "info"
+  }
 
-  /* Call the ant build. */
-  ant "info"
-
-  stage 'Verify'
-  if (!manager.logContains(".*[*] JENKINS-34309")) { // Confirm LocalBranch extension worked
-    manager.addWarningBadge("Missing JENKINS-34309 branch name.")
-    manager.createSummary("warning.gif").appendText("<h1>Missing JENKINS-34309 branch name!</h1>", false, false, false, "red")
-    manager.buildUnstable()
+  stage('Verify') {
+    if (!manager.logContains(".*[*] JENKINS-34309")) { // Confirm LocalBranch extension worked
+      manager.addWarningBadge("Missing JENKINS-34309 branch name.")
+      manager.createSummary("warning.gif").appendText("<h1>Missing JENKINS-34309 branch name!</h1>", false, false, false, "red")
+      manager.buildUnstable()
+    }
   }
 }
 
