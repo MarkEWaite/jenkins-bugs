@@ -5,33 +5,35 @@ properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
 node {
-  stage 'Checkout'
-  checkout scm
+  stage('Checkout') {
+    checkout scm
+  }
 
-  stage 'Build'
+  stage('Build') {
+    /* Call the ant build. */
+    ant "info"
+  }
 
-  /* Call the ant build. */
-  ant "info"
-
-  stage 'Verify'
-  String jobName = "${env.JOB_NAME}"
-  String jobPath = "job/" + jobName.replace("/", "/job/")
-  String buildNumber = "${currentBuild.number}"
-  String jobURL = "http://localhost:8080/${jobPath}/${buildNumber}/api/xml?wrapper=changes&xpath=//changeSet//comment"
-  println "job URL is '${jobURL}'"
-  String changeDescription =
-    new URL(jobURL).getText(connectTimeout: 1000,
-                            readTimeout: 5000,
-                            useCaches: false,
-                            allowUserInteraction: false,
-                            requestProperties: ['Connection': 'close'])
-  println "Change description is '" + changeDescription + "'"
-  if (changeDescription.contains("<changes/>") ||
-      !changeDescription.contains("<changes>") ||
-      countSubstrings(changeDescription, "<comment>") < 2) { // Always expect at least 2 changes
-    manager.addWarningBadge("Missing recent changes output")
-    manager.createSummary("warning.gif").appendText("<h1>Missing recent changes!</h1>", false, false, false, "red")
-    manager.buildUnstable()
+  stage('Verify') {
+    String jobName = "${env.JOB_NAME}"
+    String jobPath = "job/" + jobName.replace("/", "/job/")
+    String buildNumber = "${currentBuild.number}"
+    String jobURL = "http://localhost:8080/${jobPath}/${buildNumber}/api/xml?wrapper=changes&xpath=//changeSet//comment"
+    println "job URL is '${jobURL}'"
+    String changeDescription =
+      new URL(jobURL).getText(connectTimeout: 1000,
+			      readTimeout: 5000,
+			      useCaches: false,
+			      allowUserInteraction: false,
+			      requestProperties: ['Connection': 'close'])
+    println "Change description is '" + changeDescription + "'"
+    if (changeDescription.contains("<changes/>") ||
+	!changeDescription.contains("<changes>") ||
+	countSubstrings(changeDescription, "<comment>") < 2) { // Always expect at least 2 changes
+      manager.addWarningBadge("Missing recent changes output")
+      manager.createSummary("warning.gif").appendText("<h1>Missing recent changes!</h1>", false, false, false, "red")
+      manager.buildUnstable()
+    }
   }
 }
 
