@@ -5,16 +5,18 @@ properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
 node("git-1.8+") {
-  stage 'Checkout'
-  checkout scm
+  stage('Checkout') {
+    checkout scm
+  }
 
-  stage 'Build'
+  stage('Build') {
+    /* Call the ant build. */
+    ant "info"
+  }
 
-  /* Call the ant build. */
-  ant "info"
-
-  stage 'Verify'
-  /* Requires a separate job which polls then reads workspace */
+  stage('Verify') {
+    /* Requires a separate job which polls then reads workspace */
+  }
 }
 
 /* Run ant from tool "ant-latest" */
