@@ -9,8 +9,7 @@ node {
     checkout([$class: 'GitSCM',
               extensions: [
                            [$class: 'CloneOption',
-                            shallow: true,
-                            depth: 5,
+                            shallow: false,
                             honorRefspec: true,
                             noTags: true,
                             reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
