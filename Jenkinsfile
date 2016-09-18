@@ -6,7 +6,16 @@ properties([[$class: 'BuildDiscarderProperty',
 
 node {
   stage('Checkout') {
-    checkout scm
+    checkout([$class: 'GitSCM',
+              extensions: [
+                           [$class: 'CloneOption',
+                            shallow: false,
+                            honorRefspec: true,
+                            noTags: true,
+                            reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
+                            timeout: 3],
+                          ],
+             ])
   }
 
   stage('Build') {
@@ -30,6 +39,7 @@ node {
 
 def getSHA1(def commit) {
   if (isUnix()) {
+    // Should use JGit that is already included in the git plugin
     sh "git rev-parse ${commit} > .sha1"
     sha1 = readFile ".sha1"
     sh "rm .sha1"
