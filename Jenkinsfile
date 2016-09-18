@@ -6,7 +6,17 @@ properties([[$class: 'BuildDiscarderProperty',
 
 node("git-1.8+") {
   stage('Checkout') {
-    checkout scm
+    checkout([$class: 'GitSCM',
+              extensions: [
+                           [$class: 'CloneOption',
+                            shallow: true,
+                            depth: 5,
+                            honorRefspec: true,
+                            noTags: true,
+                            reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
+                            timeout: 3],
+                          ],
+             ])
   }
 
   stage('Build') {
