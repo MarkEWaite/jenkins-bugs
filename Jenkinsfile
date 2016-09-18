@@ -5,25 +5,26 @@ properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
 node {
-  stage 'Checkout'
-  checkout scm
+  stage('Checkout') {
+    checkout scm
+  }
 
-  stage 'Build'
+  stage('Build') {
+    /* Call the ant build. */
+    ant "info"
+  }
 
-  /* Call the ant build. */
-  ant "info"
+  stage('Verify') {
+    def latest_sha1 = getSHA1("refs/remotes/origin/features/JENKINS-37263^{commit}")
+    def current_sha1 = getSHA1("HEAD")
 
-  stage 'Verify'
+    echo "Latest sha1 is ${latest_sha1}, current sha1 is ${current_sha1}"
 
-  def latest_sha1 = getSHA1("refs/remotes/origin/features/JENKINS-37263^{commit}")
-  def current_sha1 = getSHA1("HEAD")
-
-  echo "Latest sha1 is ${latest_sha1}, current sha1 is ${current_sha1}"
-
-  if (latest_sha1 != current_sha1) {
-    manager.addWarningBadge("Missed latest: ${latest_sha1}, was ${current_sha1}.")
-    manager.createSummary("warning.gif").appendText("<h1>Missed latest commit ${latest_sha1}, was ${current_sha1}!</h1>", false, false, false, "red")
-    manager.buildUnstable()
+    if (latest_sha1 != current_sha1) {
+      manager.addWarningBadge("Missed latest: ${latest_sha1}, was ${current_sha1}.")
+      manager.createSummary("warning.gif").appendText("<h1>Missed latest commit ${latest_sha1}, was ${current_sha1}!</h1>", false, false, false, "red")
+      manager.buildUnstable()
+    }
   }
 }
 
