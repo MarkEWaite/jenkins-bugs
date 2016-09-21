@@ -15,8 +15,7 @@ node {
                                    refspec: "+refs/heads/${branch}:refs/remotes/${origin}/${branch}",
                                   ]],
               branches: [[name: "${origin}/${branch}"]],
-              extensions: [
-                           [$class: 'CloneOption',
+              extensions: [[$class: 'CloneOption',
                             honorRefspec: true,
                             noTags: true,
                             reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
