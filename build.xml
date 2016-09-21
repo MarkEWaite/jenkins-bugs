@@ -24,7 +24,7 @@
     <echo>user dir is ${user.dir}</echo>
     <git command="branch">
       <args>
-        <arg value="-a"/tures/JENKINS-37263>
+        <arg value="-a"/>
       </args>
     </git>
   </target>
