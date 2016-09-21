@@ -22,6 +22,7 @@ node {
                             timeout: 3],
                            [$class: 'LocalBranch', localBranch: '**'],
                            [$class: 'PruneStaleBranch'],
+                           [$class: 'WipeWorkspace'],
                           ],
              ])
   }
