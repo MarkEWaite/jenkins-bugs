@@ -1,19 +1,27 @@
-#!groovy
+#!/usr/bin/env groovy
 
-/* Only keep the 10 most recent builds. */
+/* Only keep the 7 most recent builds. */
 properties([[$class: 'BuildDiscarderProperty',
-                strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
+                strategy: [$class: 'LogRotator', numToKeepStr: '7']]])
+
+def branch="JENKINS-36637"
+def origin="J-36637-origin"
 
 node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
-              extensions: [
-                           [$class: 'CloneOption',
-                            shallow: false,
+              userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
+                                   name: "${origin}",
+                                   refspec: "+refs/heads/${branch}:refs/remotes/${origin}/${branch}",
+                                  ]],
+              branches: [[name: "${origin}/${branch}"]],
+              extensions: [[$class: 'CloneOption',
                             honorRefspec: true,
                             noTags: true,
                             reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
                             timeout: 3],
+                           [$class: 'LocalBranch', localBranch: '${branch}'],
+                           [$class: 'PruneStaleBranch'],
                           ],
              ])
   }
