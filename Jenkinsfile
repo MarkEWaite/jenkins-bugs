@@ -4,7 +4,7 @@
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-def branch="JENKINS-37263"
+def branch="features/JENKINS-37263"
 
 node {
   stage('Checkout') {
