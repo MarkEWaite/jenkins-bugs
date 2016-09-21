@@ -49,17 +49,13 @@ node {
 def getSHA1(def commit) {
   if (isUnix()) {
     // Should use JGit that is already included in the git plugin
-    sh "git rev-parse ${commit} > .sha1"
-    sha1 = readFile ".sha1"
-    sh "rm .sha1"
+    sha1 = sh(returnStdout: true, "git rev-parse ${commit}")
   } else {
     // Windows treats caret as special character, must escape it
     if (commit.contains("^")) {
       commit = commit.replace("^", "^^")
     }
-    bat "git rev-parse ${commit} > .sha1"
-    sha1 = readFile ".sha1"
-    bat "del .sha1"
+    sha1 = bat(returnStdout: true, "git rev-parse ${commit}")
   }
   return sha1.replaceAll("\\s", "")
 }
