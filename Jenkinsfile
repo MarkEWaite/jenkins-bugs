@@ -1,4 +1,4 @@
-#!groovy
+#!/usr/bin/env groovy
 
 /* Only keep the 7 most recent builds. */
 properties([[$class: 'BuildDiscarderProperty',
