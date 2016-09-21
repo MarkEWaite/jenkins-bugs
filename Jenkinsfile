@@ -14,7 +14,7 @@ node {
                                    name: "${origin}",
                                    refspec: "+refs/heads/${branch}:refs/remotes/${origin}/${branch}",
                                   ]],
-              branches: [[name: "*/${branch}"]],
+              branches: [[name: "${origin}/${branch}"]],
               extensions: [
                            [$class: 'CloneOption',
                             honorRefspec: true,
