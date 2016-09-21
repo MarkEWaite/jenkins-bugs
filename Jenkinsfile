@@ -4,16 +4,24 @@
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
+def branch="JENKINS-37263"
+
 node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
+              userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
+                                   name: 'jenkins-bugs-origin',
+                                   refspec: "+refs/heads/${branch}:refs/remotes/jenkins-bugs-origin/${branch}",
+                                  ]],
+              branches: [[name: "*/${branch}"]],
               extensions: [
                            [$class: 'CloneOption',
-                            shallow: false,
                             honorRefspec: true,
                             noTags: true,
                             reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
                             timeout: 3],
+                           [$class: 'LocalBranch', localBranch: '**'],
+                           [$class: 'PruneStaleBranch'],
                           ],
              ])
   }
