@@ -5,13 +5,14 @@ properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
 def branch="features/JENKINS-37263"
+def origin="jenkins-bugs-origin"
 
 node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
               userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
-                                   name: 'jenkins-bugs-origin',
-                                   refspec: "+refs/heads/${branch}:refs/remotes/jenkins-bugs-origin/${branch}",
+                                   name: "${origin}",
+                                   refspec: "+refs/heads/${branch}:refs/remotes/${origin}/${branch}",
                                   ]],
               branches: [[name: "*/${branch}"]],
               extensions: [
@@ -32,7 +33,7 @@ node {
   }
 
   stage('Verify') {
-    def latest_sha1 = getSHA1("refs/remotes/origin/features/JENKINS-37263^{commit}")
+    def latest_sha1 = getSHA1("refs/remotes/${branch}/features/JENKINS-37263^{commit}")
     def current_sha1 = getSHA1("HEAD")
 
     echo "Latest sha1 is ${latest_sha1}, current sha1 is ${current_sha1}"
