@@ -7,6 +7,7 @@ the parent repository.
 
 * bin-2 and elisp-2 sometimes checkout wrong branch (master)
 * Removed bin-3 submodule and job crashed on at least one machine
+* After bin-3 submodule removed, polling ignored changes
 
 == Removed bin-3 submodule ==
 
