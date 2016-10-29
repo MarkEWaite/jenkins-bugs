@@ -12,7 +12,7 @@ node("master") {
   }
 
   stage('Verify') {
-    def repo = 'https://github.com/MarkEWaite/jenkins-pipeline-utils.git'
+    def repo = "${env.JENKINS_URL}/userContent/jenkins-pipeline-utils/"
     def check = fileLoader.fromGit('check', "${repo}", 'master', null, '')
     check.logContains(".*Working directory is ${env.JENKINS_HOME}.*", "Working dir report 1 missing")
     check.logContains("Working directory is ${env.JENKINS_HOME}.*", "Working dir report 2 missing")
