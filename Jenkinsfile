@@ -1,5 +1,9 @@
 #!groovy
 
+@Library('globalPipelineLibraryMarkEWaite')
+import com.markwaite.Assert
+import com.markwaite.Build
+
 /* Only keep the 7 most recent builds. */
 properties([[$class: 'BuildDiscarderProperty',
              strategy: [$class: 'LogRotator', numToKeepStr: '7']]])
@@ -33,47 +37,14 @@ node("git-1.9+") { // Shallow clone fails on git versions before 1.9
 
   stage('Build') {
     /* Call the ant build. */
-    ant "info"
+    def step = new com.markwaite.Build()
+    step.ant "info"
   }
 
   stage('Verify') {
-    if (!manager.logContains(".*git.*fetch.*timeout=3")) {
-      manager.addWarningBadge("Missing clone timeout.")
-      manager.createSummary("warning.gif").appendText("<h1>Missing clone timeout!</h1>", false, false, false, "red")
-      manager.buildUnstable()
-    }
-    if (!manager.logContains(".*git.*checkout.*timeout=37")) {
-      manager.addWarningBadge("Missing checkout timeout.")
-      manager.createSummary("warning.gif").appendText("<h1>Missing checkout timeout!</h1>", false, false, false, "red")
-      manager.buildUnstable()
-    }
-    if (!manager.logContains(".* On branch ${branch}")) {
-      manager.addWarningBadge("Missing local branch checkout to ${branch}.")
-      manager.createSummary("warning.gif").appendText("<h1>Missing local branch checkout to ${branch}!</h1>", false, false, false, "red")
-      manager.buildUnstable()
-    }
-  }
-}
-
-/* Run ant from tool "ant-latest" */
-void ant(def args) {
-  /* Get jdk tool. */
-  String jdktool = tool name: "jdk8", type: 'hudson.model.JDK'
-
-  /* Get the ant tool. */
-  def antHome = tool name: 'ant-latest', type: 'hudson.tasks.Ant$AntInstallation'
-
-  /* Set JAVA_HOME, and special PATH variables. */
-  List javaEnv = [
-    "PATH+JDK=${jdktool}/bin", "JAVA_HOME=${jdktool}", "ANT_HOME=${antHome}",
-  ]
-
-  /* Call ant tool with java envVars. */
-  withEnv(javaEnv) {
-    if (isUnix()) {
-      sh "${antHome}/bin/ant ${args}"
-    } else {
-      bat "${antHome}\\bin\\ant ${args}"
-    }
+    def check = new com.markwaite.Assert()
+    check.logContains(".*git.*fetch.*timeout=3", "Missing clone timeout.")
+    check.logContains(".*git.*checkout.*timeout=37", "Missing checkout timeout.")
+    check.logContains(".* On branch ${branch}", "Missing local branch checkout to ${branch}.")
   }
 }
