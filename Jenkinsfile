@@ -1,6 +1,6 @@
 #!groovy
 
-@Library('globalPipelineLibrary')
+@Library('globalPipelineLibraryMarkEWaite')
 import com.markwaite.Assert
 
 /* Only keep the 10 most recent builds. */
