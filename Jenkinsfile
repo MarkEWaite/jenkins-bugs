@@ -1,5 +1,8 @@
 #!groovy
 
+@Library('assertions')
+import com.markwaite.Assert
+
 /* Only keep the 10 most recent builds. */
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
@@ -12,9 +15,10 @@ node("master") {
   }
 
   stage('Verify') {
-    logContains(manager, ".*Working directory is ${env.JENKINS_HOME}.*", "Working dir report 1 missing")
-    logContains(manager, "Working directory is ${env.JENKINS_HOME}.*", "Working dir report 2 missing")
-    logContains(manager, "${env.JENKINS_HOME}.*", "Working dir report 3 missing")
-    logContains(manager, "JENKINS_HOME is ${env.JENKINS_HOME}.*", "Working dir report 4 missing")
+    def check = new com.markwaite.Assert()
+    check.logContains(manager, ".*Working directory is ${env.JENKINS_HOME}.*", "Working dir report 1 missing")
+    check.logContains(manager, "Working directory is ${env.JENKINS_HOME}.*", "Working dir report 2 missing")
+    check.logContains(manager, "${env.JENKINS_HOME}.*", "Working dir report 3 missing")
+    check.logContains(manager, "JENKINS_HOME is ${env.JENKINS_HOME}.*", "Working dir report 4 missing")
   }
 }
