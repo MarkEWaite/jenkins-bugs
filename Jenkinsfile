@@ -12,15 +12,10 @@ node("master") {
   }
 
   stage('Verify') {
-    if (!manager.logContains(".*Working directory is ${env.JENKINS_HOME}.*") ||
-        !manager.logContains("Working directory is ${env.JENKINS_HOME}.*") ||
-        !manager.logContains("${env.JENKINS_HOME}.*") ||
-        !manager.logContains("JENKINS_HOME is ${env.JENKINS_HOME}.*")) {
-      manager.addWarningBadge("Missing expected working directory text.")
-      manager.createSummary("warning.gif").appendText("<h1>Missing expected working directory text.</h1>", false, false, false, "red")
-      manager.buildUnstable()
-    }
     def check = new com.markwaite.Assert()
     check.logContains(".*Working directory is ${env.JENKINS_HOME}.*", "Working dir report 1 missing")
+    check.logContains("Working directory is ${env.JENKINS_HOME}.*", "Working dir report 2 missing")
+    check.logContains("${env.JENKINS_HOME}.*", "Working dir report 3 missing")
+    check.logContains("JENKINS_HOME is ${env.JENKINS_HOME}.*", "Working dir report 4 missing")
   }
 }
