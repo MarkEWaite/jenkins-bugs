@@ -1,6 +1,21 @@
-package com.markwaite;
+/**
+ * Various pipeline steps for Jenkinsfile use
+ */
 
-/* Run ant from tool "ant-latest" using tool "jdk8" */
+import com.cloudbees.groovy.cps.NonCPS
+
+def version = '1.0'
+
+@NonCPS
+def dumpEnvVars() {
+  def str = "Dumping build environment variables...\n"
+  for (Map.Entry<String, String> entry : currentBuild.build().environment) {
+    str += "    ${entry.key} = ${entry.value}\n"
+  }
+  echo str
+}
+
+/* Run ant from tool "ant-latest" */
 void ant(def args) {
   /* Get jdk tool. */
   String jdktool = tool name: "jdk8", type: 'hudson.model.JDK'
