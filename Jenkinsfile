@@ -18,12 +18,10 @@ node("git-1.8+ && !windows") { // Windows garbles Japanese commit text
     // Does not check the actual bug report
     // Bug report was that recent changes are not in the recent changes list
     // This checks that the log writes Japanese, not that the recent changes do
-    if (!manager.logContains(".*ビルド番号をインクリメント.*") ||
-	!manager.logContains(".*でした.*")) {
-      manager.addWarningBadge("Missing localized text.")
-      manager.createSummary("warning.gif").appendText("<h1>Missing localized text!</h1>", false, false, false, "red")
-      manager.buildUnstable()
-    }
+    def repo = "${env.JENKINS_URL}/userContent.git"
+    def check = fileLoader.fromGit('check', "${repo}", 'master', null, '')
+    check.logContains(".*ビルド番号をインクリメント.*", "Missing localized text 1.")
+    check.logContains(".*でした.*", "Missing localized text 2.")
   }
 }
 
