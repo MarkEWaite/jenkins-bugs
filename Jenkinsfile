@@ -1,5 +1,9 @@
 #!/usr/bin/env groovy
 
+@Library('globalPipelineLibraryMarkEWaite')
+import com.markwaite.Assert
+import com.markwaite.Build
+
 /* Only keep the 7 most recent builds. */
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '7']]])
@@ -29,12 +33,14 @@ node {
 
   stage('Build') {
     /* Call the ant build. */
-    ant "info"
+    def step = new com.markwaite.Build()
+    step.ant "info"
   }
 
   stage('Verify') {
-    def latest_sha1 = getSHA1("refs/remotes/${origin}/${branch}^{commit}")
-    def current_sha1 = getSHA1("HEAD")
+    def build = new com.markwaite.Build()
+    def latest_sha1 = build.getSHA1("refs/remotes/${origin}/${branch}^{commit}")
+    def current_sha1 = build.getSHA1("HEAD")
 
     echo "Latest sha1 is ${latest_sha1}, current sha1 is ${current_sha1}"
 
@@ -42,43 +48,6 @@ node {
       manager.addWarningBadge("Missed latest: ${latest_sha1}, was ${current_sha1}.")
       manager.createSummary("warning.gif").appendText("<h1>Missed latest commit ${latest_sha1}, was ${current_sha1}!</h1>", false, false, false, "red")
       manager.buildUnstable()
-    }
-  }
-}
-
-def getSHA1(def commit) {
-  if (isUnix()) {
-    // Should use JGit that is already included in the git plugin
-    sha1 = sh(script: "git rev-parse ${commit}", returnStdout: true)
-  } else {
-    // Windows treats caret as special character, must escape it
-    if (commit.contains("^")) {
-      commit = commit.replace("^", "^^")
-    }
-    sha1 = bat(script: "git rev-parse ${commit}", returnStdout: true)
-  }
-  return sha1.replaceAll("\\s", "")
-}
-
-/* Run ant from tool "ant-latest" */
-void ant(def args) {
-  /* Get jdk tool. */
-  String jdktool = tool name: "jdk8", type: 'hudson.model.JDK'
-
-  /* Get the ant tool. */
-  def antHome = tool name: 'ant-latest', type: 'hudson.tasks.Ant$AntInstallation'
-
-  /* Set JAVA_HOME, and special PATH variables. */
-  List javaEnv = [
-    "PATH+JDK=${jdktool}/bin", "JAVA_HOME=${jdktool}", "ANT_HOME=${antHome}",
-  ]
-
-  /* Call ant tool with java envVars. */
-  withEnv(javaEnv) {
-    if (isUnix()) {
-      sh "${antHome}/bin/ant ${args}"
-    } else {
-      bat "${antHome}\\bin\\ant ${args}"
     }
   }
 }
