@@ -8,7 +8,7 @@ node("master") {
   stage('Checkout') {
     sh 'echo Working directory is `pwd`'
     sh 'pwd'
-    sh 'echo JENKINSx_HOME is $JENKINS_HOME' 
+    sh 'echo JENKINS_HOME is $JENKINS_HOME' 
   }
 
   stage('Verify') {
