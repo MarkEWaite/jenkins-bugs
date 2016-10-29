@@ -36,3 +36,5 @@ def getSHA1(def commit) {
   }
   return sha1.replaceAll("\\s", "")
 }
+
+return this;

@@ -17,3 +17,5 @@ def logDoesNotContain(String regex, String failure_message) {
     manager.buildUnstable()
   }
 }
+
+return this;
