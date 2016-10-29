@@ -2,6 +2,7 @@
 
 @Library('globalPipelineLibraryMarkEWaite')
 import com.markwaite.Assert
+import com.markwaite.Build
 
 /* Only keep the 10 most recent builds. */
 properties([[$class: 'BuildDiscarderProperty',
@@ -14,8 +15,6 @@ node("git-1.8+ && !windows") { // Windows garbles Japanese commit text
 
   stage('Build') {
     /* Call the ant build. */
-    @Library('globalPipelineLibraryMarkEWaite')
-    import com.markwaite.Build
     def step = new com.markwaite.Build()
     step.ant "increment"
   }
