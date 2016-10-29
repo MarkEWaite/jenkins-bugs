@@ -1,21 +1,6 @@
-/**
- * Various pipeline steps for Jenkinsfile use
- */
+package com.markwaite;
 
-import com.cloudbees.groovy.cps.NonCPS
-
-def version = '1.0'
-
-@NonCPS
-def dumpEnvVars() {
-  def str = "Dumping build environment variables...\n"
-  for (Map.Entry<String, String> entry : currentBuild.build().environment) {
-    str += "    ${entry.key} = ${entry.value}\n"
-  }
-  echo str
-}
-
-/* Run ant from tool "ant-latest" */
+/* Run ant from tool "ant-latest" using tool "jdk8" */
 void ant(def args) {
   /* Get jdk tool. */
   String jdktool = tool name: "jdk8", type: 'hudson.model.JDK'
@@ -38,4 +23,16 @@ void ant(def args) {
   }
 }
 
-return this;
+def getSHA1(def commit) {
+  if (isUnix()) {
+    // Should use JGit that is already included in the git plugin
+    sha1 = sh(script: "git rev-parse ${commit}", returnStdout: true)
+  } else {
+    // Windows treats caret as special character, must escape it
+    if (commit.contains("^")) {
+      commit = commit.replace("^", "^^")
+    }
+    sha1 = bat(script: "git rev-parse ${commit}", returnStdout: true)
+  }
+  return sha1.replaceAll("\\s", "")
+}
