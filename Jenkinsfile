@@ -1,8 +1,5 @@
 #!groovy
 
-@Library('assertions')
-import com.markwaite.Assert
-
 /* Only keep the 10 most recent builds. */
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
@@ -15,7 +12,13 @@ node("master") {
   }
 
   stage('Verify') {
-    def check = new com.markwaite.Assert()
+    def check, build
+    fileLoader.withGit('https://github.com/MarkEWaite/jenkins-bugs.git', 'master', null, '') {
+      check = fileLoader.load('src/com/markwaite/Assert');
+      build = fileLoader.load('src/com/markwaite/Build');
+    }
+
+    // def check = new com.markwaite.Assert()
     check.logContains(".*Working directory is ${env.JENKINS_HOME}.*", "Working dir report 1 missing")
     check.logContains("Working directory is ${env.JENKINS_HOME}.*", "Working dir report 2 missing")
     check.logContains("${env.JENKINS_HOME}.*", "Working dir report 3 missing")
