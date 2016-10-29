@@ -1,5 +1,8 @@
 #!groovy
 
+@Library('assertions')
+import com.markwaite.Assert
+
 /* Only keep the 10 most recent builds. */
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
