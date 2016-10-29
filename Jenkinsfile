@@ -21,8 +21,7 @@ node("master") {
   }
 
   stage('Verify') {
-    def check = fileLoader.fromGit('src/com/markwaite/Assert', 
-            'https://github.com/MarkEWaite/jenkins-bugs.git', 'master', null, '')
+    def check = fileLoader.fromGit('check', 'https://github.com/MarkEWaite/jenkins-pipeline-utils.git', 'master', null, '')
     check.logContains(".*Working directory is ${env.JENKINS_HOME}.*", "Working dir report 1 missing")
     check.logContains("Working directory is ${env.JENKINS_HOME}.*", "Working dir report 2 missing")
     check.logContains("${env.JENKINS_HOME}.*", "Working dir report 3 missing")
