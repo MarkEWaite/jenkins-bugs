@@ -21,6 +21,6 @@ node("master") {
       manager.buildUnstable()
     }
     def check = new com.markwaite.Assert()
-    check.logContains(".*xWorking directory is ${env.JENKINS_HOME}.*", "xWorking dir report 1 missing")
+    check.logContains(".*Working directory is ${env.JENKINS_HOME}.*", "Working dir report 1 missing")
   }
 }
