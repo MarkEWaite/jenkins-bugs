@@ -16,7 +16,7 @@ node("master") {
 
   stage('Load a file from GitHub') {
     def helloworld = fileLoader.fromGit('examples/fileLoader/helloworld', 
-            'https://github.com/jenkinsci/workflow-remote-loader-plugin.git', 'master', null, '')
+            'https://github.com/MarkEWaite/jenkins-pipeline-utils.git', 'master', null, '')
     helloworld.printHello()
   }
 
