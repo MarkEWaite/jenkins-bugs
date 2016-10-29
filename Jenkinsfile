@@ -14,6 +14,12 @@ node("master") {
     sh 'echo JENKINS_HOME is $JENKINS_HOME' 
   }
 
+  stage('Load a file from GitHub') {
+    def helloworld = fileLoader.fromGit('examples/fileLoader/helloworld', 
+            'https://github.com/jenkinsci/workflow-remote-loader-plugin.git', 'master', null, '')
+    helloworld.printHello()
+  }
+
   stage('Verify') {
     def check = new com.markwaite.Assert()
     check.logContains(".*Working directory is ${env.JENKINS_HOME}.*", "Working dir report 1 missing")
