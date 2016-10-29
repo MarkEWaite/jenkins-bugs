@@ -20,6 +20,7 @@ node("master") {
       manager.createSummary("warning.gif").appendText("<h1>Missing expected working directory text.</h1>", false, false, false, "red")
       manager.buildUnstable()
     }
-    com.markwaite.Assert.logContains(".*Working directory is ${env.JENKINS_HOME}.*", "Working dir report 1 missing")
+    def check = new com.markwaite.Assert()
+    check.logContains(".*Working directory is ${env.JENKINS_HOME}.*", "Working dir report 1 missing")
   }
 }
