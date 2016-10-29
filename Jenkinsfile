@@ -12,9 +12,9 @@ node("master") {
   }
 
   stage('Verify') {
-    logContains(".*Working directory is ${env.JENKINS_HOME}.*", "Working dir report 1 missing")
-    logContains("Working directory is ${env.JENKINS_HOME}.*", "Working dir report 2 missing")
-    logContains("${env.JENKINS_HOME}.*", "Working dir report 3 missing")
-    logContains("JENKINS_HOME is ${env.JENKINS_HOME}.*", "Working dir report 4 missing")
+    logContains(manager, ".*Working directory is ${env.JENKINS_HOME}.*", "Working dir report 1 missing")
+    logContains(manager, "Working directory is ${env.JENKINS_HOME}.*", "Working dir report 2 missing")
+    logContains(manager, "${env.JENKINS_HOME}.*", "Working dir report 3 missing")
+    logContains(manager, "JENKINS_HOME is ${env.JENKINS_HOME}.*", "Working dir report 4 missing")
   }
 }
