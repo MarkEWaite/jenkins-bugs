@@ -19,5 +19,7 @@ node("git-1.8+") {
   }
 
   stage('Verify') {
+    def check = new com.markwaite.Assert()
+    check.logDoesNotContain(".*git.* [#] timeout=10", "Default timeout used in at least one git command")
   }
 }
