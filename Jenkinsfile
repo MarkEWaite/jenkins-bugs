@@ -46,7 +46,7 @@ node {
 
   stage('Verify') {
     def check = new com.markwaite.Assert()
-    check.logContains(".*BUILD SUCCESS", "Build success message not found")
+    check.logContains(".*user dir is", "Expected ant info output not found")
   }
 
 }
