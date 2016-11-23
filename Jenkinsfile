@@ -14,7 +14,6 @@ properties([[$class: 'BuildDiscarderProperty',
 node {
 
   stage('Checkout') {
-
     checkout([$class: 'GitSCM',
 	      branches: [[name: 'origin/JENKINS-39905']],
 	      browser: [$class: 'BitbucketWeb', repoUrl: 'https://bitbucket.org/markewaite/jenkins-bugs'],
