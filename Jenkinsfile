@@ -1,7 +1,7 @@
 #!groovy
 
-// Jenkinsfile based check not feasible, since this requires a dedicated
-// job configured with the expected build chooser
+// Jenkinsfile based check not feasible, since this requires an interactive
+// check that the changes link is correct
 
 @Library('globalPipelineLibraryMarkEWaite')
 import com.markwaite.Assert
@@ -13,7 +13,7 @@ properties([[$class: 'BuildDiscarderProperty',
 
 def branch="master"
 
-node('master') {
+node {
 
   stage('Checkout') {
     checkout([$class: 'GitSCM',
@@ -43,12 +43,12 @@ node('master') {
   stage('Build') {
     /* Call the maven build. */
     def step = new com.markwaite.Build()
-    step.maven "clean"
+    step.maven "help:effective-pom"
   }
 
   stage('Verify') {
     def check = new com.markwaite.Assert()
-    check.logContains("maven clean", "Maven clean not found")
+    check.logContains("BUILD SUCCESS", "Build success message not found")
   }
 
 }
