@@ -11,32 +11,25 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
              strategy: [$class: 'LogRotator', numToKeepStr: '7']]])
 
-def branch="JENKINS-39905"
-
 node {
 
   stage('Checkout') {
+
     checkout([$class: 'GitSCM',
-              userRemoteConfigs: [[url: 'https://bitbucket.org/markewaite/jenkins-bugs.git',
-                                   name: 'origin',
-                                   refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}",
-                                  ]],
-              branches: [[name: "origin/${branch}"]],
-              browser: [$class: 'GithubWeb',
-                        repoUrl: 'https://bitbucket.org/markewaite/jenkins-bugs.git'],
-              extensions: [[$class: 'AuthorInChangelog'],
-                           [$class: 'CheckoutOption', timeout: 1],
-                           [$class: 'CleanCheckout'],
-                           [$class: 'CloneOption',
-                            honorRefspec: true,
-                            noTags: true,
-                            reference: '/var/lib/git/mwaite/jenkins/jenkins-bugs.git',
-                            timeout: 3],
-                           [$class: 'LocalBranch', localBranch: "${branch}"],
-                           [$class: 'PruneStaleBranch'],
-                           ],
-             ])
-  }
+	      branches: [[name: 'origin/JENKINS-39905']],
+	      browser: [$class: 'BitbucketWeb', repoUrl: 'https://bitbucket.org/markewaite/jenkins-bugs'],
+	      extensions: [
+		  [$class: 'CloneOption',
+		   honorRefspec: true,
+		   noTags: true,
+		   reference: '/var/ilb/git/mwaite/bugs/jenkins-bugs.git',
+		   timeout: 7],
+		  [$class: 'PruneStaleBranch'],
+		  [$class: 'AuthorInChangelog']],
+	      userRemoteConfigs: [
+		  [name: 'origin',
+		   refspec: '+refs/heads/JENKINS-39905:refs/remotes/origin/JENKINS-39905',
+		   url: 'https://bitbucket.org/markewaite/jenkins-bugs.git']]])
 
   stage('Build') {
     /* Call the maven build. */
