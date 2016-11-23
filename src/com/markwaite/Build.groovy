@@ -23,6 +23,31 @@ void ant(def args) {
   }
 }
 
+/* Run maven from tool "mvn" */
+void mvn(def args) {
+  /* Get jdk tool. */
+  String jdktool = tool name: "jdk7", type: 'hudson.model.JDK'
+
+  /* Get the maven tool. */
+  def mvnHome = tool name: 'mvn'
+
+  /* Set JAVA_HOME, and special PATH variables. */
+  List javaEnv = [
+    "PATH+JDK=${jdktool}/bin", "JAVA_HOME=${jdktool}",
+  ]
+
+  /* Call maven tool with java envVars. */
+  withEnv(javaEnv) {
+    timeout(time: 45, unit: 'MINUTES') {
+      if (isUnix()) {
+        sh "${mvnHome}/bin/mvn ${args}"
+      } else {
+        bat "${mvnHome}\\bin\\mvn ${args}"
+      }
+    }
+  }
+}
+
 def getSHA1(def commit) {
   if (isUnix()) {
     // Should use JGit that is already included in the git plugin
