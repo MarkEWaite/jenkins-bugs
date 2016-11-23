@@ -1,37 +1,7 @@
-<project name="JENKINS-33827" default="increment" basedir=".">
-
-  <!-- Relies on this job running on the master node -->
-  <!-- Caller needs to override this property with -Dconfig.file=../config.xml -->
-  <property name="config.file" value="config.xml"/>
-
-  <!-- Count BuildChooserSetting lines in job's config.xml file -->
-  <resourcecount property="file.lines">
-    <tokens>
-      <concat>
-        <filterchain>
-	  <linecontainsregexp>
-	    <regexp pattern="hudson\.plugins\.git\.extensions\.impl\.BuildChooserSetting"/>
-	  </linecontainsregexp>
-        </filterchain>
-        <fileset file="${config.file}"/>
-      </concat>
-    </tokens>
-  </resourcecount>
-
-  <!-- Fail job if BuildChooserSetting count is not 4 -->
-  <target name="count" description="Show JENKINS-33827 is fixed">
-    <echo>The file '${config.file}' has ${file.lines} matching lines, 4 expected.</echo>
-    <fail message="Not 4 BuildChooserSetting lines in ${config.file}">
-      <condition>
-	<not>
-	  <equals arg1="${file.lines}" arg2="4"/>
-	</not>
-      </condition>
-    </fail>
-  </target>
+<project name="JENKINS-39905" default="increment" basedir=".">
 
   <!-- Increment build number, commit the change -->
-  <target name="increment" description="Check JENKINS-33827 - muiltiple build chooser definitions">
+  <target name="increment" description="Increment for JENKINS-39905">
     <echo>java is ${java.version}</echo>
     <buildnumber/>
     <echo>Build number was ${build.number}</echo>
