@@ -21,7 +21,7 @@ node {
                                    name: 'origin',
                                    refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}",
                                   ]],
-              branches: [[name: "*/${branch}"]],
+              branches: [[name: "origin/${branch}"]],
               browser: [$class: 'GithubWeb',
                         repoUrl: 'https://bitbucket.org/markewaite/git-client-plugin.git'],
               extensions: [[$class: 'AuthorInChangelog'],
@@ -32,7 +32,7 @@ node {
                             noTags: true,
                             reference: '/var/lib/git/mwaite/jenkins/git-client-plugin.git',
                             timeout: 3],
-                           [$class: 'LocalBranch', localBranch: '**'],
+                           [$class: 'LocalBranch', localBranch: "${branch}"],
                            [$class: 'PruneStaleBranch'],
                            ],
              ])
