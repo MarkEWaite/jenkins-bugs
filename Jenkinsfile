@@ -11,7 +11,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
              strategy: [$class: 'LogRotator', numToKeepStr: '7']]])
 
-def branch="master"
+def branch="JENKINS-39905"
 
 node {
 
