@@ -41,7 +41,7 @@ node {
   stage('Build') {
     /* Call the maven build. */
     def step = new com.markwaite.Build()
-    step.mvn "help:effective-pom"
+    step.ant "info"
   }
 
   stage('Verify') {
