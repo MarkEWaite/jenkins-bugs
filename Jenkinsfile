@@ -11,51 +11,44 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
              strategy: [$class: 'LogRotator', numToKeepStr: '7']]])
 
-def branch="JENKINS-33827"
+def branch="master"
 
 node('master') {
 
   stage('Checkout') {
     checkout([$class: 'GitSCM',
-              userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
-                                   name: 'jenkins-bugs-origin',
-                                   refspec: "+refs/heads/${branch}:refs/remotes/jenkins-bugs-origin/${branch}",
+              userRemoteConfigs: [[url: 'https://bitbucket.org/markewaite/git-client-plugin.git',
+                                   name: 'origin',
+                                   refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}",
                                   ]],
               branches: [[name: "*/${branch}"]],
               browser: [$class: 'GithubWeb',
-                        repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
+                        repoUrl: 'https://bitbucket.org/markewaite/git-client-plugin.git'],
               extensions: [[$class: 'AuthorInChangelog'],
                            [$class: 'CheckoutOption', timeout: 1],
                            [$class: 'CleanCheckout'],
                            [$class: 'CloneOption',
-                            depth: 3,
+                            depth: 2,
                             honorRefspec: true,
                             noTags: true,
-                            reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
+                            reference: '/var/lib/git/mwaite/jenkins/git-client-plugin.git',
                             shallow: true,
                             timeout: 3],
                            [$class: 'LocalBranch', localBranch: '**'],
                            [$class: 'PruneStaleBranch'],
-                           [$class: 'SubmoduleOption',
-                            disableSubmodules: false,
-                            recursiveSubmodules: true,
-                            reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
-                            trackingSubmodules: false],
-                           [$class: 'WipeWorkspace'],
                            ],
              ])
   }
 
   stage('Build') {
-    /* Call the ant build. */
-    // ant " -Dconfig.file=../config.xml count" // Valid test of bug, but pipeline job def does not include a build chooser
+    /* Call the maven build. */
     def step = new com.markwaite.Build()
-    step.ant "count" // Counts a file in current directory, not a valid test of the bug
+    step.maven "clean"
   }
 
   stage('Verify') {
     def check = new com.markwaite.Assert()
-    check.logContains(".* has 4 matching lines, 4 expected.*", "No matching line count.")
+    check.logContains("maven clean", "Maven clean not found")
   }
 
 }
