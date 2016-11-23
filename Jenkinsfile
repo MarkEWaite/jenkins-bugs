@@ -30,6 +30,7 @@ node {
 		  [name: 'origin',
 		   refspec: '+refs/heads/JENKINS-39905:refs/remotes/origin/JENKINS-39905',
 		   url: 'https://bitbucket.org/markewaite/jenkins-bugs.git']]])
+  }
 
   stage('Build') {
     /* Call the maven build. */
