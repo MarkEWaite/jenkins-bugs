@@ -3,7 +3,7 @@
 // Jenkinsfile based check not feasible, since this requires an interactive
 // check that the changes link is correct.
 
-@Library('globalPipelineLibraryMarkEWaite')
+@Library('globalPipelineLibraryMarkEWaite') // https://github.com/MarkEWaite/jenkins-pipeline-utils
 import com.markwaite.Assert
 import com.markwaite.Build
 
@@ -14,25 +14,13 @@ properties([[$class: 'BuildDiscarderProperty',
 node {
 
   stage('Checkout') {
-    checkout([$class: 'GitSCM',
-	      branches: [[name: 'origin/JENKINS-39905']],
-	      browser: [$class: 'BitbucketWeb', repoUrl: 'https://bitbucket.org/markewaite/jenkins-bugs'],
-	      extensions: [
-		  [$class: 'CloneOption',
-		   honorRefspec: true,
-		   noTags: true,
-		   reference: '/var/ilb/git/mwaite/bugs/jenkins-bugs.git',
-		   timeout: 7],
-		  [$class: 'PruneStaleBranch'],
-		  [$class: 'AuthorInChangelog']],
-	      userRemoteConfigs: [
-		  [name: 'origin',
-		   refspec: '+refs/heads/JENKINS-39905:refs/remotes/origin/JENKINS-39905',
-		   url: 'https://bitbucket.org/markewaite/jenkins-bugs.git']]])
+    checkout([$class: 'GitSCM', branches: [[name: '*/JENKINS-39905']],
+    userRemoteConfigs: [[url: 'https://bitbucket.org/markewaite/jenkins-bugs.git']],
+    browser: [$class: 'BitbucketWeb', repoUrl: 'https://bitbucket.org/markewaite/jenkins-bugs']])
   }
 
   stage('Build') {
-    /* Call the maven build. */
+    /* Call the ant build. */
     def step = new com.markwaite.Build()
     step.ant "info"
   }
