@@ -1,7 +1,7 @@
 #!groovy
 
 // Jenkinsfile based check not feasible, since this requires an interactive
-// check that the changes link is correct
+// check that the changes link is correct.
 
 @Library('globalPipelineLibraryMarkEWaite')
 import com.markwaite.Assert
