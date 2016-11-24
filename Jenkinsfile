@@ -21,7 +21,7 @@ node {
 
   stage('Build') {
     def step = new com.markwaite.Build()
-    step.ant "info" /* Call the ant build. */
+    step.ant "info"
   }
 
   stage('Verify') {
