@@ -28,6 +28,7 @@ node {
                            [$class: 'PruneStaleBranch'],
                            [$class: 'WipeWorkspace'],
                           ],
+              gitTool: 'jgit',
              ])
   }
 
