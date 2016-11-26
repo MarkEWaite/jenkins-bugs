@@ -20,7 +20,7 @@ node {
               browser: [$class: 'GithubWeb', repoUrl: "${repo_url}"],
               userRemoteConfigs: [[name: 'origin',
                                   refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}",
-                                  url: "${repo_url}"]]
+                                  url: "${repo_url}"]],
               extensions: [
                             [$class: 'CloneOption',
                               depth: 0,
