@@ -31,7 +31,8 @@ node("git-1.9+") { // Shallow clone fails on git versions before 1.9
 			    timeout: 3],
 			   [$class: 'LocalBranch', localBranch: '**'],
 			   [$class: 'PruneStaleBranch'],
-			  ]
+			  ],
+              gitTool: 'jgit',
 	     ])
   }
 
