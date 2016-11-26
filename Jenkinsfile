@@ -43,6 +43,7 @@ node('master') {
                             trackingSubmodules: false],
                            [$class: 'WipeWorkspace'],
                            ],
+              gitTool: 'jgitapache',
              ])
   }
 
