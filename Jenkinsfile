@@ -7,7 +7,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-node("git-1.8+") {
+node {
   stage('Checkout') {
     checkout scm
   }
@@ -21,6 +21,6 @@ node("git-1.8+") {
   stage('Verify') {
     def check = new com.markwaite.Assert()
     // Assumes default timeout has been changed from user interface or property
-    check.logDoesNotContain(".*git.* [#] timeout=10", "Default timeout used in at least one git command")
+    check.logDoesNotContain(".*TranslationBundleLoadingException.*", "Translation bundle loading exception thrown")
   }
 }
