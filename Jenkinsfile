@@ -7,9 +7,32 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
+def repo_url='https://github.com/MarkEWaite/jenkins-bugs'
+def branch='JENKINS-40050'
+
 node {
   stage('Checkout') {
-    checkout scm
+    checkout([$class: 'GitSCM',
+              /* Bug report requires jgit as gitTool */
+              gitTool: 'jgit',
+
+              branches: [[name: "${branch}"]],
+              browser: [$class: 'GithubWeb', repoUrl: "${repo_url}"],
+              userRemoteConfigs: [[name: 'origin',
+                                  refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}",
+                                  url: "${repo_url}"]]
+              extensions: [
+                            [$class: 'CloneOption',
+                              depth: 0,
+                              honorRefspec: true,
+                              noTags: true,
+                              reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
+                              shallow: false,
+                              timeout: 8],
+                            [$class: 'LocalBranch', localBranch: "${branch}"],
+                          ],
+             ]
+            )
   }
 
   stage('Build') {
