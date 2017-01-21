@@ -1,4 +1,4 @@
-<project name="JENKINS-39905" default="increment" basedir=".">
+<project name="JENKINS-35687" default="increment" basedir=".">
 
   <!-- Increment build number, commit the change -->
   <target name="increment" description="Increment for JENKINS-39905">
@@ -22,6 +22,16 @@
   <target name="info" description="Report info about this repo">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
+    <loadfile property="large-file-contents" srcFile="large-file.lfs">
+      <filterchain>
+        <linecontains>
+          <contains value="Content of this file is tracked by git large file support"/>
+        </linecontains>
+      </filterchain>
+    </loadfile>
+    <echo/>
+    <echo>==== REM filtered contents of large-file.lfs ====</echo>
+    <echo>${large-file-contents}</echo>
   </target>
 
 </project>
