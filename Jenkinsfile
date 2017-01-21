@@ -1,8 +1,5 @@
 #!groovy
 
-// Jenkinsfile based check not feasible, since this requires an interactive
-// check that the changes link is correct.
-
 @Library('globalPipelineLibraryMarkEWaite') // https://github.com/MarkEWaite/jenkins-pipeline-utils
 import com.markwaite.Assert
 import com.markwaite.Build
@@ -14,9 +11,12 @@ properties([[$class: 'BuildDiscarderProperty',
 node {
 
   stage('Checkout') {
-    checkout([$class: 'GitSCM', branches: [[name: '*/JENKINS-39905']],
-    userRemoteConfigs: [[url: 'https://bitbucket.org/markewaite/jenkins-bugs.git']],
-    browser: [$class: 'BitbucketWeb', repoUrl: 'https://bitbucket.org/markewaite/jenkins-bugs']])
+    checkout([$class: 'GitSCM',
+              branches: [[name: '*/JENKINS-35687']],
+              extensions: [[$class: 'GitLFSPull']],
+              userRemoteConfigs: [[url: 'https://github.com/markewaite/jenkins-bugs.git']],
+        ]
+    )
   }
 
   stage('Build') {
@@ -26,7 +26,8 @@ node {
 
   stage('Verify') {
     def check = new com.markwaite.Assert()
-    check.logContains(".*user dir is.*", "Expected ant info output not found")
+    check.logContains(".*Content of this file is tracked by git large file support.*", "Tracked content not found in large file")
   }
+
 
 }
