@@ -1,4 +1,3 @@
-# [JENKINS-39905](https://issues.jenkins-ci.org/browse/JENKINS-39905) Bug Verification
+# [JENKINS-35687](https://issues.jenkins-ci.org/browse/JENKINS-35687) Bug Verification
 
-Bitbucket changes URL included an embedded string "history" in an
-unexpected location.  The URL could not be resolved.
+Git large file support verification job
