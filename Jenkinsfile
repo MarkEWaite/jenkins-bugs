@@ -12,8 +12,10 @@ node {
 
   stage('Checkout') {
     checkout([$class: 'GitSCM',
-              branches: [[name: '*/JENKINS-35687']],
-              extensions: [[$class: 'GitLFSPull']],
+              branches: [[name: '*/JENKINS-35687-pub']],
+              // Don't use the GitLFSPull extension
+              // Rely on smudge filter to update content
+              // extensions: [[$class: 'GitLFSPull']],
               userRemoteConfigs: [[url: 'https://github.com/markewaite/jenkins-bugs.git']],
         ]
     )
