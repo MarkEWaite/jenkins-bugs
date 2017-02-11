@@ -8,7 +8,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
              strategy: [$class: 'LogRotator', numToKeepStr: '7']]])
 
-node {
+node('git-lfs') { // Large file support equires a node with git LFS installed
 
   stage('Checkout') {
     checkout([$class: 'GitSCM',
@@ -30,6 +30,5 @@ node {
     def check = new com.markwaite.Assert()
     check.logContains(".*Content of this file is tracked by git large file support.*", "Tracked content not found in large file")
   }
-
 
 }
