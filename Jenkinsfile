@@ -15,12 +15,12 @@ node {
 
   stage('Build') {
     /* Call the ant build. */
-    def step = new com.markwaite.Build()
-    step.ant 'info'
+    def my_step = new com.markwaite.Build()
+    my_step.ant 'info'
   }
 
   stage('Verify') {
-    def check = new com.markwaite.Assert()
-    check.logContains('.*Author:.*')
+    def my_check = new com.markwaite.Assert()
+    my_check.logContains('.*Author:.*')
   }
 }
