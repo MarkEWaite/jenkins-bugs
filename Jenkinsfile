@@ -10,9 +10,9 @@ properties([[$class: 'BuildDiscarderProperty',
 
 node {
   stage('Checkout') {
-    println "CAUSE ${currentBuild.rawBuild.getCause(hudson.model.Cause$UserIdCause).properties}"
     def causes = currentBuild.rawBuild.getCauses()
     echo "Build causes: " + causes
+    println "CAUSE ${currentBuild.rawBuild.getCause(hudson.model.Cause$UserIdCause).properties}"
     checkout scm
   }
 
