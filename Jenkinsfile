@@ -16,12 +16,11 @@ node {
   stage('Build') {
     /* Call the ant build. */
     def step = new com.markwaite.Build()
-    step.ant "info"
+    step.ant 'info'
   }
 
   stage('Verify') {
     def check = new com.markwaite.Assert()
-    check.logContains(".*Author:.*") // one of the fields in a git commit
-    check.logContains(".*Date:.*") // one of the fields in a git commit
+    check.logContains('.*Author:.*')
   }
 }
