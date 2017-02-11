@@ -1,13 +1,14 @@
 #!groovy
 
 @Library('globalPipelineLibraryMarkEWaite')
+import com.markwaite.Assert
 import com.markwaite.Build
 
 /* Only keep the 10 most recent builds. */
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-node("git-1.8+") {
+node {
   stage('Checkout') {
     checkout scm
   }
@@ -19,5 +20,7 @@ node("git-1.8+") {
   }
 
   stage('Verify') {
+    def check = new com.markwaite.Assert()
+    check.logContains(".*exec.*[*] JENKINS-36507", "Missing current branch name.")
   }
 }
