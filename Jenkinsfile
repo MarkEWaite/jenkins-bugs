@@ -11,7 +11,7 @@ properties([[$class: 'BuildDiscarderProperty',
 def branch="features/JENKINS-37263"
 def origin="jenkins-bugs-origin"
 
-node("!windows") {
+node("windows") {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
               userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
