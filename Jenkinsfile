@@ -44,7 +44,8 @@ node("!windows") {
     def latest_sha1 = build.getSHA1("refs/remotes/${origin}/${branch}^{commit}")
     def current_sha1 = build.getSHA1("HEAD")
 
-    echo "Latest sha1 is ${latest_sha1}, current sha1 is ${current_sha1}"
+    echo "Latest sha1 is ${latest_sha1}"
+    echo "Current sha1 is ${current_sha1}"
 
     if (latest_sha1 != current_sha1) {
       manager.addWarningBadge("Missed latest: ${latest_sha1}, was ${current_sha1}.")
