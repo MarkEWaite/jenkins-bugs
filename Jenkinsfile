@@ -25,7 +25,7 @@ node {
      * there are no changes detected on the master branch.  This assertion
      * checks that the commits from the last 15 minutes (reported by 'ant
      * info') are empty */
-    my_check.logContains('.*Author:.*', 'No author line')
-    my_check.logContains('.*Date:.*', 'No date line')
+    my_check.logDoesNotContain('.*Author:.*', 'Found an author line')
+    my_check.logDoesNotContain('.*Date:.*', 'Found a date line')
   }
 }
