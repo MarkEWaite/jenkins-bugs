@@ -10,10 +10,8 @@ properties([[$class: 'BuildDiscarderProperty',
 
 node {
   stage('Checkout') {
-    def causes = currentBuild.rawBuild.getCauses()
-    echo "Build causes: " + causes
-    for (cause in causes) {
-      println "Cause: ${cause.properties}"
+    for (cause in currentBuild.rawBuild.getCauses()) {
+      println "Cause: ${cause} Properties: ${cause.properties}"
     }
     checkout scm
   }
