@@ -24,7 +24,7 @@ node {
     my_check.logContains('.*Author:.*', 'No author line')
     my_check.logContains('.*Date:.*', 'No date line')
     for (cause in currentBuild.rawBuild.getCauses()) {
-      println "Cause: ${cause} Properties: ${cause.properties}"
+      println "${cause.shortDescription} caused this build - details: ${cause} Properties: ${cause.properties}"
     }
   }
 }
