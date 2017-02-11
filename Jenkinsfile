@@ -11,7 +11,7 @@ properties([[$class: 'BuildDiscarderProperty',
 def branch="features/JENKINS-37263"
 def origin="jenkins-bugs-origin"
 
-node("windows") {
+node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
               userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
@@ -41,7 +41,6 @@ node("windows") {
 
   stage('Verify') {
     def build = new com.markwaite.Build()
-    // Take the last 40 characters of the output - Windows getSHA1 is broken
     def latest_sha1 = build.getSHA1("refs/remotes/${origin}/${branch}^{commit}")
     def current_sha1 = build.getSHA1("HEAD")
 
