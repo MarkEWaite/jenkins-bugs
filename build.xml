@@ -16,11 +16,21 @@
     </git>
   </target>
 
-  <!-- Synchronize repositories -->
+  <!-- Info about this repository -->
   <target name="info" description="Report info about this repo">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
+    <!-- JENKINS-41906 reports that master branch built without
+         any commits.  This reports commits on this branch in the last 15
+         minutes -->
+    <echo>Displaying git log messages on this branch from last 15 minutes</echo>
+    <git command="log">
+      <args>
+        <arg value="--since='15 minutes ago'"/>
+      </args>
+    </git>
+    <echo>End of git log messages on this branch from last 15 minutes</echo>
   </target>
 
   <!-- Create directory per branch, checkout branch, add cache -->
