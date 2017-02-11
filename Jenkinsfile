@@ -21,6 +21,7 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains('.*Author:.*')
+    my_check.logContains('.*Author:.*', 'No author line')
+    my_check.logContains('.*Date:.*', 'No date line')
   }
 }
