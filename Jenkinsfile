@@ -10,6 +10,8 @@ properties([[$class: 'BuildDiscarderProperty',
 
 node {
   stage('Checkout') {
+    def causes = currentBuild.rawBuild.getCauses()
+    echo "Build causes: " + causes
     checkout scm
   }
 
@@ -23,7 +25,5 @@ node {
     def my_check = new com.markwaite.Assert()
     my_check.logContains('.*Author:.*', 'No author line')
     my_check.logContains('.*Date:.*', 'No date line')
-    def causes = currentBuild.rawBuild.getCauses()
-    echo "Build causes: " + causes
   }
 }
