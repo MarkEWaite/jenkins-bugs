@@ -42,11 +42,19 @@ node("windows") {
   stage('Verify') {
     def build = new com.markwaite.Build()
     // Take the last 40 characters of the output - Windows getSHA1 is broken
-    def latest_sha1 = build.getSHA1("refs/remotes/${origin}/${branch}^{commit}")[-40..-1]
-    def current_sha1 = build.getSHA1("HEAD")[-40..-1]
+    def latest_sha1 = build.getSHA1("refs/remotes/${origin}/${branch}^{commit}")
+    def current_sha1 = build.getSHA1("HEAD")
 
     echo "Latest sha1 is ${latest_sha1}"
     echo "Current sha1 is ${current_sha1}"
+
+    if (latest_sha1.length() > 40) {
+        latest_sha1 = latest_sha1.substring(latest_sha1.length() - 40)
+    }
+
+    if (current_sha1.length() > 40) {
+        current_sha1 = current_sha1.substring(current_sha1.length() - 40)
+    }
 
     if (latest_sha1 != current_sha1) {
       manager.addWarningBadge("Missed latest: ${latest_sha1}, was ${current_sha1}.")
