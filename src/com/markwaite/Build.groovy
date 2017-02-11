@@ -59,5 +59,11 @@ def getSHA1(def commit) {
     }
     sha1 = bat(script: "git rev-parse ${commit}", returnStdout: true)
   }
-  return sha1.replaceAll("\\s", "")
+  // Remove white space
+  sha1 = sha1.replaceAll("\\s", "")
+  // Windows returns command line before sha1 - discard all but sha1
+  if (sha1.length() > 40) {
+    sha1 = sha1.substring(sha1.length() - 40)
+  }
+  return sha1
 }
