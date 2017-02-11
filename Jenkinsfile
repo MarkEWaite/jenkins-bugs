@@ -48,14 +48,6 @@ node("windows") {
     echo "Latest sha1 is ${latest_sha1}"
     echo "Current sha1 is ${current_sha1}"
 
-    if (latest_sha1.length() > 40) {
-        latest_sha1 = latest_sha1.substring(latest_sha1.length() - 40)
-    }
-
-    if (current_sha1.length() > 40) {
-        current_sha1 = current_sha1.substring(current_sha1.length() - 40)
-    }
-
     if (latest_sha1 != current_sha1) {
       manager.addWarningBadge("Missed latest: ${latest_sha1}, was ${current_sha1}.")
       manager.createSummary("warning.gif").appendText("<h1>Missed latest commit ${latest_sha1}, was ${current_sha1}!</h1>", false, false, false, "red")
