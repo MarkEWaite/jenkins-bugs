@@ -1,11 +1,13 @@
-# Public repository for Jenkins bug verification.
+# [JENKINS-41906](https://issues.jenkins-ci.org/browse/JENKINS-41906) unchanged master branch builds on web hook
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations to
-duplicate the bug.  This repository captures some of those configurations
-in a way that is publicly visible so that automated tests can use this
-repository.
+The master branch of the jenkins-bugs repository generally has very few
+commits.  It serves as a starting point for new bug verification jobs,
+but doesn't have many changes of its own.
 
-This repository includes many branches with a Jenkinsfile pipeline
-definition file for branches where the pipeline definition file can
-encapsulate the bug verification step.
+JENKINS-41906 verification relies on that low rate of change and checks
+that the master branch reports commits within the last 15 minutes
+if it builds.  This branch includes the scripts used to check the
+master branch, and an "increment" task which creates a commit to the
+JENKINS-41906 branch.  If the master branch builds due to a change on
+the JENKINS-41906 branch, that would show the bug exists as reported
+in JENKINS-41906.
