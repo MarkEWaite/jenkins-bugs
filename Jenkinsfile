@@ -21,6 +21,7 @@ node {
 
   stage('Verify') {
     def check = new com.markwaite.Assert()
-    check.logContains(".*exec.*[*] JENKINS-36507", "Missing current branch name.")
+    check.logContains(".*Author:.*) // one of the fields in a git commit
+    check.logContains(".*Date:.*) // one of the fields in a git commit
   }
 }
