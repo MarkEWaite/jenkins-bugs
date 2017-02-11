@@ -47,7 +47,7 @@ def getSHA1(def commit) {
     if (commit.contains("^")) {
       commit = commit.replace("^", "^^")
     }
-    sha1 = bat(script: "git rev-parse ${commit}", returnStdout: true)
+    sha1 = bat(script: "@echo off & git rev-parse ${commit}", returnStdout: true)
   }
   return sha1.replaceAll("\\s", "")
 }
