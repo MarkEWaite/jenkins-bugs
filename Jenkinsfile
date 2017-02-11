@@ -12,7 +12,9 @@ node {
   stage('Checkout') {
     def causes = currentBuild.rawBuild.getCauses()
     echo "Build causes: " + causes
-    println "Causes: ${causes.properties}"
+    for (cause in causes) {
+      println "Cause: ${cause.properties}"
+    }
     checkout scm
   }
 
