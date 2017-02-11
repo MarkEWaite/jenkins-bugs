@@ -12,7 +12,7 @@ node {
   stage('Checkout') {
     def causes = currentBuild.rawBuild.getCauses()
     echo "Build causes: " + causes
-    println "CAUSE ${currentBuild.rawBuild.getCause(hudson.model.Cause$UserIdCause).properties}"
+    println "CAUSE ${causes.properties}"
     checkout scm
   }
 
