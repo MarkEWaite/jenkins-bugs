@@ -1,29 +1,8 @@
-<project name="jenkins-bugs-master-branch" default="sync" basedir=".">
+<project name="JENKINS-42020" default="increment" basedir=".">
 
-  <!-- Synchronize repositories -->
-  <target name="sync" description="Synchronize git repositories">
-    <echo>java is ${java.version}</echo>
-    <git command="pull">
-      <args>
-        <arg value="--all"/>
-      </args>
-    </git>
-    <git command="push">
-      <args>
-        <arg value="cache"/>
-        <arg value="--mirror"/>
-      </args>
-    </git>
-  </target>
-
-  <!-- Info about this repository -->
-  <target name="info" description="Report info about this repo">
-    <echo>java is ${java.version}</echo>
-    <echo>user dir is ${user.dir}</echo>
-    <git command="branch" />
-    <!-- JENKINS-41906 reports that master branch built without
-         any commits.  This reports commits on this branch in the last 15
-         minutes -->
+  <!-- Echo commit messages from last 15 minutes -->
+  <target name="info" description="Commit messages from last 15 minutes">
+    <git command="branch"/>
     <echo>Displaying git log messages on this branch from last 15 minutes</echo>
     <git command="log">
       <args>
@@ -33,9 +12,20 @@
     <echo>End of git log messages on this branch from last 15 minutes</echo>
   </target>
 
-  <!-- Create directory per branch, checkout branch, add cache -->
-  <target name="checkout-branches" description="Checkout branches">
-    <echo>Checkout branches - TBD</echo>
+  <target name="increment" description="Increment build number">
+    <echo>java is ${java.version}</echo>
+    <buildnumber/>
+    <exec executable="git">
+      <arg value="add"/>
+      <arg value="build.number"/>
+      <arg value="."/>
+    </exec>
+    <exec executable="git">
+      <arg value="commit"/>
+      <arg value="-m"/>
+      <arg value="${user.name} incremented build number. It was ${build.number}"/>
+      <arg value="build.number"/>
+    </exec>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
