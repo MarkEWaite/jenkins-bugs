@@ -8,4 +8,4 @@ repository.
 
 This repository includes many branches with a Jenkinsfile pipeline
 definition file for branches where the pipeline definition file can
-encapsulate the bug verification step.
+encapsulate at least a portion of the bug verification step.
