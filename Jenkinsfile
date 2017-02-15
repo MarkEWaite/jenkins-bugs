@@ -21,7 +21,7 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    /* JENKINS-41906 reports the master branch starts a build even if
+    /* JENKINS-42020 reports the master branch starts a build even if
      * there are no changes detected on the master branch.  This assertion
      * checks that the commits from the last 15 minutes (reported by 'ant
      * info') are empty */
