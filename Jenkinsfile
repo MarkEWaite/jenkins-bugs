@@ -19,7 +19,7 @@ node {
 			    reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
 			    shallow: true,
 			    depth: 1,
-			    timeout: 3],
+			    timeout: 13],
 			   [$class: 'LocalBranch', localBranch: 'JENKINS-34309'],
 			   [$class: 'AuthorInChangelog']],
 	      gitTool: 'Default',
