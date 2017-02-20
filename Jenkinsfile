@@ -21,8 +21,13 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains('.*Author:.*', 'No author line')
-    my_check.logContains('.*Date:.*', 'No date line')
+    if (currentBuild.number == 1) {
+      my_check.logDoesNotContain('.*Author:.*', 'Has author line on build 1')
+      my_check.logDoesNotContain('.*Date:.*', 'Has date line on build 1')
+    } else {
+      my_check.logContains('.*Author:.*', 'No author line')
+      my_check.logContains('.*Date:.*', 'No date line')
+    }
     for (cause in currentBuild.rawBuild.getCauses()) {
       println "'${cause.shortDescription}' caused this build - details: ${cause} Properties: ${cause.properties}"
     }
