@@ -28,6 +28,9 @@ node {
     if (currentBuild.number > 1) { // Don't check first build
       my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
       my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
+    } else {
+      my_check.logDoesNotContain('.*Author:.*', 'First build started by a commit - has author line')
+      my_check.logDoesNotContain('.*Date:.*', 'First build started by a commit - has date line')
     }
   }
 }
