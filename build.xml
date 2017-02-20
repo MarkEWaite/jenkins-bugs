@@ -1,7 +1,12 @@
 <project name="JENKINS-41906" default="increment" basedir=".">
 
+  <tstamp>
+    <format property="current.date" pattern="EEE, d MMM yyyy HH:mm:ss Z"/>
+  </tstamp>
+
   <!-- Echo commit messages from last 15 minutes -->
   <target name="info" description="Commit messages from last 15 minutes">
+    <echo>Date is ${current.date}</echo>
     <git command="branch"/>
     <echo>Displaying git log messages on this branch from last 15 minutes</echo>
     <git command="log">
