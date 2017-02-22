@@ -10,7 +10,21 @@ properties([[$class: 'BuildDiscarderProperty',
 
 node {
   stage('Checkout') {
-    checkout scm
+    /* reduce clone data volume with reference repo, shallow clone, no
+       tags, and honor the refspec */
+    checkout([$class: 'GitSCM',
+              branches: [[name: 'JENKINS-41906']],
+              browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
+              extensions: [[$class: 'CloneOption',
+                            honorRefspec: true,
+                            noTags: true,
+                            reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
+                            shallow: true,
+                            depth: 1,
+                           ]],
+              userRemoteConfigs: [[name: 'JENKINS-41906-origin',
+                                   refspec: '+refs/heads/JENKINS-41906:refs/remotes/JENKINS-41906-origin/JENKINS-41906 ',
+                                   url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
   }
 
   stage('Build') {
