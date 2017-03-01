@@ -16,7 +16,7 @@ for (int i = 0; i < platforms.size(); ++i) {
   def label = platforms[i]
   tasks[label] = {
     node("$label && git-1.9+") { // Needed for shallow clone
-      stage('Checkout') {
+      stage("Checkout $label") {
       checkout([$class: 'GitSCM',
                 branches: [[name: 'origin-JENKINS-35501/JENKINS-35501']],
                 browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
@@ -35,13 +35,13 @@ for (int i = 0; i < platforms.size(); ++i) {
                                     url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
       }
 
-      stage('Build') {
+      stage("Build $label") {
         /* Call the ant build. */
         def my_step = new com.markwaite.Build()
         my_step.ant 'info'
       }
 
-      stage('Verify') {
+      stage("Verify $label") {
         def my_check = new com.markwaite.Assert()
         /* JENKINS-35501 reports the .gitattributes file is ignored. */
         my_check.logContains('.*nothing to commit.*working .* clean.*', 'Ant modified files unexpectedly')
