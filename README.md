@@ -1,11 +1,10 @@
-# Public repository for Jenkins bug verification.
+# [JENKINS-35501](https://issues.jenkins-ci.org/browse/JENKINS-35501) Git attributes file ignored
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations to
-duplicate the bug.  This repository captures some of those configurations
-in a way that is publicly visible so that automated tests can use this
-repository.
+The bug report says that the contents of the .gitattributes file are
+ignored.  If I use the eol=lf and eol=crlf values in the gitattributes
+file and then use the ant task fixcrlf, I see no changes on Windows and
+no changes on Linux.  The Windows file remains in Windows format with
+CRLF, and the Linux file remains in Unix format with LF.
 
-This repository includes many branches with a Jenkinsfile pipeline
-definition file for branches where the pipeline definition file can
-encapsulate at least a portion of the bug verification step.
+I saw different behavior if I set the text attribute.  I've not completed
+a detailed investigation to understand that surprise.
