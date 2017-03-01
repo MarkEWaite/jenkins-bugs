@@ -1,28 +1,21 @@
 <project name="JENKINS-35501" default="increment" basedir=".">
 
   <!-- Info about this repository -->
-  <target name="info" description="Report info about this repo" depends="git-status,format-files">
+  <target name="info" description="Report info about this repo" depends="format-files">
     <echo>java is ${java.version}</echo>
-    <exec executable="git">
-      <arg value="diff"/>
-    </exec>
     <echo>user dir is ${user.dir}</echo>
-    <antcall target="git-status"/>
-    <echo>java was ${java.version}</echo>
-  </target>
-
-  <target name="git-status" description="Report git status">
     <exec executable="git">
       <arg value="status"/>
     </exec>
+    <echo>java was ${java.version}</echo>
   </target>
 
   <!-- Format files in this repository -->
   <target name="format-files" description="Add line terminators and end of file as appropriate">
     <fixcrlf srcdir="." eol="dos"  eof="add"                 includes="**/*.bat" />
     <fixcrlf srcdir="." eol="unix" eof="remove" tab="remove" includes="Jenkinsfile" />
-    <fixcrlf srcdir="." eol="unix" eof="remove" tab="remove" includes="**/*.sh" />
-    <fixcrlf srcdir="." eol="unix" eof="remove" tab="add"    includes="**/Makefile" />
+    <fixcrlf srcdir="." eol="unix" eof="remove" tab="asis"   includes="**/*.sh" />
+    <fixcrlf srcdir="." eol="unix" eof="remove" tab="add"    includes="Makefile" />
   </target>
 
   <!-- Increment build number, commit the change -->
