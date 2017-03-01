@@ -1,0 +1,3 @@
+Makefile text=lf
+*.sh text=lf
+*.bat text=crlf
