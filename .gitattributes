@@ -1,4 +1,4 @@
-Jenkinsfile eol=lf
-Makefile    eol=lf
-*.sh        eol=lf
-*.bat       eol=crlf
+Jenkinsfile text eol=lf
+Makefile    text eol=lf
+*.sh        text eol=lf
+*.bat       text eol=crlf
