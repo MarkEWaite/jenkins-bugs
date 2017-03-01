@@ -8,7 +8,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-node {
+node('git-1.9+') { // Needed for shallow clone
   stage('Checkout') {
   checkout([$class: 'GitSCM',
             branches: [[name: 'origin-JENKINS-35501/JENKINS-35501']],
