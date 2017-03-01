@@ -10,7 +10,20 @@ properties([[$class: 'BuildDiscarderProperty',
 
 node {
   stage('Checkout') {
-    checkout scm
+  checkout([$class: 'GitSCM',
+            branches: [[name: 'origin-JENKINS-35501/JENKINS-35501']],
+            browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
+            extensions: [[$class: 'CloneOption',
+                          depth: 0,
+                          honorRefspec: true,
+                          noTags: true,
+                          reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
+                          shallow: true,
+                          timeout: 7],
+                        [$class: 'AuthorInChangelog']],
+            userRemoteConfigs: [[name: 'origin-JENKINS-35501',
+                                refspec: '+refs/heads/JENKINS-35501:refs/remotes/origin-JENKINS-35501/JENKINS-35501 ',
+                                url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
   }
 
   stage('Build') {
