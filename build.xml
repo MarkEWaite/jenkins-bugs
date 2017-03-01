@@ -7,6 +7,9 @@
     <exec executable="git">
       <arg value="status"/>
     </exec>
+    <exec executable="git">
+      <arg value="diff"/>
+    </exec>
   </target>
 
   <!-- Format files in this repository -->
