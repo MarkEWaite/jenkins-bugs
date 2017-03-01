@@ -21,10 +21,7 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    /* JENKINS-41906 reports the master branch starts a build even if
-     * there are no changes detected on the master branch.  This assertion
-     * checks that the commits from the last 15 minutes (reported by 'ant
-     * info') are empty */
+    /* JENKINS-35501 reports the .gitattributes file is ignored. */
     if (currentBuild.number > 1) { // Don't check first build
       my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
       my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')

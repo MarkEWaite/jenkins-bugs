@@ -1,55 +1,35 @@
-<project name="jenkins-bugs-master-branch" default="sync" basedir=".">
-
-  <!-- Synchronize repositories -->
-  <target name="sync" description="Synchronize git repositories">
-    <echo>java is ${java.version}</echo>
-    <git command="pull">
-      <args>
-        <arg value="--all"/>
-      </args>
-    </git>
-    <git command="push">
-      <args>
-        <arg value="cache"/>
-        <arg value="--mirror"/>
-      </args>
-    </git>
-  </target>
+<project name="JENKINS-35501" default="increment" basedir=".">
 
   <!-- Info about this repository -->
-  <target name="info" description="Report info about this repo">
+  <target name="info" description="Report info about this repo" depends="format-files">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
-    <git command="branch" />
-    <!-- JENKINS-41906 reports that master branch built without
-         any commits.  This reports commits on this branch in the last 15
-         minutes -->
-    <echo>Displaying git log messages on this branch from last 15 minutes</echo>
-    <git command="log">
-      <args>
-        <arg value="--since='15 minutes ago'"/>
-      </args>
-    </git>
-    <echo>End of git log messages on this branch from last 15 minutes</echo>
   </target>
 
-  <!-- Create directory per branch, checkout branch, add cache -->
-  <target name="checkout-branches" description="Checkout branches">
-    <echo>Checkout branches - TBD</echo>
+  <!-- Format files in this repository -->
+  <target name="format-files" description="Add line terminators and end of file as appropriate">
+    <fixcrlf srcdir="." eol="crlf" eof="add"                 includes="**/*.bat" />
+    <fixcrlf srcdir="." eol="lf"   eof="remove" tab="remove" includes="Jenkinsfile" />
+    <fixcrlf srcdir="." eol="lf"   eof="remove"              includes="**/*.sh" />
+    <fixcrlf srcdir="." eol="lf"   eof="remove" tab="add"    includes="**/Makefile" />
   </target>
 
-  <!-- From https://gist.github.com/davejlong/874521 -->
-  <macrodef name="git">
-    <attribute name="command" />
-    <attribute name="dir" default="" />
-    <element name="args" optional="true" />
-    <sequential>
-      <echo message="git @{command}" />
-      <exec executable="git" dir="@{dir}">
-        <arg value="@{command}" />
-        <args/>
-      </exec>
-    </sequential>
-  </macrodef>
+  <!-- Increment build number, commit the change -->
+  <target name="increment" description="Increment the build number" depends="format-files">
+    <echo>java is ${java.version}</echo>
+    <buildnumber/>
+    <echo>Build number was ${build.number}</echo>
+    <exec executable="git">
+      <arg value="add"/>
+      <arg value="build.number"/>
+      <arg value="."/>
+    </exec>
+    <exec executable="git">
+      <arg value="commit"/>
+      <arg value="-m"/>
+      <arg value="${user.name} incremented build number, was ${build.number}"/>
+      <arg value="build.number"/>
+    </exec>
+  </target>
 
 </project>
