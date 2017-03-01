@@ -7,7 +7,6 @@
     <exec executable="git">
       <arg value="status"/>
     </exec>
-    <echo>java was ${java.version}</echo>
   </target>
 
   <!-- Format files in this repository -->
