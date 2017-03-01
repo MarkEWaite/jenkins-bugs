@@ -4,6 +4,9 @@
   <target name="info" description="Report info about this repo" depends="format-files">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
+    <exec executable="git">
+      <arg value="status"/>
+    </exec>
   </target>
 
   <!-- Format files in this repository -->
