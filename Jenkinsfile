@@ -22,6 +22,6 @@ node {
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     /* JENKINS-35501 reports the .gitattributes file is ignored. */
-    my_check.logContains('.*working tree clean.*', 'Ant modified files unexpectedly')
+    my_check.logContains('.*nothing to commit.*working .* clean.*', 'Ant modified files unexpectedly')
   }
 }
