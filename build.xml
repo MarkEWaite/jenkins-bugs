@@ -18,11 +18,31 @@
     </exec>
   </target>
 
-  <target name="info" description="Information">
+  <target name="info" description="Information needed for JENKINS-27332 verification">
     <echo>java is ${java.version}</echo>
-    <exec executable="git">
-      <arg value="branch"/>
-    </exec>
+    <echo>user dir is ${user.dir}</echo>
+    <git command="branch" />
+    <echo>Displaying git log messages on this branch from last 15 minutes</echo>
+    <git command="log">
+      <args>
+        <arg value="--since='15 minutes ago'"/>
+      </args>
+    </git>
+    <echo>End of git log messages on this branch from last 15 minutes</echo>
   </target>
+
+  <!-- From https://gist.github.com/davejlong/874521 -->
+  <macrodef name="git">
+    <attribute name="command" />
+    <attribute name="dir" default="" />
+    <element name="args" optional="true" />
+    <sequential>
+      <echo message="git @{command}" />
+      <exec executable="git" dir="@{dir}">
+        <arg value="@{command}" />
+        <args/>
+      </exec>
+    </sequential>
+  </macrodef>
 
 </project>
