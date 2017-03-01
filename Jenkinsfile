@@ -20,7 +20,9 @@ node {
                           reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
                           shallow: true,
                           timeout: 7],
-                        [$class: 'AuthorInChangelog']],
+                         [$class: 'AuthorInChangelog'],
+                         [$class: 'WipeWorkspace'],
+                        ],
             userRemoteConfigs: [[name: 'origin-JENKINS-35501',
                                 refspec: '+refs/heads/JENKINS-35501:refs/remotes/origin-JENKINS-35501/JENKINS-35501 ',
                                 url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
