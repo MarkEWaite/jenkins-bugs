@@ -21,7 +21,7 @@ for (int i = 0; i < platforms.size(); ++i) {
                 branches: [[name: 'origin-JENKINS-35501/JENKINS-35501']],
                 browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
                 extensions: [[$class: 'CloneOption',
-                              depth: 0,
+                              depth: 1,
                               honorRefspec: true,
                               noTags: true,
                               reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
