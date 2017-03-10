@@ -13,5 +13,6 @@ hs_err_pid*
 
 # tool download directories
 /ant/
+/cmake/
 /jdk/
 /maven/
