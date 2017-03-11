@@ -37,6 +37,6 @@ node {
     /* JENKINS-35475 reports links and revision info is shown twice on
      * the build view when extended checkout syntax is used. */
     my_check.logContains('.*Directory contents:.*README.md.*', 'No README file')
-    my_check.logContains('.*Directory contents:.*JENKINS-35475.*', 'No JENKINS-35475 directory')
+    my_check.logContains('.*Directory contents:.*JENKINS-35475[/\\]Jenkinsfile.*', 'No JENKINS-35475 Jenkinsfile')
   }
 }
