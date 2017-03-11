@@ -1,11 +1,13 @@
-# Public repository for Jenkins bug verification.
+# [JENKINS-35475](https://issues.jenkins-ci.org/browse/JENKINS-35475) Multi-branch pipieline displays SCM view multiple times
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations to
-duplicate the bug.  This repository captures some of those configurations
-in a way that is publicly visible so that automated tests can use this
-repository.
+When using extended SCM configuration with multibranch pipeline plugin
+then SCM views, all the links and revision info is shown twice on the
+build view.
 
-This repository includes many branches with a Jenkinsfile pipeline
-definition file for branches where the pipeline definition file can
-encapsulate at least a portion of the bug verification step.
+If using the configuration as the following one
+```
+stage('Checkout') {
+  checkout scm
+}
+```
+then SCM information is displayed only once.
