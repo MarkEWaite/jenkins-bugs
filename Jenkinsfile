@@ -40,7 +40,7 @@ node {
               extensions: [
                 [$class: 'AuthorInChangelog'],
                 [$class: 'CleanBeforeCheckout'],
-                [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: true],
+                [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '..', shallow: true],
                 [$class: 'LocalBranch', localBranch: 'JENKINS-35475'],
                 [$class: 'RelativeTargetDirectory', relativeTargetDir: 'JENKINS-35475'],
               ],
