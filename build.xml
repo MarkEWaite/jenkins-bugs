@@ -33,11 +33,6 @@
     <echo>End of git log messages on this branch from last 15 minutes</echo>
   </target>
 
-  <!-- Create directory per branch, checkout branch, add cache -->
-  <target name="checkout-branches" description="Checkout branches">
-    <echo>Checkout branches - TBD</echo>
-  </target>
-
   <!-- From https://gist.github.com/davejlong/874521 -->
   <macrodef name="git">
     <attribute name="command" />
