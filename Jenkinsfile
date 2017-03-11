@@ -56,7 +56,9 @@ node {
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     /* JENKINS-35475 reports links and revision info is shown twice on
-     * the build view when extended checkout syntax is used. */
+     * the build view when extended checkout syntax is used. This does
+     * not check the bug is fixed.
+     */
     my_check.logContains('.*Directory contents:.*README.md.*', 'No README file')
     my_check.logContains('.*Directory contents:.*JENKINS-35475.Jenkinsfile.*', 'No JENKINS-35475 Jenkinsfile')
   }
