@@ -10,7 +10,20 @@ properties([[$class: 'BuildDiscarderProperty',
 
 node {
   stage('Checkout') {
-    checkout scm
+    // checkout scm
+    checkout([$class: 'GitSCM',
+              userRemoteConfigs: [[name: 'bugs-origin',
+                                   refspec: '+refs/heads/JENKINS-35475:refs/remotes/bugs-origin/JENKINS-35475',
+                                   url: 'https://github.com/MarkEWaite/jenkins-bugs']],
+              branches: [[name: 'bugs-origin/JENKINS-35475']],
+              browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
+              extensions: [
+                [$class: 'AuthorInChangelog'],
+                [$class: 'CleanBeforeCheckout'],
+                [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: true],
+                // [$class: 'RelativeTargetDirectory', relativeTargetDir: 'JENKINS-35475'],
+              ],
+             ])
   }
 
   stage('Build') {
@@ -21,13 +34,8 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    /* JENKINS-41906 reports the master branch starts a build even if
-     * there are no changes detected on the master branch.  This assertion
-     * checks that the commits from the last 15 minutes (reported by 'ant
-     * info') are empty */
-    if (currentBuild.number > 1) { // Don't check first build
-      my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
-      my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
-    }
+    /* JENKINS-35475 reports links and revision info is shown twice on
+     * the build view when extended checkout syntax is used. */
+    my_check.logContains('.*Directory contents:.*README.md.*', 'No README file')
   }
 }
