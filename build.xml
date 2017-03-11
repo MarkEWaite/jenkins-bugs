@@ -3,17 +3,13 @@
   <target name="increment" description="Increment build number">
     <echo>java is ${java.version}</echo>
     <buildnumber/>
-    <exec executable="git">
-      <arg value="add"/>
-      <arg value="build.number"/>
-      <arg value="."/>
-    </exec>
-    <exec executable="git">
-      <arg value="commit"/>
-      <arg value="-m"/>
-      <arg value="${user.name} incremented build number. It was ${build.number}"/>
-      <arg value="build.number"/>
-    </exec>
+    <git command="commit">
+      <args>
+        <arg value="-m"/>
+        <arg value="${user.name} buildnumber++, was ${build.number}"/>
+        <arg value="build.number"/>
+      </args>
+    </git>
   </target>
 
   <!-- Info about this repository -->
