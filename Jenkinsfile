@@ -10,7 +10,7 @@ properties([[$class: 'BuildDiscarderProperty',
 
 node {
   stage('Checkout') {
-    // checkout scm
+    checkout scm
     checkout([$class: 'GitSCM',
               userRemoteConfigs: [[name: 'bugs-origin',
                                    refspec: '+refs/heads/JENKINS-35475:refs/remotes/bugs-origin/JENKINS-35475',
@@ -21,7 +21,7 @@ node {
                 [$class: 'AuthorInChangelog'],
                 [$class: 'CleanBeforeCheckout'],
                 [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: true],
-                // [$class: 'RelativeTargetDirectory', relativeTargetDir: 'JENKINS-35475'],
+                [$class: 'RelativeTargetDirectory', relativeTargetDir: 'JENKINS-35475'],
               ],
              ])
   }
@@ -37,5 +37,6 @@ node {
     /* JENKINS-35475 reports links and revision info is shown twice on
      * the build view when extended checkout syntax is used. */
     my_check.logContains('.*Directory contents:.*README.md.*', 'No README file')
+    my_check.logContains('.*Directory contents:.*JENKINS-35475.*', 'No JENKINS-35475 directory')
   }
 }
