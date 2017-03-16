@@ -8,7 +8,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '7']]])
 
-def branch="JENKINS-36637"
+def branch="JENKINS-36637-jgit"
 def origin="J-36637-origin"
 
 node {
