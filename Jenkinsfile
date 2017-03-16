@@ -24,7 +24,7 @@ node {
                             noTags: true,
                             reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
                             timeout: 3],
-                           [$class: 'LocalBranch', localBranch: '${branch}'],
+                           [$class: 'LocalBranch', localBranch: "${branch}"],
                            [$class: 'PruneStaleBranch'],
                           ],
               gitTool: 'jgit',
