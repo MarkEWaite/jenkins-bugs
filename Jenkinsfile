@@ -27,7 +27,6 @@ node {
                            [$class: 'LocalBranch', localBranch: '${branch}'],
                            [$class: 'PruneStaleBranch'],
                           ],
-              gitTool: 'jgit',
              ])
   }
 
