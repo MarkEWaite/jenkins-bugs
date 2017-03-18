@@ -43,7 +43,6 @@ node {
 
   stage('Verify') {
     def check = new com.markwaite.Assert()
-    // Assumes default timeout has been changed from user interface or property
     check.logDoesNotContain(".*TranslationBundleLoadingException.*", "Translation bundle loading exception thrown")
   }
 }
