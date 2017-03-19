@@ -13,7 +13,7 @@
     <exec executable="git">
       <arg value="commit"/>
       <arg value="-m"/>
-      <arg value="${user.name} ビルド番号をインクリメント、${build.number} でした"/>
+      <arg value="${user.name} ビルド番号をインクリメント,${build.number} でした"/>
       <arg value="build.number"/>
     </exec>
   </target>
