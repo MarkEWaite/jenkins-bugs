@@ -1,6 +1,6 @@
 <project name="JENKINS-42882" default="increment" basedir=".">
 
-  <target name="increment" description="Increment build number">
+  <target name="increment" description="Increment build number" depends="toggle-Jenkinsfile-symlink">
     <echo>java is ${java.version}</echo>
     <buildnumber/>
     <git command="commit">
@@ -10,6 +10,9 @@
         <arg value="build.number"/>
       </args>
     </git>
+    <exec executable="/bin/bash">
+      <arg value="toggle-Jenkinsfile-symlink">
+    </exec>
   </target>
 
   <!-- Info about this repository -->
