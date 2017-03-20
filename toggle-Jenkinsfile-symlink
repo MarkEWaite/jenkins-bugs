@@ -1,11 +1,11 @@
 #!/bin/bash
 
-git rm -f Jenkinsfile
-
 if [ -h Jenkinsfile ]; then
+        git rm -f Jenkinsfile
         cp subdir/Jenkinsfile .
         commit_message="Make Jenkinsfile a copy of subdir/Jenkinsfile"
 else
+        git rm -f Jenkinsfile
         ln -s subdir/Jenkinsfile .
         commit_message="Make Jenkinsfile a symlink to subdir/Jenkinsfile"
 fi
