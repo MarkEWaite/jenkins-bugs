@@ -12,7 +12,7 @@ node {
   stage('Build') {
     /* Call the ant build. */
     def my_step = new com.markwaite.Build()
-    my_step.ant 'info'
+    my_step.ant 'a-subdir/info'
   }
 
   stage('Verify') {
