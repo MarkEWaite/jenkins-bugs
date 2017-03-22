@@ -4,12 +4,13 @@
 import com.markwaite.Assert
 import com.markwaite.Build
 
-node {
+node('linux') {
   stage('Checkout') {
     checkout scm
   }
 
   stage('Build') {
+    sh "ls -la ${pwd()}"
     /* Call the ant build. */
     def my_step = new com.markwaite.Build()
     my_step.ant 'a-subdir/info'
