@@ -1,11 +1,14 @@
-# Public repository for Jenkins bug verification.
+# [JENKINS-43052](https://issues.jenkins-ci.org/browse/JENKINS-43052) Disallow check out to a sub-directory for Pipeline projects      
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations to
-duplicate the bug.  This repository captures some of those configurations
-in a way that is publicly visible so that automated tests can use this
-repository.
+If the root pipeline project definition (pipeline or multi-branch
+pipeline) uses the "Additional Behaviour" to checkout to a subdirectory,
+the pipeline code which reads the Jenkinsfile will be unable to find
+the Jenkinsfile.
 
-This repository includes many branches with a Jenkinsfile pipeline
-definition file for branches where the pipeline definition file can
-encapsulate at least a portion of the bug verification step.
+If the root pipeline project definition (pipeline or multi-branch
+pipeline) uses a sparse checkout and fails to include the Jenkinsfile
+in the sparse checkout, the pipeline code which reads the Jenkinsfile
+will be unable to find that Jenkinsfile.
+
+The request in the bug report is to not allow checkout options which will
+prevent finding the Jenkinsfile in the script directory.
