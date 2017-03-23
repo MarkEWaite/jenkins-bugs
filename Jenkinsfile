@@ -13,7 +13,9 @@ node('linux') {
     sh "ls -la ${pwd()}"
     /* Call the ant build. */
     def my_step = new com.markwaite.Build()
-    my_step.ant 'a-subdir/info'
+    dir('a-subdir') {
+      my_step.ant 'info'
+    }
   }
 
   stage('Verify') {
