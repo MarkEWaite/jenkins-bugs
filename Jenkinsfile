@@ -22,7 +22,6 @@ node {
                 [$class: 'RelativeTargetDirectory', relativeTargetDir: 'JENKINS-43052'],
               ],
              ])
-    checkout scm
   }
 
   stage('Build') {
