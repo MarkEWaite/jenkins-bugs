@@ -4,22 +4,24 @@
 import com.markwaite.Assert
 import com.markwaite.Build
 
+def branch='JENKINS-43052'
+
 node {
   stage('Checkout') {
     // Checkout to JENKINS-43052 subdirectory
     // Fast form - clone subset to subdirectory
     checkout([$class: 'GitSCM',
               userRemoteConfigs: [[name: 'bugs-origin-subdir',
-                                   refspec: '+refs/heads/JENKINS-43052:refs/remotes/bugs-origin-subdir/JENKINS-43052',
+                                   refspec: "+refs/heads/${branch}:refs/remotes/bugs-origin-subdir/${branch}",
                                    url: 'https://github.com/MarkEWaite/jenkins-bugs']],
-              branches: [[name: 'JENKINS-43052']],
+              branches: [[name: "${branch}"]],
               browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
               extensions: [
                 [$class: 'AuthorInChangelog'],
                 [$class: 'CleanBeforeCheckout'],
                 [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '../.git', shallow: true],
-                [$class: 'LocalBranch', localBranch: 'JENKINS-43052'],
-                [$class: 'RelativeTargetDirectory', relativeTargetDir: 'JENKINS-43052'],
+                [$class: 'LocalBranch', localBranch: "${branch}"],
+                [$class: 'RelativeTargetDirectory', relativeTargetDir: "${branch}"],
               ],
              ])
   }
@@ -27,7 +29,7 @@ node {
   stage('Build') {
     /* Call the ant build. */
     def my_step = new com.markwaite.Build()
-    dir('JENKINS-43052') {
+    dir("${branch}") {
       my_step.ant 'info'
     }
   }
