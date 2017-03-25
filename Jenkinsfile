@@ -25,26 +25,26 @@ node {
                 [$class: 'CleanBeforeCheckout'],
                 [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: true],
                 [$class: 'LocalBranch', localBranch: 'JENKINS-35475'],
-                // [$class: 'RelativeTargetDirectory', relativeTargetDir: 'JENKINS-35475'],a
               ],
              ])
 
     // Checkout to JENKINS-35475 subdirectory
     // Fast form - clone subset to subdirectory
-    checkout([$class: 'GitSCM',
-              userRemoteConfigs: [[name: 'bugs-origin-subdir',
-                                   refspec: '+refs/heads/JENKINS-35475:refs/remotes/bugs-origin-subdir/JENKINS-35475',
-                                   url: 'https://github.com/MarkEWaite/jenkins-bugs']],
-              branches: [[name: 'JENKINS-35475']],
-              browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
-              extensions: [
-                [$class: 'AuthorInChangelog'],
-                [$class: 'CleanBeforeCheckout'],
-                [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '../.git', shallow: true],
-                [$class: 'LocalBranch', localBranch: 'JENKINS-35475'],
-                [$class: 'RelativeTargetDirectory', relativeTargetDir: 'JENKINS-35475'],
-              ],
-             ])
+    dir('JENKINS-35475') {
+      checkout([$class: 'GitSCM',
+                userRemoteConfigs: [[name: 'bugs-origin-subdir',
+                                     refspec: '+refs/heads/JENKINS-35475:refs/remotes/bugs-origin-subdir/JENKINS-35475',
+                                     url: 'https://github.com/MarkEWaite/jenkins-bugs']],
+                branches: [[name: 'JENKINS-35475']],
+                browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
+                extensions: [
+                  [$class: 'AuthorInChangelog'],
+                  [$class: 'CleanBeforeCheckout'],
+                  [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '../.git', shallow: true],
+                  [$class: 'LocalBranch', localBranch: 'JENKINS-35475'],
+                ],
+               ])
+    }
   }
 
   stage('Build') {
