@@ -8,11 +8,15 @@ def branch = 'JENKINS-15103'
 def origin = "${branch}-origin"
 def repo = 'https://github.com/MarkEWaite/jenkins-bugs'
 
+def Random random = new Random()
+
 node('windows') {
   stage('Checkout') {
-    deleteDir() /* Wipe workspace with pipeline native command */
-    def my_check = new com.markwaite.Assert()
-    my_check.assertCondition(!fileExists('.git/objects'), '.git/objects exists after deleteDir')
+    if (random.nextBoolean()) { /* Randomly use pipeline native command to wipe workspace */
+      deleteDir()
+      def my_check = new com.markwaite.Assert()
+      my_check.assertCondition(!fileExists('.git/objects'), '.git/objects exists after deleteDir')
+    }
     checkout([$class: 'GitSCM',
               branches: [[name: "${origin}/${branch}*"]], /* Trailing '*' required to see bug */
               browser: [$class: 'GithubWeb', repoUrl: "${repo}"],
