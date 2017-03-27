@@ -10,6 +10,9 @@ def repo = 'https://github.com/MarkEWaite/jenkins-bugs'
 
 node('windows') {
   stage('Checkout') {
+    def my_check = new com.markwaite.Assert()
+    deleteDir
+    my_check.assertCondition(!fileExists('.git/objects'), '.git/objects exists after deleteDir')
     checkout([$class: 'GitSCM',
               branches: [[name: "${origin}/${branch}*"]], /* Trailing '*' required to see bug */
               browser: [$class: 'GithubWeb', repoUrl: "${repo}"],
@@ -21,6 +24,7 @@ node('windows') {
               userRemoteConfigs: [[name: "${origin}", refspec: "+refs/heads/${branch}:refs/remotes/${origin}/${branch}", url: "${repo}"]]
              ]
             )
+    my_check.assertCondition(fileExists('.git/objects'), '.git/objects does not exist after checkout')
   }
 
   stage('Build') {
