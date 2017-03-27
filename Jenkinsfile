@@ -16,7 +16,7 @@ def implementations = [ 'git', 'jgit', 'jgitapache' ]
 
 def tasks = [ : ]
 
-for (int i = 0; i < gitImplementations.size(); ++i) {
+for (int i = 0; i < implementations.size(); ++i) {
   def gitImplementation = implementations[i]
   tasks[gitImplementation] = {
     node('windows') {
