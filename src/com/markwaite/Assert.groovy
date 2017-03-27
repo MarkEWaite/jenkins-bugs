@@ -1,7 +1,7 @@
 package com.markwaite;
 
 def assertCondition(boolean condition, String failure_message) {
-  if (!condition)) {
+  if (!condition) {
     manager.addWarningBadge(failure_message)
     manager.createSummary("warning.gif").appendText("<h1>" + failure_message + "</h1>", false, false, false, "red")
     manager.buildUnstable()
