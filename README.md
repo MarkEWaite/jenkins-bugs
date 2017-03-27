@@ -1,11 +1,5 @@
-# Public repository for Jenkins bug verification.
+# [JENKINS-15103](https://issues.jenkins-ci.org/browse/JENKINS-15103) open pack file prevents workspace wipe
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations to
-duplicate the bug.  This repository captures some of those configurations
-in a way that is publicly visible so that automated tests can use this
-repository.
-
-This repository includes many branches with a Jenkinsfile pipeline
-definition file for branches where the pipeline definition file can
-encapsulate at least a portion of the bug verification step.
+A pack file was left open with command line git and with JGit if the
+branch specifier in a freestyle job used a wildcard character at the
+end of the branch specifier.
