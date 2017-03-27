@@ -8,7 +8,7 @@ def branch = 'JENKINS-15103'
 def origin = "${branch}-origin"
 def repo = 'https://github.com/MarkEWaite/jenkins-bugs'
 
-def Random random = new Random()
+def random = new Random()
 
 node('windows') {
   stage('Checkout') {
