@@ -14,9 +14,9 @@ def random = new Random()
 
 node('windows') {
   stage('Checkout') {
+    def my_check = new com.markwaite.Assert()
     if (random.nextBoolean()) { /* Randomly use pipeline native command to wipe workspace */
       deleteDir()
-      def my_check = new com.markwaite.Assert()
       my_check.assertCondition(!fileExists('.git/objects'), '.git/objects exists after deleteDir')
     }
     checkout([$class: 'GitSCM',
