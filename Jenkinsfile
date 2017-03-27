@@ -4,13 +4,23 @@
 import com.markwaite.Assert
 import com.markwaite.Build
 
-/* Only keep the 10 most recent builds. */
-properties([[$class: 'BuildDiscarderProperty',
-                strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
+def branch = 'JENKINS-15103'
+def origin = "${branch}-origin"
+def repo = 'https://github.com/MarkEWaite/jenkins-bugs'
 
-node {
+node('windows') {
   stage('Checkout') {
-    checkout scm
+    checkout([$class: 'GitSCM',
+              branches: [[name: "${origin}/${branch}*"]], /* Trailing '*' required to see bug */
+              browser: [$class: 'GithubWeb', repoUrl: "${repo}"],
+              extensions: [
+                [$class: 'CloneOption', honorRefspec: true, noTags: true],
+                [$class: 'WipeWorkspace'] /* WipeWorkspace causes the failure due to busy pack file */
+              ],
+              gitTool: 'jgit',
+              userRemoteConfigs: [[name: "${origin}", refspec: "+refs/heads/${branch}:refs/remotes/${origin}/${branch}", url: "${repo}"]]
+             ]
+            )
   }
 
   stage('Build') {
@@ -21,13 +31,6 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    /* JENKINS-41906 reports the master branch starts a build even if
-     * there are no changes detected on the master branch.  This assertion
-     * checks that the commits from the last 15 minutes (reported by 'ant
-     * info') are empty */
-    if (currentBuild.number > 1) { // Don't check first build
-      my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
-      my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
-    }
+    my_check.logContains('.*user dir is :.*', 'Ant output missing user dir report')
   }
 }
