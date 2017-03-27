@@ -19,10 +19,11 @@ node('windows') {
       deleteDir()
       my_check.assertCondition(!fileExists('.git/objects'), '.git/objects exists after deleteDir')
     } else {
-      if (currentBuild.number > 1) { // Don't check first build
+      if (currentBuild.number == 1) {
         my_check.assertCondition(!fileExists('.git/objects'), '.git/objects exists on first build')
       } else {
-        my_check.assertCondition(fileExists('.git/objects'), '.git/objects does not exist after initial build')
+        /* Will fail if a build moves from one node to another, or uses a different workspace */
+        my_check.assertCondition(fileExists('.git/objects'), '.git/objects does not exist on subsequent builds')
       }
     }
     checkout([$class: 'GitSCM',
