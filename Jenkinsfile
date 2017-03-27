@@ -18,6 +18,12 @@ node('windows') {
     if (random.nextBoolean()) { /* Randomly use pipeline native command to wipe workspace */
       deleteDir()
       my_check.assertCondition(!fileExists('.git/objects'), '.git/objects exists after deleteDir')
+    } else {
+      if (currentBuild.number > 1) { // Don't check first build
+        my_check.assertCondition(!fileExists('.git/objects'), '.git/objects exists on first build')
+      } else {
+        my_check.assertCondition(fileExists('.git/objects'), '.git/objects does not exist after initial build')
+      }
     }
     checkout([$class: 'GitSCM',
               branches: [[name: "${origin}/${branch}*"]], /* Trailing '*' required to see bug */
