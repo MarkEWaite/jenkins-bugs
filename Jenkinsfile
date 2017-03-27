@@ -31,6 +31,6 @@ node('windows') {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains('.*user dir is :.*', 'Ant output missing user dir report')
+    my_check.logContains('.*user dir is .*', 'Ant output missing user dir report')
   }
 }
