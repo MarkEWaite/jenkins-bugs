@@ -8,6 +8,8 @@ def branch = 'JENKINS-15103'
 def origin = "${branch}-origin"
 def repo = 'https://github.com/MarkEWaite/jenkins-bugs'
 
+import java.util.Random
+
 def random = new Random()
 
 node('windows') {
