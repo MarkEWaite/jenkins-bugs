@@ -19,7 +19,7 @@ def tasks = [ : ]
 for (int i = 0; i < implementations.size(); ++i) {
   def gitImplementation = implementations[i]
   tasks[gitImplementation] = {
-    node {
+    node('windows') {
       stage("Checkout ${gitImplementation}") {
         def my_check = new com.markwaite.Assert()
         checkout([$class: 'GitSCM',
