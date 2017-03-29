@@ -23,7 +23,7 @@ for (int i = 0; i < implementations.size(); ++i) {
       stage("Checkout ${gitImplementation}") {
         def my_check = new com.markwaite.Assert()
         checkout([$class: 'GitSCM',
-                  branches: [[name: "${origin}/${branch}*"]], /* Trailing '*' required to see bug */
+                  branches: [[name: "${origin}/${branch}"]],
                   browser: [$class: 'GithubWeb', repoUrl: "${repo}"],
                   extensions: [
                     [$class: 'CloneOption', honorRefspec: true, noTags: true],
