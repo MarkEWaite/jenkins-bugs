@@ -1,5 +1,3 @@
-# [JENKINS-15103](https://issues.jenkins-ci.org/browse/JENKINS-15103) open pack file prevents workspace wipe
+# [JENKINS-43198](https://issues.jenkins-ci.org/browse/JENKINS-43198) JGit clean before checkout fails specific gitignore conditions
 
-A pack file was left open with command line git and with JGit if the
-branch specifier in a freestyle job used a wildcard character at the
-end of the branch specifier.
+See [JGit-514434](https://bugs.eclipse.org/bugs/show_bug.cgi?id=514434) for details
