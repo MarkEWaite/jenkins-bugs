@@ -12,7 +12,7 @@ import java.util.Random
 
 def random = new Random()
 
-def implementations = [ 'git', 'jgit', 'jgitapache' ]
+def implementations = [ 'Default', 'jgit', 'jgitapache' ]
 
 def tasks = [ : ]
 
