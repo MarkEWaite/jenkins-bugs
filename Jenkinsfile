@@ -12,7 +12,7 @@ import java.util.Random
 
 def random = new Random()
 
-def implementations = [ 'Default', 'jgit', 'jgitapache' ]
+def implementations = [ 'git', 'jgit', 'jgitapache' ]
 
 def tasks = [ : ]
 
@@ -22,6 +22,7 @@ for (int i = 0; i < implementations.size(); ++i) {
     node('windows') {
       stage("Checkout ${gitImplementation}") {
         def my_check = new com.markwaite.Assert()
+        def impl_name = gitImplementation == 'git' ? 'Default' : gitImplementation
         checkout([$class: 'GitSCM',
                   branches: [[name: "${origin}/${branch}"]],
                   browser: [$class: 'GithubWeb', repoUrl: "${repo}"],
@@ -29,7 +30,7 @@ for (int i = 0; i < implementations.size(); ++i) {
                     [$class: 'CloneOption', honorRefspec: true, noTags: true],
                     [$class: 'CleanBeforeCheckout'], /* This shows the bug */
                   ],
-                  gitTool: "${gitImplementation}",
+                  gitTool: "${impl_name}",
                   userRemoteConfigs: [[name: "${origin}", refspec: "+refs/heads/${branch}:refs/remotes/${origin}/${branch}", url: "${repo}"]]
                  ]
                 )
