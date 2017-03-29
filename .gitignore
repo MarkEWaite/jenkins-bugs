@@ -10,3 +10,7 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+# JENKINS-41398 - JGit clean before checkout fails
+/this_is_ok
+/this_is_ok/not_ok
