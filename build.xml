@@ -18,6 +18,7 @@
     <echo>user dir is ${user.dir}</echo>
 
     <property environment="env"/>
+    <property name="env.BUILD_NUMBER" value="42"/> <!-- in case not set in env -->
 
     <mkdir dir="this_is_ok/more/subdirs"/>
     <echo file="this_is_ok/more/subdirs/build.number">build.number=123${env.BUILD_NUMBER}</echo>
