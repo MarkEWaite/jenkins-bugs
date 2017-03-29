@@ -58,6 +58,7 @@ for (int i = 0; i < implementations.size(); ++i) {
                 )
         my_check.assertCondition(fileExists('.git/objects'), '.git/objects does not exist after checkout')
         my_check.assertCondition(!fileExists('this_is_ok/not_ok/more/subdirs/build.number'), 'not_ok exists after clean')
+        my_step.ant 'info'
       }
     }
   }
