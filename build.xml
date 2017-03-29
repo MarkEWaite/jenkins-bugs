@@ -16,6 +16,22 @@
   <target name="info" description="Report info about this repo">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
+
+    <property environment="env"/>
+
+    <mkdir dir="this_is_ok/more/subdirs"/>
+    <echo file="this_is_ok/more/subdirs/build.number">build.number=123${env.BUILD_NUMBER}</echo>
+    <echo>this_is_ok wrote 123${env.BUILD_NUMBER}</echo>
+
+    <mkdir dir="this_is_ok/not_ok/more/subdirs"/>
+    <echo file="this_is_ok/not_ok/more/subdirs/build.number">build.number=456${env.BUILD_NUMBER}</echo>
+    <buildnumber file="this_is_ok/not_ok/more/subdirs/build.number"/>
+    <echo>not_ok wrote 456${env.BUILD_NUMBER}, previously was ${build.number}</echo>
+
+    <concat>
+      <filelist dir="this_is_ok/not_ok/more/subdirs" files="build.number"/>
+    </concat>
+
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
