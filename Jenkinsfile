@@ -35,7 +35,7 @@ for (int i = 0; i < implementations.size(); ++i) {
                  ]
                 )
         my_check.assertCondition(fileExists('.git/objects'), '.git/objects does not exist after checkout')
-        my_check.assertCondition(!fileExists('this_is_ok/not_ok/more/subdirs/build.number'), 'not_ok exists after clean')
+        my_check.assertCondition(!fileExists('this_is/not_ok/more/subdirs/build.number'), 'not_ok exists after clean')
       }
       stage("Check ${gitImplementation}") {
         /* Call the ant build. */
@@ -43,7 +43,7 @@ for (int i = 0; i < implementations.size(); ++i) {
         my_step.ant 'info'
         def my_check = new com.markwaite.Assert()
         my_check.logContains('.*user dir is .*', 'Ant output missing user dir report')
-        my_check.assertCondition(fileExists('this_is_ok/not_ok/more/subdirs/build.number'), 'not_ok does not exist after build')
+        my_check.assertCondition(fileExists('this_is/not_ok/more/subdirs/build.number'), 'not_ok does not exist after build')
         /* New checkout with clean */
         checkout([$class: 'GitSCM',
                   branches: [[name: "${origin}/${branch}"]],
@@ -57,7 +57,7 @@ for (int i = 0; i < implementations.size(); ++i) {
                  ]
                 )
         my_check.assertCondition(fileExists('.git/objects'), '.git/objects does not exist after checkout')
-        my_check.assertCondition(!fileExists('this_is_ok/not_ok/more/subdirs/build.number'), 'not_ok exists after clean')
+        my_check.assertCondition(!fileExists('this_is/not_ok/more/subdirs/build.number'), 'not_ok exists after clean')
         my_step.ant 'info'
       }
     }
