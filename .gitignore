@@ -13,4 +13,4 @@ hs_err_pid*
 
 # JENKINS-41398 - JGit clean before checkout fails
 /this_is_ok
-/this_is_ok/not_ok
+/this_is/not_ok
