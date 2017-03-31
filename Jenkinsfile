@@ -33,6 +33,7 @@ for (int i = 0; i < implementations.size(); ++i) {
             my_check.assertCondition(fileExists('.git/objects'), '.git/objects does not exist on subsequent builds')
           }
         }
+        def implementation = gitImplementation == "git" ? "Default" : gitImplementation
         checkout([$class: 'GitSCM',
                   branches: [[name: "${origin}/${branch}*"]], /* Trailing '*' required to see bug */
                   browser: [$class: 'GithubWeb', repoUrl: "${repo}"],
@@ -40,7 +41,7 @@ for (int i = 0; i < implementations.size(); ++i) {
                     [$class: 'CloneOption', honorRefspec: true, noTags: true],
                     [$class: 'WipeWorkspace'] /* WipeWorkspace causes the failure due to busy pack file */
                   ],
-                  gitTool: "${gitImplementation}",
+                  gitTool: "${implementation}",
                   userRemoteConfigs: [[name: "${origin}", refspec: "+refs/heads/${branch}:refs/remotes/${origin}/${branch}", url: "${repo}"]]
                  ]
                 )
