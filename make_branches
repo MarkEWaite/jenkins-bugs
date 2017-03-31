@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# This is a work in progress - does not yet do what needs to be done
+
 for origin in $(git branch -a | grep origin.*JENKINS | sed 's!remotes/!!g'); do
         bug=$(echo $origin | sed -e 's!.*JENKINS!JENKINS!g' -e 's!/.*$!!g')
         branch=$(echo $origin | sed 's!origin/!!g')
