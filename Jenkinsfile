@@ -9,7 +9,7 @@ node {
     checkout([
       $class: 'GitSCM',
       branches: scm.branches,
-      userRemoteConfigs: scm.userRemoteConfigs + [name: 'origin-b']
+      userRemoteConfigs: scm.userRemoteConfigs + [name: 'origin']
     ])
   }
 
