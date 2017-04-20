@@ -24,13 +24,13 @@ for (int i = 0; i < implementations.size(); ++i) {
         def my_check = new com.markwaite.Assert()
         if (random.nextBoolean()) { /* Randomly use pipeline native command to wipe workspace */
           deleteDir()
-          my_check.assertCondition(!fileExists('.git/objects'), '.git/objects exists after deleteDir')
+          my_check.assertCondition(!fileExists('.git/objects'), ".git/objects exists after ${gitImplementation} deleteDir")
         } else {
           if (currentBuild.number == 1) {
-            my_check.assertCondition(!fileExists('.git/objects'), '.git/objects exists on first build')
+            my_check.assertCondition(!fileExists('.git/objects'), ".git/objects exists on first ${gitImplementation} build")
           } else {
             /* Will fail if a build moves from one node to another, or uses a different workspace */
-            my_check.assertCondition(fileExists('.git/objects'), '.git/objects does not exist on subsequent builds')
+            my_check.assertCondition(fileExists('.git/objects'), ".git/objects does not exist on subsequent ${gitImplementation} build")
           }
         }
         def implementation = gitImplementation == "git" ? "Default" : gitImplementation
