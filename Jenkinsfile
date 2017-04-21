@@ -4,9 +4,8 @@
 import com.markwaite.Assert
 import com.markwaite.Build
 
-/* Only keep the 10 most recent builds. */
-properties([[$class: 'BuildDiscarderProperty',
-                strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
+/* Poll every 5 minutes. */
+properties(pipelineTriggers([pollSCM('H/5 * * * *')]))
 
 node {
   stage('Checkout') {
