@@ -7,23 +7,28 @@ import com.markwaite.Build
 /* Poll every 7 minutes. */
 properties([pipelineTriggers([pollSCM('H/7 * * * *')])])
 
+def use_simple_checkout_scm = false
+
 node {
   stage('Checkout') {
-    /* Less complex checkout command has continuous false detection of changes */
-    /* checkout scm */
-    /* More complex checkout command seems to stop continuous false detection of changes */
-    checkout([$class: 'GitSCM',
-              branches: [[name: 'JENKINS-43754']],
-              browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
-              extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                           [$class: 'LocalBranch', localBranch: '**'],
-                           [$class: 'CleanCheckout'],
-                           [$class: 'AuthorInChangelog']
-                          ],
-              userRemoteConfigs: [[name: 'bugs-origin',
-                                   refspec: '+refs/heads/JENKINS-43754:refs/remotes/bugs-origin/JENKINS-43754',
-                                   url: 'https://github.com/MarkEWaite/jenkins-bugs']],
-            ])
+    if (use_simple_checkout_scm) {
+      /* Less complex checkout command has continuous false detection of changes */
+      checkout scm
+    } else {
+      /* More complex checkout command seems to stop continuous false detection of changes */
+      checkout([$class: 'GitSCM',
+                branches: [[name: 'JENKINS-43754']],
+                browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
+                extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+                             [$class: 'LocalBranch', localBranch: '**'],
+                             [$class: 'CleanCheckout'],
+                             [$class: 'AuthorInChangelog']
+                            ],
+                userRemoteConfigs: [[name: 'bugs-origin',
+                                     refspec: '+refs/heads/JENKINS-43754:refs/remotes/bugs-origin/JENKINS-43754',
+                                     url: 'https://github.com/MarkEWaite/jenkins-bugs']],
+              ])
+    }
   }
 
   stage('Build') {
