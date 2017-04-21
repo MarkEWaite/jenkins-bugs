@@ -17,16 +17,16 @@ node {
     } else {
       /* More complex checkout command seems to stop continuous false detection of changes */
       checkout([$class: 'GitSCM',
-                branches: [[name: 'JENKINS-43468']],
-                browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
-                extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                             [$class: 'LocalBranch', localBranch: '**'],
-                             [$class: 'CleanCheckout'],
-                             [$class: 'AuthorInChangelog']
-                            ],
-                userRemoteConfigs: [[name: 'bugs-origin',
-                                     refspec: '+refs/heads/JENKINS-43468:refs/remotes/bugs-origin/JENKINS-43468',
-                                     url: 'https://github.com/MarkEWaite/jenkins-bugs']],
+                branches: [[name: '*/JENKINS-43468']],
+                // extensions: [[$class: 'CloneOption',
+                //                       honorRefspec: true,
+                //                       noTags: true,
+                //                       reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+                //              [$class: 'LocalBranch', localBranch: '**'],
+                //              [$class: 'CleanCheckout'],
+                //              [$class: 'AuthorInChangelog']
+                //             ],
+                userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs']],
               ])
     }
   }
