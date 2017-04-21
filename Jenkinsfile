@@ -9,6 +9,7 @@ properties([pipelineTriggers([pollSCM('H/2 * * * *')])])
 
 node {
   stage('Checkout') {
+    /* More complex checkout command seems to stop continuous false detection of changes */
     checkout([$class: 'GitSCM',
               branches: [[name: 'JENKINS-43687']],
               browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
@@ -21,6 +22,8 @@ node {
                                    refspec: '+refs/heads/JENKINS-43687:refs/remotes/bugs-origin/JENKINS-43687',
                                    url: 'https://github.com/MarkEWaite/jenkins-bugs']],
             ])
+    /* Less complex checkout command has continuous false detection of changes */
+    /* checkout scm */
   }
 
   stage('Build') {
