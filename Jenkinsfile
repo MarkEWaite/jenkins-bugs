@@ -23,10 +23,9 @@ node {
 			   [$class: 'LocalBranch', localBranch: 'JENKINS-34309'],
 			   [$class: 'AuthorInChangelog']],
 	      gitTool: 'Default',
-	      userRemoteConfigs: [[credentialsId: 'MarkEWaite-github-rsa-private-key',
-				   name: 'origin',
+	      userRemoteConfigs: [[name: 'origin',
 				   refspec: '+refs/heads/JENKINS-34309:refs/remotes/origin/JENKINS-34309',
-				   url: 'git@github.com:MarkEWaite/jenkins-bugs']]])
+				   url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
   }
 
   stage('Build') {
