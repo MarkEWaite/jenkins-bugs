@@ -5,7 +5,7 @@ import com.markwaite.Assert
 import com.markwaite.Build
 
 /* Poll every 5 minutes. */
-properties([pipelineTriggers([pollSCM('H/5 * * * *')])])
+properties([pipelineTriggers([pollSCM('H/2 * * * *')])])
 
 node {
   stage('Checkout') {
