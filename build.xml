@@ -1,4 +1,4 @@
-<project name="JENKINS-43754" default="increment" basedir=".">
+<project name="JENKINS-43468" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
     <echo>java is ${java.version}</echo>
@@ -17,8 +17,8 @@
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
-    <!-- JENKINS-43754 reports that polling configured from inside
-         Jenkinsfile always rebuilds if a simple 'checkout scm' is used.
+    <!-- JENKINS-43468 reports that polling configured from inside
+         Jenkinsfile always rebuilds if a specific 'checkout scm' is used.
          -->
     <echo>Displaying git log messages on this branch from last 15 minutes</echo>
     <git command="log">

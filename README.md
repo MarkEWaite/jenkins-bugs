@@ -1,4 +1,4 @@
-# [JENKINS-43754](https://issues.jenkins-ci.org/browse/JENKINS-43754) False detection of changes with simple 'checkout scm'
+# [JENKINS-43468](https://issues.jenkins-ci.org/browse/JENKINS-43754) False detection of changes with simple 'checkout scm'
 
 This Jenkins job polls every 7 minutes.  Intentionally doesn't define
 a notifyCommit repository so the notification will not be called for

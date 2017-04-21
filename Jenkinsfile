@@ -17,7 +17,7 @@ node {
     } else {
       /* More complex checkout command seems to stop continuous false detection of changes */
       checkout([$class: 'GitSCM',
-                branches: [[name: 'JENKINS-43754']],
+                branches: [[name: 'JENKINS-43468']],
                 browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                              [$class: 'LocalBranch', localBranch: '**'],
@@ -25,7 +25,7 @@ node {
                              [$class: 'AuthorInChangelog']
                             ],
                 userRemoteConfigs: [[name: 'bugs-origin',
-                                     refspec: '+refs/heads/JENKINS-43754:refs/remotes/bugs-origin/JENKINS-43754',
+                                     refspec: '+refs/heads/JENKINS-43468:refs/remotes/bugs-origin/JENKINS-43468',
                                      url: 'https://github.com/MarkEWaite/jenkins-bugs']],
               ])
     }
@@ -39,7 +39,7 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    /* JENKINS-43754 reports that polling detects changes when none exist.  */
+    /* JENKINS-43468 reports that polling detects changes when none exist.  */
     if (currentBuild.number > 1) { // Don't check first build
       my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
       my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
