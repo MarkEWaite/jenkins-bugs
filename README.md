@@ -14,3 +14,5 @@ The more complex checkout command does not show the same problem.
 
 I believe this is a duplicate of one or more other bugs, but could not
 find the bug report.
+
+Refer to use_simple_checkout_scm in Jenkinsfile for the toggle.
