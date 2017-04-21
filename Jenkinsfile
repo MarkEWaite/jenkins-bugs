@@ -4,7 +4,7 @@
 import com.markwaite.Assert
 import com.markwaite.Build
 
-/* Poll every 5 minutes. */
+/* Poll every 2 minutes. */
 properties([pipelineTriggers([pollSCM('H/2 * * * *')])])
 
 node {
