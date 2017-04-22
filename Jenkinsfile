@@ -7,7 +7,7 @@ import com.markwaite.Build
 /* Poll every 7 minutes. */
 properties([pipelineTriggers([pollSCM('H/2 * * * *')])])
 
-def use_simple_checkout_scm = true
+def use_simple_checkout_scm = false
 
 node {
   stage('Checkout') {
