@@ -18,6 +18,8 @@ node {
       /* More complex checkout command seems to stop continuous false detection of changes */
       checkout([$class: 'GitSCM',
                 branches: [[name: '*/JENKINS-43468']],
+                doGenerateSubmoduleConfigurations: false,
+                submoduleCfg: [],
                 // extensions: [[$class: 'CloneOption',
                 //                       honorRefspec: true,
                 //                       noTags: true,
