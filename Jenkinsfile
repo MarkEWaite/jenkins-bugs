@@ -10,7 +10,6 @@ properties([pipelineTriggers([pollSCM('H/2 * * * *')])])
 def use_simple_checkout_scm = false
 
 node {
-  wrap([$class: 'AnsiColorBuildWrapper']) {
   stage('Checkout') {
     if (use_simple_checkout_scm) {
       /* Less complex checkout command has continuous false detection of changes */
@@ -32,7 +31,6 @@ node {
                 userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs']],
               ])
     }
-  }
   }
 
   stage('Build') {
