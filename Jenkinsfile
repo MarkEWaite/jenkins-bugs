@@ -17,7 +17,8 @@ node {
     } else {
       /* More complex checkout command seems to stop continuous false detection of changes */
       checkout([$class: 'GitSCM',
-                branches: [[name: '*/JENKINS-43468']],
+                branches: [[name: '*/JENKINS-43818']],
+                // branches: [[name: "*/${BRANCH_SPECIFIER}"]],
                 doGenerateSubmoduleConfigurations: false,
                 submoduleCfg: [],
                 userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs']],
@@ -33,7 +34,7 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    /* JENKINS-43468 reports that polling detects changes when none exist.  */
+    /* JENKINS-43818 reports that parameters are ignored in branch specifier.  */
     if (currentBuild.number > 1) { // Don't check first build
       my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
       my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
