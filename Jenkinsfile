@@ -11,7 +11,6 @@ def branch='JENKINS-43818'
 
 properties([parameters([choice(choices: ['JENKINS-43818', 'master'], description: 'Branch to build', name: 'BRANCH_SPECIFIER')])])
 
-
 node {
   stage('Checkout') {
     branch = "${params.BRANCH_SPECIFIER}"
