@@ -4,42 +4,30 @@
 import com.markwaite.Assert
 import com.markwaite.Build
 
-def use_simple_checkout_scm = false
-
 def repo_url='https://github.com/MarkEWaite/jenkins-bugs'
 def branch='JENKINS-43818'
 
-properties([parameters([string(defaultValue: 'JENKINS-43818', description: 'Branch to build', name: 'BRANCH_SPECIFIER')])])
+properties([parameters([string(defaultValue: "${branch}", description: 'Branch to build', name: 'BRANCH_SPECIFIER')])])
 
 node {
   stage('Checkout') {
     branch = "${params.BRANCH_SPECIFIER}"
     echo "Branch specifier is ${branch}"
-    if (use_simple_checkout_scm) {
-      /* Less complex checkout command has continuous false detection of changes */
-      checkout scm
-    } else {
-      /* More complex checkout command seems to stop continuous false detection of changes */
-      checkout([$class: 'GitSCM',
-                branches: [[name: "${branch}"]],
-                // branches: [[name: "${params.BRANCH_SPECIFIER}"]],
-                doGenerateSubmoduleConfigurations: false,
-                submoduleCfg: [],
-                userRemoteConfigs: [[name: 'origin',
-                                    refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}",
-                                    url: "${repo_url}"]],
-                extensions: [
-                              [$class: 'CloneOption',
-                                depth: 0,
-                                honorRefspec: true,
-                                noTags: true,
-                                reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
-                                shallow: false,
-                                timeout: 8],
-                              [$class: 'LocalBranch', localBranch: "**"],
-                            ],
-              ])
-    }
+    checkout([$class: 'GitSCM',
+              branches: [[name: "${branch}"]],
+              doGenerateSubmoduleConfigurations: false,
+              submoduleCfg: [],
+              userRemoteConfigs: [[name: 'origin',
+                                  refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}",
+                                  url: "${repo_url}"]],
+              extensions: [
+                            [$class: 'CloneOption',
+                              honorRefspec: true,
+                              noTags: true,
+                              reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+                            [$class: 'LocalBranch', localBranch: "**"],
+                          ],
+            ])
   }
 
   stage('Build') {
