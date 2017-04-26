@@ -9,8 +9,13 @@ def use_simple_checkout_scm = false
 def repo_url='https://github.com/MarkEWaite/jenkins-bugs'
 def branch='JENKINS-43818'
 
+properties([parameters([choice(choices: ['JENKINS-43818', 'master'], description: 'Branch to build', name: 'BRANCH_SPECIFIER')])])
+
+
 node {
   stage('Checkout') {
+    branch = "${params.BRANCH_SPECIFIER}"
+    echo "Branch specifier is ${branch}"
     if (use_simple_checkout_scm) {
       /* Less complex checkout command has continuous false detection of changes */
       checkout scm
@@ -18,7 +23,7 @@ node {
       /* More complex checkout command seems to stop continuous false detection of changes */
       checkout([$class: 'GitSCM',
                 branches: [[name: "${branch}"]],
-                // branches: [[name: "*/${BRANCH_SPECIFIER}"]],
+                // branches: [[name: "${params.BRANCH_SPECIFIER}"]],
                 doGenerateSubmoduleConfigurations: false,
                 submoduleCfg: [],
                 userRemoteConfigs: [[name: 'origin',
