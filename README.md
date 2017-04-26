@@ -4,10 +4,12 @@ When using extended SCM configuration with multibranch pipeline plugin
 then SCM views, all the links and revision info is shown twice on the
 build view.
 
-If using the configuration as the following one
+If using a configuration like the following:
 ```
-stage('Checkout') {
-  checkout scm
+node {
+  stage('Checkout') {
+    checkout scm
+  }
 }
 ```
 then SCM information is displayed only once.
