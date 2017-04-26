@@ -48,7 +48,6 @@ node('master') {
   }
 
   stage('Build') {
-    /* Call the ant build. */
     // ant " -Dconfig.file=../config.xml count" // Valid test of bug, but pipeline job def does not include a build chooser
     def step = new com.markwaite.Build()
     step.ant "count" // Counts a file in current directory, not a valid test of the bug
