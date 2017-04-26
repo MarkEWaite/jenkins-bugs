@@ -4,9 +4,6 @@
 import com.markwaite.Assert
 import com.markwaite.Build
 
-/* Poll every 2 minutes. */
-properties([pipelineTriggers([pollSCM('H/2 * * * *')])])
-
 def use_simple_checkout_scm = false
 
 def repo_url='https://github.com/MarkEWaite/jenkins-bugs'
