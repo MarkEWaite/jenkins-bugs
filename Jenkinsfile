@@ -7,9 +7,9 @@ import com.markwaite.Build
 def repo_url='https://github.com/MarkEWaite/jenkins-bugs'
 def branch='JENKINS-43818'
 
-// properties([parameters([string(defaultValue: "${branch}", description: 'Branch to build', name: 'BRANCH_SPECIFIER')])])
+properties([parameters([string(defaultValue: "${branch}", description: 'Branch to build', name: 'BRANCH_SPECIFIER')])])
 
-properties([parameters([choice(choices: ["${branch}", 'master'], description: 'Branch to build (as a choice parameter)', name: 'BRANCH_SPECIFIER')])])
+// properties([parameters([choice(choices: ["${branch}", 'master'], description: 'Branch to build (as a choice parameter)', name: 'BRANCH_SPECIFIER')])])
 
 node {
   stage('Checkout') {
