@@ -9,6 +9,9 @@ properties([pipelineTriggers([pollSCM('H/2 * * * *')])])
 
 def use_simple_checkout_scm = false
 
+def repo_url='https://github.com/MarkEWaite/jenkins-bugs'
+def branch='JENKINS-43818'
+
 node {
   stage('Checkout') {
     if (use_simple_checkout_scm) {
@@ -17,11 +20,23 @@ node {
     } else {
       /* More complex checkout command seems to stop continuous false detection of changes */
       checkout([$class: 'GitSCM',
-                branches: [[name: '*/JENKINS-43818']],
+                branches: [[name: "${branch}"]],
                 // branches: [[name: "*/${BRANCH_SPECIFIER}"]],
                 doGenerateSubmoduleConfigurations: false,
                 submoduleCfg: [],
-                userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs']],
+                userRemoteConfigs: [[name: 'origin',
+                                    refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}",
+                                    url: "${repo_url}"]],
+                extensions: [
+                              [$class: 'CloneOption',
+                                depth: 0,
+                                honorRefspec: true,
+                                noTags: true,
+                                reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
+                                shallow: false,
+                                timeout: 8],
+                              [$class: 'LocalBranch', localBranch: "**"],
+                            ],
               ])
     }
   }
