@@ -54,5 +54,6 @@ node {
       my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
       my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
     }
+    my_check.logContains('.*\* JENKINS-43818.*', 'Expected branch name not in output')
   }
 }
