@@ -9,7 +9,7 @@ def use_simple_checkout_scm = false
 def repo_url='https://github.com/MarkEWaite/jenkins-bugs'
 def branch='JENKINS-43818'
 
-properties([parameters([choice(choices: ['JENKINS-43818', 'master'], description: 'Branch to build', name: 'BRANCH_SPECIFIER')])])
+properties([parameters([string(defaultValue: 'JENKINS-43818', description: 'Branch to build', name: 'BRANCH_SPECIFIER')])])
 
 node {
   stage('Checkout') {
