@@ -19,6 +19,8 @@
     <git command="branch" />
     <!-- JENKINS-43687 reports that polling configured from inside
          Jenkinsfile does not detect changes in the branch.
+         This job does not show the bug, but it shows that the job
+         builds repeatedly even if no changes are made to the repo.
          -->
     <echo>Displaying git log messages on this branch from last 15 minutes</echo>
     <git command="log">
