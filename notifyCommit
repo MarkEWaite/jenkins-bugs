@@ -71,9 +71,13 @@ if [ -z "$NO_CRUMB_REQUIRED" ]; then
         echo Exiting: No crumb returned by $SERVER
         exit 4
     fi
+    if [[ $crumb =~ '<html>' ]]; then
+        echo Exiting: html instead of crumb returned by $SERVER: $crumb
+        exit 5
+    fi
     if [ ${#crumb} -gt 60 ]; then
         echo Exiting: Long crumb returned by $SERVER: $crumb
-        exit 5
+        exit 6
     fi
 fi
 
