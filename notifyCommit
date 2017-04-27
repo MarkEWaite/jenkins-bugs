@@ -69,7 +69,7 @@ fi
 
 prefix=$RANDOM
 
-crumb_output=${prefix}-crumb
+crumb_output=${prefix}-crumbfull
 
 echo "Notifying URL=$SERVER POST using crumb: $crumb"
 curl -s -H "$crumb" -X POST $SERVER/git/notifyCommit?url=$GIT_URL -o $crumb_output
