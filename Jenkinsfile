@@ -20,8 +20,6 @@ node {
   }
 
   stage('Verify') {
-    def check = new com.markwaite.Assert()
-    check.logDoesNotContain(".*  origin.*JENKINS-37727-.*pruned", "Too many JENKINS-37727-* branches!")
     count = 0
     for (String logLine : currentBuild.rawBuild.getLog(100)) {
       if (logLine.contains("  origin") && logLine.contains("JENKINS-37727-") && !logLine.contains("pruned")) {
