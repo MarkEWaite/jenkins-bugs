@@ -51,10 +51,6 @@ if [ -z "$GIT_URL" ]; then
     usage
 fi
 
-suffix=$RANDOM
-
-crumb_output=crumb-$suffix
-
 echo "Querying URL=$SERVER for CSRF crumb"
 crumb=$(curl -s $SERVER/crumbIssuer/api/xml?xpath=concat\(//crumbRequestField,%22:%22,//crumb\))
 if [ -z "$crumb" ]; then
@@ -66,10 +62,14 @@ if [ ${#crumb} -gt 60 ]; then
         exit 3
 fi
 
+prefix=$RANDOM
+
+crumb_output=${prefix}-crumb
+
 echo "Notifying URL=$SERVER POST using crumb: $crumb"
 curl -s -H "$crumb" -X POST $SERVER/git/notifyCommit?url=$GIT_URL -o $crumb_output
 
-no_crumb_output=no-crumb-$suffix
+no_crumb_output=${prefix}-crumbless
 
 echo "Notifying URL=$SERVER POST with no crumb"
 curl -s -X POST $SERVER/git/notifyCommit?url=$GIT_URL -o $no_crumb_output
