@@ -4,14 +4,10 @@
 import com.markwaite.Assert
 import com.markwaite.Build
 
-/* Poll every 13 minutes. */
-properties([pipelineTriggers([pollSCM('H/13 * * * *')])])
-
-node {
+node('linux') { // Needs curl installed
   stage('Checkout') {
-    /* More complex checkout command seems to stop continuous false detection of changes */
     checkout([$class: 'GitSCM',
-              branches: [[name: 'JENKINS-43687']],
+              branches: [[name: 'JENKINS-34350']],
               browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
               extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                            [$class: 'LocalBranch', localBranch: '**'],
@@ -19,7 +15,7 @@ node {
                            [$class: 'AuthorInChangelog']
                           ],
               userRemoteConfigs: [[name: 'bugs-origin',
-                                   refspec: '+refs/heads/JENKINS-43687:refs/remotes/bugs-origin/JENKINS-43687',
+                                   refspec: '+refs/heads/JENKINS-34350:refs/remotes/bugs-origin/JENKINS-34350',
                                    url: 'https://github.com/MarkEWaite/jenkins-bugs']],
             ])
   }
@@ -32,10 +28,7 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    /* JENKINS-43687 reports that polling did not detect changes, this checks the opposite.  */
-    if (currentBuild.number > 1) { // Don't check first build
-      my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
-      my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
-    }
+    /* JENKINS-34350 reports that notifyCommit breaks when CSRF protection is enabled.  */
+    my_check.logContains('.*notifyCommit script did not crash.*', 'notifyCommit script output missing')
   }
 }
