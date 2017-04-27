@@ -2,7 +2,6 @@
 
   <!-- Synchronize repositories -->
   <target name="sync" description="Synchronize git repositories">
-    <echo>java is ${java.version}</echo>
     <git command="pull">
       <args>
         <arg value="--all"/>
