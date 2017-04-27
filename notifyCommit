@@ -97,3 +97,4 @@ else
     curl -s -X POST $SERVER/git/notifyCommit?url=$GIT_URL -o $no_crumb_output
     grep -q -F '<html>' $no_crumb_output && failed_without_crumb
 fi
+exit 0
