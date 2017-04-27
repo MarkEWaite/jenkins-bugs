@@ -5,18 +5,26 @@
 # Default Jenkins URL from JENKINS_URL environment variable
 # Default git repo URL from current repository
 
-usage() { echo "Usage: $0 [-s jenkins_server_url] [-u git_repo_url]" 1>&2; exit 1; }
+usage() { echo "Usage: $0 [-s jenkins_server_url] [-u git_repo_url] [-n]" 1>&2; exit 1; }
+
+failed_with_crumb() { echo Failed with crumb; exit 2; }
+
+failed_without_crumb() { echo Failed without crumb; exit 3; }
 
 SERVER=
 GIT_URL=
+NO_CRUMB_REQUIRED=
 
-while getopts ":s:u:" o; do
+while getopts ":s:u:n" o; do
     case "${o}" in
         s)
             SERVER=${OPTARG}
             ;;
         u)
             GIT_URL=${OPTARG}
+            ;;
+        n)
+            NO_CRUMB_REQUIRED=true
             ;;
         *)
             usage
@@ -56,25 +64,31 @@ if [ -z "$GIT_URL" ]; then
     usage
 fi
 
-echo "Querying URL=$SERVER for CSRF crumb"
-crumb=$(curl -s $SERVER/crumbIssuer/api/xml?xpath=concat\(//crumbRequestField,%22:%22,//crumb\))
-if [ -z "$crumb" ]; then
+if [ -z "$NO_CRUMB_REQUIRED" ]; then
+    echo "Querying URL=$SERVER for CSRF crumb"
+    crumb=$(curl -s $SERVER/crumbIssuer/api/xml?xpath=concat\(//crumbRequestField,%22:%22,//crumb\))
+    if [ -z "$crumb" ]; then
         echo Exiting: No crumb returned by $SERVER
-        exit 2
-fi
-if [ ${#crumb} -gt 60 ]; then
+        exit 4
+    fi
+    if [ ${#crumb} -gt 60 ]; then
         echo Exiting: Long crumb returned by $SERVER: $crumb
-        exit 3
+        exit 5
+    fi
 fi
 
 prefix=$RANDOM
 
-crumb_output=${prefix}-crumbfull
+if [ -z "$NO_CRUMB_REQUIRED" ]; then
+    crumb_output=${prefix}-crumbfull
+    echo "Notifying URL=$SERVER POST using crumb: $crumb"
+    curl -s -H "$crumb" -X POST $SERVER/git/notifyCommit?url=$GIT_URL -o $crumb_output
+    grep -q -F '<html>' $crumb_output && failed_with_crumb
+fi
 
-echo "Notifying URL=$SERVER POST using crumb: $crumb"
-curl -s -H "$crumb" -X POST $SERVER/git/notifyCommit?url=$GIT_URL -o $crumb_output
-
-no_crumb_output=${prefix}-crumbless
-
-echo "Notifying URL=$SERVER POST with no crumb"
-curl -s -X POST $SERVER/git/notifyCommit?url=$GIT_URL -o $no_crumb_output
+if [ -n "$NO_CRUMB_REQUIRED" ]; then
+    no_crumb_output=${prefix}-crumbless
+    echo "Notifying URL=$SERVER POST with no crumb"
+    curl -s -X POST $SERVER/git/notifyCommit?url=$GIT_URL -o $no_crumb_output
+    grep -q -F '<html>' $no_crumb_output && failed_without_crumb
+fi
