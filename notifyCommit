@@ -13,7 +13,7 @@ failed_without_crumb() { echo Failed without crumb; exit 3; }
 
 SERVER=
 GIT_URL=
-NO_CRUMB_REQUIRED=
+NO_CRUMB_ALLOWED=
 
 while getopts ":s:u:n" o; do
     case "${o}" in
@@ -24,7 +24,7 @@ while getopts ":s:u:n" o; do
             GIT_URL=${OPTARG}
             ;;
         n)
-            NO_CRUMB_REQUIRED=true
+            NO_CRUMB_ALLOWED=true
             ;;
         *)
             usage
@@ -64,14 +64,14 @@ if [ -z "$GIT_URL" ]; then
     usage
 fi
 
-if [ -z "$NO_CRUMB_REQUIRED" ]; then
+if [ -z "$NO_CRUMB_ALLOWED" ]; then
     crumb=$(curl -s $SERVER/crumbIssuer/api/xml?xpath=concat\(//crumbRequestField,%22:%22,//crumb\))
     if [ -z "$crumb" ]; then
         echo Exiting: No crumb returned by $SERVER
         exit 4
     fi
     if [[ $crumb =~ 'HTTP ERROR 404' ]]; then
-        NO_CRUMB_REQUIRED=true
+        NO_CRUMB_ALLOWED=true
     else
         if [[ $crumb =~ '<html>' ]]; then
             echo Exiting: html instead of crumb returned by $SERVER: $crumb
@@ -86,15 +86,20 @@ fi
 
 prefix=$RANDOM
 
-if [ -z "$NO_CRUMB_REQUIRED" ]; then
+# Check that it works with the crumb (if crumbs allowed)
+
+if [ -z "$NO_CRUMB_ALLOWED" ]; then
     crumb_output=${prefix}-crumbfull
     echo "Notifying URL=$SERVER POST using crumb: $crumb"
     curl -s -H "$crumb" -X POST $SERVER/git/notifyCommit?url=$GIT_URL -o $crumb_output
     grep -q -F '<html>' $crumb_output && failed_with_crumb
-else
-    no_crumb_output=${prefix}-crumbless
-    echo "Notifying URL=$SERVER POST with no crumb"
-    curl -s -X POST $SERVER/git/notifyCommit?url=$GIT_URL -o $no_crumb_output
-    grep -q -F '<html>' $no_crumb_output && failed_without_crumb
 fi
+
+# Check that it works without the crumb (always)
+
+no_crumb_output=${prefix}-crumbless
+echo "Notifying URL=$SERVER POST with no crumb"
+curl -s -X POST $SERVER/git/notifyCommit?url=$GIT_URL -o $no_crumb_output
+grep -q -F '<html>' $no_crumb_output && failed_without_crumb
+
 exit 0
