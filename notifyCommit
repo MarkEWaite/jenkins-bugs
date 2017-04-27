@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Call the Jenkins /git/notifyCommit URL with git repo url
+#
+# Default Jenkins URL from JENKINS_URL environment variable
+# Default git repo URL from current repository
+
 usage() { echo "Usage: $0 [-s jenkins_server_url] [-u git_repo_url]" 1>&2; exit 1; }
 
 SERVER=
