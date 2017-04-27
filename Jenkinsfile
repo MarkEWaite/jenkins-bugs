@@ -29,6 +29,6 @@ node('linux') { // Needs curl installed
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     /* JENKINS-34350 reports that notifyCommit breaks when CSRF protection is enabled.  */
-    my_check.logContains('.*notifyCommit script did not crash.*', 'notifyCommit script output missing')
+    my_check.logContains('.*notifyCommit script exited normally.*', 'notifyCommit script output missing')
   }
 }
