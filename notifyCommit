@@ -41,6 +41,8 @@ fi
 if [ -z "$SERVER" ]; then
     usage
 fi
+# remove trailing slash from SERVER, fails CSRF exclusion check
+SERVER=${SERVER%/}
 
 # Assure URL of git repository is set
 
