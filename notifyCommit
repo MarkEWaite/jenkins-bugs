@@ -88,7 +88,7 @@ fi
 
 prefix=$RANDOM
 
-# Check that it works with the crumb (if crumbs allowed)
+# Check that it works with the crumb (if crumb needed)
 
 if [ "$NEED_CRUMB" == "true" ]; then
     crumb_output=${prefix}-crumbfull
