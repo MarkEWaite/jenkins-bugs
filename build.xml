@@ -18,7 +18,7 @@
     <!-- JENKINS-34350 reports POST to the notifyCommit URL breaks
          when CSRF protection is enabled.
          -->
-    <exec executable="./notifyCommit"/>
+    <exec executable="./notifyCommit" failonerror="true"/>
     <echo>notifyCommit script exited normally</echo>
   </target>
 
@@ -29,7 +29,7 @@
     <element name="args" optional="true" />
     <sequential>
       <echo message="git @{command}" />
-      <exec executable="git" dir="@{dir}">
+      <exec executable="git" dir="@{dir}" failonerror="true">
         <arg value="@{command}" />
         <args/>
       </exec>
