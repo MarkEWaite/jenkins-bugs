@@ -18,8 +18,8 @@
     <!-- JENKINS-34350 reports POST to the notifyCommit URL breaks
          when CSRF protection is enabled.
          -->
-    <exec executable="notifyCommit"/>
-    <echo>notifyCommit script did not crash</echo>
+    <exec executable="./notifyCommit"/>
+    <echo>notifyCommit script exited normally</echo>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
