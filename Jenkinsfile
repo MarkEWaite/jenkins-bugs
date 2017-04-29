@@ -10,38 +10,34 @@ properties([[$class: 'BuildDiscarderProperty',
 
 node {
   stage('Checkout') {
-    // Slow form - clone the whole repository
-    // checkout scm
-
-    // Fast form - clone subset
     checkout([$class: 'GitSCM',
               userRemoteConfigs: [[name: 'bugs-origin',
-                                   refspec: '+refs/heads/JENKINS-35475:refs/remotes/bugs-origin/JENKINS-35475',
+                                   refspec: '+refs/heads/JENKINS-43931:refs/remotes/bugs-origin/JENKINS-43931',
                                    url: 'https://github.com/MarkEWaite/jenkins-bugs']],
-              branches: [[name: 'bugs-origin/JENKINS-35475']],
+              branches: [[name: 'JENKINS-43931']],
               browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
               extensions: [
                 [$class: 'AuthorInChangelog'],
                 [$class: 'CleanBeforeCheckout'],
                 [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                [$class: 'LocalBranch', localBranch: 'JENKINS-35475'],
+                [$class: 'LocalBranch', localBranch: 'JENKINS-43931'],
               ],
              ])
 
-    // Checkout to JENKINS-35475 subdirectory
+    // Checkout to 'has a space' subdirectory
     // Fast form - clone subset to subdirectory
-    dir('JENKINS-35475') {
+    dir('has a space') {
       checkout([$class: 'GitSCM',
                 userRemoteConfigs: [[name: 'bugs-origin-subdir',
-                                     refspec: '+refs/heads/JENKINS-35475:refs/remotes/bugs-origin-subdir/JENKINS-35475',
+                                     refspec: '+refs/heads/JENKINS-43931:refs/remotes/bugs-origin-subdir/JENKINS-43931',
                                      url: 'https://github.com/MarkEWaite/jenkins-bugs']],
-                branches: [[name: 'JENKINS-35475']],
+                branches: [[name: 'JENKINS-43931']],
                 browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
                 extensions: [
                   [$class: 'AuthorInChangelog'],
                   [$class: 'CleanBeforeCheckout'],
                   [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '../.git', shallow: true],
-                  [$class: 'LocalBranch', localBranch: 'JENKINS-35475'],
+                  [$class: 'LocalBranch', localBranch: 'JENKINS-43931'],
                 ],
                ])
     }
@@ -55,11 +51,10 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    /* JENKINS-35475 reports links and revision info is shown twice on
+    /* JENKINS-43931 reports links and revision info is shown twice on
      * the build view when extended checkout syntax is used. This does
      * not check the bug is fixed.
      */
-    my_check.logContains('.*Directory contents:.*README.md.*', 'No README file')
-    my_check.logContains('.*Directory contents:.*JENKINS-35475.Jenkinsfile.*', 'No JENKINS-35475 Jenkinsfile')
+    my_check.logContains('.*Directory contents:.*has a space[/\\].*', 'No has a space directory')
   }
 }
