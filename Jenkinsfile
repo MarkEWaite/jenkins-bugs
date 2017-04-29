@@ -55,6 +55,6 @@ node {
      * the build view when extended checkout syntax is used. This does
      * not check the bug is fixed.
      */
-    my_check.logContains('.*Directory contents:.*has a space[/\\].*', 'No has a space directory')
+    my_check.logContains('.*Directory contents:.*has a space.Jenkinsfile.*', 'No has a space directory')
   }
 }
