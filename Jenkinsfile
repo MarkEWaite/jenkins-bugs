@@ -16,6 +16,7 @@ node {
                                    url: 'https://github.com/MarkEWaite/jenkins-bugs']],
               branches: [[name: 'JENKINS-43931']],
               browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
+              gitTool: scm.gitTool,
               extensions: [
                 [$class: 'AuthorInChangelog'],
                 [$class: 'CleanBeforeCheckout'],
@@ -33,6 +34,7 @@ node {
                                      url: 'https://github.com/MarkEWaite/jenkins-bugs']],
                 branches: [[name: 'JENKINS-43931']],
                 browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
+                gitTool: scm.gitTool,
                 extensions: [
                   [$class: 'AuthorInChangelog'],
                   [$class: 'CleanBeforeCheckout'],
@@ -51,9 +53,8 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    /* JENKINS-43931 reports links and revision info is shown twice on
-     * the build view when extended checkout syntax is used. This does
-     * not check the bug is fixed.
+    /* JENKINS-43931 reports that a space in a windows workspace name fails fetch
+     * if using an authenticated private key with a passphrase.
      */
     my_check.logContains('.*Directory contents:.*has a space.Jenkinsfile.*', 'No has a space directory')
   }
