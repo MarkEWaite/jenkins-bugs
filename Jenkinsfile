@@ -17,7 +17,7 @@ node {
               branches: [[name: 'JENKINS-43931']],
               browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
               gitTool: scm.gitTool,
-              extensions: [
+              extensions: scm.extensions + [
                 [$class: 'AuthorInChangelog'],
                 [$class: 'CleanBeforeCheckout'],
                 [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
@@ -35,7 +35,7 @@ node {
                 branches: [[name: 'JENKINS-43931']],
                 browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
                 gitTool: scm.gitTool,
-                extensions: [
+                extensions: scm.extensions + [
                   [$class: 'AuthorInChangelog'],
                   [$class: 'CleanBeforeCheckout'],
                   [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '../.git', shallow: true],
