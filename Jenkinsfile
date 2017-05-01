@@ -8,7 +8,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-node('linux') {  /* Windows symlink support inconsistent at best */
+node('linux || master') {  /* Windows symlink support inconsistent at best */
   stage('Checkout') {
     checkout([$class: 'GitSCM',
               userRemoteConfigs: [[name: 'bugs-origin',
