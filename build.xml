@@ -1,4 +1,4 @@
-<project name="jenkins-bugs-master-branch" default="increment" basedir=".">
+<project name="jenkins-bugs-master-branch" default="sync" basedir=".">
 
   <!-- Synchronize repositories -->
   <target name="sync" description="Synchronize git repositories">
