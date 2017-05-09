@@ -15,7 +15,7 @@ node('master') {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
               userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
-                                   name: "${origin}",
+                                   name: origin,
                                    refspec: "+refs/heads/${branch}:refs/remotes/${origin}/${branch}",
                                   ]],
               branches: [[name: "${origin}/${branch}"]],
@@ -24,7 +24,7 @@ node('master') {
                             noTags: true,
                             reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
                             timeout: 3],
-                           [$class: 'LocalBranch', localBranch: "${branch}"],
+                           [$class: 'LocalBranch', localBranch: branch],
                            [$class: 'PruneStaleBranch'],
                           ],
               gitTool: 'jgit',
@@ -39,7 +39,7 @@ node('master') {
 
   stage('Verify') {
     def check = new com.markwaite.Assert()
-    String jobName = "${env.JOB_NAME}"
+    String jobName = env.JOB_NAME
     String jobPath = "job/" + jobName.replace("/", "/job/")
     String buildNumber = "${currentBuild.number}"
     String jobURL = "http://localhost:8080/${jobPath}/${buildNumber}/api/xml?wrapper=changes&xpath=//changeSet//comment"
