@@ -11,7 +11,7 @@ properties([[$class: 'BuildDiscarderProperty',
 def branch="JENKINS-36637-jgit"
 def origin="J-36637-origin"
 
-node {
+node('master') {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
               userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
