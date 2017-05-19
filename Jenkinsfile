@@ -8,7 +8,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-node {
+node('git-1.9+') { // shallow clone fails on older git with 'git fetch-pack: expected shallow list'
   stage('Checkout') {
     /* reduce clone data volume with reference repo, shallow clone, no
        tags, and honor the refspec */
