@@ -10,7 +10,7 @@ properties([[$class: 'BuildDiscarderProperty',
 
 def branch="has-percent-%-JENKINS-44041"
 
-node("linux") {
+node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
               userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
@@ -23,17 +23,10 @@ node("linux") {
               extensions: [[$class: 'AuthorInChangelog'],
                            [$class: 'CheckoutOption', timeout: 1],
                            [$class: 'CleanCheckout'],
-                           [$class: 'CloneOption',
-                            honorRefspec: true,
-                            noTags: true,
-                            timeout: 3],
+                           [$class: 'CloneOption', honorRefspec: true, noTags: true, timeout: 3],
                            [$class: 'LocalBranch', localBranch: '**'],
                            [$class: 'PruneStaleBranch'],
-                           [$class: 'SubmoduleOption',
-                            disableSubmodules: true,
-                            recursiveSubmodules: false,
-                            reference: '',
-                            trackingSubmodules: false]
+                           [$class: 'SubmoduleOption', disableSubmodules: true]
                            ],
               gitTool: scm.gitTool,
              ])
