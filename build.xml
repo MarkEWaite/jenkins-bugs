@@ -1,26 +1,12 @@
-<project name="jenkins-bugs-master-branch" default="sync" basedir=".">
-
-  <!-- Synchronize repositories -->
-  <target name="sync" description="Synchronize git repositories">
-    <git command="pull">
-      <args>
-        <arg value="--all"/>
-      </args>
-    </git>
-    <git command="push">
-      <args>
-        <arg value="cache"/>
-        <arg value="--mirror"/>
-      </args>
-    </git>
-  </target>
+<project name="JENKINS-44041" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
+    <echo>java is ${java.version}</echo>
     <buildnumber/>
     <git command="commit">
       <args>
         <arg value="-m"/>
-        <arg value="${ant.project.name} ${user.name} buildnumber++, was ${build.number}"/>
+        <arg value="${ant.project.name} ${user.name} build++, was ${build.number}"/>
         <arg value="build.number"/>
       </args>
     </git>
@@ -31,16 +17,6 @@
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
-    <!-- JENKINS-41906 reports that master branch built without
-         any commits.  This reports commits on this branch in the last 15
-         minutes -->
-    <echo>Displaying git log messages on this branch from last 15 minutes</echo>
-    <git command="log">
-      <args>
-        <arg value="--since='15 minutes ago'"/>
-      </args>
-    </git>
-    <echo>End of git log messages on this branch from last 15 minutes</echo>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->

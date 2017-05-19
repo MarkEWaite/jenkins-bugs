@@ -4,28 +4,49 @@
 import com.markwaite.Assert
 import com.markwaite.Build
 
-/* Only keep the 10 most recent builds. */
+/* Only keep the 7 most recent builds. */
 properties([[$class: 'BuildDiscarderProperty',
-                strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
+             strategy: [$class: 'LogRotator', numToKeepStr: '7']]])
 
-node {
+def branch="has-percent-%-JENKINS-44041"
+
+node("windows") {
   stage('Checkout') {
-    checkout scm
+    checkout([$class: 'GitSCM',
+              userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
+                                   name: 'bugs-origin',
+                                   refspec: "+refs/heads/${branch}:refs/remotes/bugs-origin/${branch}",
+                                  ]],
+              branches: [[name: "*/${branch}"]],
+              browser: [$class: 'GithubWeb',
+                        repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
+              extensions: [[$class: 'AuthorInChangelog'],
+                           [$class: 'CheckoutOption', timeout: 1],
+                           [$class: 'CleanCheckout'],
+                           [$class: 'CloneOption',
+                            honorRefspec: true,
+                            noTags: true,
+                            timeout: 3],
+                           [$class: 'LocalBranch', localBranch: '**'],
+                           [$class: 'PruneStaleBranch'],
+                           [$class: 'SubmoduleOption',
+                            disableSubmodules: true,
+                            recursiveSubmodules: false,
+                            reference: '',
+                            trackingSubmodules: false]
+                           ],
+              gitTool: scm.gitTool,
+             ])
   }
 
   stage('Build') {
     /* Call the ant build. */
-    def my_step = new com.markwaite.Build()
-    my_step.ant 'info'
+    def step = new com.markwaite.Build()
+    step.ant "info"
   }
 
   stage('Verify') {
-    def my_check = new com.markwaite.Assert()
-    /* JENKINS-xxx reports that yyyy.
-     */
-    if (currentBuild.number > 1) { // Don't check first build
-      my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
-      my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
-    }
+    def check = new com.markwaite.Assert()
+    check.logContains(".*[*] ${branch}", "Missing branch name ${branch}.")
   }
 }
