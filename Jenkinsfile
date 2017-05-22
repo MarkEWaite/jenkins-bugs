@@ -8,7 +8,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
              strategy: [$class: 'LogRotator', numToKeepStr: '7']]])
 
-def branch="has-percent-%-JENKINS-44041"
+def branch="has-percent-%-JENKINS-44360"
 
 node {
   stage('Checkout') {
