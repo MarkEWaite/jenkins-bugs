@@ -31,6 +31,7 @@ node {
                                 noTags: true,
                                 reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                               [$class: 'LocalBranch', localBranch: branch],
+                              [$class: 'WipeWorkspace'],
                             ],
               ])
     }
