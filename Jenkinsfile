@@ -5,7 +5,10 @@ import com.markwaite.Assert
 import com.markwaite.Build
 
 /* Poll every 7 minutes. Reduce load on git server */
-properties([pipelineTriggers([pollSCM('H/7 * * * *')])])
+/* keep only last 20 builds. Reduce history retention on master */
+properties([pipelineTriggers([pollSCM('H/7 * * * *')]),
+           [$class: 'BuildDiscarderProperty',
+                strategy: [$class: 'LogRotator', numToKeepStr: '20']]])
 
 def use_simple_checkout_scm = false
 def branch = "JENKINS-43468"
