@@ -4,10 +4,10 @@
 import com.markwaite.Assert
 import com.markwaite.Build
 
-/* Poll every 2 minutes. */
-properties([pipelineTriggers([pollSCM('H/2 * * * *')])])
+/* Poll every 7 minutes. Reduce load on git server */
+properties([pipelineTriggers([pollSCM('H/7 * * * *')])])
 
-def use_simple_checkout_scm = true
+def use_simple_checkout_scm = false
 
 node {
   stage('Checkout') {
@@ -15,7 +15,7 @@ node {
       /* Less complex checkout command has continuous false detection of changes */
       checkout scm
     } else {
-      /* More complex checkout command has continuous false detection of changes */
+      /* More complex checkout command has continuous false detection of changes (didn't a while ago) */
       checkout([$class: 'GitSCM',
                 branches: [[name: '*/JENKINS-43468']],
                 doGenerateSubmoduleConfigurations: false,
