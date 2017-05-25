@@ -19,7 +19,7 @@ node {
       /* Less complex checkout command has continuous false detection of changes */
       checkout scm
     } else {
-      /* More complex checkout command has continuous false detection of changes (didn't a while ago) */
+      /* More complex checkout command does not have continuous false detection of changes */
       checkout([$class: 'GitSCM',
                 branches: [[name: branch]],
                 userRemoteConfigs: [[name: 'origin',
