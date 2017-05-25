@@ -8,6 +8,7 @@ import com.markwaite.Build
 properties([pipelineTriggers([pollSCM('H/7 * * * *')])])
 
 def use_simple_checkout_scm = false
+def branch = "JENKINS-43468"
 
 node {
   stage('Checkout') {
@@ -17,10 +18,17 @@ node {
     } else {
       /* More complex checkout command has continuous false detection of changes (didn't a while ago) */
       checkout([$class: 'GitSCM',
-                branches: [[name: '*/JENKINS-43468']],
-                doGenerateSubmoduleConfigurations: false,
-                submoduleCfg: [],
-                userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs']],
+                branches: [[name: branch]],
+                userRemoteConfigs: [[name: 'origin',
+                                    refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}",
+                                    url: 'https://github.com/MarkEWaite/jenkins-bugs']],
+                extensions: [
+                              [$class: 'CloneOption',
+                                honorRefspec: true,
+                                noTags: true,
+                                reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+                              [$class: 'LocalBranch', localBranch: branch],
+                            ],
               ])
     }
   }
