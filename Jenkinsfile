@@ -15,7 +15,7 @@ node {
       /* Less complex checkout command has continuous false detection of changes */
       checkout scm
     } else {
-      /* More complex checkout command seems to stop continuous false detection of changes */
+      /* More complex checkout command has continuous false detection of changes */
       checkout([$class: 'GitSCM',
                 branches: [[name: '*/JENKINS-43468']],
                 doGenerateSubmoduleConfigurations: false,
