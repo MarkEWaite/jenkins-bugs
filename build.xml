@@ -3,6 +3,32 @@
   <target name="increment" description="Increment build number">
     <echo>java is ${java.version}</echo>
     <buildnumber/>
+    <exec executable="git" outputproperty="git.remote.output" failonerror="true">
+      <arg value="remote"/>
+    </exec>
+    <resourcecount property="git.remote.count">
+      <tokens>
+        <concat>
+          <filterchain>
+            <tokenfilter>
+              <stringtokenizer delims="${line.separator}"/>
+            </tokenfilter>
+          </filterchain>
+          <propertyresource name="git.remote.output"/>
+        </concat>
+      </tokens>
+    </resourcecount>
+    <!-- Fail build if extra remotes are defined, this is a polling bug check, 
+         so don't use the notifyCommit hooks that are often configured in local
+         caches of the same repository -->
+    <echo>Remote count is ${git.remote.count} from output: '${git.remote.output}'</echo>
+    <fail message="Too many remotes defined">
+      <condition>
+        <not>
+          <equals arg1="${git.remote.count}" arg2="1"/>
+        </not>
+      </condition>
+    </fail>
     <git command="commit">
       <args>
         <arg value="-m"/>
