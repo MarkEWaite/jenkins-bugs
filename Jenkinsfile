@@ -9,7 +9,7 @@ def branch="JENKINS-20941-https-simple"
 node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
-              userRemoteConfigs: [[url: 'git@github.com:MarkEWaite/jenkins-bugs',
+              userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
                                    name: 'jenkins-bugs-origin',
                                    refspec: "+refs/heads/${branch}:refs/remotes/jenkins-bugs-origin/${branch}",
                                   ]],
