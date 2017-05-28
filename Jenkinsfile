@@ -13,14 +13,13 @@ def branch='JENKINS-38860'
 node('linux') { // shell script used inside the ant job
   stage('Checkout') {
     checkout([$class: 'GitSCM',
-              userRemoteConfigs: [[url: 'git@github.com:MarkEWaite/jenkins-bugs-private',
-                                   credentialsId: 'MarkEWaite-github-rsa-private-key',
-                                   name: 'bugs-private-origin',
-                                   refspec: "+refs/heads/${branch}:refs/remotes/bugs-private-origin/${branch}",
+              userRemoteConfigs: [[url: 'git@github.com:MarkEWaite/jenkins-bugs',
+                                   name: 'bugs-origin',
+                                   refspec: "+refs/heads/${branch}:refs/remotes/bugs-origin/${branch}",
                                   ]],
               branches: [[name: branch]],
               browser: [$class: 'GithubWeb',
-                        repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs-private'],
+                        repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
               extensions: [[$class: 'AuthorInChangelog'],
                            [$class: 'CleanCheckout'],
                            [$class: 'CloneOption',
@@ -33,7 +32,7 @@ node('linux') { // shell script used inside the ant job
                              disableSubmodules: false,
                              parentCredentials: true,
                              recursiveSubmodules: true,
-                             reference: '/var/lib/git/mwaite/bugs/jenkins-bugs-private.git',
+                             reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
                              trackingSubmodules: false],
                            ],
               gitTool: 'Default', /* Submodule authentication not supported in JGit */
