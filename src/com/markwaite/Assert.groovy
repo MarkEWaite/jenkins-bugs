@@ -15,7 +15,7 @@ def logContains(String regex, String failure_message) {
 
 /* Assert build log contains exactly count strings matching regex */
 def logContainsCount(int expectedCount, String regexp, String failure_message) {
-  java.util.regex.Matcher matcher = getLogMatcher(regexp)
+  java.util.regex.Matcher matcher = manager.getLogMatcher(regexp)
   int count = 0
   while (matcher.find()) {
     count++
