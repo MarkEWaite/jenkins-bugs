@@ -58,6 +58,13 @@
       <resources refid="submodule.src.dirs"/>
     </resourcecount>
     <echo>submodule.src.count=${submodule.src.count}</echo>
+    <!-- Count files and directories in .git/modules/test-submodules -->
+    <dirset id="submodule.git.dirs" dir=".git/modules/test-submodules" includes="**JENKINS*"/>
+    <echo>submodule.src.dirs=${toString:submodule.git.dirs}</echo>
+    <resourcecount property="submodule.git.count">
+      <resources refid="submodule.git.dirs"/>
+    </resourcecount>
+    <echo>submodule.git.count=${submodule.git.count}</echo>
 
     <!-- Echo contents of submodule README for Jenkinsfile verification -->
     <first id="first.readme">

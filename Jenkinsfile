@@ -51,6 +51,8 @@ node('linux') { // shell script used inside the ant job
     checkStep.logContains(".*https://issues.jenkins-ci.org/browse/JENKINS-15103.*", "No submodule README output")
     /* Check exactly 1 submodule in tests-submodule directory */
     checkStep.logContains(".*submodule.src.count=1", "Expected submodule src dir count not found")
+    /* Check exactly 1 submodule in .git/modules/tests-submodule directory */
+    checkStep.logContains(".*submodule.git.count=1", "Expected submodule git dir count not found")
   }
 
 }
