@@ -1,11 +1,13 @@
-# Public repository for Jenkins bug verification.
+# [JENKINS-38860](https://issues.jenkins-ci.org/browse/JENKINS-38860) submodule config changes not reflected in workspace
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations to
-duplicate the bug.  This repository captures some of those configurations
-in a way that is publicly visible so that automated tests can use this
-repository.
+When a submodule is deleted from a repository and that delete is
+committed, that deletion is not reflected in the Jenkins workspace.
+Remnants are left in the workspace which make the workspace no longer
+an accurate representation of the repository that would result from a
+fresh checkout.
 
-This repository includes many branches with a Jenkinsfile pipeline
-definition file for branches where the pipeline definition file can
-encapsulate at least a portion of the bug verification step.
+The temporary steps to avoid the problem may include:
+* wipe the workspace each time the job runs
+* deleteDir the workspace (if using pipeline)
+
+Needs assertion to check contents of .git/modules/test-submodules

@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# Remove all submodules from test-submodules directory
+#
+# See https://stackoverflow.com/questions/1260748/how-do-i-remove-a-submodule
+
+for dir in test-submodules/*; do
+        tmpdir=$dir_$$_tmp
+
+        mv $dir $tmpdir
+        git submodule deinit -f -- $dir
+        rm -rf .git/modules/$dir
+
+        git rm -f $dir
+        rm -rf $tmpdir
+        git commit -m "Remove submodule $dir"
+done

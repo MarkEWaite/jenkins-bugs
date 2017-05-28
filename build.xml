@@ -1,27 +1,45 @@
-<project name="jenkins-bugs-master-branch" default="sync" basedir=".">
+<project name="JENKINS-38860" default="add-new-submodule" basedir=".">
 
-  <!-- Synchronize repositories -->
-  <target name="sync" description="Synchronize git repositories">
-    <git command="pull">
-      <args>
-        <arg value="--all"/>
-      </args>
-    </git>
-    <git command="push">
-      <args>
-        <arg value="cache"/>
-        <arg value="--mirror"/>
-      </args>
-    </git>
-  </target>
-
-  <target name="increment" description="Increment build number">
+  <!-- Add a new test submodule, remove all old test submodules -->
+  <!-- See https://stackoverflow.com/questions/1260748/how-do-i-remove-a-submodule -->
+  <target name="add-new-submodule" description="Add a new submodule">
+    <echo>java is ${java.version}</echo>
     <buildnumber/>
+    <echo>Build number was ${build.number}</echo>
+    <git command="add">
+      <args>
+        <arg value="build.number"/>
+        <arg value="."/>
+      </args>
+    </git>
     <git command="commit">
       <args>
         <arg value="-m"/>
-        <arg value="${ant.project.name} ${user.name} buildnumber++, was ${build.number}"/>
+        <arg value="${user.name} updated build number, was ${build.number}"/>
         <arg value="build.number"/>
+      </args>
+    </git>
+    <!-- Remove all test submodules -->
+    <exec executable="bash" dir=".">
+      <arg value="remove-test-submodules" />
+    </exec>
+    <!-- Add a test submodule -->
+    <git command="submodule">
+      <args>
+        <arg value="add"/>
+        <arg value="--reference"/>
+        <arg value=".git"/>
+        <arg value="--branch"/>
+        <arg value="JENKINS-15103"/>
+        <arg value="git@github.com:MarkEWaite/jenkins-bugs.git"/>
+        <arg value="test-submodules/JENKINS-15103-${build.number}"/>
+      </args>
+    </git>
+    <git command="commit">
+      <args>
+        <arg value="-a"/>
+        <arg value="-m"/>
+        <arg value="Added submodule test-submodules/JENKINS-15103-${build.number}"/>
       </args>
     </git>
   </target>
@@ -30,17 +48,37 @@
   <target name="info" description="Report info about this repo">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
+    <echo/>
     <git command="branch" />
-    <!-- JENKINS-41906 reports that master branch built without
-         any commits.  This reports commits on this branch in the last 15
-         minutes -->
-    <echo>Displaying git log messages on this branch from last 15 minutes</echo>
-    <git command="log">
+
+    <!-- Count files and directories in test-submodules -->
+    <dirset id="submodule.src.dirs" dir="test-submodules" includes="**JENKINS*"/>
+    <echo>submodule.src.dirs=${toString:submodule.src.dirs}</echo>
+    <resourcecount property="submodule.src.count">
+      <resources refid="submodule.src.dirs"/>
+    </resourcecount>
+    <echo>submodule.src.count=${submodule.src.count}</echo>
+
+    <!-- Echo contents of submodule README for Jenkinsfile verification -->
+    <first id="first.readme">
+      <fileset dir="test-submodules" includes="**/README.md"/>
+    </first>
+    <loadfile property="submodule.readme" srcFile="${toString:first.readme}"/>
+    <echo/>
+    <echo>Submodule README from ${toString:first.readme}</echo>
+    <echo>${submodule.readme}</echo>
+
+    <!-- Report git submodule status -->
+    <echo/>
+    <echo>Start of submodule status</echo>
+    <git command="submodule">
       <args>
-        <arg value="--since='15 minutes ago'"/>
+        <arg value="status"/>
+        <arg value="--recursive"/>
       </args>
     </git>
-    <echo>End of git log messages on this branch from last 15 minutes</echo>
+    <echo>End of submodule status</echo>
+
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->

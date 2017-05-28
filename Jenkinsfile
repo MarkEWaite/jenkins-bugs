@@ -4,28 +4,54 @@
 import com.markwaite.Assert
 import com.markwaite.Build
 
-/* Only keep the 10 most recent builds. */
+/* Only keep the 7 most recent builds. */
 properties([[$class: 'BuildDiscarderProperty',
-                strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
+             strategy: [$class: 'LogRotator', numToKeepStr: '7']]])
 
-node {
+def branch='JENKINS-38860'
+
+node('linux') { // shell script used inside the ant job
   stage('Checkout') {
-    checkout scm
+    checkout([$class: 'GitSCM',
+              userRemoteConfigs: [[url: 'git@github.com:MarkEWaite/jenkins-bugs-private',
+                                   credentialsId: 'MarkEWaite-github-rsa-private-key',
+                                   name: 'bugs-private-origin',
+                                   refspec: "+refs/heads/${branch}:refs/remotes/bugs-private-origin/${branch}",
+                                  ]],
+              branches: [[name: branch]],
+              browser: [$class: 'GithubWeb',
+                        repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs-private'],
+              extensions: [[$class: 'AuthorInChangelog'],
+                           [$class: 'CleanCheckout'],
+                           [$class: 'CloneOption',
+                             honorRefspec: true,
+                             noTags: true,
+                             timeout: 4],
+                           [$class: 'LocalBranch', localBranch: branch],
+                           [$class: 'PruneStaleBranch'],
+                           [$class: 'SubmoduleOption',
+                             disableSubmodules: false,
+                             parentCredentials: true,
+                             recursiveSubmodules: true,
+                             reference: '/var/lib/git/mwaite/bugs/jenkins-bugs-private.git',
+                             trackingSubmodules: false],
+                           ],
+              gitTool: 'Default', /* Submodule authentication not supported in JGit */
+             ])
   }
 
   stage('Build') {
     /* Call the ant build. */
-    def my_step = new com.markwaite.Build()
-    my_step.ant 'info'
+    def buildStep = new com.markwaite.Build()
+    buildStep.ant "info"
   }
 
   stage('Verify') {
-    def my_check = new com.markwaite.Assert()
-    /* JENKINS-xxx reports that yyyy.
-     */
-    if (currentBuild.number > 1) { // Don't check first build
-      my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
-      my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
-    }
+    def checkStep = new com.markwaite.Assert()
+    /* Check that submodule README contains expected bug URL */
+    checkStep.logContains(".*https://issues.jenkins-ci.org/browse/JENKINS-15103.*", "No submodule README output")
+    /* Check exactly 1 submodule in tests-submodule directory */
+    checkStep.logContains(".*submodule.src.count=1", "Expected submodule src dir count not found")
   }
+
 }
