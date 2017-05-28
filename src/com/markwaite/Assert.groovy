@@ -20,7 +20,7 @@ def logContainsCount(int expectedCount, String regexp, String failure_message) {
   while (matcher.find()) {
     count++
   }
-  assertCondition(count == expectedCount, "Found " + count + ", expected " + expectedCount + ". " + failure_message)
+  assertCondition(count == expectedCount, "Regex " + regexp + " found " + count + ", expected " + expectedCount + ". " + failure_message)
 }
 
 /* Assert build log does not contain string matching regex */
