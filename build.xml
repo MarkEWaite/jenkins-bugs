@@ -1,8 +1,17 @@
 <project name="JENKINS-38860" default="add-new-submodule" basedir=".">
 
+  <target name="check-os">
+    <condition property="isWindows" value="true">
+      <os family="windows"/>
+    </condition>
+    <condition property="isLinux" value="true">
+      <os family="unix"/>
+    </condition>
+  </target>
+
   <!-- Add a new test submodule, remove all old test submodules -->
   <!-- See https://stackoverflow.com/questions/1260748/how-do-i-remove-a-submodule -->
-  <target name="add-new-submodule" description="Add a new submodule">
+  <target name="add-new-submodule" description="Add a new submodule" depends="check-os">
     <echo>java is ${java.version}</echo>
     <buildnumber/>
     <echo>Build number was ${build.number}</echo>
@@ -20,10 +29,10 @@
       </args>
     </git>
     <!-- Remove all test submodules -->
-    <exec executable="bash" dir="." os="linux">
+    <exec executable="bash" dir="." osfamily="unix">
       <arg value="remove-test-submodules" />
     </exec>
-    <exec executable="cmd" dir="." os="windows">
+    <exec executable="cmd" dir="." osfamily="windows">
       <arg value="/c" />
       <arg value="remove-test-submodules.bat" />
     </exec>
