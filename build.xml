@@ -35,7 +35,7 @@
         <arg value=".git"/>
         <arg value="--branch"/>
         <arg value="JENKINS-15103"/>
-        <arg value="git@github.com:MarkEWaite/jenkins-bugs.git"/>
+        <arg value="https://github.com/MarkEWaite/jenkins-bugs"/>
         <arg value="test-submodules/JENKINS-15103-${build.number}"/>
       </args>
     </git>

@@ -13,7 +13,7 @@ def branch='JENKINS-38860'
 node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
-              userRemoteConfigs: [[url: 'git@github.com:MarkEWaite/jenkins-bugs',
+              userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
                                    name: 'bugs-origin',
                                    refspec: "+refs/heads/${branch}:refs/remotes/bugs-origin/${branch}",
                                   ]],
