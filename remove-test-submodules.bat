@@ -6,7 +6,7 @@ FOR /D %%T IN ("test-submodules\*") do (
 
     RMDIR /S/Q %%T
     git submodule deinit -f -- %%T
-    RMDIR .git\modules\%%T
+    RMDIR /S/Q .git\modules\%%T
 
     git rm -f %%T
     git commit -m "Remove submodule %%~nxT"
