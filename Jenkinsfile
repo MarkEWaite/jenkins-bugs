@@ -10,6 +10,15 @@ properties([[$class: 'BuildDiscarderProperty',
 
 def branch='JENKINS-38860'
 
+def assertSubmoduleCount(String type) {
+  matcher = manager.getLogMatcher(".*submodule." + type + ".count=([0-9]+)")
+  message = "Expected submodule " + type + " dir count not found"
+  if (matcher.matches()) {
+      message = "Found " + matcher.group(1) + " submodule " + type + " dirs instead of 1"
+  }
+  checkStep.logContains(".*submodule." + type + ".count=1", message)
+}
+
 node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
@@ -51,27 +60,11 @@ node {
     /* Check that submodule README contains expected bug URL */
     checkStep.logContains(".*https://issues.jenkins-ci.org/browse/JENKINS-15103.*", "No submodule README output")
 
-    /* Check exactly 1 submodule in tests-submodule directory */
-    // checkStep.logContains(".*submodule.src.count=1", "Expected submodule src dir count not found")
-
     /* Check exactly 1 submodule in .src/modules/tests-submodule directory */
-    java.util.regex.Matcher matcher = manager.getLogMatcher(".*submodule.src.count=([0-9]+)")
-    def message = "Expected submodule src dir count not found"
-    if (matcher.matches()) {
-        message = "Found " + matcher.group(1) + " submodule src dirs instead of 1"
-    }
-    checkStep.logContains(".*submodule.src.count=1", message)
+    assertSubmoduleCount("src")
 
     /* Check exactly 1 submodule in .git/modules/tests-submodule directory */
-    // checkStep.logContains(".*submodule.git.count=1", "Expected submodule git dir count not found")
-
-    /* Check exactly 1 submodule in .git/modules/tests-submodule directory */
-    matcher = manager.getLogMatcher(".*submodule.git.count=([0-9]+)")
-    message = "Expected submodule git dir count not found"
-    if (matcher.matches()) {
-        message = "Found " + matcher.group(1) + " submodule git dirs instead of 1"
-    }
-    checkStep.logContains(".*submodule.git.count=1", message)
+    assertSubmoduleCount("git")
 
   }
 
