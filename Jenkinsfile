@@ -10,6 +10,7 @@ properties([[$class: 'BuildDiscarderProperty',
 
 def branch='JENKINS-38860'
 
+@NonCPS
 def assertSubmoduleCount(String type) {
   matcher = manager.getLogMatcher(".*submodule." + type + ".count=([0-9]+)")
   message = "Expected submodule " + type + " dir count not found"
