@@ -11,9 +11,9 @@ properties([[$class: 'BuildDiscarderProperty',
 def branch='JENKINS-38860'
 
 @NonCPS
-def assertSubmoduleCount(String type) {
-  matcher = manager.getLogMatcher(".*submodule." + type + ".count=([0-9]+)")
-  message = "Expected submodule " + type + " dir count not found"
+def assertSubmoduleCount(manager, String type) {
+  java.util.regex.Matcher matcher = manager.getLogMatcher(".*submodule." + type + ".count=([0-9]+)")
+  def message = "Expected submodule " + type + " dir count not found"
   if (matcher.matches()) {
       message = "Found " + matcher.group(1) + " submodule " + type + " dirs instead of 1"
   }
@@ -62,10 +62,10 @@ node {
     checkStep.logContains(".*https://issues.jenkins-ci.org/browse/JENKINS-15103.*", "No submodule README output")
 
     /* Check exactly 1 submodule in .src/modules/tests-submodule directory */
-    assertSubmoduleCount("src")
+    assertSubmoduleCount(manager, "src")
 
     /* Check exactly 1 submodule in .git/modules/tests-submodule directory */
-    assertSubmoduleCount("git")
+    assertSubmoduleCount(manager, "git")
 
   }
 
