@@ -9,5 +9,3 @@ fresh checkout.
 The temporary steps to avoid the problem may include:
 * wipe the workspace each time the job runs
 * deleteDir the workspace (if using pipeline)
-
-Needs assertion to check contents of .git/modules/test-submodules
