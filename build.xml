@@ -3,6 +3,7 @@
   <!-- Add a new test submodule, remove all old test submodules -->
   <!-- See https://stackoverflow.com/questions/1260748/how-do-i-remove-a-submodule -->
   <target name="add-new-submodule" description="Add a new submodule">
+    <property name="submodule.branch.name" value="JENKINS-15103"/>
     <echo>java is ${java.version}</echo>
     <buildnumber/>
     <echo>Build number was ${build.number}</echo>
@@ -34,16 +35,16 @@
         <arg value="--reference"/>
         <arg value=".git"/>
         <arg value="--branch"/>
-        <arg value="JENKINS-15103"/>
+        <arg value="${submodule.branch.name}"/>
         <arg value="https://github.com/MarkEWaite/jenkins-bugs"/>
-        <arg value="test-submodules/JENKINS-15103-${build.number}"/>
+        <arg value="test-submodules/${submodule.branch.name}-${build.number}"/>
       </args>
     </git>
     <git command="commit">
       <args>
         <arg value="-a"/>
         <arg value="-m"/>
-        <arg value="Added submodule test-submodules/JENKINS-15103-${build.number}"/>
+        <arg value="Added submodule test-submodules/${submodule.branch.name}-${build.number}"/>
       </args>
     </git>
   </target>
@@ -62,9 +63,10 @@
       <resources refid="submodule.src.dirs"/>
     </resourcecount>
     <echo>submodule.src.count=${submodule.src.count}</echo>
+
     <!-- Count files and directories in .git/modules/test-submodules -->
     <dirset id="submodule.git.dirs" dir=".git/modules/test-submodules" includes="**JENKINS*"/>
-    <echo>submodule.src.dirs=${toString:submodule.git.dirs}</echo>
+    <echo>submodule.git.dirs=${toString:submodule.git.dirs}</echo>
     <resourcecount property="submodule.git.count">
       <resources refid="submodule.git.dirs"/>
     </resourcecount>
