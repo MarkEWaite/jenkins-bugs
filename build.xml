@@ -1,4 +1,4 @@
-<project name="JENKINS-38860" default="add-new-submodule" basedir=".">
+<project name="JENKINS-38860" default="remove-test-submodules" basedir=".">
 
   <!-- Add a new test submodule, remove all old test submodules -->
   <!-- See https://stackoverflow.com/questions/1260748/how-do-i-remove-a-submodule -->
@@ -20,8 +20,12 @@
       </args>
     </git>
     <!-- Remove all test submodules -->
-    <exec executable="bash" dir=".">
+    <exec executable="bash" dir="." os="linux">
       <arg value="remove-test-submodules" />
+    </exec>
+    <exec executable="cmd" dir="." os="windows">
+      <arg value="/c" />
+      <arg value="remove-test-submodules.bat" />
     </exec>
     <!-- Add a test submodule -->
     <git command="submodule">
