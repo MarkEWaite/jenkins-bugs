@@ -2,7 +2,7 @@
 
   <!-- Add a new test submodule, remove all old test submodules -->
   <!-- See https://stackoverflow.com/questions/1260748/how-do-i-remove-a-submodule -->
-  <target name="add-new-submodule" description="Add a new submodule" depends="check-os">
+  <target name="add-new-submodule" description="Add a new submodule">
     <echo>java is ${java.version}</echo>
     <buildnumber/>
     <echo>Build number was ${build.number}</echo>
