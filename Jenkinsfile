@@ -12,6 +12,7 @@ def branch='JENKINS-38860'
 
 @NonCPS
 def assertSubmoduleCount(manager, String type) {
+  def checkStep = new com.markwaite.Assert()
   java.util.regex.Matcher matcher = manager.getLogMatcher(".*submodule." + type + ".count=([0-9]+)")
   def message = "Expected submodule " + type + " dir count not found"
   if (matcher.matches()) {
