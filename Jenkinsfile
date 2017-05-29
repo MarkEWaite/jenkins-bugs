@@ -10,7 +10,7 @@ properties([[$class: 'BuildDiscarderProperty',
 
 def branch='JENKINS-38860'
 
-node('linux') { // shell script used inside the ant job
+node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
               userRemoteConfigs: [[url: 'git@github.com:MarkEWaite/jenkins-bugs',
