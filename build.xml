@@ -1,4 +1,4 @@
-<project name="JENKINS-38860" default="remove-test-submodules" basedir=".">
+<project name="JENKINS-38860" default="add-new-submodule" basedir=".">
 
   <!-- Add a new test submodule, remove all old test submodules -->
   <!-- See https://stackoverflow.com/questions/1260748/how-do-i-remove-a-submodule -->
