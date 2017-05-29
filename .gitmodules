@@ -1,4 +1,0 @@
-[submodule "test-submodules/JENKINS-15103-19"]
-	path = test-submodules/JENKINS-15103-19
-	url = git@github.com:MarkEWaite/jenkins-bugs.git
-	branch = JENKINS-15103
