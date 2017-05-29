@@ -66,7 +66,7 @@ node {
     // checkStep.logContains(".*submodule.git.count=1", "Expected submodule git dir count not found")
 
     /* Check exactly 1 submodule in .git/modules/tests-submodule directory */
-    java.util.regex.Matcher matcher = manager.getLogMatcher(".*submodule.git.count=([0-9]+)")
+    matcher = manager.getLogMatcher(".*submodule.git.count=([0-9]+)")
     message = "Expected submodule git dir count not found"
     if (matcher.matches()) {
         message = "Found " + matcher.group(1) + " submodule git dirs instead of 1"
