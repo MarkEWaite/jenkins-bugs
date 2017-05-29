@@ -10,6 +10,9 @@ properties([[$class: 'BuildDiscarderProperty',
 
 def branch='JENKINS-38860'
 
+/* The "type" parameter must be one of the string values reported
+ * by build.xml, either 'git' or 'src'.
+ */
 @NonCPS
 def assertSubmoduleCount(manager, String type) {
   def checkStep = new com.markwaite.Assert()
@@ -62,7 +65,7 @@ node {
     /* Check that submodule README contains expected bug URL */
     checkStep.logContains(".*https://issues.jenkins-ci.org/browse/JENKINS-15103.*", "No submodule README output")
 
-    /* Check exactly 1 submodule in .src/modules/tests-submodule directory */
+    /* Check exactly 1 submodule in tests-submodule directory */
     assertSubmoduleCount(manager, "src")
 
     /* Check exactly 1 submodule in .git/modules/tests-submodule directory */
