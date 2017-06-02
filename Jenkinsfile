@@ -8,9 +8,23 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
+branch='JENKINS-42597'
+
 node {
   stage('Checkout') {
-    checkout scm
+    checkout([$class: 'GitSCM',
+              userRemoteConfigs: [[name: 'bugs-origin',
+                                   refspec: "+refs/heads/${branch}:refs/remotes/bugs-origin/${branch}",
+                                   url: 'https://github.com/MarkEWaite/jenkins-bugs']],
+              branches: [[name: "bugs-origin/${branch}"]],
+              browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
+              extensions: [
+                [$class: 'AuthorInChangelog'],
+                [$class: 'CleanBeforeCheckout'],
+                [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: true],
+                [$class: 'LocalBranch', localBranch: branch],
+              ],
+             ])
   }
 
   stage('Build') {
@@ -21,11 +35,8 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    /* JENKINS-xxx reports that yyyy.
-     */
-    if (currentBuild.number > 1) { // Don't check first build
-      my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
-      my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
-    }
+    /* JENKINS-42597 reports that modified files which include a '%' in
+       their name are not correctly linked from the changes page. */
+    my_check.logContains('.*build-100%-number.*', 'build.number file name not in diff output')
   }
 }
