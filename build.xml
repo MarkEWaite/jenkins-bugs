@@ -1,22 +1,7 @@
-<project name="jenkins-bugs-master-branch" default="sync" basedir=".">
-
-  <!-- Synchronize repositories -->
-  <target name="sync" description="Synchronize git repositories">
-    <git command="pull">
-      <args>
-        <arg value="--all"/>
-      </args>
-    </git>
-    <git command="push">
-      <args>
-        <arg value="cache"/>
-        <arg value="--mirror"/>
-      </args>
-    </git>
-  </target>
+<project name="JENKINS-42597" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
-    <buildnumber/>
+    <buildnumber file="build-100%-number"/>
     <git command="commit">
       <args>
         <arg value="-m"/>
@@ -30,13 +15,15 @@
   <target name="info" description="Report info about this repo">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
+    <echo>Start of git log messages on this branch from last 15 minutes</echo>
     <git command="branch" />
-    <!-- JENKINS-41906 reports that master branch built without
-         any commits.  This reports commits on this branch in the last 15
-         minutes -->
+    <!-- JENKINS-42597 reports the changes output for files with names
+         containing percent characters are not properly escaped in the
+         Jenkins UI. -->
     <echo>Displaying git log messages on this branch from last 15 minutes</echo>
     <git command="log">
       <args>
+        <arg value="--numstat"/>
         <arg value="--since='15 minutes ago'"/>
       </args>
     </git>
