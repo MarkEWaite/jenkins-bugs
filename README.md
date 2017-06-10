@@ -1,11 +1,8 @@
-# Public repository for Jenkins bug verification.
+# [JENKINS-23476](https://issues.jenkins-ci.org/browse/JENKINS-23476) default timeout not easily configured
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations to
-duplicate the bug.  This repository captures some of those configurations
-in a way that is publicly visible so that automated tests can use this
-repository.
-
-This repository will eventually be extended to have a Jenkinsfile pipeline
-definition file for those branches where the pipeline definition file
-can encapsulate the bug verification step.
+The git plugin global timeout setting is not readily configured.  The
+docker instance which tests this bug sets the timeout with a configuration
+property from the java command line.  With that configuration, all use
+of the 10 minute default timeout should be changed to the value of the
+configuration property.  Unfortunately, they are not.  This job shows
+that problem.
