@@ -1,6 +1,6 @@
 # [JENKINS-23476](https://issues.jenkins-ci.org/browse/JENKINS-23476) default timeout not easily configured
 
-The git plugin global timeout setting is not readily configured.  The
+The git plugin global timeout setting is not easily configured.  The
 docker instance which tests this bug sets the timeout with a configuration
 property from the java command line.  With that configuration, all use
 of the 10 minute default timeout should be changed to the value of the
