@@ -42,7 +42,6 @@ node {
                              timeout: 4],
                            [$class: 'LocalBranch', localBranch: branch],
                            [$class: 'PruneStaleBranch'],
-                           [$class: 'WipeWorkspace'],
                            [$class: 'SubmoduleOption',
                              disableSubmodules: false,
                              parentCredentials: true,
