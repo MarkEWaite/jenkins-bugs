@@ -1,16 +1,37 @@
 <project name="jenkins-bugs-master-branch" default="sync" basedir=".">
 
+  <property environment="env"/>
+
+  <target name="is-first-build">
+    <condition property="first.build">
+      <equals arg1="${env.BUILD_NUMBER}" arg2="1"/>
+    </condition>
+  </target>
+
+  <!-- Check environment variables only in builds 2+ -->
+  <target name="check-non-initial-build" description="Check git env vars at build 2+" depends="is-first-build" if="env.JENKINS_URL" unless="first.build">
+    <fail message="GIT_PREVIOUS_COMMIT not set" unless="env.GIT_PREVIOUS_COMMIT"/>
+    <fail message="GIT_PREVIOUS_SUCCESSFUL_COMMIT not set" unless="env.GIT_PREVIOUS_SUCCESSFUL_COMMIT"/>
+  </target>
+
+  <!-- Check environment variables in all builds -->
+  <target name="check-git-env-vars" description="Check all git env vars" depends="check-non-initial-build" if="env.JENKINS_URL">
+    <fail message="GIT_AUTHOR_EMAIL not set" unless="env.GIT_AUTHOR_EMAIL"/>
+    <fail message="GIT_AUTHOR_NAME not set" unless="env.GIT_AUTHOR_NAME"/>
+    <fail message="GIT_BRANCH not set" unless="env.GIT_BRANCH"/>
+    <fail message="GIT_COMMIT not set" unless="env.GIT_COMMIT"/>
+    <fail message="GIT_COMMITTER_EMAIL not set" unless="env.GIT_COMMITTER_EMAIL"/>
+    <fail message="GIT_COMMITTER_NAME not set" unless="env.GIT_COMMITTER_NAME"/>
+    <fail message="GIT_LOCAL_BRANCH not set" unless="env.GIT_LOCAL_BRANCH"/>
+    <fail message="GIT_URL not set" unless="env.GIT_URL"/>
+  </target>
+
   <!-- Synchronize repositories -->
   <target name="sync" description="Synchronize git repositories">
     <git command="pull">
       <args>
         <arg value="--all"/>
-      </args>
-    </git>
-    <git command="push">
-      <args>
-        <arg value="cache"/>
-        <arg value="--mirror"/>
+        <arg value="--prune"/>
       </args>
     </git>
   </target>
