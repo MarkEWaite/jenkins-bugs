@@ -43,7 +43,8 @@ for (int i = 0; i < implementations.size(); ++i) {
         print this_result
         def my_check = new com.markwaite.Assert()
         my_check.assertCondition(first_checkout_result["GIT_COMMIT"] == this_result["GIT_COMMIT"], first_checkout_result["GIT_COMMIT"] + " != " + this_result["GIT_COMMIT"])
-        my_check.assertCondition(first_checkout_result["GIT_COMMIT"] == this_result["GIT_COMMIT"], first_checkout_result["GIT_COMMIT"] + " != " + this_result["GIT_COMMIT"])
+        my_check.assertCondition(first_checkout_result["GIT_COMMITTER_NAME"] == this_result["GIT_COMMITTER_NAME"], first_checkout_result["GIT_COMMITTER_NAME"] + " != " + this_result["GIT_COMMITTER_NAME"])
+        my_check.assertCondition(first_checkout_result["GIT_COMMITTER_EMAIL"] == this_result["GIT_COMMITTER_EMAIL"], first_checkout_result["GIT_COMMITTER_EMAIL"] + " != " + this_result["GIT_COMMITTER_EMAIL"])
       }
       stage("Check ${gitImplementation}") {
         /* Call the ant build. */
