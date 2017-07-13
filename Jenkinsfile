@@ -46,6 +46,7 @@ for (int i = 0; i < implementations.size(); ++i) {
         }
         def this_result = checkout_result[implementation]
         print this_result
+        print this_result["GIT_COMMIT"]
         // my_check.assertCondition(first_checkout_result == this_result, first_checkout_result + " != " + this_result)
       }
       stage("Check ${gitImplementation}") {
