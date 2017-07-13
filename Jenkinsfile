@@ -23,7 +23,7 @@ def first_checkout_result = ""
 for (int i = 0; i < implementations.size(); ++i) {
   def gitImplementation = implementations[i]
   tasks[gitImplementation] = {
-    node('windows') {
+    node {
       stage("Checkout ${gitImplementation}") {
         def my_check = new com.markwaite.Assert()
         if (random.nextBoolean()) { /* Randomly use pipeline native command to wipe workspace */
