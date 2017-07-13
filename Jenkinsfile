@@ -35,7 +35,6 @@ for (int i = 0; i < implementations.size(); ++i) {
                   browser: [$class: 'GithubWeb', repoUrl: "${repo}"],
                   extensions: [
                     [$class: 'CloneOption', honorRefspec: true, noTags: true],
-                    [$class: 'WipeWorkspace'] /* WipeWorkspace causes the failure due to busy pack file */
                   ],
                   gitTool: implementation,
                   userRemoteConfigs: [[name: "${origin}", refspec: "+refs/heads/${branch}:refs/remotes/${origin}/${branch}", url: "${repo}"]]
