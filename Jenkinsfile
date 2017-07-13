@@ -45,7 +45,7 @@ for (int i = 0; i < implementations.size(); ++i) {
             first_checkout_result = checkout_result[implementation]
         }
         def this_result = checkout_result[implementation]
-        echo this_result
+        print this_result
         // my_check.assertCondition(first_checkout_result == this_result, first_checkout_result + " != " + this_result)
       }
       stage("Check ${gitImplementation}") {
