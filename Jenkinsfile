@@ -16,6 +16,10 @@ def implementations = [ 'git', 'jgit', 'jgitapache' ]
 
 def tasks = [ : ]
 
+def checkout_result = [ : ]
+
+def first_checkout_result = ""
+
 for (int i = 0; i < implementations.size(); ++i) {
   def gitImplementation = implementations[i]
   tasks[gitImplementation] = {
@@ -26,7 +30,7 @@ for (int i = 0; i < implementations.size(); ++i) {
           deleteDir()
         }
         def implementation = gitImplementation == "git" ? "Default" : gitImplementation
-        checkout([$class: 'GitSCM',
+        checkout_result[implementation] = checkout([$class: 'GitSCM',
                   branches: [[name: "${origin}/${branch}*"]], /* Trailing '*' required to see bug */
                   browser: [$class: 'GithubWeb', repoUrl: "${repo}"],
                   extensions: [
@@ -37,7 +41,10 @@ for (int i = 0; i < implementations.size(); ++i) {
                   userRemoteConfigs: [[name: "${origin}", refspec: "+refs/heads/${branch}:refs/remotes/${origin}/${branch}", url: "${repo}"]]
                  ]
                 )
-        my_check.assertCondition(fileExists('.git/objects'), '.git/objects does not exist after checkout')
+        if (first_checkout_result = "") {
+            first_checkout_result = checkout_result[implementation]
+        }
+        my_check.assertCondition(first_checkout_result == checkout_result[implementation], first_checkout_result + " != " + checkout_result[implementation])
       }
       stage("Check ${gitImplementation}") {
         /* Call the ant build. */
