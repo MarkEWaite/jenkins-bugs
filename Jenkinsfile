@@ -32,7 +32,7 @@ for (int i = 0; i < implementations.size(); ++i) {
         def implementation = gitImplementation == "git" ? "Default" : gitImplementation
         checkout_result[implementation] = checkout([$class: 'GitSCM',
                   branches: [[name: "${origin}/${branch}*"]], /* Trailing '*' required to see bug */
-                  browser: [$class: 'GithubWeb', repoUrl: "${repo}"],
+                  browser: [$class: 'GithubWeb', repoUrl: repo],
                   extensions: [
                     [$class: 'CloneOption', honorRefspec: true, noTags: true],
                   ],
