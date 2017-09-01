@@ -38,12 +38,12 @@
   </target>
 
   <target name="increment" description="Increment build number">
-    <buildnumber/>
+    <buildnumber file="bŨĨldÕ.ÑŨmbẼr"/>
     <git command="commit">
       <args>
         <arg value="-m"/>
         <arg value="${ant.project.name} ${user.name} buildnumber++, was ${build.number}"/>
-        <arg value="build.number"/>
+        <arg value="bŨĨldÕ.ÑŨmbẼr"/>
       </args>
     </git>
   </target>
