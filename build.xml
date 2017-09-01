@@ -59,6 +59,7 @@
     <echo>Displaying git log messages on this branch from last 15 minutes</echo>
     <git command="log">
       <args>
+        <arg value="--numstat"/>
         <arg value="--since='15 minutes ago'"/>
       </args>
     </git>
