@@ -1,7 +1,7 @@
 <project name="JENKINS-29796" default="increment" basedir=".">
 
   <!-- Increment build number, commit the change -->
-  <target name="increment" description="Show JENKINS-29796 is a bug">
+  <target name="increment" description="Show changes detected even with multiple refspecs, JENKINS-29796 is resolved">
     <buildnumber/>
     <echo>Build number was ${build.number}</echo>
     <exec executable="git">
