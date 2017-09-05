@@ -35,6 +35,6 @@ node('linux') {  /* Windows symlink support inconsistent at best */
     def my_check = new com.markwaite.Assert()
     /* JENKINS-42882 reports that symlink to file in repo does not resolve
      * to the content of the file. */
-    my_check.logContains('.*.*', 'File content not in console output')
+    my_check.logContains('.*JENKINS-42882 reports that symlink to file in repo.*', 'File content not in console output')
   }
 }
