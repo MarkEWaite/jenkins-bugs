@@ -11,7 +11,7 @@ properties([[$class: 'BuildDiscarderProperty',
 node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
-              branches: [[name: 'origin-JENKINS-29796/production/JENKINS-29796'], [name: 'origin-JENKINS-29796/develop/JENKINS-29796']],
+              branches: [[name: 'origin-JENKINS-29796/develop/JENKINS-29796']],
               extensions:
                 [[$class: 'AuthorInChangelog'],
                  [$class: 'LocalBranch', localBranch: '**'],
