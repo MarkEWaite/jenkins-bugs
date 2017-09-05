@@ -11,7 +11,7 @@ properties([[$class: 'BuildDiscarderProperty',
 node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
-              branches: [[name: 'origin-JENKINS-29796/develop/JENKINS-29796']],
+              branches: [[name: 'origin/develop/JENKINS-29796']],
               extensions:
                 [[$class: 'AuthorInChangelog'],
                  [$class: 'LocalBranch', localBranch: '**'],
@@ -19,9 +19,8 @@ node {
                  [$class: 'CleanBeforeCheckout']],
               userRemoteConfigs:
                 [[credentialsId: 'MarkEWaite-github-username-password',
-                  name: 'origin-JENKINS-29796',
-                  refspec: '+refs/heads/production/JENKINS-29796:refs/remotes/origin-JENKINS-29796/production/JENKINS-29796' + ' ' +
-                           '+refs/heads/develop/JENKINS-29796:refs/remotes/origin-JENKINS-29796/develop/JENKINS-29796',
+                  refspec: '+refs/heads/production/JENKINS-29796:refs/remotes/origin/production/JENKINS-29796' + ' ' +
+                           '+refs/heads/develop/JENKINS-29796:refs/remotes/origin/develop/JENKINS-29796',
                   url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
 
   }
@@ -42,5 +41,7 @@ node {
       my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
       my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
     }
+    // Should always report user dir from 'ant info'
+    my_check.logContains('.*user dir is.*', 'Build started without a commit - no date line')
   }
 }
