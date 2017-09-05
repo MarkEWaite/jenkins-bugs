@@ -10,7 +10,20 @@ properties([[$class: 'BuildDiscarderProperty',
 
 node {
   stage('Checkout') {
-    checkout scm
+    checkout([$class: 'GitSCM',
+              branches: [[name: 'origin-JENKINS-29796/production/JENKINS-29796'], [name: 'origin-JENKINS-29796/develop/JENKINS-29796']],
+              extensions:
+                [[$class: 'AuthorInChangelog'],
+                 [$class: 'LocalBranch', localBranch: '**'],
+                 [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+                 [$class: 'CleanBeforeCheckout']],
+              userRemoteConfigs:
+                [[credentialsId: 'MarkEWaite-github-username-password',
+                  name: 'origin-JENKINS-29796',
+                  refspec: '+refs/heads/production/JENKINS-29796:refs/remotes/origin-JENKINS-29796/production/JENKINS-29796' + ' ' +
+                           '+refs/heads/develop/JENKINS-29796:refs/remotes/origin-JENKINS-29796/develop/JENKINS-29796',
+                  url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
+
   }
 
   stage('Build') {
@@ -21,8 +34,8 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    /* JENKINS-27332 reports changes are not detected if they occur on
-     * a branch which contains a slash in the branch name.  This
+    /* JENKINS-29796 reports that multiple refspecs would cause
+     * poll results to be ignored.
      * assertion checks that the commits from the last 15 minutes
      * (reported by 'ant info') are empty */
     if (currentBuild.number > 1) { // Don't check first build
