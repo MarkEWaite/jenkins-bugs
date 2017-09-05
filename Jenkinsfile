@@ -11,16 +11,15 @@ properties([[$class: 'BuildDiscarderProperty',
 node('linux') {  /* Windows symlink support inconsistent at best */
   stage('Checkout') {
     checkout([$class: 'GitSCM',
-              userRemoteConfigs: [[name: 'bugs-origin',
-                                   refspec: '+refs/heads/JENKINS-42882:refs/remotes/bugs-origin/JENKINS-42882',
+              userRemoteConfigs: [[refspec: "+refs/heads/${scm.branch}:refs/remotes/origin/${scm.branch}",
                                    url: 'https://github.com/MarkEWaite/jenkins-bugs']],
-              branches: [[name: 'bugs-origin/JENKINS-42882']],
+              branches: [[name: scm.branch]],
               browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
               extensions: [
                 [$class: 'AuthorInChangelog'],
                 [$class: 'CleanBeforeCheckout'],
                 [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                [$class: 'LocalBranch', localBranch: 'JENKINS-42882'],
+                [$class: 'LocalBranch', localBranch: scm.branch],
               ],
              ])
   }
