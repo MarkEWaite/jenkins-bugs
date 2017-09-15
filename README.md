@@ -1,11 +1,4 @@
-# Public repository for Jenkins bug verification.
+# [JENKINS-22795](https://issues.jenkins-ci.org/browse/JENKINS-22795) - files created before checkout are deleted
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations to
-duplicate the bug.  This repository captures some of those configurations
-in a way that is publicly visible so that automated tests can use this
-repository.
-
-This repository includes many branches with a Jenkinsfile pipeline
-definition file for branches where the pipeline definition file can
-encapsulate at least a portion of the bug verification step.
+Files created before the checkout step (in a pre-scm step, or before the
+checkout step in pipeline) are deleted by the git plugin checkout step.
