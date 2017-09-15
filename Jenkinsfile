@@ -12,6 +12,7 @@ def expectedText = 'This file written before checkout scm'
 
 node {
   stage('Checkout') {
+    deleteDir()
     writeFile file: 'pre-checkout-file.txt' text: expectedText
     checkout scm
   }
