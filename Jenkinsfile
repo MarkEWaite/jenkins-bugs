@@ -8,8 +8,11 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
+def expectedText = 'This file written before checkout scm'
+
 node {
   stage('Checkout') {
+    writeFile file: 'pre-checkout-file.txt' text: expectedText
     checkout scm
   }
 
@@ -21,11 +24,7 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    /* JENKINS-xxx reports that yyyy.
-     */
-    if (currentBuild.number > 1) { // Don't check first build
-      my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
-      my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
-    }
+    /* JENKINS-22795 reports that files created before checkout are removed by checkout. */
+    my_check.logContains(".*$[expectedText}.*", 'Existing file deleted by checkout scm')
   }
 }
