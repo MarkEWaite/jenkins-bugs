@@ -26,6 +26,6 @@ node {
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     /* JENKINS-22795 reports that files created before checkout are removed by checkout. */
-    my_check.logContains(".*$[expectedText}.*", 'Existing file deleted by checkout scm')
+    my_check.logContains(".*[expectedText}.*", 'Existing file deleted by checkout scm')
   }
 }
