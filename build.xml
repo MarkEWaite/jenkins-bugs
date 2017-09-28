@@ -31,3 +31,6 @@
   </macrodef>
 
 </project>
+
+<!-- Sample bug ID's to rotate through this project -->
+<!-- JENKINS-15103 JENKINS-24728 JENKINS-30178 JENKINS-34350 -->
