@@ -1,4 +1,4 @@
-# Public repository for Jenkins bug verification.
+# Jenkins bug verification public repository
 
 Many of the bug reports on the Jenkins git plugin and the Jenkins git
 client plugin need a repository which contains specific configurations to
@@ -7,5 +7,5 @@ in a way that is publicly visible so that automated tests can use this
 repository.
 
 This repository includes many branches with a Jenkinsfile pipeline
-definition file for branches where the pipeline definition file can
-encapsulate at least a portion of the bug verification step.
+definition for branches where the pipeline definition can encapsulate
+at least a portion of the bug verification.
