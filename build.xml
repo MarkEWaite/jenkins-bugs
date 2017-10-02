@@ -1,4 +1,4 @@
-<project name="JENKINS-22795" default="increment" basedir=".">
+<project name="JENKINS-12545" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
     <buildnumber/>
@@ -36,3 +36,6 @@
   </macrodef>
 
 </project>
+
+<!-- Sample bug ID's to rotate through this project -->
+<!-- JENKINS-12545 JENKINS-14798 JENKINS-22795 JENKINS-29853 JENKINS-31108 JENKINS-32174 -->
