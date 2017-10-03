@@ -14,6 +14,7 @@
         <arg value="build.number"/>
       </args>
     </git>
+<!-- 
     <git command="push"/>
     <git command="push">
       <args>
@@ -25,6 +26,7 @@
         <arg value="bare"/>
       </args>
     </git>
+-->
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
