@@ -1,4 +1,4 @@
-<project name="JENKINS-12316" default="increment" basedir=".">
+<project name="EVANGELISM-716" default="increment" basedir=".">
 
   <target name="info" description="Report info about this repo">
     <echo>java is ${java.version}</echo>
@@ -44,4 +44,4 @@
 </project>
 
 <!-- Sample bug ID's to rotate through this project -->
-<!-- JENKINS-12316 JENKINS-14798 JENKINS-15103 JENKINS-17614 JENKINS-23476 JENKINS-24728 JENKINS-30178 JENKINS-34350 -->
+<!-- EVANGELISM-716 JENKINS-12316 JENKINS-14798 JENKINS-15103 JENKINS-17614 JENKINS-23476 JENKINS-24728 JENKINS-30178 JENKINS-34350 -->
