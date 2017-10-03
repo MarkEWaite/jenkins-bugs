@@ -1,6 +1,5 @@
-<project name="JENKINS-34309" default="push" basedir=".">
+<project name="JENKINS-30178" default="push" basedir=".">
 
-  <!-- Synchronize repositories -->
   <target name="push" description="Push a change with Ctrl-M&#13; in the commit message">
     <echo>java is ${java.version}</echo>
     <buildnumber/>
@@ -12,7 +11,7 @@
     <git command="commit">
       <args>
         <arg value="-m"/>
-        <arg value="${ant.project.name} num was ${build.number}, message has trailing Ctrl-M&#13;x"/>
+        <arg value="[${ant.project.name}] build++ was ${build.number}, trailing Ctrl-M&#13;x"/>
       </args>
     </git>
     <git command="push" />
@@ -46,3 +45,12 @@
   </macrodef>
 
 </project>
+<!-- Sample bug ID's to rotate through this project -->
+
+<!--
+JENKINS-30178 JENKINS-31108 JENKINS-31393 JENKINS-31828 JENKINS-32174
+JENKINS-32840 JENKINS-33202 JENKINS-33433 JENKINS-33695 JENKINS-33827
+JENKINS-34309 JENKINS-34350 JENKINS-35475 JENKINS-35501 JENKINS-35687
+JENKINS-36507 JENKINS-36637 JENKINS-37156 JENKINS-37263 JENKINS-37495
+JENKINS-37727 JENKINS-37914 JENKINS-38126 JENKINS-38860 JENKINS-39905
+-->
