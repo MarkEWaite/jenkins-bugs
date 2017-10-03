@@ -15,6 +15,11 @@
       </args>
     </git>
     <git command="push" />
+      <args>
+        <arg value="cache"/>
+      </args>
+    <git command="push">
+    </git>
   </target>
 
   <!-- Report info about this repo -->
