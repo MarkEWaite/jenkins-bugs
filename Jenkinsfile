@@ -10,7 +10,11 @@ properties([[$class: 'BuildDiscarderProperty',
 
 node {
   stage('Checkout') {
-    checkout scm
+    try {
+      checkout scm
+    } catch (Exception e) {
+      echo "Exception in checkout stage \r\nb" + e
+    }
   }
 
   stage('Build') {
@@ -21,11 +25,6 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    /* JENKINS-xxx reports that yyyy.
-     */
-    if (currentBuild.number > 1) { // Don't check first build
-      my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
-      my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
-    }
+    my_check.logContains('.*JENKINS-47196.*', 'Branch name not reported')
   }
 }
