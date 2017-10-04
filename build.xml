@@ -20,6 +20,11 @@
         <arg value="cache"/>
       </args>
     </git>
+    <git command="push">
+      <args>
+        <arg value="bare"/>
+      </args>
+    </git>
   </target>
 
   <!-- Report info about this repo -->
