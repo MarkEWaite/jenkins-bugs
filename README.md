@@ -2,3 +2,5 @@
 
 A user says that a specific pipeline reports an array index out of
 bounds exception.
+
+I can't duplicate the bug.
