@@ -1,4 +1,4 @@
-<project name="JENKINS-32175" default="push" basedir=".">
+<project name="JENKINS-32176" default="push" basedir=".">
 
   <target name="push" description="Push a change with Ctrl-M&#13; in the commit message">
     <echo>java is ${java.version}</echo>
@@ -14,7 +14,7 @@
         <arg value="[${ant.project.name}] build++ was ${build.number}, trailing Ctrl-M&#13;x"/>
       </args>
     </git>
-    <git command="push" />
+    <git command="push"/>
     <git command="push">
       <args>
         <arg value="cache"/>
