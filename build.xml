@@ -1,4 +1,4 @@
-<project name="JENKINS-12323" default="increment" basedir=".">
+<project name="JENKINS-12326" default="increment" basedir=".">
 
   <target name="info" description="Report info about this repo">
     <echo>java is ${java.version}</echo>
@@ -14,7 +14,6 @@
         <arg value="build.number"/>
       </args>
     </git>
-<!-- 
     <git command="push"/>
     <git command="push">
       <args>
@@ -26,7 +25,6 @@
         <arg value="bare"/>
       </args>
     </git>
--->
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
