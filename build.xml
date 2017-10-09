@@ -1,6 +1,6 @@
-<project name="JENKINS-32180" default="push" basedir=".">
+<project name="JENKINS-32180" default="increment" basedir=".">
 
-  <target name="push" description="Push a change with Ctrl-M&#13; in the commit message">
+  <target name="increment" description="Increment and push a change with Ctrl-M&#13; in message">
     <echo>java is ${java.version}</echo>
     <buildnumber/>
     <git command="add">
