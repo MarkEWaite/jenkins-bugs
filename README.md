@@ -1,11 +1,10 @@
-# Public repository for Jenkins bug verification.
+# [JENKINS-28529](https://issues.jenkins-ci.org/browse/JENKINS-28529) polling cleans workspace unexpectedly
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations to
-duplicate the bug.  This repository captures some of those configurations
-in a way that is publicly visible so that automated tests can use this
-repository.
+If "clean before checkout" is enabled and any of the "ignore" settings
+are enabled (ignore commits in specific paths, ignore commits from
+specific users, ignore commits with specific messages), then polling
+will clean the workspace.  Polling should not clean the workspace.
+That's not the responsibility of polling.
 
-This repository will eventually be extended to have a Jenkinsfile pipeline
-definition file for those branches where the pipeline definition file
-can encapsulate the bug verification step.
+If "clean after checkout" is used instead, the workspace is not cleaned
+by polling.
