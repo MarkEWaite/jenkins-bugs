@@ -1,4 +1,4 @@
-<project name="JENKINS-22548" default="increment" basedir=".">
+<project name="JENKINS-22554" default="increment" basedir=".">
 
   <!-- Info about this repository -->
   <target name="info" description="Report info about this repo">
@@ -12,11 +12,15 @@
 
   <target name="increment" description="Increment build number">
     <buildnumber/>
+    <git command="add">
+      <args>
+        <arg value="build.number"/>
+      </args>
+    </git>
     <git command="commit">
       <args>
         <arg value="-m"/>
         <arg value="[${ant.project.name}] build++, was ${build.number}"/>
-        <arg value="build.number"/>
       </args>
     </git>
     <git command="push"/>
