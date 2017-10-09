@@ -1,7 +1,7 @@
 *.class
 
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
+# vim temporary files
+*.swp
 
 # Package Files #
 *.jar
