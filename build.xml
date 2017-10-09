@@ -27,4 +27,8 @@
     </exec>
   </target>
 
+  <target name="info" description="Check JENKINS-20941 - submodule authentication">
+    <echo>java is ${java.version}</echo>
+  </target>
+
 </project>
