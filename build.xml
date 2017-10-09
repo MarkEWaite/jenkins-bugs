@@ -26,6 +26,17 @@ java runtime version is ${java.runtime.version}
       <arg value="[${ant.project.name}] build++, was ${build.number}"/>
       <arg value="build.number"/>
     </exec>
+    <exec executable="git">
+      <arg value="push"/>
+    </exec>
+    <exec executable="git">
+      <arg value="push"/>
+      <arg value="cache"/>
+    </exec>
+    <exec executable="git">
+      <arg value="push"/>
+      <arg value="bare"/>
+    </exec>
   </target>
 
 </project>
