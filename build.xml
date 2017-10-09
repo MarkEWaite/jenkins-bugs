@@ -1,20 +1,5 @@
 <project name="JENKINS-28529" default="increment" basedir=".">
 
-  <hostinfo prefix="hostinfo"/>
-
-  <target name="create-file" description="Report environment information">
-    <tempfile property="temporary.file" destdir="." prefix="info-" suffix=".txt"/>
-    <echo file="${temporary.file}" append="true">
-java version is ${java.version}
-java runtime version is ${java.runtime.version}
-build file is ${ant.file}
-basedir is ${basedir}
-ant java version is ${ant.java.version}
-IPv4 address is ${hostinfo.ADDR4}
-IPv6 address is ${hostinfo.ADDR6}
-</echo>
-  </target>
-
   <target name="info" description="Report environment information" depends="increment">
     <echo>
 java version is ${java.version}
@@ -38,15 +23,8 @@ java runtime version is ${java.runtime.version}
     <exec executable="git">
       <arg value="commit"/>
       <arg value="-m"/>
-      <arg value="${ant.project.name} ${user.name} incremented build number, was ${build.number}"/>
+      <arg value="[${ant.project.name}] build++, was ${build.number}"/>
       <arg value="build.number"/>
-    </exec>
-  </target>
-
-  <target name="clean">
-    <exec executable="git" failonerror="true">
-      <arg value="clean"/>
-      <arg value="-xffd"/>
     </exec>
   </target>
 
