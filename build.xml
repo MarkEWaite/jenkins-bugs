@@ -1,12 +1,17 @@
 <project name="JENKINS-47196" default="increment" basedir=".">
+<!-- jenkins-deploy-fake -->
 
   <target name="increment" description="Increment build number">
     <buildnumber/>
+    <git command="add">
+      <args>
+        <arg value="build.number"/>
+      </args>
+    </git>
     <git command="commit">
       <args>
         <arg value="-m"/>
-        <arg value="[${ant.project.name}] ${user.name} build++, was ${build.number}"/>
-        <arg value="build.number"/>
+        <arg value="[${ant.project.name}] build++, was ${build.number}"/>
       </args>
     </git>
   </target>
