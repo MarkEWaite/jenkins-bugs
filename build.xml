@@ -1,4 +1,5 @@
 <project name="JENKINS-20941" default="increment" basedir=".">
+<!-- jgit-fake -->
 
   <!-- Increment build number, commit the change -->
   <target name="increment" description="Check JENKINS-20941 - submodule authentication">
