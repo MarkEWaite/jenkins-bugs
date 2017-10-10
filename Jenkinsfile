@@ -44,7 +44,7 @@ node("git-1.9+") { // Shallow clone fails on git versions before 1.9
 
   stage('Verify') {
     def check = new com.markwaite.Assert()
-    check.logContains(".*exec.*[*] JENKINS-36507", "Missing current branch name.")
+    check.logContains(".*exec.*[*] ${branch}", "Missing current branch name - ${branch}.")
     check.logDoesNotContain("exec.*JENKINS-22547", "Found extra branch name JENKINS-22547.")
   }
 }
