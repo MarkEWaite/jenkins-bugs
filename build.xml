@@ -1,4 +1,5 @@
-<project name="JENKINS-28529" default="increment" basedir=".">
+<project name="JENKINS-28530" default="increment" basedir=".">
+<!-- remoting-fake -->
 
   <target name="info" description="Report environment information" depends="increment">
     <echo>
@@ -18,13 +19,11 @@ java runtime version is ${java.runtime.version}
     <exec executable="git">
       <arg value="add"/>
       <arg value="build.number"/>
-      <arg value="."/>
     </exec>
     <exec executable="git">
       <arg value="commit"/>
       <arg value="-m"/>
       <arg value="[${ant.project.name}] build++, was ${build.number}"/>
-      <arg value="build.number"/>
     </exec>
     <exec executable="git">
       <arg value="push"/>
