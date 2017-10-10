@@ -14,6 +14,17 @@
         <arg value="[${ant.project.name}] build++, was ${build.number}"/>
       </args>
     </git>
+    <git command="push" />
+    <git command="push">
+      <args>
+        <arg value="cache"/>
+      </args>
+    </git>
+    <git command="push">
+      <args>
+        <arg value="bare"/>
+      </args>
+    </git>
   </target>
 
   <!-- Info about this repository -->
