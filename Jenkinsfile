@@ -27,7 +27,7 @@ node('master') {
                            [$class: 'LocalBranch', localBranch: branch],
                            [$class: 'PruneStaleBranch'],
                           ],
-              gitTool: 'Default',
+              gitTool: 'jgit',
              ])
   }
 
