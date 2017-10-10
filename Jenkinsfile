@@ -15,7 +15,7 @@ node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
               userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
-                                   name: "${origin}",
+                                   name: origin,
                                    refspec: "+refs/heads/${branch}:refs/remotes/${origin}/${branch}",
                                   ]],
               branches: [[name: "${origin}/${branch}"]],
@@ -24,7 +24,7 @@ node {
                             noTags: true,
                             reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
                             timeout: 3],
-                           [$class: 'LocalBranch', localBranch: '${branch}'],
+                           [$class: 'LocalBranch', localBranch: branch],
                            [$class: 'PruneStaleBranch'],
                           ],
               gitTool: 'jgit',
