@@ -27,7 +27,7 @@ node('master') {
                            [$class: 'LocalBranch', localBranch: branch],
                            [$class: 'PruneStaleBranch'],
                           ],
-              gitTool: 'jgit',
+              gitTool: 'Default', // Default shows the bug, jgit does not
              ])
   }
 
