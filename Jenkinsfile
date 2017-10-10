@@ -8,10 +8,10 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '7']]])
 
-def branch="JENKINS-36637"
-def origin="J-36637-origin"
+def branch='JENKINS-36637'
+def origin='J-36637-origin'
 
-node {
+node('master') {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
               userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
@@ -27,7 +27,7 @@ node {
                            [$class: 'LocalBranch', localBranch: branch],
                            [$class: 'PruneStaleBranch'],
                           ],
-              gitTool: 'jgit',
+              gitTool: 'Default',
              ])
   }
 
@@ -39,7 +39,7 @@ node {
 
   stage('Verify') {
     def check = new com.markwaite.Assert()
-    String jobName = "${env.JOB_NAME}"
+    String jobName = env.JOB_NAME
     String jobPath = "job/" + jobName.replace("/", "/job/")
     String buildNumber = "${currentBuild.number}"
     String jobURL = "http://localhost:8080/${jobPath}/${buildNumber}/api/xml?wrapper=changes&xpath=//changeSet//comment"
