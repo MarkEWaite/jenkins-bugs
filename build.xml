@@ -4,6 +4,9 @@
   <!-- Increment build number, commit the change -->
   <target name="increment" description="Check JENKINS-20941 - submodule authentication">
     <echo>java is ${java.version}</echo>
+    <exec executable="git">
+      <arg value="pull"/>
+    </exec>
     <buildnumber/>
     <echo>Build number was ${build.number}</echo>
     <exec executable="git">
