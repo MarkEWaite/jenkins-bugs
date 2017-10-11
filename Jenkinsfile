@@ -8,9 +8,19 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
+def branch='JENKINS-45894.branch.with.dot.in.name'
+
 node {
   stage('Checkout') {
-    checkout scm
+    checkout([$class: 'GitSCM',
+              branches: [[name: branch]],
+              extensions: [
+                  [$class: 'LocalBranch', localBranch: branch],
+                  [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git']
+              ],
+              userRemoteConfigs: [[name: 'origin',
+                                   refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}",
+                                   url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
   }
 
   stage('Build') {
@@ -22,6 +32,6 @@ node {
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     /* JENKINS-45894 reports that fullstop in branch name causes failure to checkout.  */
-    my_check.logContains('.*exec.*JENKINS-45894.branch.with.dot.in.name', 'ant output did not include branch name')
+    my_check.logContains(".*exec.* ${branch}", 'ant output did not include branch name')
   }
 }
