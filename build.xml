@@ -1,8 +1,9 @@
-<project name="JENKINS-47197" default="increment" basedir=".">
+<project name="JENKINS-47198" default="increment" basedir=".">
 <!-- jenkins-deploy-fake -->
 
   <target name="increment" description="Increment build number">
     <buildnumber/>
+    <git command="pull" />
     <git command="add">
       <args>
         <arg value="build.number"/>
