@@ -14,6 +14,9 @@ java runtime version is ${java.runtime.version}
   <!-- Increment build number, commit the change -->
   <target name="increment" description="Show JENKINS-28529 builds when it shouldn't">
     <echo>java is ${java.version}</echo>
+    <exec executable="git">
+      <arg value="pull"/>
+    </exec>
     <buildnumber/>
     <echo>Build number was ${build.number}</echo>
     <exec executable="git">
