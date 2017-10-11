@@ -1,11 +1,9 @@
-# Jenkins bug verification public repository
+# [JENKINS-45894](https://issues.jenkins-ci.org/browse/JENKINS-45894) array index bounds exception in branch list
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations to
-duplicate the bug.  This repository captures some of those configurations
-in a way that is publicly visible so that automated tests can use this
-repository.
+Special branch names cause an array bounds exception in the git client
+plugin when they encounter unexpected output from the "git branch"
+command.
 
-This repository includes many branches with a Jenkinsfile pipeline
-definition for branches where the pipeline definition can encapsulate
-at least a portion of the bug verification.
+One of the comments in the bug report said that a branch name which
+contains a "fullstop" caused the issue.  Unicode "full stop" is ASCII 2E,
+the "period".  This branch name includes ASCII 2E in its name.
