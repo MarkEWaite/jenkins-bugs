@@ -21,11 +21,7 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    /* JENKINS-xxx reports that yyyy.
-     */
-    if (currentBuild.number > 1) { // Don't check first build
-      my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
-      my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
-    }
+    /* JENKINS-45894 reports that fullstop in branch name causes failure to checkout.  */
+    my_check.logContains('.*exec.*JENKINS-45894.branch.with.dot.in.name', 'ant output did not include branch name')
   }
 }
