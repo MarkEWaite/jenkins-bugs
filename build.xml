@@ -1,4 +1,4 @@
-<project name="JENKINS-11000" default="increment" basedir=".">
+<project name="JENKINS-11001" default="increment" basedir=".">
   <description>Also used in remoting-fake</description>
 
   <target name="info" description="Report environment information">
