@@ -1,13 +1,11 @@
 <project name="JENKINS-46422" default="increment" basedir=".">
 
-  <property environment="env"/>
-
   <target name="increment" description="Increment build number">
     <buildnumber file="bŨĨldÕ.ÑŨmbẼr"/>
     <git command="commit">
       <args>
         <arg value="-m"/>
-        <arg value="${ant.project.name} ${user.name} buildnumber++, was ${build.number}"/>
+        <arg value="[${ant.project.name}] ${user.name} build++, was ${build.number}"/>
         <arg value="bŨĨldÕ.ÑŨmbẼr"/>
       </args>
     </git>
