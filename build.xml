@@ -1,8 +1,8 @@
 <project name="JENKINS-36510" default="increment" basedir=".">
-<!-- structs-plugin-fake -->
+  <description>Also used in structs-plugin-fake</description>
 
   <!-- Report branch names of this repository -->
-  <target name="info" description="Report info about this repo">
+  <target name="info" description="Report environment info">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch">
@@ -10,9 +10,15 @@
         <arg value="-a"/>
       </args>
     </git>
+    <java classname="org.apache.tools.ant.Main">
+        <arg value="-projecthelp" />
+        <arg value="-buildfile" />
+        <arg value="${ant.file}" />
+    </java>
   </target>
 
   <target name="increment" description="Increment build number">
+    <git command="pull"/>
     <buildnumber/>
     <git command="add">
       <args>
