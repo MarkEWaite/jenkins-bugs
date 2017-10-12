@@ -1,5 +1,5 @@
 <project name="JENKINS-23000" default="increment" basedir=".">
-<!-- git-plugin-fake -->
+  <description>Also used in git-plugin-fake</description>
 
   <!-- Info about this repository -->
   <target name="info" description="Report info about this repo">
@@ -9,6 +9,12 @@
     <loadfile property="file.content" srcFile="pre-checkout-file.txt" failonerror="false"/>
     <property name="file.content" value="[missing]"/>
     <echo>File content for pre-checkout-file.txt is ${file.content}</echo>
+    <echo>project name is ${ant.project.name}</echo>
+    <java classname="org.apache.tools.ant.Main">
+        <arg value="-projecthelp" />
+        <arg value="-buildfile" />
+        <arg value="${ant.file}" />
+    </java>
   </target>
 
   <target name="increment" description="Increment build number">
