@@ -1,5 +1,5 @@
 <project name="JENKINS-21000" default="increment" basedir=".">
-  <description>jgit-fake</description>
+  <description>Also used in jgit-fake job</description>
 
   <!-- Increment build number, commit the change -->
   <target name="increment" description="Check JENKINS-20941 - submodule authentication">
@@ -31,8 +31,14 @@
     </exec>
   </target>
 
-  <target name="info" description="Check JENKINS-20941 - submodule authentication">
+  <target name="info" description="Info report">
     <echo>java is ${java.version}</echo>
+    <echo>project name is ${ant.project.name}</echo>
+    <java classname="org.apache.tools.ant.Main">
+	<arg value="-projecthelp" />
+	<arg value="-buildfile" />
+	<arg value="${ant.file}" />
+    </java>
   </target>
 
 </project>
