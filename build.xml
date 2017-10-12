@@ -1,16 +1,19 @@
 <project name="JENKINS-46422" default="increment" basedir=".">
+  <description>Also used in credentials-plugin-fake</description>
+
+  <property name="build.number.file" value="bŨĨldÕ.ÑŨmbẼr"/>
 
   <target name="increment" description="Increment build number">
-    <buildnumber file="bŨĨldÕ.ÑŨmbẼr"/>
+    <buildnumber file="${build.number.file}"/>
     <git command="add">
       <args>
-        <arg value="bŨĨldÕ.ÑŨmbẼr"/>
+        <arg value="${build.number.file}"/>
       </args>
     </git>
     <git command="commit">
       <args>
         <arg value="-m"/>
-        <arg value="[${ant.project.name}] ${user.name} build++, was ${build.number}"/>
+        <arg value="[${ant.project.name}] ${user.name} build++, was ${build.number} in ${build.number.file}"/>
       </args>
     </git>
   </target>
@@ -21,7 +24,12 @@
     <echo>user dir is ${user.dir}</echo>
     <fileset id="b.contents" dir="." includes="b*mb*r"/> 
     <property name="prop.b.contents" refid="b.contents"/>
-    <echo>b contents is ${prop.b.contents}"</echo>
+    <echo>b contents is ${prop.b.contents}</echo>
+    <java classname="org.apache.tools.ant.Main">
+        <arg value="-projecthelp" />
+        <arg value="-buildfile" />
+        <arg value="${ant.file}" />
+    </java>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
