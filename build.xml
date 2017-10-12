@@ -1,7 +1,7 @@
 <project name="JENKINS-11000" default="increment" basedir=".">
-<!-- remoting-fake -->
+  <description>Also used in remoting-fake</description>
 
-  <target name="info" description="Report environment information" depends="increment">
+  <target name="info" description="Report environment information">
     <echo>
 java version is ${java.version}
 java runtime version is ${java.runtime.version}
@@ -9,6 +9,12 @@ java runtime version is ${java.runtime.version}
     <exec executable="git" failonerror="true">
       <arg value="branch"/>
     </exec>
+    <echo>project name is ${ant.project.name}</echo>
+    <java classname="org.apache.tools.ant.Main">
+        <arg value="-projecthelp" />
+        <arg value="-buildfile" />
+        <arg value="${ant.file}" />
+    </java>
   </target>
 
   <!-- Increment build number, commit the change -->
