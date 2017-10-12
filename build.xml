@@ -1,9 +1,15 @@
-<project name="JENKINS-12332" default="increment" basedir=".">
-<!-- git-client-plugin-fake -->
+<project name="JENKINS-22000" default="increment" basedir=".">
+  <description>Also used in git-client-plugin-fake</description>
 
-  <target name="info" description="Report info about this repo">
+  <target name="info" description="Report environment info">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
+    <echo>project name is ${ant.project.name}</echo>
+    <java classname="org.apache.tools.ant.Main">
+        <arg value="-projecthelp" />
+        <arg value="-buildfile" />
+        <arg value="${ant.file}" />
+    </java>
   </target>
 
   <target name="increment" description="Increment build number">
