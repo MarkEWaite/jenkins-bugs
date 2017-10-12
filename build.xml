@@ -4,6 +4,7 @@
   <property name="build.number.file" value="bŨĨldÕ.ÑŨmbẼr"/>
 
   <target name="increment" description="Increment build number">
+    <git command="pull" />
     <buildnumber file="${build.number.file}"/>
     <git command="add">
       <args>
@@ -14,6 +15,17 @@
       <args>
         <arg value="-m"/>
         <arg value="[${ant.project.name}] ${user.name} build++, was ${build.number} in ${build.number.file}"/>
+      </args>
+    </git>
+    <git command="push" />
+    <git command="push">
+      <args>
+        <arg value="cache"/>
+      </args>
+    </git>
+    <git command="push">
+      <args>
+        <arg value="bare"/>
       </args>
     </git>
   </target>
