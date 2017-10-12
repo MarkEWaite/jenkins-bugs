@@ -12,6 +12,7 @@
   </target>
 
   <target name="increment" description="Increment build number">
+    <git command="push"/>
     <buildnumber/>
     <git command="add">
       <args>
