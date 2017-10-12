@@ -1,6 +1,21 @@
 <project name="JENKINS-11001" default="increment" basedir=".">
   <description>Also used in remoting-fake</description>
 
+  <hostinfo prefix="hostinfo"/>
+
+  <target name="create-file" description="Create file expected to remain after polling">
+    <tempfile property="temporary.file" destdir="." prefix="info-" suffix=".txt"/>
+    <echo file="${temporary.file}" append="true">
+java version is ${java.version}
+java runtime version is ${java.runtime.version}
+build file is ${ant.file}
+basedir is ${basedir}
+ant java version is ${ant.java.version}
+IPv4 address is ${hostinfo.ADDR4}
+IPv6 address is ${hostinfo.ADDR6}
+</echo>
+  </target>
+
   <target name="info" description="Report environment information">
     <echo>
 java version is ${java.version}
