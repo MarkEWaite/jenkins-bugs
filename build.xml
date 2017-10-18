@@ -1,5 +1,6 @@
 <project name="JENKINS-47496" default="increment" basedir=".">
 
+  <property name="all.arg" value="--all"/>
   <property name="tags.arg" value="--tags"/>
 
   <target name="increment" description="Increment build number">
@@ -23,26 +24,27 @@
         <arg value="HEAD^"/>
       </args>
     </git>
-<!--
     <git command="push">
       <args>
         <arg value="origin"/>
+        <arg value="${all.arg}"/>
         <arg value="${tags.arg}"/>
       </args>
     </git>
     <git command="push">
       <args>
         <arg value="cache"/>
+        <arg value="${all.arg}"/>
         <arg value="${tags.arg}"/>
       </args>
     </git>
     <git command="push">
       <args>
         <arg value="bare"/>
+        <arg value="${all.arg}"/>
         <arg value="${tags.arg}"/>
       </args>
     </git>
--->
   </target>
 
   <!-- Info about this repository -->
