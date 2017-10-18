@@ -1,11 +1,4 @@
-# Jenkins bug verification public repository
+# [JENKINS-47496](https://issues.jenkins-ci.org/browse/JENKINS-47496) tags discoverd but not built
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations to
-duplicate the bug.  This repository captures some of those configurations
-in a way that is publicly visible so that automated tests can use this
-repository.
-
-This repository includes many branches with a Jenkinsfile pipeline
-definition for branches where the pipeline definition can encapsulate
-at least a portion of the bug verification.
+Tag discovery was added to the git plugin SCM API in git plugin 3.6.0.
+The bug report was that the tags are discovered but not built.
