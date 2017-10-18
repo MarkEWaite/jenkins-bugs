@@ -1,5 +1,7 @@
 <project name="JENKINS-47496" default="increment" basedir=".">
 
+  <property name="tags.arg" value="--tags"/>
+
   <target name="increment" description="Increment build number">
     <git command="pull" />
     <buildnumber/>
@@ -14,24 +16,45 @@
         <arg value="[${ant.project.name}] build++, was ${build.number}"/>
       </args>
     </git>
-    <git command="pull" />
+    <!-- Tag predecessor commit with previous build number -->
+    <git command="tag">
+      <args>
+        <arg value="${ant.project.name}-1.0.${build.number}"/>
+        <arg value="HEAD^"/>
+      </args>
+    </git>
+<!--
+    <git command="push">
+      <args>
+        <arg value="origin"/>
+        <arg value="${tags.arg}"/>
+      </args>
+    </git>
     <git command="push">
       <args>
         <arg value="cache"/>
+        <arg value="${tags.arg}"/>
       </args>
     </git>
     <git command="push">
       <args>
         <arg value="bare"/>
+        <arg value="${tags.arg}"/>
       </args>
     </git>
+-->
   </target>
 
   <!-- Info about this repository -->
   <target name="info" description="Report info about this repo">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
-    <git command="tag" />
+    <git command="tag">
+      <args>
+        <arg value="--contains"/>
+        <arg value="HEAD^"/>
+      </args>
+    </git>
     <!-- JENKINS-47496 reports that new tags are not built. -->
   </target>
 
