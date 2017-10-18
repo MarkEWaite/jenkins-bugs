@@ -19,6 +19,9 @@
     <!-- Tag predecessor commit with previous build number -->
     <git command="tag">
       <args>
+        <arg value="-a"/>
+        <arg value="-m"/>
+        <arg value="Annotated tag for ${ant.project.name} build 1.0.${build.number}"/>
         <arg value="${ant.project.name}-1.0.${build.number}"/>
         <arg value="HEAD^"/>
       </args>
