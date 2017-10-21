@@ -17,8 +17,8 @@
         <arg value="[${ant.project.name}] build++, was ${build.number}"/>
       </args>
     </git>
-    <git command="push" />
     <!-- push to origin, intentionally do not push to cache or bare -->
+    <git command="push" />
     <!-- Poke the notifyCommit URL with url and branches arguments -->
     <!-- Should start the build -->
     <exec executable="curl" failonerror="true">
