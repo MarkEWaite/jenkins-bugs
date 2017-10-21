@@ -43,7 +43,7 @@
       <redirector>
         <outputfilterchain>
           <linecontainsregexp>
-            <regexp pattern=".* on .*" />
+            <regexp pattern=".*" />
           </linecontainsregexp>
         </outputfilterchain>
       </redirector>
