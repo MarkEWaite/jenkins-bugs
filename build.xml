@@ -19,11 +19,11 @@
     </git>
     <git command="push" />
     <!-- intentionally do not push to cache or bare -->
-    <!-- Poke the notifyCommit URL with a branchName argument -->
+    <!-- Poke the notifyCommit URL with a branches argument -->
     <!-- Should be enough to start the build -->
     <exec executable="curl" failonerror="true">
       <arg value="-s" />
-      <arg value="http://${jenkins.hostname}:8080/git/notifyCommit?url=git@github.com:MarkEWaite/jenkins-bugs.git&amp;branchName=has-slash/JENKINS-29603" />
+      <arg value="http://${jenkins.hostname}:8080/git/notifyCommit?branches=has-slash/JENKINS-29603&amp;url=git@github.com:MarkEWaite/jenkins-bugs.git" />
     </exec>
   </target>
 
@@ -32,8 +32,8 @@
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
-    <!-- JENKINS-29603 reports that branches with slashes passed in branchName
-         argumenbt of notifyCommit are ignored. -->
+    <!-- JENKINS-29603 reports that branches with slashes passed in branches
+         argument of notifyCommit are ignored. -->
     <echo>Displaying git log messages on this branch from last 15 minutes</echo>
     <git command="log">
       <args>
