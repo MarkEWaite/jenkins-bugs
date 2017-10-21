@@ -53,7 +53,7 @@
   <target name="increment-and-test" description="Increment build number and test job output" depends="increment,test" />
 
   <!-- Info about this repository -->
-  <target name="info" description="Report info about this repo">
+  <target name="info" description="Report info about this repo" depends="test">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
