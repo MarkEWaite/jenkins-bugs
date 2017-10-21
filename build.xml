@@ -35,7 +35,6 @@
   </target>
 
   <target name="test" description="Extract polling date from job's polling log" if="env.BUILD_URL">
-    <description>Incomplete attempt to read polling log from within job</descripton>
     <echo>${env.BUILD_URL}/scmPollLog/</echo>
     <exec executable="curl" failonerror="true">
       <arg value="-s" />
