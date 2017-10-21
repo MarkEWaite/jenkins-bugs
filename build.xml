@@ -14,6 +14,14 @@
         <arg value="[${ant.project.name}] build++, was ${build.number}"/>
       </args>
     </git>
+    <git command="push" />
+    <!-- intentionally do not push to cache or bare -->
+    <!-- Poke the notifyCommit URL with a branchName argument -->
+    <!-- Should be enough to start the build -->
+    <exec executable="curl" failonerror="true">
+      <arg value="-s" />
+      <arg value="http://mark-pc2:8080/git/notifyCommit?url=git@github.com:MarkEWaite/jenkins-bugs.git#branchName=has-slash/JENKINS-29603" />
+    </exec>
   </target>
 
   <!-- Info about this repository -->
