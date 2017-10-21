@@ -1,7 +1,9 @@
-<project name="JENKINS-29603" default="increment" basedir=".">
+<project name="JENKINS-29603" default="increment-and-test" basedir=".">
 
   <!-- jenkins.hostname is hostname of Jenkins server to notify -->
   <property name="jenkins.hostname" value="jenkins.markwaite.net" />
+
+  <property environment="env"/>
 
   <target name="increment" description="Increment build number">
     <git command="pull" />
@@ -31,6 +33,24 @@
       <arg value="branches=has-slash/JENKINS-29603" />
     </exec>
   </target>
+
+  <target name="test" description="Extract polling date from job's polling log" if="env.BUILD_URL">
+    <echo>${env.BUILD_URL}/scmPollLog/</echo>
+    <exec executable="curl" failonerror="true">
+      <arg value="-s" />
+      <arg value="-v" />
+      <arg value="${env.BUILD_URL}/scmPollLog/" />
+      <redirector>
+        <outputfilterchain>
+          <linecontainsregexp>
+            <regexp pattern=".* on .*" />
+          </linecontainsregexp>
+        </outputfilterchain>
+      </redirector>
+    </exec>
+  </target>
+
+  <target name="increment-and-test" description="Increment build number and test job output" depends="increment,test" />
 
   <!-- Info about this repository -->
   <target name="info" description="Report info about this repo">
