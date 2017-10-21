@@ -23,7 +23,7 @@
     <!-- Should be enough to start the build -->
     <exec executable="curl" failonerror="true">
       <arg value="-s" />
-      <arg value="http://${jenkins.hostname}:8080/git/notifyCommit?url=git@github.com:MarkEWaite/jenkins-bugs.git#branchName=has-slash/JENKINS-29603" />
+      <arg value="http://${jenkins.hostname}:8080/git/notifyCommit?url=git@github.com:MarkEWaite/jenkins-bugs.git&branchName=has-slash/JENKINS-29603" />
     </exec>
   </target>
 
