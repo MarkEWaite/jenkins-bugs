@@ -4,9 +4,9 @@
 import com.markwaite.Assert
 import com.markwaite.Build
 
-/* Only keep the 10 most recent builds. */
+/* Only keep the 17 most recent builds. */
 properties([[$class: 'BuildDiscarderProperty',
-                strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
+                strategy: [$class: 'LogRotator', numToKeepStr: '17']]])
 
 def repo_url='https://github.com/MarkEWaite/jenkins-bugs'
 def branch_name='has-slash/JENKINS-29603'
