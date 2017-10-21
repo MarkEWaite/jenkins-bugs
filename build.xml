@@ -21,12 +21,14 @@
     <!-- intentionally do not push to cache or bare -->
     <!-- Poke the notifyCommit URL with a branches argument -->
     <!-- Should be enough to start the build -->
-    <!--
     <exec executable="curl" failonerror="true">
       <arg value="-s" />
-      <arg value="http://${jenkins.hostname}:8080/git/notifyCommit?url=https://github.com/MarkEWaite/jenkins-bugs&amp;branches=has-slash/JENKINS-29603" />
+      <arg value="http://${jenkins.hostname}:8080/git/notifyCommit" />
+      <arg value="-d" />
+      <arg value="url=https://github.com/MarkEWaite/jenkins-bugs" />
+      <arg value="-d" />
+      <arg value="branches=has-slash/JENKINS-29603" />
     </exec>
-    -->
   </target>
 
   <!-- Info about this repository -->
