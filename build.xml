@@ -1,5 +1,6 @@
 <project name="JENKINS-29603" default="increment" basedir=".">
 
+  <!-- jenkins.hostname is hostname of Jenkins server to notify -->
   <property name="jenkins.hostname" value="jenkins.markwaite.net" />
 
   <target name="increment" description="Increment build number">
