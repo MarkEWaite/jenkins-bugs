@@ -39,7 +39,8 @@
     <exec executable="curl" failonerror="true">
       <arg value="-s" />
       <arg value="-v" />
-      <arg value="${env.BUILD_URL}/scmPollLog/" />
+      <arg value="http://mark-pc2.markwaite.net:8080/job/Bugs-Individual/job/JENKINS-29603-notifyCommit-branch-with-slash-1/scmPollLog/" />
+      <!-- <arg value="${env.BUILD_URL}/scmPollLog/" /> -->
       <redirector>
         <outputfilterchain>
           <linecontainsregexp>
