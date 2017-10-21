@@ -32,10 +32,10 @@
       <arg value="-d" />
       <arg value="branches=has-slash/JENKINS-29603" />
     </exec>
-    <echo>env.BUILD_URL is '${env.BUILD_URL}/scmPollLog/'</echo>
   </target>
 
   <target name="test" description="Extract polling date from job's polling log" if="env.BUILD_URL">
+    <description>Incomplete attempt to read polling log from within job</descripton>
     <echo>${env.BUILD_URL}/scmPollLog/</echo>
     <exec executable="curl" failonerror="true">
       <arg value="-s" />
@@ -44,7 +44,7 @@
       <redirector>
         <outputfilterchain>
           <linecontainsregexp>
-            <regexp pattern=".*" />
+            <regexp pattern=".*Started on .*" />
           </linecontainsregexp>
         </outputfilterchain>
       </redirector>
