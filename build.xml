@@ -24,6 +24,7 @@
   <target name="notify" description="Notify Jenkins of commit">
     <!-- Poke the notifyCommit URL with url and branches arguments -->
     <!-- Should start the build -->
+    <!-- Must have curl program installed -->
     <exec executable="curl" failonerror="true">
       <arg value="-s" />
       <arg value="http://${jenkins.hostname}:8080/git/notifyCommit" />
