@@ -28,7 +28,7 @@
       <arg value="http://${jenkins.hostname}:8080/git/notifyCommit" />
       <arg value="-d" />
       <!-- <arg value="url=https://github.com/MarkEWaite/jenkins-bugs" /> -->
-      <arg value="url=git://github.com/MarkEWaite/jenkins-bugs.git" />
+      <arg value="url=https://github.com/MarkEWaite/jenkins-bugs" />
       <arg value="-d" />
       <arg value="branches=has-slash/JENKINS-29603" />
     </exec>
