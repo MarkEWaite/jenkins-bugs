@@ -3,8 +3,6 @@
   <!-- jenkins.hostname is hostname of Jenkins server to notify -->
   <property name="jenkins.hostname" value="jenkins.markwaite.net" />
 
-  <property environment="env"/>
-
   <target name="increment" description="Increment build number">
     <git command="pull" />
     <buildnumber/>
