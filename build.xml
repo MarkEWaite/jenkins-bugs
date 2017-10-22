@@ -1,4 +1,4 @@
-<project name="JENKINS-29603" default="increment" basedir=".">
+<project name="JENKINS-29603" default="increment-and-notify" basedir=".">
 
   <!-- jenkins.hostname is hostname of Jenkins server to notify -->
   <property name="jenkins.hostname" value="jenkins.markwaite.net" />
@@ -19,6 +19,9 @@
     </git>
     <!-- push to origin, intentionally do not push to cache or bare -->
     <git command="push" />
+  </target>
+
+  <target name="notify" description="Notify Jenkins of commit">
     <!-- Poke the notifyCommit URL with url and branches arguments -->
     <!-- Should start the build -->
     <exec executable="curl" failonerror="true">
@@ -30,6 +33,8 @@
       <arg value="branches=has-slash/JENKINS-29603" />
     </exec>
   </target>
+
+  <target name="increment-and-notify" description="Increment build number and notify Jenkins" depends="increment,notify" />
 
   <!-- Info about this repository -->
   <target name="info" description="Report info about this repo">
