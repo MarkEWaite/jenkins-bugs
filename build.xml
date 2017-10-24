@@ -1,4 +1,4 @@
-<project name="JENKINS-23003" default="increment" basedir=".">
+<project name="JENKINS-23004" default="increment" basedir=".">
   <description>Also used in git-plugin-fake</description>
 
   <!-- Info about this repository -->
