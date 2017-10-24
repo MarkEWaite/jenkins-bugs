@@ -1,5 +1,5 @@
 <project name="JENKINS-14003" default="increment" basedir=".">
-  <description>Also used in jenkins-core-fake</description>
+  <description>Also used in application-A</description>
 
   <target name="increment" description="Increment build number">
     <echo>java is ${java.version}</echo>
