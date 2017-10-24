@@ -5,7 +5,7 @@
     <git command="commit">
       <args>
         <arg value="-m"/>
-        <arg value="${ant.project.name} ${user.name} buildnumber++, was ${build.number}"/>
+        <arg value="[${ant.project.name}] build++, was ${build.number}"/>
         <arg value="build.number"/>
       </args>
     </git>
