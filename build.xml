@@ -1,4 +1,4 @@
-<project name="JENKINS-22005" default="increment" basedir=".">
+<project name="JENKINS-22006" default="increment" basedir=".">
   <description>Also used in git-client-plugin-fake</description>
 
   <target name="info" description="Report environment info">
