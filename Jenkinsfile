@@ -18,9 +18,11 @@ node {
   }
 
   stage('Build') {
-    /* Call the ant build. */
-    def my_step = new com.markwaite.Build()
-    my_step.ant 'info'
+    dir(user_dir) {
+      /* Call the ant build. */
+      def my_step = new com.markwaite.Build()
+      my_step.ant 'info'
+    }
   }
 
   stage('Verify') {
