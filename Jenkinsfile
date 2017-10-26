@@ -8,9 +8,13 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
+def user_dir = 'checkout-subdir-destination'
+
 node {
   stage('Checkout') {
-    checkout scm
+    dir(user_dir) {
+      checkout scm
+    }
   }
 
   stage('Build') {
@@ -21,11 +25,7 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    /* JENKINS-xxx reports that yyyy.
-     */
-    if (currentBuild.number > 1) { // Don't check first build
-      my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
-      my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
-    }
+    /* JENKINS-47646 reports that tagging from Jenkins UI fails.  */
+    my_check.logContains(".*User dir:.*${user_dir}.*", 'Build not in expected subdirectory')
   }
 }
