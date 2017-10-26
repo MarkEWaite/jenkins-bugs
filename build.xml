@@ -15,6 +15,10 @@
       <args>
         <arg value="-m"/>
         <arg value="[${ant.project.name}] build++, was ${build.number}"/>
+        <arg value="-m"/>
+        <arg value="Committed by ${user.name} from ${user.dir}, home is ${user.home}"/>
+        <arg value="-m"/>
+        <arg value="Java version is ${java.version} on ${os.name} with ${os.arch}"/>
       </args>
     </git>
     <!-- push to origin, intentionally do not push to cache or bare -->
