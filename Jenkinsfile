@@ -28,6 +28,6 @@ node {
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     /* JENKINS-47646 reports that tagging from Jenkins UI fails.  */
-    my_check.logContains(".*User dir:.*${user_dir}.*", 'Build not in expected subdirectory')
+    my_check.logContains(".*user dir is .*${user_dir}.*", 'Build not in expected subdirectory')
   }
 }
