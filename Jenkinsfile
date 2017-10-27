@@ -69,7 +69,8 @@ for (int i = 0; i < implementations.size(); ++i) {
         my_step.ant 'info'
         def my_check = new com.markwaite.Assert()
         my_check.logContains('.*user dir is .*', 'Ant output missing user dir report')
-        println prettyPrint(toJson(checkout_result[gitImplementation]))
+        def implementation = gitImplementation == "git" ? "Default" : gitImplementation
+        println prettyPrint(toJson(checkout_result[implementation]))
       }
     }
   }
