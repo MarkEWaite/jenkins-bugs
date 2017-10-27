@@ -11,12 +11,13 @@ def origin = "${branch}-original"
 def repo = 'https://github.com/MarkEWaite/jenkins-bugs'
 
 import java.util.Random
-
 def random = new Random()
 
 def implementations = [ 'git', 'jgit', 'jgitapache' ]
+println prettyPrint(toJson(implementations))
 /* Randomize order of implementations */
-Collections.shuffle(implementations, new Random())
+Collections.shuffle(implementations, random)
+println prettyPrint(toJson(implementations))
 
 def tasks = [ : ]
 
