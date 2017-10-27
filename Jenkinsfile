@@ -64,13 +64,8 @@ for (int i = 0; i < implementations.size(); ++i) {
         }
 
         /* Call the ant build. */
-        def my_step = new com.markwaite.Build()
         my_step.ant 'info'
-        def my_check = new com.markwaite.Assert()
         my_check.logContains('.*user dir is .*', 'Ant output missing user dir report')
-
-        def implementation = gitImplementation == "git" ? "Default" : gitImplementation
-        println prettyPrint(toJson(checkout_result[implementation]))
 
         def buggy_env_vars = [
                         "GIT_AUTHOR_EMAIL",
