@@ -47,12 +47,21 @@ for (int i = 0; i < implementations.size(); ++i) {
         println prettyPrint(toJson(latest))
         def my_step = new com.markwaite.Build()
         def my_sha1 = my_step.getSHA1("HEAD")
-        def env_vars = [ "GIT_COMMIT", "GIT_COMMITTER_NAME", "GIT_COMMITTER_EMAIL", "GIT_AUTHOR_NAME", "GIT_AUTHOR_EMAIL"]
+
+        def env_vars = [
+                        "GIT_AUTHOR_EMAIL",
+                        "GIT_AUTHOR_NAME",
+                        "GIT_BRANCH",
+                        "GIT_COMMIT",
+                        "GIT_COMMITTER_EMAIL",
+                        "GIT_COMMITTER_NAME",
+                        "GIT_URL",
+                       ]
         def my_check = new com.markwaite.Assert()
+        my_check.assertCondition(first["GIT_COMMIT"] == my_sha1, first["GIT_COMMIT"] + " != " + my_sha1)
         for ( env_var in env_vars ) {
           my_check.assertCondition(first[env_var] == latest[env_var], env_var + ": " + first[env_var] + " != " + latest[env_var])
         }
-        my_check.assertCondition(first["GIT_COMMIT"] == my_sha1, first["GIT_COMMIT"] + " != " + my_sha1)
       }
       stage("Check ${gitImplementation}") {
         /* Call the ant build. */
