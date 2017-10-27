@@ -6,10 +6,6 @@ import com.markwaite.Build
 
 import static groovy.json.JsonOutput.*
 
-def config = ['test': 'lalala']
-
-println prettyPrint(toJson(config))
-
 def branch = 'JENKINS-45489'
 def origin = "${branch}-original"
 def repo = 'https://github.com/MarkEWaite/jenkins-bugs'
@@ -48,7 +44,7 @@ for (int i = 0; i < implementations.size(); ++i) {
             first = checkout_result[implementation]
         }
         def latest = checkout_result[implementation]
-        print latest
+        println prettyPrint(toJson(latest))
         def my_step = new com.markwaite.Build()
         def my_sha1 = my_step.getSHA1("HEAD")
         def env_vars = [ "GIT_COMMIT", "GIT_COMMITTER_NAME", "GIT_COMMITTER_EMAIL", "GIT_AUTHOR_NAME", "GIT_AUTHOR_EMAIL"]
