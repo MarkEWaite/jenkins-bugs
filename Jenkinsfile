@@ -4,6 +4,12 @@
 import com.markwaite.Assert
 import com.markwaite.Build
 
+import groovy.json.JsonOutput
+
+def config = ['test': 'lalala']
+
+println JsonOoutput.prettyPrint(JsonOutput.toJson(config)
+
 def branch = 'JENKINS-45489'
 def origin = "${branch}-original"
 def repo = 'https://github.com/MarkEWaite/jenkins-bugs'
