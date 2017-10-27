@@ -1,12 +1,22 @@
 <project name="JENKINS-45489" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
+    <git command="pull" />
     <buildnumber/>
+    <git command="add">
+      <args>
+        <arg value="build.number"/>
+      </args>
+    </git>
+  </target>
     <git command="commit">
       <args>
         <arg value="-m"/>
-        <arg value="${ant.project.name} ${user.name} buildnumber++, was ${build.number}"/>
-        <arg value="build.number"/>
+        <arg value="[${ant.project.name}] build++, was ${build.number}"/>
+        <arg value="-m"/>
+        <arg value="On ${os.name} as ${user.name}"/>
+        <arg value="-m"/>
+        <arg value="In ${user.dir}"/>
       </args>
     </git>
   </target>
