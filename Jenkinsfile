@@ -56,6 +56,7 @@ for (int i = 0; i < implementations.size(); ++i) {
                         "GIT_COMMITTER_NAME",
                         "GIT_URL",
                        ]
+
         def my_check = new com.markwaite.Assert()
         my_check.assertCondition(first["GIT_COMMIT"] == my_sha1, first["GIT_COMMIT"] + " != " + my_sha1)
         for ( env_var in env_vars ) {
@@ -68,8 +69,19 @@ for (int i = 0; i < implementations.size(); ++i) {
         my_step.ant 'info'
         def my_check = new com.markwaite.Assert()
         my_check.logContains('.*user dir is .*', 'Ant output missing user dir report')
+
         def implementation = gitImplementation == "git" ? "Default" : gitImplementation
         println prettyPrint(toJson(checkout_result[implementation]))
+
+        def buggy_env_vars = [
+                        "GIT_AUTHOR_EMAIL",
+                        "GIT_AUTHOR_NAME",
+                        "GIT_COMMITTER_EMAIL",
+                        "GIT_COMMITTER_NAME",
+                       ]
+        for ( env_var in buggy_env_vars ) {
+          my_check.logContains(".*${env_var}=${latest[env_var]}", "$env_var mismatch")
+        }
       }
     }
   }
