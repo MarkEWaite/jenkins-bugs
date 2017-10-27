@@ -27,7 +27,7 @@ for (int i = 0; i < implementations.size(); ++i) {
   def gitImplementation = implementations[i]
   tasks[gitImplementation] = {
     node {
-      stage("Checkout and Check ${gitImplementation}") {
+      stage("Check ${gitImplementation}") {
         def implementation = gitImplementation == "git" ? "Default" : gitImplementation
         checkout_result[implementation] = checkout([$class: 'GitSCM',
                   branches: [[name: "${origin}/${branch}*"]], /* Trailing '*' required to see bug */
