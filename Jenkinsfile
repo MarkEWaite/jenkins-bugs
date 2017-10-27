@@ -13,6 +13,8 @@ import java.util.Random
 def random = new Random()
 
 def implementations = [ 'git', 'jgit', 'jgitapache' ]
+/* Randomize order of implementations */
+Collections.shuffle(implementations, new Random())
 
 def tasks = [ : ]
 
@@ -43,13 +45,12 @@ for (int i = 0; i < implementations.size(); ++i) {
         print latest
         def my_step = new com.markwaite.Build()
         def my_sha1 = my_step.getSHA1("HEAD")
+        def env_vars = [ "GIT_COMMIT", "GIT_COMMITTER_NAME", "GIT_COMMITTER_EMAIL", "GIT_AUTHOR_NAME", "GIT_AUTHOR_EMAIL"]
         def my_check = new com.markwaite.Assert()
-        my_check.assertCondition(first["GIT_COMMIT"] == latest["GIT_COMMIT"], first["GIT_COMMIT"] + " != " + latest["GIT_COMMIT"])
+        for ( env_var in env_vars ) {
+          my_check.assertCondition(first[env_var] == latest[env_var], env_var + ": " + first[env_var] + " != " + latest[env_var])
+        }
         my_check.assertCondition(first["GIT_COMMIT"] == my_sha1, first["GIT_COMMIT"] + " != " + my_sha1)
-        my_check.assertCondition(first["GIT_COMMITTER_NAME"] == latest["GIT_COMMITTER_NAME"], first["GIT_COMMITTER_NAME"] + " != " + latest["GIT_COMMITTER_NAME"])
-        my_check.assertCondition(first["GIT_COMMITTER_EMAIL"] == latest["GIT_COMMITTER_EMAIL"], first["GIT_COMMITTER_EMAIL"] + " != " + latest["GIT_COMMITTER_EMAIL"])
-        my_check.assertCondition(first["GIT_AUTHOR_NAME"] == latest["GIT_AUTHOR_NAME"], first["GIT_AUTHOR_NAME"] + " != " + latest["GIT_AUTHOR_NAME"])
-        my_check.assertCondition(first["GIT_AUTHOR_EMAIL"] == latest["GIT_AUTHOR_EMAIL"], first["GIT_AUTHOR_EMAIL"] + " != " + latest["GIT_AUTHOR_EMAIL"])
       }
       stage("Check ${gitImplementation}") {
         /* Call the ant build. */
