@@ -27,7 +27,7 @@ for (int i = 0; i < implementations.size(); ++i) {
   def gitImplementation = implementations[i]
   tasks[gitImplementation] = {
     node {
-      stage("Checkout ${gitImplementation}") {
+      stage("Checkout and Check ${gitImplementation}") {
         def implementation = gitImplementation == "git" ? "Default" : gitImplementation
         checkout_result[implementation] = checkout([$class: 'GitSCM',
                   branches: [[name: "${origin}/${branch}*"]], /* Trailing '*' required to see bug */
@@ -62,8 +62,7 @@ for (int i = 0; i < implementations.size(); ++i) {
         for ( env_var in env_vars ) {
           my_check.assertCondition(first[env_var] == latest[env_var], env_var + ": " + first[env_var] + " != " + latest[env_var])
         }
-      }
-      stage("Check ${gitImplementation}") {
+
         /* Call the ant build. */
         def my_step = new com.markwaite.Build()
         my_step.ant 'info'
