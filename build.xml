@@ -8,14 +8,26 @@
         <arg value="build.number"/>
       </args>
     </git>
+    <exec executable="git" outputproperty="git.user.name">
+      <arg value="config"/>
+      <arg value="--get"/>
+      <arg value="user.name"/>
+    </exec>
+    <exec executable="git" outputproperty="git.user.email">
+      <arg value="config"/>
+      <arg value="--get"/>
+      <arg value="user.email"/>
+    </exec>
     <git command="commit">
       <args>
         <arg value="-m"/>
         <arg value="[${ant.project.name}] build++, was ${build.number}"/>
         <arg value="-m"/>
-        <arg value="On ${os.name} as ${user.name}"/>
+        <arg value="Committed as ${git.user.name} &lt;${git.user.email}&gt;"/>
         <arg value="-m"/>
-        <arg value="In ${user.dir}"/>
+        <arg value="Logged into system as ${user.name}"/>
+        <arg value="-m"/>
+        <arg value="Working directory ${user.dir}"/>
       </args>
     </git>
   </target>
