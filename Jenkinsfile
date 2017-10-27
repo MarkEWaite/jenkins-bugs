@@ -14,10 +14,8 @@ import java.util.Random
 def random = new Random()
 
 def implementations = [ 'git', 'jgit', 'jgitapache' ]
-println prettyPrint(toJson(implementations))
 /* Randomize order of implementations */
 Collections.shuffle(implementations, random)
-println prettyPrint(toJson(implementations))
 
 def tasks = [ : ]
 
