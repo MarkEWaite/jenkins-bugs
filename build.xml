@@ -1,4 +1,4 @@
-<project name="JENKINS-21007" default="increment" basedir=".">
+<project name="JENKINS-21008" default="increment" basedir=".">
   <description>Also used in jgit-fake job</description>
 
   <!-- Increment build number, commit the change -->
