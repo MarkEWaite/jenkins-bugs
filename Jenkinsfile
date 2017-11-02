@@ -8,9 +8,21 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
+def branch='JENKINS-47496'
+
 node {
   stage('Checkout') {
-    checkout scm
+    // Need explicit clone of tags for assertion
+    checkout([$class: 'GitSCM',
+        branches: [[name: branch]],
+        browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
+        doGenerateSubmoduleConfigurations: false,
+        extensions: [
+            [$class: 'CloneOption', honorRefspec: true, noTags: false, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+            [$class: 'LocalBranch', localBranch: branch]],
+        gitTool: scm.gitTool,
+        userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs']]]
+    )
   }
 
   stage('Build') {
