@@ -17,7 +17,7 @@ node {
               branches: [[name: branch]],
               browser: [$class: 'GithubWeb', repoUrl: repo_url],
               extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                           [$class: 'SubmoduleOption', disableSubmodules: false, recursiveSubmodules: true],
+                           [$class: 'SubmoduleOption', disableSubmodules: false, recursiveSubmodules: false],
                            [$class: 'LocalBranch', localBranch: branch]],
               gitTool: 'Default',
               userRemoteConfigs: [[name: 'origin', refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: repo_url]]])
