@@ -8,9 +8,18 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
+def branch='JENKINS-46054'
+def repo_url='https://github.com/MarkEWaite/jenkins-bugs'
+
 node {
   stage('Checkout') {
-    checkout scm
+    checkout([$class: 'GitSCM',
+              branches: [[name: branch]],
+              browser: [$class: 'GithubWeb', repoUrl: repo_url],
+              extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+              [$class: 'LocalBranch', localBranch: branch]],
+              gitTool: 'Default',
+              userRemoteConfigs: [[name: 'origin', refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: repo_url]]])
   }
 
   stage('Build') {
@@ -21,11 +30,9 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    /* JENKINS-xxx reports that yyyy.
+    /* JENKINS-46053 reports that submodule clone fails if the repo
+     * URL includes '.url'.
      */
-    if (currentBuild.number > 1) { // Don't check first build
-      my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
-      my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
-    }
+    my_check.logContains('.*Add distinctive message in submodule README.*', 'Distinctive commit message not found')
   }
 }
