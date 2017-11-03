@@ -1,11 +1,5 @@
-# Jenkins bug verification public repository
+# [JENKINS-46054](https://issues.jenkins-ci.org/browse/JENKINS-46054) - submodule with '.url' in repo URL won't clone
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations to
-duplicate the bug.  This repository captures some of those configurations
-in a way that is publicly visible so that automated tests can use this
-repository.
-
-This repository includes many branches with a Jenkinsfile pipeline
-definition for branches where the pipeline definition can encapsulate
-at least a portion of the bug verification.
+If a submodule URL includes the string '.url', git client plugin fails
+to clone the submodule.  Regular expression matching the output of the
+git config command was too greedy.
