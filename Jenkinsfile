@@ -31,6 +31,6 @@ node {
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     /* JENKINS-47824 reports that tagged pipeline shared libraries don't load.  */
-    my_check.logContains('.*user dir is:.*', 'Missing user dir info output')
+    my_check.logContains('.*user dir is.*', 'Missing user dir info output')
   }
 }
