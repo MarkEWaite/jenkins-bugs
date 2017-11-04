@@ -9,19 +9,19 @@
 
   <!-- Increment build number, commit the change -->
   <target name="increment" description="Submit a change to show JENKINS-22547 is fixed">
-    <echo>java is ${java.version}</echo>
+    <exec executable="git">
+      <arg value="pull"/>
+    </exec>
     <buildnumber/>
     <echo>Build number was ${build.number}</echo>
     <exec executable="git">
       <arg value="add"/>
       <arg value="build.number"/>
-      <arg value="."/>
     </exec>
     <exec executable="git">
       <arg value="commit"/>
       <arg value="-m"/>
-      <arg value="${ant.project.name} ${user.name} incremented build number, was ${build.number}"/>
-      <arg value="build.number"/>
+      <arg value="[${ant.project.name}] ${user.name} build++, was ${build.number}"/>
     </exec>
   </target>
 
