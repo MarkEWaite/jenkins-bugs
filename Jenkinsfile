@@ -1,6 +1,6 @@
 #!groovy
 
-@Library('globalPipelineLibraryMarkEWaiteModern')
+@Library('globalPipelineLibraryMarkEWaiteModern@v1.1')
 import com.markwaite.Assert
 import com.markwaite.Build
 
@@ -8,7 +8,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
              strategy: [$class: 'LogRotator', numToKeepStr: '7']]])
 
-def branch="JENKINS-22547"
+def branch='JENKINS-22547'
 
 node("git-1.9+") { // Shallow clone fails on git versions before 1.9
   stage('Checkout') {
