@@ -14,7 +14,7 @@ def origin = 'origin'
 def branch1 = 'JENKINS-47824'
 def origin1 = 'origin-47824'
 
-def branch2 = 'JENKINS-45894'
+def branch2 = 'JENKINS-45894.branch.with.dot.in.name'
 def origin2 = 'origin-45894'
 
 node {
