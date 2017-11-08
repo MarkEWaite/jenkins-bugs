@@ -70,8 +70,8 @@ node {
     def my_check = new com.markwaite.Assert()
     /* JENKINS-47874 reports that multi-repository checkout is incorrect.  */
     /* I don't understand what that means, so attempted this check */
-    my_check.logContains(".*[*] ${branch}.*', "Missing ${branch} reference")
-    my_check.logContains(".*[*] ${branch1}.*', "Missing ${branch1} reference")
-    my_check.logContains(".*[*] ${branch2}.*', "Missing ${branch2} reference")
+    my_check.logContains(".*[*] ${branch}.*", "Missing ${branch} reference")
+    my_check.logContains(".*[*] ${branch1}.*", "Missing ${branch1} reference")
+    my_check.logContains(".*[*] ${branch2}.*", "Missing ${branch2} reference")
   }
 }
