@@ -22,7 +22,7 @@ node {
 
     dir(branch) {
       checkout([$class: 'GitSCM',
-        branches: [[name: "refs/heads/${origin}/${branch}"]],
+        branches: [[name: "${origin}/${branch}"]],
         extensions: [
           [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
           [$class: 'LocalBranch', localBranch: branch]],
@@ -32,7 +32,7 @@ node {
 
     dir(branch1) {
       checkout([$class: 'GitSCM',
-        branches: [[name: "refs/heads/${origin1}/${branch1}"]],
+        branches: [[name: "${origin1}/${branch1}"]],
         extensions: [
           [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
           [$class: 'LocalBranch', localBranch: branch1]],
@@ -42,7 +42,7 @@ node {
 
     dir(branch2) {
       checkout([$class: 'GitSCM',
-        branches: [[name: "refs/heads/${origin2}/${branch2}"]],
+        branches: [[name: "${origin2}/${branch2}"]],
         extensions: [
           [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
           [$class: 'LocalBranch', localBranch: branch2]],
