@@ -54,14 +54,16 @@ node {
 
   stage('Build') {
     /* Call the ant build. */
-    def my_step = new com.markwaite.Build()
     dir(branch) {
+      def my_step = new com.markwaite.Build()
       my_step.ant 'info'
     }
     dir(branch1) {
+      def my_step = new com.markwaite.Build()
       my_step.ant 'info'
     }
     dir(branch2) {
+      def my_step = new com.markwaite.Build()
       my_step.ant 'info'
     }
   }
