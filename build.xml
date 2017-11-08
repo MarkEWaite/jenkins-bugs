@@ -18,9 +18,10 @@
 
   <!-- Info about this repository -->
   <target name="info" description="Report info about this repo">
+    <!-- JENKINS-47824 reports that tagged pipeline shared library checkout fails -->
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
-    <!-- JENKINS-47824 reports that tagged pipeline shared library checkout fails -->
+    <git command="branch" /> <!-- JENKINS-47874 uses the branch name output -->
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
