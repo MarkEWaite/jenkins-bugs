@@ -27,7 +27,7 @@ node {
           [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
           [$class: 'LocalBranch', localBranch: branch]],
         gitTool: scm.gitTool,
-        userRemoteConfigs: [[name: origin, refspec: "+refs/heads/master:refs/remotes/${origin}/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
+        userRemoteConfigs: [[name: origin, refspec: "+refs/heads/${branch}:refs/remotes/${origin}/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
     }
 
     dir(branch1) {
@@ -37,7 +37,7 @@ node {
           [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
           [$class: 'LocalBranch', localBranch: branch1]],
         gitTool: scm.gitTool,
-        userRemoteConfigs: [[name: origin1, refspec: "+refs/heads/master:refs/remotes/${origin1}/${branch1}", url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
+        userRemoteConfigs: [[name: origin1, refspec: "+refs/heads/${branch1}:refs/remotes/${origin1}/${branch1}", url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
     }
 
     dir(branch2) {
@@ -47,7 +47,7 @@ node {
           [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
           [$class: 'LocalBranch', localBranch: branch2]],
         gitTool: scm.gitTool,
-        userRemoteConfigs: [[name: origin2, refspec: "+refs/heads/master:refs/remotes/${origin2}/${branch2}", url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
+        userRemoteConfigs: [[name: origin2, refspec: "+refs/heads/${branch2}:refs/remotes/${origin2}/${branch2}", url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
     }
 
   }
