@@ -20,17 +20,8 @@ node {
   }
 
   stage('Verify') {
-    count = 0
-    for (String logLine : currentBuild.rawBuild.getLog(100)) {
-      if (logLine.contains("  origin") && logLine.contains("JENKINS-37727-") && !logLine.contains("pruned")) {
-	count++
-      }
-    }
-
-    if(count > 1) {
-      manager.addWarningBadge("Too many JENKINS-37727-* branches.")
-      manager.createSummary("warning.gif").appendText("<h1>Too many JENKINS-37727-* branches!</h1>", false, false, false, "red")
-      manager.buildUnstable()
-    }
+    def my_check = new com.markwaite.Assert()
+    /* JENKINS-37727 reports too many branches in repo.  */
+    my_check.logContains("The file 'branch-list.txt' counts 1 branch.", "Too many ${branch} references")
   }
 }
