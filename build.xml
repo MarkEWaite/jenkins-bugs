@@ -63,7 +63,6 @@
     <git command="branch">
       <args>
         <arg value="-r"/>
-        <arg value="--list"/>
         <arg value="origin/*JENKINS-37727-*"/>
       </args>
     </git>
@@ -71,7 +70,6 @@
       <arg value="branch" />
       <arg value="" />
       <arg value="-r" />
-      <arg value="--list" />
       <arg value="origin/*JENKINS-37727-*"/>
     </exec>
     <resourcecount property="branch.count">
