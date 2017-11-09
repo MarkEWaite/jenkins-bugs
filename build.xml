@@ -3,6 +3,7 @@
   <!-- Push a new branch, remove old branches -->
   <target name="push-new-branch" description="Push a new branch">
     <echo>java is ${java.version}</echo>
+    <git command="pull" />
     <buildnumber/>
     <echo>Build number was ${build.number}</echo>
     <git command="add">
@@ -62,7 +63,7 @@
       <args>
         <arg value="-r"/>
         <arg value="--list"/>
-        <arg value="*JENKINS-37727-*"/>
+        <arg value="origin/*JENKINS-37727-*"/>
       </args>
     </git>
   </target>
