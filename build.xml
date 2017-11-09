@@ -1,22 +1,23 @@
 <project name="JENKINS-37727" default="push-new-branch" basedir=".">
 
+  <property name="branches-file" value="branch-list.txt"/>
+
   <!-- Push a new branch, remove old branches -->
   <target name="push-new-branch" description="Push a new branch">
     <echo>java is ${java.version}</echo>
+    <delete file="${branches-file}" quiet="true" />
     <git command="pull" />
     <buildnumber/>
     <echo>Build number was ${build.number}</echo>
     <git command="add">
       <args>
         <arg value="build.number"/>
-        <arg value="."/>
       </args>
     </git>
     <git command="commit">
       <args>
         <arg value="-m"/>
         <arg value="${user.name} updated build number, was ${build.number}"/>
-        <arg value="build.number"/>
       </args>
     </git>
     <git command="push"/>
@@ -66,7 +67,6 @@
         <arg value="origin/*JENKINS-37727-*"/>
       </args>
     </git>
-    <property name="branches-file" value="branch-list.txt"/>
     <exec executable="git" output="${branches-file}">
       <arg value="branch" />
       <arg value="" />
