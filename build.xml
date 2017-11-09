@@ -6,6 +6,11 @@
   <target name="push-new-branch" description="Push a new branch">
     <echo>java is ${java.version}</echo>
     <delete file="${branches-file}" quiet="true" />
+    <git command="checkout">
+      <args>
+        <arg value="JENKINS-37727"/>
+      </args>
+    </git>
     <git command="pull" />
     <buildnumber/>
     <echo>Build number was ${build.number}</echo>
@@ -21,12 +26,6 @@
       </args>
     </git>
     <git command="push"/>
-    <git command="remote">
-      <args>
-        <arg value="prune"/>
-        <arg value="origin"/>
-      </args>
-    </git>
     <exec executable="bash" dir=".">
       <arg value="remove-branches" />
     </exec>
@@ -54,12 +53,6 @@
   <target name="info" description="Report info about this repo">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
-    <git command="remote">
-      <args>
-        <arg value="prune"/>
-        <arg value="origin"/>
-      </args>
-    </git>
     <git command="branch">
       <args>
         <arg value="-r"/>
