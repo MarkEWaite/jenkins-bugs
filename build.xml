@@ -63,21 +63,18 @@
     <git command="branch">
       <args>
         <arg value="-r"/>
-        <arg value="origin/*JENKINS-37727-*"/>
       </args>
     </git>
     <exec executable="git" output="${branches-file}">
       <arg value="branch" />
-      <arg value="" />
       <arg value="-r" />
-      <arg value="origin/*JENKINS-37727-*"/>
     </exec>
     <resourcecount property="branch.count">
       <tokens>
         <concat>
           <filterchain>
             <linecontains>
-              <contains value="origin/has-slash/JENKINS-37727"/>
+              <contains value="origin/has-slash/JENKINS-37727-"/>
             </linecontains>
           </filterchain>
           <fileset file="${branches-file}"/>
