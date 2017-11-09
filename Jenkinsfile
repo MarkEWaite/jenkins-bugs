@@ -22,6 +22,6 @@ node {
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     /* JENKINS-37727 reports too many branches in repo.  */
-    my_check.logContains("The file 'branch-list.txt' counts 1 branch.", "Too many ${branch} references")
+    my_check.logContains("The file 'branch-list.txt' counts 1 branch.", "Too many JENKINS-37727 references")
   }
 }
