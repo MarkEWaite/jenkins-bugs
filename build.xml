@@ -66,6 +66,27 @@
         <arg value="origin/*JENKINS-37727-*"/>
       </args>
     </git>
+    <property name="branches-file" value="branch-list.txt"/>
+    <exec executable="git" output="${branches-file}">
+      <arg value="branch" />
+      <arg value="" />
+      <arg value="-r" />
+      <arg value="--list" />
+      <arg value="origin/*JENKINS-37727-*"/>
+    </exec>
+    <resourcecount property="branch.count">
+      <tokens>
+        <concat>
+          <filterchain>
+            <linecontains>
+              <contains value="origin/has-slash/JENKINS-37727"/>
+            </linecontains>
+          </filterchain>
+          <fileset file="${branches-file}"/>
+        </concat>
+      </tokens>
+    </resourcecount>
+    <echo>The file '${branches-file}' counts ${branch.count} branch.</echo>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
