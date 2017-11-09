@@ -1,11 +1,4 @@
-# Public repository for Jenkins bug verification.
+# [JENKINS-37727](https://issues.jenkins-ci.org/browse/JENKINS-37727)
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations to
-duplicate the bug.  This repository captures some of those configurations
-in a way that is publicly visible so that automated tests can use this
-repository.
-
-This repository will eventually be extended to have a Jenkinsfile pipeline
-definition file for those branches where the pipeline definition file
-can encapsulate the bug verification step.
+Multi-branch pipeline jobs were not deleting branches in the local jobs
+which had been deleted on the central repository.
