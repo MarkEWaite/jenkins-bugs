@@ -8,10 +8,12 @@ for branch in $(git branch | grep -F JENKINS-37727-); do
     git branch -D $branch
 done
 
+git fetch --all --prune
+
 for remote in $(git remote | sort -r); do
     for remote_branch in $(git branch -a | grep $remote.*JENKINS-37727-); do
         branch=$(echo $remote_branch | sed "s!remotes/$remote/!!g")
-        echo Removing remote branch: $branch
+        echo Removing remote branch: $branch from $remote
         git push $remote :$branch
     done
 done
