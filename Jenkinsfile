@@ -18,7 +18,11 @@ node {
         [$class: 'PruneStaleBranch']
       ],
       gitTool: scm.gitTool,
-      userRemoteConfigs: [[name: 'origin', refspec: '+refs/heads/JENKINS-37727:refs/remotes/origin/JENKINS-37727 +refs/heads/has-slash/*:refs/remotes/origin/has-slash/*', url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
+      userRemoteConfigs: [
+        [refspec: '+refs/heads/JENKINS-37727:refs/remotes/origin/JENKINS-37727' +
+                  ' ' +
+                  '+refs/heads/has-slash/*:refs/remotes/origin/has-slash/*',
+         url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
   }
 
   stage('Build') {
