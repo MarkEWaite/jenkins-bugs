@@ -19,7 +19,7 @@ node {
                            [$class: 'LocalBranch', localBranch: branch]
                           ],
               gitTool: scm.gitTool,
-              userRemoteConfigs: [[name: 'origin', refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
+              userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
   }
 
   stage('Build') {
