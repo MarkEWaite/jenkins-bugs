@@ -15,7 +15,6 @@ import com.markwaite.Build
 import static groovy.json.JsonOutput.*
 
 def branch = 'JENKINS-45489'
-def origin = "${branch}-original"
 def repo = 'https://github.com/MarkEWaite/jenkins-bugs'
 
 import java.util.Random
@@ -44,7 +43,7 @@ for (int i = 0; i < implementations.size(); ++i) {
                     [$class: 'CloneOption', honorRefspec: true, noTags: true],
                   ],
                   gitTool: implementation,
-                  userRemoteConfigs: [[name: origin, refspec: "+refs/heads/${branch}:refs/remotes/${origin}/${branch}", url: repo]]
+                  userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: repo]]
                  ]
                 )
         if (first == "") {
