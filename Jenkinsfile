@@ -38,14 +38,13 @@ for (int i = 0; i < implementations.size(); ++i) {
       stage("Check ${gitImplementation}") {
         def implementation = gitImplementation == "git" ? "Default" : gitImplementation
         checkout_result[implementation] = checkout([$class: 'GitSCM',
-                  // branches: [[name: "${origin}/${branch}*"]], /* Trailing '*' required to see bug */
                   branches: [[name: branch]],
                   browser: [$class: 'GithubWeb', repoUrl: repo],
                   extensions: [
                     [$class: 'CloneOption', honorRefspec: true, noTags: true],
                   ],
                   gitTool: implementation,
-                  userRemoteConfigs: [[name: "${origin}", refspec: "+refs/heads/${branch}:refs/remotes/${origin}/${branch}", url: "${repo}"]]
+                  userRemoteConfigs: [[name: origin, refspec: "+refs/heads/${branch}:refs/remotes/${origin}/${branch}", url: repo]]
                  ]
                 )
         if (first == "") {
