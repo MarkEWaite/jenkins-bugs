@@ -1,4 +1,3 @@
-# [JENKINS-45489](https://issues.jenkins-ci.org/browse/JENKINS-45489) checkout step returns some wrong variables if library is used
+# [JENKINS-48061](https://issues.jenkins-ci.org/browse/JENKINS-48061) SHA1 reference to pipeline shared library fails to load
 
-The return value from checkout(scm) in the pipeline does not consistently
-match the repository on which the checkout is performed.
+A SHA1 reference to a pipeline shared library fails to load in some cases.
