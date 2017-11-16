@@ -48,6 +48,7 @@ for (int i = 0; i < implementations.size(); ++i) {
                 )
 
         /* Call the ant build. */
+        def my_step = new com.markwaite.Build()
         my_step.ant 'info'
         my_check.logContains('.*user dir is .*', 'Ant output missing user dir report')
       }
