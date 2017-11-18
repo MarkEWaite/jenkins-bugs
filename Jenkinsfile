@@ -20,7 +20,7 @@ node {
                            [$class: 'SubmoduleOption', recursiveSubmodules: false],
                            [$class: 'LocalBranch', localBranch: branch]],
               gitTool: 'Default',
-              userRemoteConfigs: [[name: 'origin', refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: repo_url]]])
+              userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: repo_url]]])
   }
 
   stage('Build') {
