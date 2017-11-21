@@ -1,7 +1,7 @@
 #!groovy
 
 // https://github.com/MarkEWaite/jenkins-pipeline-utils
-@Library('globalPipelineLibraryMarkEWaite')
+@Library(value='globalPipelineLibraryMarkEWaite', changelog=false)
 import com.markwaite.Assert
 
 /* Only keep the 10 most recent builds. */
