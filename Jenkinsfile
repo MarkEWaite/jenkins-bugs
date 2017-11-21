@@ -1,6 +1,6 @@
 #!groovy
 
-@Library('globalPipelineLibraryMarkEWaite')
+@Library(value='globalPipelineLibraryMarkEWaiteModern', changelog=false)
 import com.markwaite.Assert
 import com.markwaite.Build
 
@@ -18,8 +18,7 @@ node {
                   [$class: 'LocalBranch', localBranch: branch],
                   [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git']
               ],
-              userRemoteConfigs: [[name: 'origin',
-                                   refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}",
+              userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}",
                                    url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
   }
 
