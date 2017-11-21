@@ -2,11 +2,12 @@
 
 // https://github.com/MarkEWaite/jenkins-pipeline-utils
 @Library(value='globalPipelineLibraryMarkEWaite', changelog=false)
+
 import com.markwaite.Assert
 
-/* Only keep the 10 most recent builds. */
+/* Only keep the 13 most recent builds. */
 properties([[$class: 'BuildDiscarderProperty',
-                strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
+                strategy: [$class: 'LogRotator', numToKeepStr: '13']]])
 
 node("master") {
   stage('Checkout') {
