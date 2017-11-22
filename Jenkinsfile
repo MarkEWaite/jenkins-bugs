@@ -13,8 +13,7 @@ def branch='JENKINS-22547'
 node("git-1.9+") { // Shallow clone fails on git versions before 1.9
   stage('Checkout') {
     checkout([$class: 'GitSCM',
-	      userRemoteConfigs: [[name: 'bugs-origin',
-				   refspec: "+refs/heads/${branch}:refs/remotes/bugs-origin/${branch}",
+	      userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}",
 				   url: 'https://github.com/MarkEWaite/jenkins-bugs']],
 	      branches: [[name: "*/${branch}"]],
 	      browser: [$class: 'GithubWeb',
@@ -23,7 +22,7 @@ node("git-1.9+") { // Shallow clone fails on git versions before 1.9
 			   [$class: 'CheckoutOption', timeout: 37],
 			   [$class: 'CleanBeforeCheckout'],
 			   [$class: 'CloneOption',
-			    depth: 3,
+			    depth: 1,
 			    honorRefspec: true,
 			    noTags: true,
 			    reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
