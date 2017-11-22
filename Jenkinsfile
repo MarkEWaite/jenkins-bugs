@@ -1,6 +1,6 @@
 #!groovy
 
-@Library('globalPipelineLibraryMarkEWaiteModernGitHub@v1.1')
+@Library(value='globalPipelineLibraryMarkEWaiteModernGitHub@v1.1', changelog=true)
 import com.markwaite.Assert
 import com.markwaite.Build
 
