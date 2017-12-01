@@ -1,20 +1,23 @@
 #!groovy
 
 // Fails
-@Library('globalPipelineLibraryMarkEWaiteModernGitHub@0c30065c158df07e55eeda283a7db3ff19bbfe01') // Checkout JENKINS-48061 SHA1 reference with modern GitHub SCM
+// @Library('globalPipelineLibraryMarkEWaiteModernGitHub@0c30065c158df07e55eeda283a7db3ff19bbfe01') // Checkout JENKINS-48061 SHA1 reference with modern GitHub SCM
+@Library('globalPipelineLibraryMarkEWaiteModernGitHub@5093f89ac0057a471081ff5a5bf94c20f9acae97') // Checkout JENKINS-48061 older SHA1 reference with modern GitHub SCM
 
 // Fails
 // @Library('globalPipelineLibraryMarkEWaite@0c30065c158df07e55eeda283a7db3ff19bbfe01') // Checkout JENKINS-48061 SHA1 reference with legacy SCM
+// @Library('globalPipelineLibraryMarkEWaite@5093f89ac0057a471081ff5a5bf94c20f9acae97') // Checkout JENKINS-48061 older SHA1 reference with legacy SCM
 
 // Works
 // @Library('globalPipelineLibraryMarkEWaiteModern@0c30065c158df07e55eeda283a7db3ff19bbfe01') // Checkout JENKINS-48061 SHA1 reference with modern git SCM
+// @Library('globalPipelineLibraryMarkEWaiteModern@5093f89ac0057a471081ff5a5bf94c20f9acae97') // Checkout JENKINS-48061 older SHA1 reference with modern git SCM
 
 import com.markwaite.Assert
 import com.markwaite.Build
 
 import static groovy.json.JsonOutput.*
 
-def branch = 'JENKINS-48061-modern-github'
+def branch = 'JENKINS-48061-legacy'
 def repo = 'https://github.com/MarkEWaite/jenkins-bugs'
 
 import java.util.Random
