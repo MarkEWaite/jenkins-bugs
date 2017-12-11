@@ -1,6 +1,6 @@
 #!groovy
 
-@Library('globalPipelineLibraryMarkEWaite') // https://github.com/MarkEWaite/jenkins-pipeline-utils
+@Library('globalPipelineLibraryMarkEWaite') _ // https://github.com/MarkEWaite/jenkins-pipeline-utils
 import com.markwaite.Assert
 import com.markwaite.Build
 
