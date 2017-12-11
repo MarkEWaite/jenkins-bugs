@@ -1,6 +1,6 @@
 #!groovy
 
-@Library(value='globalPipelineLibraryMarkEWaiteModern', changelog=false)
+@Library(value='globalPipelineLibraryMarkEWaiteModern', changelog=false) _
 import com.markwaite.Assert
 import com.markwaite.Build
 
