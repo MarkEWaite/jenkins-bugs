@@ -1,6 +1,6 @@
 #!groovy
 
-@Library('globalPipelineLibraryMarkEWaiteModern@0c30065c158df07e55eeda283a7db3ff19bbfe01') // Checkout JENKINS-48061 SHA1 reference
+@Library('globalPipelineLibraryMarkEWaiteModern@0c30065c158df07e55eeda283a7db3ff19bbfe01') _ // Checkout JENKINS-48061 SHA1 reference
 
 import com.markwaite.Assert
 import com.markwaite.Build
