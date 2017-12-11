@@ -1,18 +1,18 @@
 #!groovy
 
 // Fails
-// @Library(value='globalPipelineLibraryMarkEWaiteModernGitHub@0c30065c158df07e55eeda283a7db3ff19bbfe01', changelog=false) // Checkout JENKINS-48061 SHA1 reference with modern GitHub SCM
-// @Library(value='globalPipelineLibraryMarkEWaiteModernGitHub@5093f89ac0057a471081ff5a5bf94c20f9acae97', changelog=false) // Checkout JENKINS-48061 SHA1 reference with modern GitHub SCM
+// @Library(value='globalPipelineLibraryMarkEWaiteModernGitHub@0c30065c158df07e55eeda283a7db3ff19bbfe01', changelog=false) _ // Checkout JENKINS-48061 SHA1 reference with modern GitHub SCM
+// @Library(value='globalPipelineLibraryMarkEWaiteModernGitHub@5093f89ac0057a471081ff5a5bf94c20f9acae97', changelog=false) _ // Checkout JENKINS-48061 SHA1 reference with modern GitHub SCM
 
 // Fails
-// @Library(value='globalPipelineLibraryMarkEWaite@0c30065c158df07e55eeda283a7db3ff19bbfe01', changelog=false) // Checkout JENKINS-48061 SHA1 reference with legacy SCM
-// @Library(value='globalPipelineLibraryMarkEWaite@5093f89ac0057a471081ff5a5bf94c20f9acae97', changelog=false) // Checkout JENKINS-48061 SHA1 reference with legacy SCM
+// @Library(value='globalPipelineLibraryMarkEWaite@0c30065c158df07e55eeda283a7db3ff19bbfe01', changelog=false) _ // Checkout JENKINS-48061 SHA1 reference with legacy SCM
+// @Library(value='globalPipelineLibraryMarkEWaite@5093f89ac0057a471081ff5a5bf94c20f9acae97', changelog=false) _ // Checkout JENKINS-48061 SHA1 reference with legacy SCM
 
 // Works
-@Library(value='globalPipelineLibraryMarkEWaiteModern@0c30065c158df07e55eeda283a7db3ff19bbfe01', changelog=false) // Checkout JENKINS-48061 SHA1 reference with modern git SCM
+@Library(value='globalPipelineLibraryMarkEWaiteModern@0c30065c158df07e55eeda283a7db3ff19bbfe01', changelog=false) _ // Checkout JENKINS-48061 SHA1 reference with modern git SCM
 
 // Fails
-// @Library(value='globalPipelineLibraryMarkEWaiteModern@5093f89ac0057a471081ff5a5bf94c20f9acae97', changelog=false) // Checkout JENKINS-48061 SHA1 reference with modern git SCM
+// @Library(value='globalPipelineLibraryMarkEWaiteModern@5093f89ac0057a471081ff5a5bf94c20f9acae97', changelog=false) _ // Checkout JENKINS-48061 SHA1 reference with modern git SCM
 
 import com.markwaite.Assert
 import com.markwaite.Build
