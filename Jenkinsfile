@@ -1,6 +1,6 @@
 #!groovy
 
-@Library('globalPipelineLibraryMarkEWaiteModern@v1.1') // This is the bug check
+@Library('globalPipelineLibraryMarkEWaiteModern@v1.1') _ // This is the bug check
 
 import com.markwaite.Assert
 import com.markwaite.Build
