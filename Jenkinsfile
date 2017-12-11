@@ -3,7 +3,7 @@
 // Jenkinsfile based check not feasible, since this requires an interactive
 // check that the changes link is correct.
 
-@Library('globalPipelineLibraryMarkEWaite') // https://github.com/MarkEWaite/jenkins-pipeline-utils
+@Library('globalPipelineLibraryMarkEWaite') _ // https://github.com/MarkEWaite/jenkins-pipeline-utils
 import com.markwaite.Assert
 import com.markwaite.Build
 
