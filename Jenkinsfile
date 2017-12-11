@@ -3,7 +3,7 @@
 // Jenkinsfile based check not feasible, since this requires a dedicated
 // job configured with the expected build chooser
 
-@Library('globalPipelineLibraryMarkEWaite')
+@Library('globalPipelineLibraryMarkEWaite') _
 import com.markwaite.Assert
 import com.markwaite.Build
 
