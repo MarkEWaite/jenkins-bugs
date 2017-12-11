@@ -1,7 +1,6 @@
 #!/usr/bin/env groovy
 
-@Library('globalPipelineLibraryMarkEWaite')
-import com.markwaite.Assert
+@Library('globalPipelineLibraryMarkEWaite') _
 
 /* Only keep the 7 most recent builds. */
 properties([[$class: 'BuildDiscarderProperty',
