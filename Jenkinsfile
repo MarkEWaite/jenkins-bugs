@@ -35,6 +35,6 @@ node {
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     /* JENKINS-47496 reports that new tags are not built.  */
-    my_check.logContains('.*JENKINS-47496-1[.]0[.].*', 'Missing tag reference')
+    my_check.logContains('.*JENKINS-47496-1[.]0[.][0-9]+.*', 'Missing JENKINS-47496-1.0.xx tag reference')
   }
 }
