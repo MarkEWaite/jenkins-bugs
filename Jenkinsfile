@@ -27,7 +27,7 @@ node {
                             timeout: 3],
                            [$class: 'LocalBranch', localBranch: branch],
                            [$class: 'PruneStaleBranch'],
-                           // [$class: 'WipeWorkspace'],
+                           [$class: 'WipeWorkspace'],
                           ],
               gitTool: 'jgit',
              ])
