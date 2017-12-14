@@ -19,11 +19,7 @@
   <target name="info" description="Report info about this repo">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
-    <git command="branch">
-      <args>
-        <arg value="-a"/>
-      </args>
-    </git>
+    <git command="branch"/>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
