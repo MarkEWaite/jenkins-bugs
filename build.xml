@@ -7,13 +7,11 @@
     <exec executable="git">
       <arg value="add"/>
       <arg value="build.number"/>
-      <arg value="."/>
     </exec>
     <exec executable="git">
       <arg value="commit"/>
       <arg value="-m"/>
-      <arg value="${ant.project.name} ${user.name} incremented build number - was ${build.number}"/>
-      <arg value="build.number"/>
+      <arg value="[${ant.project.name}] build++ - was ${build.number}"/>
     </exec>
   </target>
 
