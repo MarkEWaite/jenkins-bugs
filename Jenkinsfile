@@ -27,7 +27,8 @@ node {
                             timeout: 3],
                            [$class: 'LocalBranch', localBranch: branch],
                            [$class: 'PruneStaleBranch'],
-                           [$class: 'WipeWorkspace'],
+                           // Wipe workspace will hide the bug
+                           // [$class: 'WipeWorkspace'],
                           ],
               gitTool: 'jgit',
              ])
