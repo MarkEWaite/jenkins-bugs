@@ -15,7 +15,6 @@ node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
               branches: [[name: branch]],
-              browser: [$class: 'GithubWeb', repoUrl: repo_url],
               extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                            [$class: 'SubmoduleOption', recursiveSubmodules: false],
                            [$class: 'LocalBranch', localBranch: branch]],
