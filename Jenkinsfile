@@ -11,7 +11,7 @@ properties([[$class: 'BuildDiscarderProperty',
 def branch='JENKINS-46054'
 def repo_url='https://github.com/MarkEWaite/jenkins-bugs'
 
-node {
+node('git-1.9+') { // Needs 'git -C' argument support
   stage('Checkout') {
     checkout([$class: 'GitSCM',
               branches: [[name: branch]],
