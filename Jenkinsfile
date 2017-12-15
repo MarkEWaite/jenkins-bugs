@@ -21,13 +21,13 @@ for (int i = 0; i < implementations.size(); ++i) {
         def impl_name = gitImplementation == 'git' ? 'Default' : gitImplementation
         checkout([$class: 'GitSCM',
                   branches: [[name: "${origin}/${branch}"]],
-                  browser: [$class: 'GithubWeb', repoUrl: "${repo}"],
+                  browser: [$class: 'GithubWeb', repoUrl: repo],
                   extensions: [
                     [$class: 'CloneOption', honorRefspec: true, noTags: true],
                     [$class: 'CleanBeforeCheckout'], /* This shows the bug */
                   ],
-                  gitTool: "${impl_name}",
-                  userRemoteConfigs: [[name: "${origin}", refspec: "+refs/heads/${branch}:refs/remotes/${origin}/${branch}", url: "${repo}"]]
+                  gitTool: impl_name,
+                  userRemoteConfigs: [[name: origin, refspec: "+refs/heads/${branch}:refs/remotes/${origin}/${branch}", url: repo]]
                  ]
                 )
         my_check.assertCondition(fileExists('.git/objects'), '.git/objects does not exist after checkout')
@@ -43,13 +43,13 @@ for (int i = 0; i < implementations.size(); ++i) {
         /* New checkout with clean */
         checkout([$class: 'GitSCM',
                   branches: [[name: "${origin}/${branch}"]],
-                  browser: [$class: 'GithubWeb', repoUrl: "${repo}"],
+                  browser: [$class: 'GithubWeb', repoUrl: repo],
                   extensions: [
                     [$class: 'CloneOption', honorRefspec: true, noTags: true],
                     [$class: 'CleanBeforeCheckout'], /* This shows the bug */
                   ],
-                  gitTool: "${gitImplementation}",
-                  userRemoteConfigs: [[name: "${origin}", refspec: "+refs/heads/${branch}:refs/remotes/${origin}/${branch}", url: "${repo}"]]
+                  gitTool: gitImplementation,
+                  userRemoteConfigs: [[name: origin, refspec: "+refs/heads/${branch}:refs/remotes/${origin}/${branch}", url: repo]]
                  ]
                 )
         my_check.assertCondition(fileExists('.git/objects'), '.git/objects does not exist after checkout')
