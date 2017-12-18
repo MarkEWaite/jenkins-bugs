@@ -1,49 +1,17 @@
-<project name="jenkins-bugs-master-branch" default="sync" basedir=".">
-
-  <property environment="env"/>
-
-  <target name="is-first-build">
-    <condition property="first.build">
-      <equals arg1="${env.BUILD_NUMBER}" arg2="1"/>
-    </condition>
-  </target>
-
-  <!-- Check environment variables only in builds 2+ -->
-  <target name="check-non-initial-build" description="Check git env vars at build 2+" depends="is-first-build" if="env.JENKINS_URL" unless="first.build">
-    <fail message="GIT_PREVIOUS_COMMIT not set" unless="env.GIT_PREVIOUS_COMMIT"/>
-    <fail message="GIT_PREVIOUS_SUCCESSFUL_COMMIT not set" unless="env.GIT_PREVIOUS_SUCCESSFUL_COMMIT"/>
-  </target>
-
-  <!-- Check environment variables in all builds -->
-  <target name="check-git-env-vars" description="Check all git env vars" depends="check-non-initial-build" if="env.JENKINS_URL">
-    <fail message="GIT_AUTHOR_EMAIL not set" unless="env.GIT_AUTHOR_EMAIL"/>
-    <fail message="GIT_AUTHOR_NAME not set" unless="env.GIT_AUTHOR_NAME"/>
-    <fail message="GIT_BRANCH not set" unless="env.GIT_BRANCH"/>
-    <fail message="GIT_COMMIT not set" unless="env.GIT_COMMIT"/>
-    <fail message="GIT_COMMITTER_EMAIL not set" unless="env.GIT_COMMITTER_EMAIL"/>
-    <fail message="GIT_COMMITTER_NAME not set" unless="env.GIT_COMMITTER_NAME"/>
-    <fail message="GIT_LOCAL_BRANCH not set" unless="env.GIT_LOCAL_BRANCH"/>
-    <fail message="GIT_URL not set" unless="env.GIT_URL"/>
-    <echo>GIT_ env var checks all passed</echo>
-  </target>
-
-  <!-- Synchronize repositories -->
-  <target name="sync" description="Synchronize git repositories">
-    <git command="pull">
-      <args>
-        <arg value="--all"/>
-        <arg value="--prune"/>
-      </args>
-    </git>
-  </target>
+<project name="JENKINS-48589" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
+    <git command="pull" />
     <buildnumber/>
+    <git command="add">
+      <args>
+        <arg value="build.number"/>
+      </args>
+    </git>
     <git command="commit">
       <args>
         <arg value="-m"/>
         <arg value="[${ant.project.name}] ${user.name} build++, was ${build.number}"/>
-        <arg value="build.number"/>
       </args>
     </git>
   </target>
@@ -52,10 +20,8 @@
   <target name="info" description="Report info about this repo">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
-    <git command="branch" />
-    <!-- JENKINS-41906 reports that master branch built without
-         any commits.  This reports commits on this branch in the last 15
-         minutes -->
+    <!-- JENKINS-48589 reports that a commit with empty committer e-mail address
+         causes exceptions in changeset calculation.  -->
     <echo>Displaying git log messages on this branch from last 15 minutes</echo>
     <git command="log">
       <args>
