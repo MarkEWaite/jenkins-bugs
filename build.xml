@@ -3,11 +3,11 @@
   <target name="increment" description="Increment build number">
     <git command="pull" />
     <buildnumber/>
+    <!-- change committer name -->
     <replaceregexp file=".git/config"
                    match="(Mark Waite).*"
                    replace="\1 number ${build.number}"
     />
-
     <git command="add">
       <args>
         <arg value="build.number"/>
