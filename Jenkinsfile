@@ -16,6 +16,10 @@ node {
     checkout([$class: 'GitSCM',
               branches: [[name: branch_name]],
               extensions: [ [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+                            // Ugh, a bug
+                            // Avoid skipping commits by using a local branch named origin/has-slash/JENKINS-29603
+                            // Local branch named has-slash/JENKINS-29603 misses commits in some cases
+                            // Ugh, a bug
                             [$class: 'LocalBranch', localBranch: "origin/${branch_name}"]],
               gitTool: scm.gitTool,
               userRemoteConfigs: [[refspec: "+refs/heads/${branch_name}:refs/remotes/origin/${branch_name}", url: repo_url]]])
