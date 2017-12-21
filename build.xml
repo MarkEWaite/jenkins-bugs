@@ -1,7 +1,7 @@
 <project name="JENKINS-29603" default="increment-and-notify" basedir=".">
 
-  <!-- jenkins.hostname is hostname of Jenkins server to notify -->
-  <property name="jenkins.hostname" value="jenkins.markwaite.net" />
+  <!-- jenkins.url is hostname of Jenkins server to notify -->
+  <property name="jenkins.url" value="http://jenkins.markwaite.net:8080" />
 
   <target name="increment" description="Increment build number">
     <git command="pull" />
@@ -31,7 +31,7 @@
     <!-- Must have curl program installed -->
     <exec executable="curl" failonerror="true">
       <arg value="-s" />
-      <arg value="http://${jenkins.hostname}:8080/git/notifyCommit" />
+      <arg value="${jenkins.url}/git/notifyCommit" />
       <arg value="-d" />
       <arg value="url=https://github.com/MarkEWaite/jenkins-bugs" />
       <arg value="-d" />
