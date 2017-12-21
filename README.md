@@ -13,3 +13,8 @@ describing the same branch, then the problem would not be detected.
 
 Pipeline jobs do not have the problem, since they monitor without heeding
 the branches= parameter.
+
+Pipeline jobs sometimes are missing a change from their changes list
+when used with the current definition of this jobs.  Attempts to vary
+the definition in ways that would find a work around were unsuccessful.
+Different variations show different failure modes.
