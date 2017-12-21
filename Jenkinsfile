@@ -9,7 +9,7 @@ properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '17']]])
 
 def repo_url='https://github.com/MarkEWaite/jenkins-bugs'
-def branch_name='has-slash/JENKINS-29603'
+def branch_name='origin/has-slash/JENKINS-29603'
 
 node {
   stage('Checkout') {
