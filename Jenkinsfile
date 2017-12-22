@@ -1,6 +1,23 @@
 #!groovy
 
+def lib = library identifier: 'BugCheckerLibrary', retriever:
+            modernSCM([$class: 'GitSCMSource',
+                        credentialsId: '',
+                        gitTool: 'jgit',
+                        id: '0c8e5141-4438-4950-960e-a292f287c035',
+                        remote: 'git://github.com/MarkEWaite/jenkins-pipeline-utils.git',
+                        traits: [
+                            [$class: 'CloneOptionTrait', extension: [depth: 0, honorRefspec: true, noTags: false, reference: '/var/lib/git/mwaite/jenkins/jenkins-pipeline-utils.git', shallow: false]],
+                            [$class: 'SubmoduleOptionTrait', extension: [disableSubmodules: true, parentCredentials: false, recursiveSubmodules: false, reference: '', trackingSubmodules: false]],
+                            [$class: 'LocalBranchTrait'],
+                            [$class: 'RemoteNameSCMSourceTrait', remoteName: 'pipeline-utils-origin'],
+                            [$class: 'IgnoreOnPushNotificationTrait'],
+                            [$class: 'PruneStaleBranchTrait'],
+                            [$class: 'GitToolSCMSourceTrait', gitTool: 'jgit'],
+                            [$class: 'RefSpecsSCMSourceTrait', templates: [[value: '+refs/heads/master:refs/remotes/@{remote}/master']]]]])
+
 @Library('globalPipelineLibraryMarkEWaite') _
+
 import com.markwaite.Assert
 import com.markwaite.Build
 
