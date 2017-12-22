@@ -1,4 +1,4 @@
-<project name="JENKINS-11017" default="increment" basedir=".">
+<project name="JENKINS-11018" default="increment" basedir=".">
   <description>Also used in library-A and remoting-fake</description>
 
   <hostinfo prefix="hostinfo"/>
