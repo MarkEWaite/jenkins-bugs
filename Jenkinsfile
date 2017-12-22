@@ -27,21 +27,15 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-def branch = 'JENKINS-48589'
-
 node {
   stage('Checkout') {
-    echo "Before: BRANCH_NAME=${BRANCH_NAME}"
-    echo "Before: env.BRANCH_NAME=${env.BRANCH_NAME}"
     checkout([$class: 'GitSCM',
-        branches: [[name: branch]],
+        branches: [[name: BRANCH_NAME]],
         extensions: [
             [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-            [$class: 'LocalBranch', localBranch: branch]],
+            [$class: 'LocalBranch', localBranch: BRANCH_NAME]],
         gitTool: scm.gitTool,
-        userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'git://github.com/MarkEWaite/jenkins-bugs.git']]])
-    echo "After: BRANCH_NAME=${BRANCH_NAME}"
-    echo "After: env.BRANCH_NAME=${env.BRANCH_NAME}"
+        userRemoteConfigs: [[refspec: "+refs/heads/${BRANCH_NAME}:refs/remotes/origin/${BRANCH_NAME}", url: 'git://github.com/MarkEWaite/jenkins-bugs.git']]])
   }
 
   stage('Build') {
