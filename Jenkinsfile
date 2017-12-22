@@ -39,7 +39,7 @@ node {
         gitTool: scm.gitTool,
         userRemoteConfigs: [[refspec: "+refs/heads/${BRANCH_NAME}:refs/remotes/origin/${BRANCH_NAME}", url: 'git://github.com/MarkEWaite/jenkins-bugs.git']]])
     // echo "After: GIT_COMMIT=${GIT_COMMIT}"
-    echo "After: env.GIT_COMMIT=${GIT_COMMIT}"
+    echo "After: env.GIT_COMMIT=${env.GIT_COMMIT}"
     echo "After: checkoutMap[GIT_COMMIT]=${checkoutMap[GIT_COMMIT]}"
   }
 
