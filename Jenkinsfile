@@ -1,7 +1,7 @@
 #!groovy
 
-def lib = library identifier: 'BugCheckerLibrary', retriever:
-            modernSCM([$class: 'GitSCMSource',
+def lib = library identifier: 'BugCheckerLibrary@master',
+                  retriever: modernSCM([$class: 'GitSCMSource',
                         credentialsId: '',
                         gitTool: 'jgit',
                         id: '0c8e5141-4438-4950-960e-a292f287c035',
