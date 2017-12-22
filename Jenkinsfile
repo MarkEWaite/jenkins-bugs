@@ -1,5 +1,7 @@
 #!groovy
 
+// See https://jenkins.io/doc/book/pipeline/shared-libraries/#dynamic-retrieval for more details
+// This is incomplete - need to use the library, not just load it
 def lib = library identifier: 'BugCheckerLibrary@master',
                   retriever: modernSCM([$class: 'GitSCMSource',
                         credentialsId: '',
@@ -25,15 +27,17 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
+def branch = 'JENKINS-48589'
+
 node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
-        branches: [[name: 'JENKINS-48589']],
+        branches: [[name: branch]],
         extensions: [
             [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-            [$class: 'LocalBranch', localBranch: 'JENKINS-48589']],
+            [$class: 'LocalBranch', localBranch: branch]],
         gitTool: scm.gitTool,
-        userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-48589:refs/remotes/origin/JENKINS-48589', url: 'git://github.com/MarkEWaite/jenkins-bugs.git']]])
+        userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'git://github.com/MarkEWaite/jenkins-bugs.git']]])
   }
 
   stage('Build') {
