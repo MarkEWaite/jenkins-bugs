@@ -29,8 +29,6 @@ properties([[$class: 'BuildDiscarderProperty',
 
 node {
   stage('Checkout') {
-    // echo "Before: GIT_COMMIT=${GIT_COMMIT}"
-    echo "Before: env.GIT_COMMIT=${env.GIT_COMMIT}"
     def checkoutMap = checkout([$class: 'GitSCM',
         branches: [[name: BRANCH_NAME]],
         extensions: [
@@ -38,8 +36,6 @@ node {
             [$class: 'LocalBranch', localBranch: BRANCH_NAME]],
         gitTool: scm.gitTool,
         userRemoteConfigs: [[refspec: "+refs/heads/${BRANCH_NAME}:refs/remotes/origin/${BRANCH_NAME}", url: 'git://github.com/MarkEWaite/jenkins-bugs.git']]])
-    // echo "After: GIT_COMMIT=${GIT_COMMIT}"
-    echo "After: env.GIT_COMMIT=${env.GIT_COMMIT}"
     def git_commit = checkoutMap['GIT_COMMIT']
     echo "After: checkoutMap[GIT_COMMIT]=${git_commit}"
   }
