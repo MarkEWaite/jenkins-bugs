@@ -31,6 +31,8 @@ def branch = 'JENKINS-48589'
 
 node {
   stage('Checkout') {
+    echo "Before: BRANCH_NAME=${BRANCH_NAME}"
+    echo "Before: env.BRANCH_NAME=${env.BRANCH_NAME}"
     checkout([$class: 'GitSCM',
         branches: [[name: branch]],
         extensions: [
@@ -38,6 +40,8 @@ node {
             [$class: 'LocalBranch', localBranch: branch]],
         gitTool: scm.gitTool,
         userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'git://github.com/MarkEWaite/jenkins-bugs.git']]])
+    echo "After: BRANCH_NAME=${BRANCH_NAME}"
+    echo "After: env.BRANCH_NAME=${env.BRANCH_NAME}"
   }
 
   stage('Build') {
