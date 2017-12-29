@@ -12,7 +12,7 @@ node {
                              [$class: 'LocalBranch', localBranch: '**'],
                              [$class: 'AuthorInChangelog']],
                 gitTool: scm.gitTool,
-                userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-31828-bogus:refs/remotes/origin/JENKINS-31828-bogus +refs/heads/JENKINS-31828:refs/remotes/origin/JENKINS-31828 +refs/heads/JENKINS-31828-also-bogus:refs/remotes/origin/JENKINS-31828-also-bogus', url: 'git://github.com/MarkEWaite/jenkins-bugs.git']]])
+                userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-15103:refs/remotes/origin/JENKINS-15103 +refs/heads/JENKINS-31828:refs/remotes/origin/JENKINS-31828 +refs/heads/master:refs/remotes/origin/master', url: 'git://github.com/MarkEWaite/jenkins-bugs.git']]])
   }
 
   stage('Build') {
