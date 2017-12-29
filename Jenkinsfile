@@ -14,8 +14,9 @@ properties([[$class: 'BuildDiscarderProperty',
 node {
 
   stage('Checkout') {
-    checkout([$class: 'GitSCM', branches: [[name: '*/JENKINS-39905']],
-    userRemoteConfigs: [[url: 'https://bitbucket.org/markewaite/jenkins-bugs.git']])
+    checkout([$class: 'GitSCM',
+                branches: [[name: '*/JENKINS-39905']],
+                userRemoteConfigs: [url: 'https://bitbucket.org/markewaite/jenkins-bugs.git']])
   }
 
   stage('Build') {
