@@ -16,7 +16,8 @@ node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
                 branches: [[name: '*/JENKINS-39905']],
-                userRemoteConfigs: [[url: 'https://bitbucket.org/markewaite/jenkins-bugs.git']]])
+                extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true]],
+                userRemoteConfigs: [[url: 'https://bitbucket.org/markewaite/jenkins-bugs.git', refspec: '+refs/heads/JENKINS-39905:refs/remotes/origin/JENKINS-39905']]])
   }
 
   stage('Build') {
