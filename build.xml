@@ -2,7 +2,6 @@
 
   <!-- Increment build number, commit the change -->
   <target name="increment" description="Show JENKINS-31828 is fixed">
-    <echo>java is ${java.version}</echo>
     <buildnumber/>
     <echo>Build number was ${build.number}</echo>
     <exec executable="git">
@@ -14,6 +13,17 @@
       <arg value="-m"/>
       <arg value="${user.name} JENKINS-31828, was ${build.number}"/>
     </exec>
+  </target>
+
+  <target name="info" description="Info about JENKINS-31828">
+    <echo>java is ${java.version}</echo>
+    <echo>=== Start of git log output</echo>
+    <exec executable="git">
+      <arg value="log"/>
+      <arg value="-n"/>
+      <arg value="1"/>
+    </exec>
+    <echo>=== End of git log output</echo>
   </target>
 
 </project>
