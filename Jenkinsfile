@@ -15,8 +15,7 @@ node {
 
   stage('Checkout') {
     checkout([$class: 'GitSCM', branches: [[name: '*/JENKINS-39905']],
-    userRemoteConfigs: [[url: 'https://bitbucket.org/markewaite/jenkins-bugs.git']],
-    browser: [$class: 'BitbucketWeb', repoUrl: 'https://bitbucket.org/markewaite/jenkins-bugs']])
+    userRemoteConfigs: [[url: 'https://bitbucket.org/markewaite/jenkins-bugs.git']])
   }
 
   stage('Build') {
