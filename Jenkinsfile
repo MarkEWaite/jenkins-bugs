@@ -54,9 +54,11 @@ node('master') {
     if (changeDescription.contains("<changes/>") ||
 	!changeDescription.contains("<changes>") ||
 	countSubstrings(changeDescription, "<comment>") < 2) { // Always expect at least 2 changes
-      manager.addWarningBadge("Missing recent changes output")
-      manager.createSummary("warning.gif").appendText("<h1>Missing recent changes!</h1>", false, false, false, "red")
-      manager.buildUnstable()
+      if (currentBuild.number > 1) { // Don't check first build
+        manager.addWarningBadge("Missing recent changes output")
+        manager.createSummary("warning.gif").appendText("<h1>Missing recent changes!</h1>", false, false, false, "red")
+        manager.buildUnstable()
+      }
     }
   }
 }
