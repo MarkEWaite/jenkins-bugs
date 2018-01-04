@@ -1,11 +1,7 @@
-# Jenkins bug verification public repository
+# [JENKINS-42440](https://issues.jenkins-ci.org/browse/JENKINS-42440) declarative not performing checkout
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations to
-duplicate the bug.  This repository captures some of those configurations
-in a way that is publicly visible so that automated tests can use this
-repository.
-
-This repository includes many branches with a Jenkinsfile pipeline
-definition for branches where the pipeline definition can encapsulate
-at least a portion of the bug verification.
+Boris Folgmann noted that declarative was not performing a checkout
+for him with his declarative pipeline job.  Unfortunately, he provided
+no further details.  The original bug describes a scripted pipeline,
+not a declarative pipeline, and was resolved by adding the required
+`checkout scm` step to the scripted pipeline.
