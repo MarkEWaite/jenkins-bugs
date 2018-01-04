@@ -9,7 +9,7 @@ pipeline {
           }
           steps {
             bat 'echo hello windows from %COMPUTERNAME%'
-            bat 'if not exist build-missing.xml exit 1'
+            bat 'if not exist build.xml exit 1'
           }
         }
         stage('linux') {
@@ -18,7 +18,7 @@ pipeline {
           }
           steps {
             sh 'echo hello linux from `hostname`'
-            sh '[ -f build-missing.xml ] || exit 1'
+            sh '[ -f build.xml ] || exit 1'
           }
         }
       }
