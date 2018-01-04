@@ -1,14 +1,20 @@
 pipeline {
   agent none
   stages {
-    parallel {
-      stage('windows') {
-        agent 'windows'
-        bat 'echo hello windows'
-      }
-      stage('linux') {
-        agent 'linux'
-        sh 'echo hello linux'
+    stage('parallel') {
+      parallel {
+        stage('windows') {
+          agent 'windows'
+          steps {
+            bat 'echo hello windows'
+          }
+        }
+        stage('linux') {
+          agent 'linux'
+          steps {
+            sh 'echo hello linux'
+          }
+        }
       }
     }
   }
