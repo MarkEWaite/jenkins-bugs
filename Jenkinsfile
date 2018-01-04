@@ -4,13 +4,17 @@ pipeline {
     stage('parallel') {
       parallel {
         stage('windows') {
-          agent 'windows'
+          agent { 
+            label 'windows'
+          }
           steps {
             bat 'echo hello windows'
           }
         }
         stage('linux') {
-          agent 'linux'
+          agent {
+            label 'linux'
+          }
           steps {
             sh 'echo hello linux'
           }
