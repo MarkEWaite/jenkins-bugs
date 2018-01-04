@@ -8,7 +8,7 @@ pipeline {
             label 'windows'
           }
           steps {
-            bat 'echo hello windows'
+            bat 'echo hello windows from %COMPUTERNAME%'
           }
         }
         stage('linux') {
@@ -16,7 +16,7 @@ pipeline {
             label 'linux'
           }
           steps {
-            sh 'echo hello linux'
+            sh 'echo hello linux from `hostname`'
           }
         }
       }
