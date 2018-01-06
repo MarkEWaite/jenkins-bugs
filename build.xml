@@ -21,7 +21,16 @@
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
+
     <!-- JENKINS-48818 reports that a space in a submodule name fails to update. -->
+    <fileset id="no.space.contents" dir="modules/jenkins-pipeline-utils" includes="LICENSE"/> 
+    <property name="prop.no.space.contents" refid="no.space.contents"/>
+    <echo>No space contents check: ${prop.no.space.contents}</echo>
+
+    <fileset id="has.space.contents" dir="modules/jenkins pipeline utils name" includes="README.md"/> 
+    <property name="prop.has.space.contents" refid="has.space.contents"/>
+    <echo>Has space contents check: ${prop.has.space.contents}</echo>
+
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
