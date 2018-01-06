@@ -21,9 +21,6 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    if (currentBuild.number > 1) { // Don't check first build
-      my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
-      my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
-    }
+    my_check.logContains('.*user dir is.*', 'Ant script missing output')
   }
 }
