@@ -2,11 +2,18 @@
 
   <target name="increment" description="Increment build number">
     <git command="pull" />
-    <exec executable="git" outputproperty="git.branch" failifexecutionfails="false">
-      <arg line="rev-parse --abbrev-ref HEAD"/>
-    </exec>
-    <echo message="Current branch: ${git.branch}"/> 
-    <ant antfile="${git.branch}/build.xml" target="increment" />
+    <buildnumber/>
+    <git command="add">
+      <args>
+        <arg value="build.number"/>
+      </args>
+    </git>
+    <git command="commit">
+      <args>
+        <arg value="-m"/>
+        <arg value="[${ant.project.name}] build++, was ${build.number}"/>
+      </args>
+    </git>
   </target>
 
   <!-- Info about this repository -->
