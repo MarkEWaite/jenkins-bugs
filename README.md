@@ -7,7 +7,7 @@ When a merge is committed, all jobs are triggered, even if the merge only change
 
 To duplicate the bug, try the following steps:
 
-1. Create a base branch named 'JENKINS-23606' with subdirectories project-1 and project-2
+1. Create a base branch named '[JENKINS-23606](https://github.com/MarkEWaite/jenkins-bugs/tree/JENKINS-23606)' with subdirectories project-1 and project-2
 2. Create a freestyle job monitoring 'JENKINS-23606' with no region exclusions
 3. Create a project branch 'JENKINS-23606-project-1' which will only make changes in the project-1 subdirectory
 4. Create a freestyle job monitoring 'JENKINS-23606-project-1' which only monitors changes in the project-1 subdirectory
