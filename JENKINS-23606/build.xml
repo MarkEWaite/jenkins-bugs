@@ -5,7 +5,7 @@
     <buildnumber/>
     <git command="add">
       <args>
-        <arg value="build.number"/>
+        <arg value="${basedir}/build.number"/>
       </args>
     </git>
     <git command="commit">
