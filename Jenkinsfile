@@ -13,7 +13,12 @@ properties([
 
 node {
   stage('Checkout') {
-    checkout scm
+    checkout([$class: 'GitSCM',
+            branches: [[name: 'JENKINS-48938']],
+            extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+                         [$class: 'LocalBranch', localBranch: 'JENKINS-48938']],
+            gitTool: scm.gitTool,
+            userRemoteConfigs: [[name: 'origin', refspec: '+refs/heads/JENKINS-48938:refs/remotes/origin/JENKINS-48938', url: 'git://github.com/MarkEWaite/jenkins-bugs.git']]])
   }
 
   stage('Build') {
