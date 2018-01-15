@@ -1,6 +1,6 @@
 #!groovy
 
-@Library('globalPipelineLibraryMarkEWaite') _
+@Library('globalPipelineLibraryMarkEWaite@JENKINS-48938-build-every-poll') _
 import com.markwaite.Assert
 import com.markwaite.Build
 
