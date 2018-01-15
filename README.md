@@ -16,3 +16,4 @@ To duplicate the bug, try the following steps:
 7. Commit to the base branch and confirm that only the base branch job runs
 8. Commit to the project-1 branch and confirm that only the project-1 branch job runs
 9. Commit to the project-2 branch and confirm that only the project-2 branch job runs
+10. Merge from project-1 to the base branch and confirm that only the base branch job runs
