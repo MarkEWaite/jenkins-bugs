@@ -21,9 +21,8 @@
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
-    <!-- JENKINS-41906 reports that master branch built without
-         any commits.  This reports commits on this branch in the last 15
-         minutes -->
+    <!-- JENKINS-23606 reports that merge commits trigger branches which should
+         be ignoring the changes that were merged. -->
     <echo>Displaying git log messages on this branch from last 15 minutes</echo>
     <git command="log">
       <args>
