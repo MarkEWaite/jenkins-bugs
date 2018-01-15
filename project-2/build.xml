@@ -1,4 +1,4 @@
-<project name="JENKINS-23606-project-2" default="sync" basedir=".">
+<project name="JENKINS-23606-project-2" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
     <git command="pull" />
