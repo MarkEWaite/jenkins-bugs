@@ -20,12 +20,17 @@
     </git>
     <exec executable="git" outputproperty="git.log.output">
       <arg value="log"/>
+      <arg value="--oneline"/>
       <arg value="--numstat"/>
       <arg value="origin/${git.branch}..HEAD"/>
     </exec>
     <git command="commit">
       <args>
         <arg value="--allow-empty"/>
+        <arg value="-m"/>
+        <arg value="Numstat output from git log --oneline"/>
+        <arg value="-m"/>
+        <arg value="Used for test assertions"/>
         <arg value="-m"/>
         <arg value="${git.log.output}"/>
       </args>
