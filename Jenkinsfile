@@ -21,6 +21,7 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
+    /* JENKINS-23606 is not relevant to pipeline.  No subtree exclusion */
     if (currentBuild.number > 1) { // Don't check first build
       my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
       my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
