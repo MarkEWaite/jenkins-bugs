@@ -18,6 +18,20 @@
         <arg value="[${ant.project.name}] ${git.branch}/build++, was ${build.number}"/>
       </args>
     </git>
+    <exec command="git" outputproperty="git.log.output">
+      <args>
+        <arg value="log"/>
+        <arg value="--numstat"/>
+        <arg value="origin/${git.branch}..HEAD"/>
+      </args>
+    </exec>
+    <git command="commit">
+      <args>
+        <arg value="--allow-empty"/>
+        <arg value="-m"/>
+        <arg value="${git.log.output}"/>
+      </args>
+    </git>
   </target>
 
   <!-- Info about this repository -->
