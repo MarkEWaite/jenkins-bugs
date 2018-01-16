@@ -6,6 +6,12 @@
       <arg line="rev-parse --abbrev-ref HEAD"/>
     </exec>
     <echo message="Current branch: ${git.branch}"/> 
+    <git command="merge">
+      <args>
+        <arg value="--no-edit"/>
+        <arg value="origin/JENKINS-23606-project-1"/>
+      </args>
+    </git>
     <buildnumber file="${git.branch}/build.number" />
     <git command="add">
       <args>
