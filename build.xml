@@ -12,12 +12,6 @@
         <arg value="${git.branch}/build.number"/>
       </args>
     </git>
-    <git command="commit">
-      <args>
-        <arg value="-m"/>
-        <arg value="[${ant.project.name}] ${git.branch}/build++, was ${build.number}"/>
-      </args>
-    </git>
     <exec executable="git" outputproperty="git.log.output">
       <arg value="log"/>
       <arg value="--oneline"/>
@@ -26,7 +20,8 @@
     </exec>
     <git command="commit">
       <args>
-        <arg value="--allow-empty"/>
+        <arg value="-m"/>
+        <arg value="[${ant.project.name}] ${git.branch}/build++, was ${build.number}"/>
         <arg value="-m"/>
         <arg value="Numstat output from git log --oneline"/>
         <arg value="-m"/>
