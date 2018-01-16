@@ -19,11 +19,9 @@
       </args>
     </git>
     <exec executable="git" outputproperty="git.log.output">
-      <args>
-        <arg value="log"/>
-        <arg value="--numstat"/>
-        <arg value="origin/${git.branch}..HEAD"/>
-      </args>
+      <arg value="log"/>
+      <arg value="--numstat"/>
+      <arg value="origin/${git.branch}..HEAD"/>
     </exec>
     <git command="commit">
       <args>
