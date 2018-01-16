@@ -25,7 +25,7 @@
         <arg value="origin/${git.branch}..HEAD"/>
       </args>
     </exec>
-    <git command="commit">
+    <git executable="commit">
       <args>
         <arg value="--allow-empty"/>
         <arg value="-m"/>
