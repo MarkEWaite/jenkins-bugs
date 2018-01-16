@@ -1,7 +1,11 @@
 <project name="JENKINS-23606" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
-    <git command="pull" />
+    <git command="pull">
+      <args>
+        <arg value="--all"/>
+      </args>
+    </git>
     <exec executable="git" outputproperty="git.branch" failifexecutionfails="false">
       <arg line="rev-parse --abbrev-ref HEAD"/>
     </exec>
