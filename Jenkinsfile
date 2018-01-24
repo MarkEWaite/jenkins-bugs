@@ -21,9 +21,9 @@ node {
     /* Call the ant build. */
     withAnt(installation: 'ant-latest', jdk: 'jdk8') {
       if (isUnix()) {
-        sh 'info'
+        sh 'ant info'
       } else {
-        bat 'info'
+        bat 'ant info'
       }
     }
   }
