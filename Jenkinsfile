@@ -19,8 +19,13 @@ node {
 
   stage('Build') {
     /* Call the ant build. */
-    def my_step = new com.markwaite.Build()
-    my_step.ant 'info'
+    withAnt(installation: 'ant-latest', jdk: 'jdk8') {
+      if (isUnix()) {
+        sh 'info'
+      } else {
+        bat 'info'
+      }
+    }
   }
 
   stage('Verify') {
