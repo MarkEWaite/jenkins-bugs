@@ -1,4 +1,4 @@
-<project name="JENKINS-32182" default="increment" basedir=".">
+<project name="JENKINS-32183" default="increment" basedir=".">
   <description>Also used in gitea-plugin-fake</description>
 
   <target name="increment" description="Increment and push a change with Ctrl-M&#13; in message">
