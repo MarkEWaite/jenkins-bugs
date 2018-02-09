@@ -39,7 +39,6 @@ node('linux') { // ant command calls shell script that calls curl
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     if (currentBuild.number > 1) { // Don't check first build
-      // TODO: Scrape the Jenkins UI for the summary line of the change log
       my_check.logContains('.*truncated in the Jenkins user interface.*', 'Missing message')
     }
   }
