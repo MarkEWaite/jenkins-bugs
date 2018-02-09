@@ -107,8 +107,7 @@ if [ "$NEED_CRUMB" == "true" ]; then
     crumb_output=${prefix}-crumbfull
     echo "Reading changes from URL=$CHANGES_URL using crumb: $crumb"
     curl -s -H "$crumb" -X POST $CHANGES_URL -o $crumb_output
-    grep -q -F 'Change messages are truncated in ui' $crumb_output || failed_with_crumb
-    grep -F 'Change messages are truncated in ui' $crumb_output
+    grep -q -F '<li>Change messages are truncated in ui.*</li>' $crumb_output || failed_with_crumb
 else
     no_crumb_output=${prefix}-crumbless
     echo "Reading changes from URL=$CHANGES_URL with no crumb"
