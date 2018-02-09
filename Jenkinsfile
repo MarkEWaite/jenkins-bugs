@@ -39,8 +39,10 @@ node('linux') { // ant command calls shell script that calls curl
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     if (currentBuild.number > 1) { // Don't check first build
-      my_check.logContains('.*truncated in the Jenkins user interface.*', 'Missing message')
+      // Check for start of message
+      my_check.logContains('.*Change messages are truncated in ui.*', 'Commit message missing')
+      // Check for middle of message
+      my_check.logContains('.*with an intentionally long first line of the commit message.*', 'Commit message truncated')
     }
   }
 }
-
