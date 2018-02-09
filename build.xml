@@ -22,13 +22,6 @@
     <echo>user dir is ${user.dir}</echo>
     <!-- JENKINS-29977 reports that the commit summary line in the Jenkins UI
          is truncated for display. -->
-    <echo>Displaying most recent git log message on this branch</echo>
-    <git command="log">
-      <args>
-        <arg value="--max-count=1"/>
-      </args>
-    </git>
-    <echo>End of most recent git log message on this branch</echo>
     <exec executable="./readChangesFromBuildUrl"/>
     <echo>readChangesFromBuildUrl script exited normally</echo>
   </target>
