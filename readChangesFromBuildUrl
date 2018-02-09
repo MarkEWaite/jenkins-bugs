@@ -5,7 +5,7 @@
 # Default Jenkins URL from JENKINS_URL environment variable
 # Default git repo URL from current repository
 
-usage() { echo "Usage: $0 [-s jenkins_server_url] [-u git_repo_url] [-n]" 1>&2; exit 1; }
+usage() { echo "Usage: $0 [-b build_url] [-s jenkins_server_url] [-u git_repo_url] [-n]" 1>&2; exit 1; }
 
 failed_with_crumb() { echo Failed with crumb; exit 2; }
 
@@ -13,7 +13,6 @@ failed_without_crumb() { echo Failed without crumb; exit 3; }
 
 SERVER=
 GIT_URL=
-BUILD_URL=
 NEED_CRUMB=true
 
 while getopts ":s:u:n" o; do
@@ -70,6 +69,16 @@ if [ -z "$GIT_URL" ]; then
     usage
 fi
 
+# Assure BUILD_URL is set
+
+if [ -z "$BUILD_URL" ]; then
+    usage
+fi
+
+# CHANGES_URL is the URL to the changes in $BUILD_URL
+
+CHANGES_URL=$BUILD_URL/changes
+
 if [ "$NEED_CRUMB" == "true" ]; then
     crumb=$(curl -s $SERVER/crumbIssuer/api/xml?xpath=concat\(//crumbRequestField,%22:%22,//crumb\))
     if [ -z "$crumb" ]; then
@@ -92,20 +101,19 @@ fi
 
 prefix=$RANDOM
 
-# Check that it works with the crumb (if crumb needed)
+# Read changes html page
 
 if [ "$NEED_CRUMB" == "true" ]; then
     crumb_output=${prefix}-crumbfull
-    echo "Notifying URL=$SERVER POST using crumb: $crumb"
-    curl -s -H "$crumb" -X POST $SERVER/git/notifyCommit?url=$GIT_URL -o $crumb_output
-    grep -q -F '<html>' $crumb_output && failed_with_crumb
+    echo "Reading changes from URL=$CHANGES_URL using crumb: $crumb"
+    curl -s -H "$crumb" -X POST $CHANGES_URL -o $crumb_output
+    grep -q -F 'Change messages are truncated in ui' $crumb_output || failed_with_crumb
+    grep -F 'Change messages are truncated in ui' $crumb_output
+else
+    no_crumb_output=${prefix}-crumbless
+    echo "Reading changes from URL=$CHANGES_URL with no crumb"
+    curl -s -X POST $CHANGES_URL -o $no_crumb_output
+    grep -q -F 'Change messages are truncated in ui' $no_crumb_output || failed_without_crumb
 fi
-
-# Check that it works without the crumb (always)
-
-no_crumb_output=${prefix}-crumbless
-echo "Notifying URL=$SERVER POST with no crumb"
-curl -s -X POST $SERVER/git/notifyCommit?url=$GIT_URL -o $no_crumb_output
-grep -q -F '<html>' $no_crumb_output && failed_without_crumb
 
 exit 0
