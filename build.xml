@@ -29,6 +29,8 @@
       </args>
     </git>
     <echo>End of most recent git log message on this branch</echo>
+    <exec executable="./readChangesFromBuildUrl"/>
+    <echo>readChangesFromBuildUrl script exited normally</echo>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
