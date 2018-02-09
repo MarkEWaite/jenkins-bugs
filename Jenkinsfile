@@ -8,7 +8,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-node {
+node('linux') { // ant command calls shell script that calls curl
   stage('Checkout') {
     checkout scm
   }
