@@ -21,7 +21,9 @@
   <!-- Info about this workspace -->
   <target name="info" description="Report info about this repo">
     <echo>user dir is ${user.dir}</echo>
-    <git command="branch" />
+    <exec executable="git">
+      <arg value="branch"/>
+    </exec>
     <echo>user dir is ${user.dir}</echo>
   </target>
 
