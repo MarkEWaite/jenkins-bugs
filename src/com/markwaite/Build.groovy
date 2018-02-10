@@ -4,9 +4,9 @@ package com.markwaite;
 void ant(def args) {
   withAnt(installation: 'ant-latest', jdk: 'jdk8') {
     if (isUnix()) {
-      sh 'ant info'
+      sh "ant ${args}"
     } else {
-      bat 'ant info'
+      bat "ant ${args}"
     }
   }
 }
