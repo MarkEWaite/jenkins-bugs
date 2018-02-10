@@ -2,41 +2,27 @@
 
   <!-- Increment build number, commit the change -->
   <target name="increment" description="Show JENKINS-6203 is a bug">
-    <echo>java is ${java.version}</echo>
+    <exec executable="git">
+      <arg value="pull"/>
+    </exec>
     <buildnumber/>
     <echo>Build number was ${build.number}</echo>
     <exec executable="git">
       <arg value="add"/>
       <arg value="build.number"/>
-      <arg value="."/>
     </exec>
     <exec executable="git">
       <arg value="commit"/>
       <arg value="-m"/>
       <arg value="${ant.project.name} ${user.name} ビルド番号をインクリメント,${build.number} でした"/>
-      <arg value="build.number"/>
     </exec>
   </target>
 
-  <!-- Synchronize repositories -->
+  <!-- Info about this workspace -->
   <target name="info" description="Report info about this repo">
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
     <echo>user dir is ${user.dir}</echo>
   </target>
-
-  <!-- From https://gist.github.com/davejlong/874521 -->
-  <macrodef name="git">
-    <attribute name="command" />
-    <attribute name="dir" default="" />
-    <element name="args" optional="true" />
-    <sequential>
-      <echo message="git @{command}" />
-      <exec executable="git" dir="@{dir}">
-        <arg value="@{command}" />
-        <args/>
-      </exec>
-    </sequential>
-  </macrodef>
 
 </project>
