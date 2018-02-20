@@ -10,7 +10,12 @@ properties([[$class: 'BuildDiscarderProperty',
 
 node {
   stage('Checkout') {
-    checkout scm
+    checkout([$class: 'GitSCM',
+            branches: [[name: 'JENKINS-24304']],
+            extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+                         [$class: 'LocalBranch', localBranch: 'JENKINS-24304']],
+            gitTool: 'git-quiet', /* Configured to hide diagnostics */
+            userRemoteConfigs: [[name: 'origin', refspec: '+refs/heads/JENKINS-24304:refs/remotes/origin/JENKINS-24304', url: 'git://github.com/MarkEWaite/jenkins-bugs.git']]])
   }
 
   stage('Build') {
