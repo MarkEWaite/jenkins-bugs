@@ -3,9 +3,8 @@
   <target name="increment" description="Increment build number">
     <git command="pull" />
     <buildnumber/>
-    <git command="commit">
+    <git command="add">
       <args>
-        <arg value="add"/>
         <arg value="build.number"/>
       </args>
     </git>
