@@ -9,7 +9,7 @@ pipeline {
           }
           steps {
             echo 'Workspace before windows ws is ' + WORKSPACE
-            ws {
+            ws(dir: 'windows-dir') {
               echo 'Workspace inside windows ws is ' + WORKSPACE
             }
             echo 'Workspace after ws windows is ' + WORKSPACE
@@ -23,7 +23,7 @@ pipeline {
           }
           steps {
             echo 'Workspace before linux ws is ' + WORKSPACE
-            ws {
+            ws(dir: 'linux-dir') {
               echo 'Workspace inside linux ws is ' + WORKSPACE
             }
             echo 'Workspace after linux ws is ' + WORKSPACE
