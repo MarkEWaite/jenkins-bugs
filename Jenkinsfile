@@ -3,6 +3,7 @@
 @Library('globalPipelineLibraryMarkEWaite@branch-for-checkout-in-library') _
 import com.markwaite.Assert
 import com.markwaite.Build
+import com.markwaite.Checkout
 
 /* Only keep the 10 most recent builds. */
 properties([[$class: 'BuildDiscarderProperty',
@@ -10,7 +11,8 @@ properties([[$class: 'BuildDiscarderProperty',
 
 node {
   stage('Checkout') {
-    checkout scm
+    def my_checkout = new com.markwaite.Checkout()
+    my_checkout.checkout('JENKINS-50158')
   }
 
   stage('Build') {
