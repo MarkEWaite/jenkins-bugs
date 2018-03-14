@@ -1,11 +1,13 @@
-# Jenkins bug verification public repository
+# [JENKINS-50158](https://issues.jenkins-ci.org/browse/JENKINS-50158) checkout from library reported LocalBranch not serializable
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations to
-duplicate the bug.  This repository captures some of those configurations
-in a way that is publicly visible so that automated tests can use this
-repository.
+An interesting syntactic twist on the checkout command was used in
+[JENKINS-50158](https://issues.jenkins-ci.org/browse/JENKINS-50158) :
 
-This repository includes many branches with a Jenkinsfile pipeline
-definition for branches where the pipeline definition can encapsulate
-at least a portion of the bug verification.
+```
+def gitscm = new GitScm(... , extensions: [new LocalBranch('**')])
+def scmvars = checkout gitscm
+```
+
+That syntax worked in a Jenkinsfile but did not work when reference in
+a Pipeline shared library.  The Jenkinsfile in this repository shows a
+technique that works from a Pipeline shared library.
