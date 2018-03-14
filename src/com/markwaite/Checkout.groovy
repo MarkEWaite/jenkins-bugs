@@ -1,6 +1,6 @@
 package com.markwaite;
 
-void checkout(def branch) {
+void checkoutBranch(def branch) {
   def bugsRepoUrl = 'https://github.com/MarkEWaite/jenkins-bugs'
   checkout([$class: 'GitSCM',
               branches: [[name: branch]],
