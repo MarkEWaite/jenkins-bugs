@@ -1,5 +1,6 @@
 package com.markwaite;
 
+/* JENKINS-50158 reported that checkout failed from a library */
 void checkoutBranch(def branch) {
   def bugsRepoUrl = 'https://github.com/MarkEWaite/jenkins-bugs'
   checkout([$class: 'GitSCM',
