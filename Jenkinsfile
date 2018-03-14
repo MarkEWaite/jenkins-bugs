@@ -12,7 +12,7 @@ properties([[$class: 'BuildDiscarderProperty',
 node {
   stage('Checkout') {
     def my_checkout = new com.markwaite.Checkout()
-    my_checkout.checkout('JENKINS-50158')
+    my_checkout.checkoutBranch('JENKINS-50158')
   }
 
   stage('Build') {
