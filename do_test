@@ -1,4 +1,0 @@
-#!/bin/bash
-
-for dir in $(ls | shuf; ls | shuf); do
-        ([ -f $dir/build.xml ] && cd $dir && git pull-a && sleep 3 && ant && sleep 1 && git push && sleep 5 && git push cache && sleep 7 && git push bare); done
