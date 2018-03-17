@@ -23,6 +23,10 @@
     <git command="branch" />
     <!-- JENKINS-50168 reports that polling uses the last built branch
          in a parameterized Pipeline job.  -->
+    <exec executable="curl">
+      <arg value="--silent" />
+      <arg value="http://mark-pc2.markwaite.net:8080/job/Bugs-Individual/job/JENKINS-50168-parameterized-polls-with-last-built-branch/scmPollLog/" />
+    </exec>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
