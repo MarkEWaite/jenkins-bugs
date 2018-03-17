@@ -21,6 +21,6 @@ node('linux') { // Needs 'curl' in build.xml
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains('poll.* Last Built Revision: Revision .* .*JENKINS-50168.*', 'Polled non-default branch')
+    my_check.logContains('.*poll.* Last Built .*Revision.*JENKINS-50168.*', 'Polled non-default branch')
   }
 }
