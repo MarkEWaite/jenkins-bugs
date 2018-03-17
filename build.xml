@@ -8,7 +8,6 @@
         <arg value="build.number"/>
       </args>
     </git>
-  </target>
     <git command="commit">
       <args>
         <arg value="-m"/>
