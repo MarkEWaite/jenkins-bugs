@@ -21,6 +21,6 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains('.*\* JENKINS-50168.*', 'Branch report missing or wrong current branch')
+    my_check.logContains('.*[*] JENKINS-50168.*', 'Branch report missing or wrong current branch')
   }
 }
