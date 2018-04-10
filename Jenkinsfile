@@ -1,8 +1,8 @@
 #!groovy
 
 // Fails
-// @Library('globalPipelineLibraryMarkEWaiteModernGitHub@0c30065c158df07e55eeda283a7db3ff19bbfe01') _ // Checkout JENKINS-48061 SHA1 reference with modern GitHub SCM
-@Library('globalPipelineLibraryMarkEWaiteModernGitHub@v1.1') _ // Checkout JENKINS-48061 tag reference with modern GitHub SCM
+@Library('globalPipelineLibraryMarkEWaiteModernGitHub@0c30065c158df07e55eeda283a7db3ff19bbfe01') _ // Checkout JENKINS-48061 SHA1 reference with modern GitHub SCM
+// @Library('globalPipelineLibraryMarkEWaiteModernGitHub@v1.1') _ // Checkout JENKINS-48061 tag reference with modern GitHub SCM
 // @Library('globalPipelineLibraryMarkEWaiteModernGitHub@branch-for-tag-v1.1') _ // A work around
 
 // Fails
