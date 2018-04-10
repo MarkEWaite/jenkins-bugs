@@ -2,7 +2,8 @@
 
 // Fails
 // @Library('globalPipelineLibraryMarkEWaiteModernGitHub@0c30065c158df07e55eeda283a7db3ff19bbfe01') _ // Checkout JENKINS-48061 SHA1 reference with modern GitHub SCM
-@Library('globalPipelineLibraryMarkEWaiteModernGitHub@5093f89ac0057a471081ff5a5bf94c20f9acae97') _ // Checkout JENKINS-48061 older SHA1 reference with modern GitHub SCM
+@Library('globalPipelineLibraryMarkEWaiteModernGitHub@9f52be42b165a42b20be4fcd03081af28bde3b93') _ // Checkout JENKINS-48061 older SHA1 reference with modern GitHub SCM
+// @Library('globalPipelineLibraryMarkEWaiteModernGitHub@5093f89ac0057a471081ff5a5bf94c20f9acae97') _ // Checkout JENKINS-48061 older SHA1 reference with modern GitHub SCM
 // @Library('globalPipelineLibraryMarkEWaiteModernGitHub@branch-for-tag-v1.1') _ // A work around
 
 // Fails
