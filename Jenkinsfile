@@ -14,7 +14,11 @@ node {
   stage('Checkout') {
     deleteDir()
     writeFile file: 'pre-checkout-file.txt', text: expectedText
-    checkout scm
+    checkout([$class: 'GitSCM',
+                branches: [[name: 'JENKINS-22795']],
+                extensions: [[$class: 'CloneOption', depth: 0, honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: false]],
+                gitTool: scm.gitTool,
+                userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-22795:refs/remotes/origin/JENKINS-22795', url: 'https://github.com/MarkEWaite/jenkins-bugs/']]])
   }
 
   stage('Build') {
