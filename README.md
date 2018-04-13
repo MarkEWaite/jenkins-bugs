@@ -1,11 +1,6 @@
-# Jenkins bug verification public repository
+# [JENKINS-31826](https://issues.jenkins-ci.org/browse/JENKINS-31826) - Checkout specific SHA1
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations to
-duplicate the bug.  This repository captures some of those configurations
-in a way that is publicly visible so that automated tests can use this
-repository.
-
-This repository includes many branches with a Jenkinsfile pipeline
-definition for branches where the pipeline definition can encapsulate
-at least a portion of the bug verification.
+User reported that they were unable to checkout a specific SHA1
+with Pipeline.  I was unable to duplicate the bug with Freestyle.
+Another user said they had the same problem.  This is my confirmation
+test that arbitrary non-tip SHA1 hashes can be used for Pipeline checkout.
