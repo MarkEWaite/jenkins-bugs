@@ -27,6 +27,7 @@
       <args>
         <arg value="-n"/>
         <arg value="1"/>
+        <arg value="--decorate"/>
         <arg value="--format=oneline"/>
       </args>
     </git>
