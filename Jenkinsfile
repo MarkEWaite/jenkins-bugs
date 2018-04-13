@@ -28,7 +28,7 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains(".*[*] ${older_sha1}.*HEAD.*", "Wrong SHA1 checkout, expected ${older_sha1}")
+    my_check.logContains(".*${older_sha1}.*HEAD.*", "Wrong SHA1 checkout, expected ${older_sha1}")
     my_check.logDoesNotContain(".*HEAD -> ${bugId}.*", "Wrong SHA1 checkout, expected ${older_sha1}")
   }
 }
