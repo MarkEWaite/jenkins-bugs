@@ -9,7 +9,7 @@ properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
 def bugId = 'JENKINS-31826'
-def older_sha1 = 'a2a40d46bc4a8b6e39ed49a3e03740e92e88b2f4'
+def older_sha1 = 'eebf5cb8c95c050c6b74393ab2ef8e6ac4709dab'
 
 node {
   stage('Checkout') {
