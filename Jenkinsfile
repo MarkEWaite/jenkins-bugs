@@ -37,5 +37,6 @@ node {
     if (currentBuild.number > 1) { // Don't check first build
       my_check.logContains('.*.JENKINS-29603. build[+][+], was [1-9]+[0-9]*.*', 'No recent commit')
     }
+    my_check.logContains('.*working directory is .*has-slash.*JENKINS-29603.*.*', 'Wrong working directory')
   }
 }
