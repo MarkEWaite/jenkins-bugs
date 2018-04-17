@@ -1,7 +1,11 @@
 <project name="JENKINS-29603" default="increment-and-notify" basedir=".">
 
+  <property environment="env"/>
+
   <!-- jenkins.url is hostname of Jenkins server to notify -->
-  <property name="jenkins.url" value="http://jenkins.markwaite.net:8080" />
+  <condition property="jenkins.url" value="${env.JENKINS_URL}" else="http://jenkins.markwaite.net:8080/">
+    <isset property="env.JENKINS_URL" />
+  </condition>
 
   <target name="increment" description="Increment build number">
     <git command="pull" />
