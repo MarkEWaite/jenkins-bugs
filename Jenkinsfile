@@ -8,7 +8,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-def platforms = [ 'windows', 'Debian', 'CentOS', 'Ubuntu', 'freebsd' ]
+def platforms = [ 'windows', 'linux' ]
 
 def tasks = [ : ]
 
