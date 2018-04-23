@@ -21,7 +21,7 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains('.*[*] master.*', 'Wrong branch reported')
+    my_check.logContains('.*[*] ZD-59897.*', 'Wrong branch reported')
     // if (currentBuild.number > 1) { // Don't check first build
       // my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
       // my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
