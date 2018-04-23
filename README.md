@@ -1,11 +1,10 @@
-# Jenkins bug verification public repository
+# [ZD-59897](https://cloudbees.zendesk.com/agent/tickets/59897) - Git checkout fails sporadically in a declarative pipeline
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations to
-duplicate the bug.  This repository captures some of those configurations
-in a way that is publicly visible so that automated tests can use this
-repository.
+Report that several times a day a job will fail with the message
 
-This repository includes many branches with a Jenkinsfile pipeline
-definition for branches where the pipeline definition can encapsulate
-at least a portion of the bug verification.
+    hudson.plugins.git.GitException: Command "/usr/bin/git checkout -f deadbeefbeadadddad" returned status code 128: 
+    stdout:
+    stderr: fatal: reference is not a tree: deadbeefbeadadddad
+
+The 'deadbeefbeadadddad' is an obfuscated version of the actual SHA1 from the report.
+
