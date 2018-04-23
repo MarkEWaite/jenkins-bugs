@@ -10,7 +10,14 @@ properties([[$class: 'BuildDiscarderProperty',
 
 node {
   stage('Checkout') {
-    checkout scm
+    checkout([$class: 'GitSCM',
+                branches: [[name: 'ZD-59897']],
+                extensions: [
+                    [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git']
+                    [$class: 'PruneStaleBranch'],
+                    [$class: 'WipeWorkspace']],
+                gitTool: scm.gitTool,
+                userRemoteConfigs: [[credentialsId: 'MarkEWaite-github-rsa-private-key-has-passphrase', refspec: '+refs/heads/ZD-59897:refs/remotes/origin/ZD-59897', url: 'git@github.com:MarkEWaite/jenkins-bugs.git']]])
   }
 
   stage('Build') {
