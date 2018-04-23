@@ -13,7 +13,7 @@ node {
     checkout([$class: 'GitSCM',
                 branches: [[name: 'ZD-59897']],
                 extensions: [
-                    [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git']
+                    [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                     [$class: 'PruneStaleBranch'],
                     [$class: 'WipeWorkspace']],
                 gitTool: scm.gitTool,
