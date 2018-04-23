@@ -28,9 +28,7 @@ node {
     /* Call the ant build. */
     def my_step = new com.markwaite.Build()
     my_step.ant 'info'
-  }
-
-  stage('Verify') {
+    // Was a verify step before, but Blue Ocean 1.5 reports it contains no steps
     def my_check = new com.markwaite.Assert()
     my_check.logContains('.*[*] ZD-59897.*', 'Wrong branch reported')
     // if (currentBuild.number > 1) { // Don't check first build
