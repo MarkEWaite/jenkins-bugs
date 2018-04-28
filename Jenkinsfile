@@ -22,8 +22,10 @@ node {
     /* Call the ant build. */
     def my_step = new com.markwaite.Build()
     my_step.ant 'info'
-    dir('tasks') {
-      sh 'git clone https://github.com/MarkEWaite/tasks.git $$ && ls && pwd'
+    withCredentials([usernameColonPassword(credentialsId: 'MarkEWaite-github-username-password', variable: 'USERNAME_PLUS_PASSWORD')]) {
+      dir('tasks') {
+        sh 'echo $USERNAME_PLUS_PASSWORD && git clone https://$USERNAME_PLUS_PASSWORD@github.com/MarkEWaite/tasks.git $$ && ls && pwd'
+      }
     }
   }
 
