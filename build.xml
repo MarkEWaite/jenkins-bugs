@@ -21,6 +21,7 @@
     <echo>user dir is ${user.dir}</echo>
     <!-- ZD-60033 needs to use credentials from a Pipeline shell step
          with an https repo. -->
+    <git command="branch" />
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
