@@ -22,6 +22,9 @@ node {
     /* Call the ant build. */
     def my_step = new com.markwaite.Build()
     my_step.ant 'info'
+    dir('tasks') {
+      sh 'git clone https://github.com/MarkEWaite/tasks.git $$ && ls && pwd'
+    }
   }
 
   stage('Verify') {
