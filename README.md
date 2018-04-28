@@ -1,11 +1,4 @@
-# Jenkins bug verification public repository
+# [ZD-60033](https://cloudbees.zendesk.com/agent/tickets/60033) - authenticated https git operations in shell steps
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations to
-duplicate the bug.  This repository captures some of those configurations
-in a way that is publicly visible so that automated tests can use this
+Authenticated operations to a git repository need to use an https
 repository.
-
-This repository includes many branches with a Jenkinsfile pipeline
-definition for branches where the pipeline definition can encapsulate
-at least a portion of the bug verification.
