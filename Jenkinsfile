@@ -24,13 +24,13 @@ node {
     my_step.ant 'info'
     withCredentials([usernameColonPassword(credentialsId: 'MarkEWaite-github-username-password', variable: 'USERNAME_PLUS_PASSWORD')]) {
       dir('tasks-username-colon-password') {
-        deleteDir
+        deleteDir()
         sh 'echo $USERNAME_PLUS_PASSWORD && git clone https://$USERNAME_PLUS_PASSWORD@github.com/MarkEWaite/tasks.git $$ && ls && pwd'
       }
     }
     withCredentials([usernamePassword(credentialsId: 'MarkEWaite-github-username-password', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
       dir('tasks-username-password') {
-        deleteDir
+        deleteDir()
         sh 'echo USERNAME=$USERNAME && echo PASSWORD=$PASSWORD && git clone https://$USERNAME:$PASSWORD@github.com/MarkEWaite/tasks.git $$ && ls && pwd'
       }
     }
