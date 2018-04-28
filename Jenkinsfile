@@ -12,8 +12,9 @@ node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
                 branches: [[name: 'ZD-60033']],
-                extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git']],
-                gitTool: 'Default',
+                extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+                             [$class: 'LocalBranch', localBranch: 'ZD-60033']],
+                gitTool: scm.gitTool,
                 userRemoteConfigs: [[credentialsId: 'MarkEWaite-github-username-password', refspec: '+refs/heads/ZD-60033:refs/remotes/origin/ZD-60033', url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
   }
 
