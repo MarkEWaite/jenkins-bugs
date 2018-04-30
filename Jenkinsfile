@@ -26,6 +26,6 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains('.*JENKINS-37050-tag-.*', 'Wrong tag reported')
+    my_check.logContains('.*tag: JENKINS-37050-tag-[0-9]+.*', 'Wrong tag reported')
   }
 }
