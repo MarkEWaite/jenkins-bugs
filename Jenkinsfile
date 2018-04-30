@@ -14,13 +14,13 @@ node {
     /*
     checkout(
         [$class: 'GitSCM',
-            branches: [[name: 'JENKINS-37050-tag-5']],
+            branches: [[name: 'JENKINS-37050-tag-7']],
             extensions: [[$class: 'CloneOption', honorRefspec: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git']],
             gitTool: scm.gitTool,
             userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-37050:refs/remotes/origin/JENKINS-37050', url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
     */
     /* This fails */
-    git branch: 'JENKINS-37050-tag-5', url: 'https://github.com/MarkEWaite/jenkins-bugs'
+    git branch: 'JENKINS-37050-tag-7', url: 'https://github.com/MarkEWaite/jenkins-bugs'
   }
 
   stage('Build') {
