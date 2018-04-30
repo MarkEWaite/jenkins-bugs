@@ -18,6 +18,7 @@
       </args>
     </git>
     <!-- Tag predecessor commit with previous build number -->
+    <!--
     <git command="tag">
       <args>
         <arg value="-a"/>
@@ -60,6 +61,7 @@
         <arg value="${tags.arg}"/>
       </args>
     </git>
+    -->
   </target>
 
   <!-- Info about this repository -->
