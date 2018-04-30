@@ -66,7 +66,13 @@
   <target name="info" description="Report info about this repo">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
-    <git command="tag" />
+    <git command="log">
+      <args>
+        <arg value="-n"/>
+        <arg value="5"/>
+        <arg value="--decorate"/>
+      </args>
+    </git>
     <!-- JENKINS-37050 reports that a tag can't be used in a checkout step. -->
   </target>
 
