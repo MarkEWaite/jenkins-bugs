@@ -1,5 +1,7 @@
 <project name="JENKINS-37050" default="increment" basedir=".">
 
+  <property name="tags.arg" value="--tags"/>
+
   <target name="increment" description="Increment build number">
     <git command="pull" />
     <buildnumber/>
