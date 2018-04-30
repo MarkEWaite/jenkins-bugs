@@ -1,11 +1,7 @@
-# Jenkins bug verification public repository
+# [JENKINS-37050](https://issues.jenkins-ci.org/browse/JENKINS-37050) cannot checkout git tag
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations to
-duplicate the bug.  This repository captures some of those configurations
-in a way that is publicly visible so that automated tests can use this
-repository.
+The `git` task accepts a `branch` argument.  The user wanted to use the
+`branch` argument to checkout a specific tag.
 
-This repository includes many branches with a Jenkinsfile pipeline
-definition for branches where the pipeline definition can encapsulate
-at least a portion of the bug verification.
+Allan B reported that the `git` command simplification prevents that,
+while the full syntax of the `checkout` step works.
