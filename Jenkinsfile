@@ -12,7 +12,7 @@ node {
   stage('Checkout') {
     checkout(
         [$class: 'GitSCM',
-            branches: [[name: 'JENKINS-37050-tag-a']],
+            branches: [[name: 'JENKINS-37050-tag-5']],
             extensions: [[$class: 'CloneOption', honorRefspec: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git']],
             gitTool: scm.gitTool,
             userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-37050:refs/remotes/origin/JENKINS-37050', url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
