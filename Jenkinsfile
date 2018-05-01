@@ -1,6 +1,14 @@
 #!groovy
 
-@Library('globalPipelineLibraryMarkEWaite@branch#name#contains#sharp') _
+// works
+// @Library('globalPipelineLibraryMarkEWaite@branch#name#contains#sharp') _
+
+// works
+// @Library('globalPipelineLibraryMarkEWaiteModern@branch#name#contains#sharp') _
+
+// fails with git plugin 3.8.0
+@Library('globalPipelineLibraryMarkEWaiteModernGitHub@branch#name#contains#sharp') _
+
 import com.markwaite.Assert
 import com.markwaite.Build
 
