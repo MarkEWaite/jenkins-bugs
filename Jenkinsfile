@@ -1,6 +1,11 @@
 #!groovy
 
-@Library('globalPipelineLibraryMarkEWaite@branch#name#contains#sharp') _
+// works
+// @Library('globalPipelineLibraryMarkEWaite@branch#name#contains#sharp') _
+
+// ?
+@Library('globalPipelineLibraryMarkEWaiteModern@branch#name#contains#sharp') _
+
 import com.markwaite.Assert
 import com.markwaite.Build
 
