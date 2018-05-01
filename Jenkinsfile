@@ -11,9 +11,9 @@ properties([[$class: 'BuildDiscarderProperty',
 def branch='ZD-60678#branch#sharply'
 
 node {
-  stage'Checkout') {
+  stage('Checkout') {
     checkout([$class: 'GitSCM',
-                branches: [[name: 'ZD-60678']],
+                branches: [[name: branch]],
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                              [$class: 'LocalBranch', localBranch: branch]],
                 gitTool: scm.gitTool,
