@@ -28,6 +28,6 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains(".*[*] ZD-60678.*sharply.*', 'Wrong branch reported')
+    my_check.logContains('.*[*] ZD-60678.*sharply.*', 'Wrong branch reported')
   }
 }
