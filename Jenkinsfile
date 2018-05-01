@@ -16,7 +16,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-def branch='ZD-60678#sharpest'
+def branch='ZD-60678-b#sharpest'
 
 node {
   stage('Checkout') {
