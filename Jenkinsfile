@@ -25,13 +25,30 @@ node {
     withCredentials([usernameColonPassword(credentialsId: 'MarkEWaite-github-username-password', variable: 'USERNAME_PLUS_PASSWORD')]) {
       dir('tasks-username-colon-password') {
         deleteDir()
-        sh 'echo $USERNAME_PLUS_PASSWORD && git clone https://$USERNAME_PLUS_PASSWORD@github.com/MarkEWaite/tasks.git tasks-$$ && ls && pwd'
+        sh '''echo USERNAME_PLUS_PASSWORD=$USERNAME_PLUS_PASSWORD
+              git clone https://$USERNAME_PLUS_PASSWORD@github.com/MarkEWaite/tasks.git tasks-$$
+              ls
+              pwd
+              cd tasks-$$
+              git status
+              git branch
+              git config remote.origin.url
+        '''
       }
     }
     withCredentials([usernamePassword(credentialsId: 'MarkEWaite-github-username-password', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
       dir('tasks-username-password') {
         deleteDir()
-        sh 'echo USERNAME=$USERNAME && echo PASSWORD=$PASSWORD && git clone https://$USERNAME:$PASSWORD@github.com/MarkEWaite/tasks.git tasks-$$ && ls && pwd'
+        sh '''echo USERNAME=$USERNAME
+              echo PASSWORD=$PASSWORD
+              git clone https://$USERNAME:$PASSWORD@github.com/MarkEWaite/tasks.git tasks-$$
+              ls
+              pwd
+              cd tasks-$$
+              git status
+              git branch
+              git config remote.origin.url
+           '''
       }
     }
   }
