@@ -48,7 +48,9 @@ node('linux') {
               git status
               git branch
               git config remote.origin.url
-              GIT_ASKPASS=./git_askpass.sh git pull
+              date >> README.md
+              git add README.md
+              GIT_ASKPASS=./git_askpass.sh git push
            '''
       }
     }
