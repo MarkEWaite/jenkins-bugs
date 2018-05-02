@@ -48,9 +48,7 @@ node('linux') {
               git status
               git branch
               git config remote.origin.url
-              date >> README.md
-              git commit -m "Add README date stamp" README.md
-              GIT_ASKPASS=./git_askpass.sh git push
+              GIT_ASKPASS=./git_askpass.sh git pull
            '''
       }
     }
