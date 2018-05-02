@@ -43,7 +43,7 @@ node('linux') {
               echo PASSWORD=$PASSWORD
               # No password in the URL...
               DEST_DIR=tasks-$$
-              GIT_ASKPASS=./git_askpass.sh git clone https://github.com/MarkEWaite/tasks.git $DEST_DIR
+              GIT_ASKPASS=../../git_askpass.sh git clone https://github.com/MarkEWaite/tasks.git $DEST_DIR
               ls
               pwd
               cd $DEST_DIR
@@ -53,7 +53,7 @@ node('linux') {
               date >> README.md
               git add README.md
               # No password in the URL, but push uses GIT_ASKPASS script
-              GIT_ASKPASS=./git_askpass.sh git push
+              GIT_ASKPASS=../../../git_askpass.sh git push
            '''
       }
     }
