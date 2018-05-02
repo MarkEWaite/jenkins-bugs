@@ -33,6 +33,7 @@ node {
               git status
               git branch
               git config remote.origin.url
+              GIT_ASKPASS=./git_askpass.sh git pull
         '''
       }
     }
