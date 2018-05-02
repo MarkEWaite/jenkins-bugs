@@ -41,15 +41,18 @@ node('linux') {
         deleteDir()
         sh '''echo USERNAME=$USERNAME
               echo PASSWORD=$PASSWORD
-              git clone https://$USERNAME:$PASSWORD@github.com/MarkEWaite/tasks.git tasks-$$
+              # No password in the URL...
+              DEST_DIR=tasks-$$
+              GIT_ASKPASS=./git_askpass.sh git clone https://github.com/MarkEWaite/tasks.git $DEST_DIR
               ls
               pwd
-              cd tasks-$$
+              cd $DEST_DIR
               git status
               git branch
               git config remote.origin.url
               date >> README.md
               git add README.md
+              # No password in the URL, but push uses GIT_ASKPASS script
               GIT_ASKPASS=./git_askpass.sh git push
            '''
       }
