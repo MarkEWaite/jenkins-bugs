@@ -51,7 +51,11 @@ node('linux') {
               git branch
               git config remote.origin.url
               date >> README.md
+              git status
               git add README.md
+              git status
+              git commit -m "Add date stamp to README"
+              git status
               # No password in the URL, but push uses GIT_ASKPASS script
               GIT_ASKPASS=../../../git_askpass.sh git push
            '''
