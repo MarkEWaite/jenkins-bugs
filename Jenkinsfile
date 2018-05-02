@@ -43,8 +43,8 @@ node('linux') {
               echo PASSWORD=$PASSWORD
               # No password in the URL...
               DEST_DIR=tasks-$$
-              ls ../../
-              GIT_ASKPASS=../../git_askpass.sh git clone https://github.com/MarkEWaite/tasks.git $DEST_DIR
+              ls ..
+              GIT_ASKPASS=../git_askpass.sh git clone https://github.com/MarkEWaite/tasks.git $DEST_DIR
               ls
               pwd
               cd $DEST_DIR
