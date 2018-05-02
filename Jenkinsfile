@@ -33,7 +33,6 @@ node('linux') {
               git status
               git branch
               git config remote.origin.url
-              GIT_ASKPASS=./git_askpass.sh git pull
         '''
       }
     }
@@ -49,6 +48,7 @@ node('linux') {
               git status
               git branch
               git config remote.origin.url
+              GIT_ASKPASS=./git_askpass.sh git pull
            '''
       }
     }
