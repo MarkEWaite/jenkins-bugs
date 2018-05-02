@@ -51,12 +51,17 @@ node('linux') {
               git status
               git branch
               git config remote.origin.url
-              date >> README.md
+              JUNK=junk-$$
+              date >> $JUNK
               git status
-              git add README.md
+              git add $JUNK
               git status
-              git commit -m "Add date stamp to README"
+              git commit -m "Add junk file $JUNK"
               git status
+              git rm $JUNK
+              git commit -m "Remove junk file $JUNK"
+              # No password in the URL, but pull uses GIT_ASKPASS script
+              GIT_ASKPASS=../../git_askpass.sh git pull
               # No password in the URL, but push uses GIT_ASKPASS script
               GIT_ASKPASS=../../git_askpass.sh git push
               git status
