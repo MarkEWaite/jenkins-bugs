@@ -58,6 +58,7 @@ node('linux') {
               git status
               # No password in the URL, but push uses GIT_ASKPASS script
               GIT_ASKPASS=../../../git_askpass.sh git push
+              git status
            '''
       }
     }
