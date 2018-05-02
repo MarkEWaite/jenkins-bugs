@@ -58,7 +58,7 @@ node('linux') {
               git commit -m "Add date stamp to README"
               git status
               # No password in the URL, but push uses GIT_ASKPASS script
-              GIT_ASKPASS=../../../git_askpass.sh git push
+              GIT_ASKPASS=../../git_askpass.sh git push
               git status
            '''
       }
