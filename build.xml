@@ -17,13 +17,7 @@
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
     <!-- JENKINS-36451 reports that repo browser URL not saved in pipeline config.  -->
-    <echo>Displaying git log messages on this branch from last 15 minutes</echo>
-    <git command="log">
-      <args>
-        <arg value="--since='15 minutes ago'"/>
-      </args>
-    </git>
-    <echo>End of git log messages on this branch from last 15 minutes</echo>
+    <!-- Needs interactive check -->
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
