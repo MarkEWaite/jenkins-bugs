@@ -32,6 +32,6 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains(".*[*] ${branch}.*', 'Wrong branch reported")
+    my_check.logContains(".*[*] ${branch}.*", "Wrong branch reported, expected ${branch}")
   }
 }
