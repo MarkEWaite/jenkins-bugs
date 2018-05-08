@@ -13,6 +13,12 @@ pipeline {
             steps {
                 sh 'exit 1'
             }
+            when {
+                expression { return params.booleanParamJENKINS36451 }
+            }
+            steps {
+                sh 'exit 0'
+            }
         }
     }
 }
