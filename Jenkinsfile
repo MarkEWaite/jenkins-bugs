@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage("echo") {
             when {
-                params.booleanParamJENKINS36451
+                expression { params.booleanParamJENKINS36451 }
             }
             steps {
                 echo "exit 1"
