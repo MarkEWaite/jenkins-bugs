@@ -6,9 +6,12 @@ pipeline {
     }
 
     stages {
-        stage("foo") {
+        stage("echo") {
+            when {
+                params.booleanParamJENKINS36451
+            }
             steps {
-                echo "flag: ${params.booleanParamJENKINS36451}"
+                echo "exit 1"
             }
         }
     }
