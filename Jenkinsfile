@@ -2,21 +2,24 @@ pipeline {
     agent any
 
     parameters {
-        booleanParam(defaultValue: true, description: 'True or false', name: 'booleanParamJENKINS36451')
+        booleanParam(defaultValue: true, description: 'Job will fail if this is not checked', name: 'booleanParamJENKINS36451')
     }
 
     stages {
-        stage("fail-if-param-is-false") {
-            when {
-                expression { return ! params.booleanParamJENKINS36451 }
-            }
-            steps {
-                sh 'exit 1'
-            }
+        stage("pass if param is true") {
             when {
                 expression { return params.booleanParamJENKINS36451 }
             }
             steps {
+                echo 'stage passed'
+            }
+        }
+        stage("fail if param is false") {
+            when {
+                expression { return params.booleanParamJENKINS36451 }
+            }
+            steps {
+                echo 'stage will fail'
                 sh 'exit 0'
             }
         }
