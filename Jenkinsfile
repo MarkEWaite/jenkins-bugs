@@ -19,7 +19,7 @@ pipeline {
                 expression { return ! params.booleanParamJENKINS36451 }
             }
             steps {
-                echo 'stage will fail'
+                echo "stage will fail due to ${params.booleanParamJENKINS36451}"
                 sh 'exit 1'
             }
         }
