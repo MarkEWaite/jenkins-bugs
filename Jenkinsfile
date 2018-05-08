@@ -11,16 +11,16 @@ pipeline {
                 expression { return params.booleanParamJENKINS36451 }
             }
             steps {
-                echo 'stage passed'
+                echo 'stage will pass'
             }
         }
         stage("fail if param is false") {
             when {
-                expression { return params.booleanParamJENKINS36451 }
+                expression { return ! params.booleanParamJENKINS36451 }
             }
             steps {
                 echo 'stage will fail'
-                sh 'exit 0'
+                sh 'exit 1'
             }
         }
     }
