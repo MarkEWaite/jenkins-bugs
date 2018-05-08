@@ -6,7 +6,7 @@ pipeline {
     }
 
     stages {
-        stage("echo") {
+        stage("fail-if-param-is-false") {
             when {
                 expression { return ! params.booleanParamJENKINS36451 }
             }
