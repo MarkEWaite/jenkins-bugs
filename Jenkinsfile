@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        label '!windows'
+    }
 
     parameters {
         booleanParam(defaultValue: true, description: 'Job will fail if this is not checked', name: 'booleanParamJENKINS36451')
