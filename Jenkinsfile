@@ -5,8 +5,7 @@ import com.markwaite.Assert
 import com.markwaite.Build
 
 /* Only keep the 10 most recent builds. */
-properties([[$class: 'BuildDiscarderProperty',
-                strategy: [$class: 'LogRotator', numToKeepStr: '10']],
+properties([
             [pipelineTriggers([pollSCM('*/3 * * * *')])]
            ])
 
