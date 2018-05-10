@@ -1,11 +1,9 @@
-# Jenkins bug verification public repository
+# [JENKINS-50886](https://issues.jenkins-ci.org/browse/JENKINS-50886) Pipeline starts new job for same SHA1 if build runs longer than polling interval
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations to
-duplicate the bug.  This repository captures some of those configurations
-in a way that is publicly visible so that automated tests can use this
-repository.
+The bug reports that Pipeline polling will start a new job with the same
+SHA1 that is already building if the polling interval is less than the
+build duration.
 
-This repository includes many branches with a Jenkinsfile pipeline
-definition for branches where the pipeline definition can encapsulate
-at least a portion of the bug verification.
+Polling is resource intensive and generally not recommended.  Refer to
+the "polling must die" blog post from Kohsuke Kawaguchi for a good
+explanation.
