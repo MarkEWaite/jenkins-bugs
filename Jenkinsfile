@@ -4,10 +4,7 @@
 import com.markwaite.Assert
 import com.markwaite.Build
 
-/* Only keep the 10 most recent builds. */
-properties([
-            [pipelineTriggers([pollSCM('*/3 * * * *')])]
-           ])
+properties([pipelineTriggers([pollSCM('*/3 * * * *')])])
 
 node {
   stage('Checkout') {
