@@ -4,7 +4,9 @@
 import com.markwaite.Assert
 import com.markwaite.Build
 
-properties([pipelineTriggers([pollSCM('*/3 * * * *')])])
+def minutes_between_polls = 13
+
+properties([pipelineTriggers([pollSCM('*/' + minutes_between_polls + ' * * * *')])])
 
 def branch = 'JENKINS-50886'
 
@@ -21,7 +23,7 @@ node {
   stage('Build') {
     /* Call the ant build. */
     def my_step = new com.markwaite.Build()
-    my_step.ant 'info'
+    my_step.ant "-DMINUTES_TO_WAIT=${minutes_between_polls} info"
   }
 
   stage('Verify') {
