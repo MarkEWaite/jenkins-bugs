@@ -6,7 +6,7 @@ import com.markwaite.Build
 
 properties([pipelineTriggers([pollSCM('*/3 * * * *')])])
 
-def branch = 'JENKINS-50866'
+def branch = 'JENKINS-50886'
 
 node {
   stage('Checkout') {
