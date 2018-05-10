@@ -109,6 +109,7 @@ if [ "$NEED_CRUMB" == "true" ]; then
     curl -s -H "$crumb" -X POST $CHANGES_URL -o $crumb_output
     echo Crumb output is  $crumb_output
     ls -altr $crumb_output
+    cat $crumb_output
     grep -q '<li>Change messages are truncated in ui.*</li>' $crumb_output || failed_with_crumb
     grep '<li>Change messages are truncated in ui.*</li>' $crumb_output | sed 's,.*\(<li>Change messages are truncated in ui.*</li>\).*,\1,g'
 else
