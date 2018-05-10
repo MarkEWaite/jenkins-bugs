@@ -8,9 +8,16 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
+def branch = 'master'
+
 node {
   stage('Checkout') {
-    checkout scm
+    checkout([$class: 'GitSCM',
+                branches: [[name: branch]],
+                doGenerateSubmoduleConfigurations: false,
+                extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git']],
+                gitTool: scm.gitTool,
+                userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
   }
 
   stage('Build') {
@@ -21,7 +28,7 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains('.*[*] master.*', 'Wrong branch reported')
+    my_check.logContains(".*[*] ${branch} .*", 'Wrong branch reported')
     // if (currentBuild.number > 1) { // Don't check first build
       // my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
       // my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
