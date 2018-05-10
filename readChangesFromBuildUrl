@@ -77,7 +77,7 @@ fi
 
 # CHANGES_URL is the URL to the changes in $BUILD_URL
 
-CHANGES_URL=${BUILD_URL}changes
+CHANGES_URL=${BUILD_URL}/changes
 
 if [ "$NEED_CRUMB" == "true" ]; then
     crumb=$(curl -s $SERVER/crumbIssuer/api/xml?xpath=concat\(//crumbRequestField,%22:%22,//crumb\))
