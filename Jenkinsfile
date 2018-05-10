@@ -40,9 +40,9 @@ node('linux') { // ant command calls shell script that calls curl
     def my_check = new com.markwaite.Assert()
     if (currentBuild.number > 1) { // Don't check first build
       // Check for start of message in HTML output
-      my_check.logContains('.*<li>Change messages are truncated in ui.*.*</li>.*', 'Commit message missing')
+      my_check.logContains('.*<li>User interface truncates change messages.*</li>.*', 'Start of commit message missing')
       // Check for middle of message in HTML output
-      my_check.logContains('.*<li>.*with an intentionally long first line of the commit message.*</li>.*', 'Commit message truncated')
+      my_check.logContains('.*<li>.*with an intentionally long first line of the commit message.*</li>.*', 'Tail of commit message missing')
     }
   }
 }
