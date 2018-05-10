@@ -16,6 +16,8 @@
     </git>
   </target>
 
+  <property name="MINUTES_TO_WAIT" value="1"/>
+
   <!-- Info about this repository -->
   <target name="info" description="Report info about this repo">
     <echo>java is ${java.version}</echo>
@@ -24,9 +26,9 @@
     <!-- JENKINS-50886 reports that declarative pipeline polls create
          multiple builds for the same SHA1 if the build takes longer than
          the duration of the polling interval.  -->
-    <echo>Sleeping for 3.5 minutes</echo>
-    <sleep minutes="3" seconds="30"/>
-    <echo>End of sleeping for 3.5 minutes</echo>
+    <echo>Sleeping for ${MINUTES_TO_WAIT}.5 minutes</echo>
+    <sleep minutes="${MINUTES_TO_WAIT}" seconds="30"/>
+    <echo>End of sleeping for ${MINUTES_TO_WAIT}.5 minutes</echo>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
