@@ -16,10 +16,10 @@ def branch = 'JENKINS-43468'
 node {
   stage('Checkout') {
     if (use_simple_checkout_scm) {
-      /* Less complex checkout command has continuous false detection of changes */
+      /* Less complex checkout command doesn't report continuous false detection of changes */
       checkout scm
     } else {
-      /* More complex checkout command does not have continuous false detection of changes */
+      /* More complex checkout command has continuous false detection of changes */
       checkout([$class: 'GitSCM',
                 branches: [[name: branch]],
                 userRemoteConfigs: [[name: 'origin',
