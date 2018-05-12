@@ -4,8 +4,10 @@
 import com.markwaite.Assert
 import com.markwaite.Build
 
-/* Only keep the 10 most recent builds. */
-properties([[$class: 'BuildDiscarderProperty',
+/* Poll every 29 minutes. Reduce load on git server */
+/* keep only last 10 builds. Reduce history retention on master */
+properties([pipelineTriggers([pollSCM('H/29 * * * *')]),
+           [$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
 def branch = 'JENKINS-50556'
