@@ -1,11 +1,4 @@
-# Jenkins bug verification public repository
+# [JENKINS-50556](https://issues.jenkins-ci.org/browse/JENKINS-50556) Polling incorrectly reports changes
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations to
-duplicate the bug.  This repository captures some of those configurations
-in a way that is publicly visible so that automated tests can use this
-repository.
-
-This repository includes many branches with a Jenkinsfile pipeline
-definition for branches where the pipeline definition can encapsulate
-at least a portion of the bug verification.
+When building with a local branch checkout there are cases where changes
+are detected even though there were no changes.
