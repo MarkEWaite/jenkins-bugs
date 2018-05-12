@@ -18,6 +18,7 @@ node {
                 branches: [[name: branch]],
                 doGenerateSubmoduleConfigurations: false,
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+                             [$class: 'DisableRemotePoll'],
                              [$class: 'LocalBranch', localBranch: branch]
                             ],
                 gitTool: scm.gitTool,
