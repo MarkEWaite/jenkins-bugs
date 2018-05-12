@@ -10,7 +10,7 @@ properties([pipelineTriggers([pollSCM('H/29 * * * *')]),
            [$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-def use_simple_checkout_scm = false
+def use_simple_checkout_scm = true
 def branch = 'JENKINS-43468'
 
 node {
