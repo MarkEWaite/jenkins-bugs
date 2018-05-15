@@ -22,14 +22,14 @@
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
     <!-- JENKINS-50556 reports that changes are detected if if there are no
-         commits.  This reports commits on this branch in the last 15 minutes -->
-    <echo>Displaying git log messages on this branch from last 15 minutes</echo>
+         commits.  This reports commits on this branch in the last 30 minutes -->
+    <echo>Displaying git log messages on this branch from last 30 minutes</echo>
     <git command="log">
       <args>
-        <arg value="--since='15 minutes ago'"/>
+        <arg value="--since='30 minutes ago'"/>
       </args>
     </git>
-    <echo>End of git log messages on this branch from last 15 minutes</echo>
+    <echo>End of git log messages on this branch from last 30 minutes</echo>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
