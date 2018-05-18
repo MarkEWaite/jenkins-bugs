@@ -26,9 +26,19 @@
       <args>
         <arg value="-n"/>
         <arg value="1"/>
-        <arg value="--pretty=format:commit-SHA1-is-%H"/>
+        <arg value="--pretty=format:HEAD-commit-SHA1-is-%H"/>
+        <arg value="HEAD"/>
       </args>
     </git>
+    <git command="log">
+      <args>
+        <arg value="-n"/>
+        <arg value="1"/>
+        <arg value="--pretty=format:remote-commit-SHA1-is-%H"/>
+        <arg value="refs/remotes/origin/has-slash/${ant.project.name}"/>
+      </args>
+    </git>
+  </target>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
