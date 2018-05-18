@@ -1,11 +1,4 @@
-# Jenkins bug verification public repository
+# [JENKINS-34042](https://issues.jenkins-ci.org/browse/JENKINS-34042) Empty exception message on checkout failure
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations to
-duplicate the bug.  This repository captures some of those configurations
-in a way that is publicly visible so that automated tests can use this
-repository.
-
-This repository includes many branches with a Jenkinsfile pipeline
-definition for branches where the pipeline definition can encapsulate
-at least a portion of the bug verification.
+When bad arguments are passed to the checkout step, the user would like
+a non-empty exception message to be referenced in the catch block.
