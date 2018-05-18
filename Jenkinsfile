@@ -27,9 +27,9 @@ node {
     } catch (Exception e) {
       exception_class_name = e.class.name
       exception_message = e.getMessage()
-      my_check.assertCondition(false, "Unexpected location 2 in Jenkinsfile")
     }
     my_check.assertCondition(!exception_message.isEmpty(), "Empty exception message for class ${exception_class_name}")
     my_check.assertCondition(exception_message != "not empty", "Uninitialized exception message ${exception_message}")
+    echo "Exception message is '${exception_message}'"
   }
 }
