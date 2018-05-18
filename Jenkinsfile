@@ -28,7 +28,7 @@ node('windows') {
     /* Call the ant build. */
     def my_step = new com.markwaite.Build()
     my_step.ant 'info'
-    command_result = bat returnStdout: true, script: '@echo off && git log -n 1 --pretty=format:%%ae'
+    command_result = bat returnStdout: true, script: '@echo off & git log -n 1 --pretty=format:%%ae'
   }
 
   stage('Verify') {
