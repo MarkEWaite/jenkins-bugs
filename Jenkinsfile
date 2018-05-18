@@ -8,11 +8,14 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-def branch = 'master'
+def branch = 'JENKINS-51218'
+def checkout_result = {}
+def command_result = {}
 
-node {
+node('windows') {
+
   stage('Checkout') {
-    checkout([$class: 'GitSCM',
+    checkout_result = checkout([$class: 'GitSCM',
                 branches: [[name: branch]],
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                              [$class: 'LocalBranch', localBranch: branch]
@@ -25,11 +28,14 @@ node {
     /* Call the ant build. */
     def my_step = new com.markwaite.Build()
     my_step.ant 'info'
+    command_result = bat returnStdout: true, script: 'git log -n 1'
   }
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     my_check.logContains(".*[*] ${branch}.*", 'Wrong branch reported')
+    echo "Checkout result is '${checkout_result}'"
+    echo "Command result is '${command_result}'"
     // if (currentBuild.number > 1) { // Don't check first build
       // my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
       // my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
