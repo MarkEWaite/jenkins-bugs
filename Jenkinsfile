@@ -10,7 +10,7 @@ properties([[$class: 'BuildDiscarderProperty',
 
 def branch = 'JENKINS-51218'
 def checkout_result = {}
-def command_result = {}
+def last_commit_author = 'unknown'
 
 node('windows') {
 
@@ -28,7 +28,7 @@ node('windows') {
     /* Call the ant build. */
     def my_step = new com.markwaite.Build()
     my_step.ant 'info'
-    command_result = bat returnStdout: true, script: '@echo off & git log -n 1 --pretty=format:%%ae'
+    last_commit_author = bat returnStdout: true, script: '@echo off & git log -n 1 --pretty=format:%%ae'
   }
 
   stage('Verify') {
@@ -37,7 +37,9 @@ node('windows') {
     def checkout_author_email = checkout_result['GIT_AUTHOR_EMAIL']
     echo "Checkout result is '${checkout_result}'"
     echo "Checkout author email is '${checkout_author_email}'"
-    echo "Command result is '${command_result}'"
+    echo "Last commit author is '${last_commit_author}'"
+    my_check.assertCondition(last_commit_author != 'unknown', 'Last commit author is unknown')
+    my_check.assertCondition(last_commit_author == 'Mark Waite <mark.earl.waite@gmail.com>', "Last commit author is '${last_commit_author}' instead of 'Mark Waite <mark.earl.waite@gmail.com>'")
     // if (currentBuild.number > 1) { // Don't check first build
       // my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
       // my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
