@@ -8,31 +8,26 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-def branch = 'master'
+def branch = 'JENKINS-34042'
 
 node {
   stage('Checkout') {
-    checkout([$class: 'GitSCM',
-                branches: [[name: branch]],
-                extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                             [$class: 'LocalBranch', localBranch: branch]
-                            ],
-                gitTool: scm.gitTool,
-                userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
-  }
-
-  stage('Build') {
-    /* Call the ant build. */
-    def my_step = new com.markwaite.Build()
-    my_step.ant 'info'
-  }
-
-  stage('Verify') {
+    def exception_message = "not empty"
+    def exception_class_name = "unknown"
+    try {
+      checkout([$class: 'GitSCM',
+                  branches: [[name: branch]],
+                  extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+                               [$class: 'LocalBranch', localBranch: branch]
+                              ],
+                  gitTool: scm.gitTool,
+                  userRemoteConfigs: [[refspec: 'intentionally-invalid-refspec', url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
+    } catch (Exception e) {
+      exception_class_name = e.class.name
+      exception_message = e.getMessage()
+    }
     def my_check = new com.markwaite.Assert()
-    my_check.logContains(".*[*] ${branch}.*", 'Wrong branch reported')
-    // if (currentBuild.number > 1) { // Don't check first build
-      // my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
-      // my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
-    // }
+    my_check.assertCondition(!exception_message.isEmpty(), "Empty exception message for class ${exception_class_name}")
+    my_check.assertCondition(exception_message != "not empty", "Uninitialized exception message ${exception_message}")
   }
 }
