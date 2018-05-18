@@ -22,9 +22,11 @@ node {
                               ],
                   gitTool: scm.gitTool,
                   userRemoteConfigs: [[refspec: 'intentionally-invalid-refspec', url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
+      my_check.assertCondition(false, "Unexpected location 1 in Jenkinsfile")
     } catch (Exception e) {
       exception_class_name = e.class.name
       exception_message = e.getMessage()
+      my_check.assertCondition(false, "Unexpected location 2 in Jenkinsfile")
     }
     def my_check = new com.markwaite.Assert()
     my_check.assertCondition(!exception_message.isEmpty(), "Empty exception message for class ${exception_class_name}")
