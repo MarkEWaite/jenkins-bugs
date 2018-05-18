@@ -12,6 +12,7 @@ def branch = 'JENKINS-34042'
 
 node {
   stage('Checkout') {
+    def my_check = new com.markwaite.Assert()
     def exception_message = "not empty"
     def exception_class_name = "unknown"
     try {
@@ -28,7 +29,6 @@ node {
       exception_message = e.getMessage()
       my_check.assertCondition(false, "Unexpected location 2 in Jenkinsfile")
     }
-    def my_check = new com.markwaite.Assert()
     my_check.assertCondition(!exception_message.isEmpty(), "Empty exception message for class ${exception_class_name}")
     my_check.assertCondition(exception_message != "not empty", "Uninitialized exception message ${exception_message}")
   }
