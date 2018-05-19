@@ -4,9 +4,9 @@
 import com.markwaite.Assert
 import com.markwaite.Build
 
-/* Only keep the 10 most recent builds. */
+/* Only keep the 13 most recent builds. */
 properties([[$class: 'BuildDiscarderProperty',
-                strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
+                strategy: [$class: 'LogRotator', numToKeepStr: '13']]])
 
 def branch = 'has-slash/JENKINS-50401'
 
