@@ -22,6 +22,7 @@
     <echo>user dir is ${user.dir}</echo>
     <!-- JENKINS-50401 reports that checkout selects the wrong commit
          when the LocalBranch extension is used -->
+    <git command="branch" />
     <git command="log">
       <args>
         <arg value="-n"/>

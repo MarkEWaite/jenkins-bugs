@@ -34,7 +34,7 @@ node {
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     my_check.logContains(".*[*] ${branch}.*", "Wrong branch reported, expected '${branch}'")
-    my_check.logContains(".*[*] HEAD-commit-SHA1-is-${expected_sha1}.*", "Wrong sha1 checkout at HEAD, expected '${expected_sha1}'")
-    my_check.logContains(".*[*] remote-commit-SHA1-is-${expected_sha1}.*", "Remote sha1 != HEAD sha1, expected '${expected_sha1}'")
+    my_check.logContains(".*HEAD-commit-SHA1-is-${expected_sha1}.*", "Wrong sha1 checkout at HEAD, expected '${expected_sha1}'")
+    my_check.logContains(".*remote-commit-SHA1-is-${expected_sha1}.*", "Remote sha1 != HEAD sha1, expected '${expected_sha1}'")
   }
 }
