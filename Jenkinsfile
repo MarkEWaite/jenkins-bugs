@@ -11,7 +11,7 @@ properties([[$class: 'BuildDiscarderProperty',
 def branch = 'has-slash/JENKINS-50401'
 
 def checkout_result = {}
-def expected_sha1 = "deadbeeffeeddeaf"
+def expected_sha1 = "deadbeeffeeddeafbead"
 
 node {
   stage('Checkout') {
