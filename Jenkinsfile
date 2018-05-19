@@ -8,17 +8,21 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-def branch = 'master'
+def branch = 'has-slash/JENKINS-50401'
+
+def checkout_result = {}
+def expected_sha1 = "deadbeeffeeddeaf"
 
 node {
   stage('Checkout') {
-    checkout([$class: 'GitSCM',
+    checkout_result = checkout([$class: 'GitSCM',
                 branches: [[name: branch]],
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                              [$class: 'LocalBranch', localBranch: branch]
                             ],
                 gitTool: scm.gitTool,
                 userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
+    expected_sha1 = checkout_result['GIT_COMMIT']
   }
 
   stage('Build') {
@@ -30,9 +34,7 @@ node {
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     my_check.logContains(".*[*] ${branch}.*", 'Wrong branch reported')
-    // if (currentBuild.number > 1) { // Don't check first build
-      // my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
-      // my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
-    // }
+    my_check.logContains(".*[*] HEAD-commit-SHA1-is-${expected_sha1}.*", 'Wrong sha1 checkout at HEAD')
+    my_check.logContains(".*[*] remote-commit-SHA1-is-${expected_sha1}.*", 'Remote sha1 != HEAD sha1')
   }
 }
