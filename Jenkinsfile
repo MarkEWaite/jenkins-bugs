@@ -29,6 +29,6 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains(".*directory count: 1.*", 'Wrong directory count reported')
+    my_check.logContains(".*Directory count: 1.*", 'Wrong directory count reported')
   }
 }
