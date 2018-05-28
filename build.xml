@@ -26,6 +26,14 @@
     <exec dir="${git.submodule.dir}" executable="git">
       <arg value="init" />
     </exec>
+    <echo file="${git.submodule.dir}/submodule-README">This is the submodule README</echo>
+    <resourcecount property="count.git.subdirs">
+      <fileset dir=".">
+        <include name="**/submodule-README"/>
+      </fileset>
+    </resourcecount>
+    <!-- Ant counts files so the submodule-README is written to the submodule dir -->
+    <echo message="Directory count: ${count.git.subdirs}"/>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
