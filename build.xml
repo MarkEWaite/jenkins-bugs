@@ -1,6 +1,11 @@
 <project name="JENKINS-26660" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
+    <git command="clean">
+      <args>
+        <arg value="-xffd"/> <!-- clean submodules -->
+      </args>
+    </git>
     <git command="pull" />
     <buildnumber/>
     <git command="add">
