@@ -28,9 +28,6 @@ node {
     /* Call the ant build. */
     def my_step = new com.markwaite.Build()
     my_step.ant 'info'
-  }
-
-  stage('Verify') {
     def my_check = new com.markwaite.Assert()
     if (currentBuild.number > 1) { // Don't check first build
       my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
