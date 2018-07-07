@@ -20,7 +20,7 @@ node {
                     [$class: 'LocalBranch', localBranch: 'JENKINS-48818'],
                     [$class: 'SubmoduleOption', disableSubmodules: false, recursiveSubmodules: false, reference: '/var/lib/git/jenkins/jenkins-pipeline-utils.git', trackingSubmodules: false],
                 ],
-                gitTool: scm.gitTool,
+                gitTool: 'Default', // JGitAPIImpl doesn't fully support submodules
                 submoduleCfg: [],
                 userRemoteConfigs: [[name: 'origin', refspec: '+refs/heads/JENKINS-48818:refs/remotes/origin/JENKINS-48818', url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
   }
