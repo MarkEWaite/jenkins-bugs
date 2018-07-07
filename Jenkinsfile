@@ -19,9 +19,10 @@ node('linux') {  /* Windows symlink support inconsistent at best */
               extensions: [
                 [$class: 'AuthorInChangelog'],
                 [$class: 'CleanBeforeCheckout'],
-                [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: true],
+                [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                 [$class: 'LocalBranch', localBranch: 'JENKINS-42882'],
               ],
+              gitTool: scm.gitTool,
              ])
   }
 
