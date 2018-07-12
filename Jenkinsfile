@@ -10,8 +10,8 @@ pipeline {
           steps {
             echo "pipeline GIT_COMMIT before windows ws is ${env.GIT_COMMIT}"
             ws(dir: WORKSPACE + '/windows-dir') {
-              echo "pipeline GIT_COMMIT in windows ws is ${env.GIT_COMMIT}"
-              bat "echo bat GIT_COMMIT in windows ws is %GIT_COMMIT%"
+              echo "pipeline GIT_AUTHOR_NAME in windows ws is ${env.GIT_AUTHOR_NAME}"
+              bat "echo bat GIT_COMMITTER_NAME in windows ws is %GIT_COMMITTER_NAME%"
             }
             echo "pipeline GIT_COMMIT after windows ws is ${env.GIT_COMMIT}"
             bat "echo bat GIT_COMMIT after windows ws is %GIT_COMMIT%"
@@ -28,11 +28,11 @@ pipeline {
           steps {
             echo "pipeline GIT_COMMIT before linux ws is ${env.GIT_COMMIT}"
             ws(dir: WORKSPACE + '/linux-dir') {
-              echo "pipeline GIT_COMMIT in linux ws is ${env.GIT_COMMIT}"
-              sh "echo sh GIT_COMMIT in linux ws is %GIT_COMMIT%"
+              echo "pipeline GIT_AUTHOR_NAME in linux ws is ${env.GIT_AUTHOR_NAME}"
+              sh "echo sh GIT_COMMITTER_NAME in linux ws is $GIT_COMMITTER_NAME"
             }
             echo "pipeline GIT_COMMIT after linux ws is ${env.GIT_COMMIT}"
-            sh "echo sh GIT_COMMIT after linux ws is %GIT_COMMIT%"
+            sh "echo sh GIT_COMMIT after linux ws is $GIT_COMMIT"
             echo 'Workspace after linux ws is ' + WORKSPACE
             sh 'echo hello linux from `hostname`'
             withAnt(installation: 'ant-latest') {
