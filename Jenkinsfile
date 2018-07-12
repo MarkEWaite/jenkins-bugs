@@ -16,8 +16,9 @@ pipeline {
             echo "pipeline GIT_COMMIT after windows ws is ${env.GIT_COMMIT}"
             bat "echo bat GIT_COMMIT after windows ws is %GIT_COMMIT%"
             bat 'echo hello windows from %COMPUTERNAME%'
-            bat 'ant -f ../build.xml'
-            bat 'ant'
+            withAnt(installation: 'ant-latest') {
+              bat 'ant'
+            }
           }
         }
         stage('linux') {
@@ -34,8 +35,9 @@ pipeline {
             sh "echo bet GIT_COMMIT after linux ws is %GIT_COMMIT%"
             echo 'Workspace after linux ws is ' + WORKSPACE
             sh 'echo hello linux from `hostname`'
-            sh 'ant -f ../build.xml'
-            sh 'ant'
+            withAnt(installation: 'ant-latest') {
+              sh 'ant'
+            }
           }
         }
       }
