@@ -8,13 +8,16 @@ pipeline {
             label 'windows'
           }
           steps {
-            echo 'Workspace before windows ws is ' + WORKSPACE
+            echo "pipeline GIT_COMMIT before windows ws is ${env.GIT_COMMIT}"
             ws(dir: WORKSPACE + '/windows-dir') {
-              echo 'Workspace inside windows ws is ' + WORKSPACE
+              echo "pipeline GIT_COMMIT in windows ws is ${env.GIT_COMMIT}"
+              bat "echo bet GIT_COMMIT in windows ws is %GIT_COMMIT%"
             }
-            echo 'Workspace after ws windows is ' + WORKSPACE
+            echo "pipeline GIT_COMMIT after windows ws is ${env.GIT_COMMIT}"
+            bat "echo bat GIT_COMMIT after windows ws is %GIT_COMMIT%"
             bat 'echo hello windows from %COMPUTERNAME%'
-            bat 'if not exist build.xml exit 1'
+            bat 'ant -f ../build.xml'
+            bat 'ant'
           }
         }
         stage('linux') {
@@ -22,13 +25,17 @@ pipeline {
             label 'linux'
           }
           steps {
-            echo 'Workspace before linux ws is ' + WORKSPACE
+            echo "pipeline GIT_COMMIT before linux ws is ${env.GIT_COMMIT}"
             ws(dir: WORKSPACE + '/linux-dir') {
-              echo 'Workspace inside linux ws is ' + WORKSPACE
+              echo "pipeline GIT_COMMIT in linux ws is ${env.GIT_COMMIT}"
+              sh "echo bet GIT_COMMIT in linux ws is %GIT_COMMIT%"
             }
+            echo "pipeline GIT_COMMIT after linux ws is ${env.GIT_COMMIT}"
+            sh "echo bet GIT_COMMIT after linux ws is %GIT_COMMIT%"
             echo 'Workspace after linux ws is ' + WORKSPACE
             sh 'echo hello linux from `hostname`'
-            sh '[ -f build.xml ] || exit 1'
+            sh 'ant -f ../build.xml'
+            sh 'ant'
           }
         }
       }
