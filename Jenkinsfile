@@ -16,7 +16,7 @@ pipeline {
               echo "Author name of last commit is ${author_name}"
               committer_name = bat(script: "@echo off\ngit log -n 1 ${env.GIT_COMMIT} --format=%%cN", returnStdout: true).trim()
               echo "Committer name of last commit is ${committer_name}"
-              commit_message = powershell(script: "git log -1 --format=%%B ${GIT_COMMIT}", returnStdout: true).trim()
+              commit_message = powershell(script: "git log -1 --format=%B ${GIT_COMMIT}", returnStdout: true).trim()
               echo "Commit message of last commit is ${commit_message}"
             }
 
