@@ -11,7 +11,7 @@ pipeline {
             echo "pipeline GIT_COMMIT is ${env.GIT_COMMIT}"
 
             script {
-              author_name = bat(script: "@echo off\ngit log -n 1 ${env.GIT_COMMIT} --format=%aN", returnStdout: true).trim()
+              author_name = bat(script: "@echo off\ngit log -n 1 ${env.GIT_COMMIT} --format=%%aN", returnStdout: true).trim()
               echo "Author_name of last commit is ${author_name}"
             }
 
