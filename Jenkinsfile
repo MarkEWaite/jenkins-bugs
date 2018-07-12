@@ -39,7 +39,7 @@ pipeline {
             script {
               def author_name = sh(script: "git log -n 1 ${env.GIT_COMMIT} --format=%aN", returnStdout: true).trim()
               echo "Author name of last commit is ${author_name}"
-              committer_name = bat(script: "git log -n 1 ${env.GIT_COMMIT} --format=%cN", returnStdout: true).trim()
+              committer_name = sh(script: "git log -n 1 ${env.GIT_COMMIT} --format=%cN", returnStdout: true).trim()
               echo "Committer name of last commit is ${committer_name}"
             }
 
