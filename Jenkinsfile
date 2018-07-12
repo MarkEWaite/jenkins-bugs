@@ -12,7 +12,9 @@ pipeline {
 
             script {
               author_name = bat(script: "@echo off\ngit log -n 1 ${env.GIT_COMMIT} --format=%%aN", returnStdout: true).trim()
-              echo "Author_name of last commit is ${author_name}"
+              echo "Author name of last commit is ${author_name}"
+              committer_name = bat(script: "@echo off\ngit log -n 1 ${env.GIT_COMMIT} --format=%%cN", returnStdout: true).trim()
+              echo "Committer name of last commit is ${committer_name}"
             }
 
             ws(dir: WORKSPACE + '/windows-dir') {
@@ -36,7 +38,9 @@ pipeline {
 
             script {
               def author_name = sh(script: "git log -n 1 ${env.GIT_COMMIT} --format=%aN", returnStdout: true).trim()
-              echo "Author_name of last commit is ${author_name}"
+              echo "Author name of last commit is ${author_name}"
+              committer_name = bat(script: "git log -n 1 ${env.GIT_COMMIT} --format=%cN", returnStdout: true).trim()
+              echo "Committer name of last commit is ${committer_name}"
             }
 
             ws(dir: WORKSPACE + '/linux-dir') {
