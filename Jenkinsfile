@@ -8,7 +8,11 @@ pipeline {
             label 'windows'
           }
           steps {
-            echo "pipeline GIT_COMMIT before windows ws is ${env.GIT_COMMIT}"
+            echo "pipeline GIT_COMMIT is ${env.GIT_COMMIT}"
+
+            author_name = bat(returnStdout: true, script: "@echo off\ngit log -n 1 ${env.GIT_COMMIT} --format=%aN").trim()
+            echo "Author_name of last commit is ${author_name}"
+
             ws(dir: WORKSPACE + '/windows-dir') {
               echo "pipeline GIT_AUTHOR_NAME in windows ws is ${env.GIT_AUTHOR_NAME}"
               bat "echo bat GIT_COMMITTER_NAME in windows ws is %GIT_COMMITTER_NAME%"
@@ -27,6 +31,10 @@ pipeline {
           }
           steps {
             echo "pipeline GIT_COMMIT before linux ws is ${env.GIT_COMMIT}"
+
+            author_name = sh(returnStdout: true, script: "git log -n 1 ${env.GIT_COMMIT} --format=%aN").trim()
+            echo "Author_name of last commit is ${author_name}"
+
             ws(dir: WORKSPACE + '/linux-dir') {
               echo "pipeline GIT_AUTHOR_NAME in linux ws is ${env.GIT_AUTHOR_NAME}"
               sh "echo sh GIT_COMMITTER_NAME in linux ws is $GIT_COMMITTER_NAME"
