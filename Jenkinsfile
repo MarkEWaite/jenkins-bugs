@@ -4,14 +4,16 @@ pipeline {
     stage('parallel') {
       parallel {
         stage('windows') {
-          agent { 
+          agent {
             label 'windows'
           }
           steps {
             echo "pipeline GIT_COMMIT is ${env.GIT_COMMIT}"
 
-            author_name = bat(returnStdout: true, script: "@echo off\ngit log -n 1 ${env.GIT_COMMIT} --format=%aN").trim()
-            echo "Author_name of last commit is ${author_name}"
+            script {
+              author_name = bat(script: "@echo off\ngit log -n 1 ${env.GIT_COMMIT} --format=%aN", returnStdout: true).trim()
+              echo "Author_name of last commit is ${author_name}"
+            }
 
             ws(dir: WORKSPACE + '/windows-dir') {
               echo "pipeline GIT_AUTHOR_NAME in windows ws is ${env.GIT_AUTHOR_NAME}"
@@ -32,8 +34,10 @@ pipeline {
           steps {
             echo "pipeline GIT_COMMIT before linux ws is ${env.GIT_COMMIT}"
 
-            author_name = sh(returnStdout: true, script: "git log -n 1 ${env.GIT_COMMIT} --format=%aN").trim()
-            echo "Author_name of last commit is ${author_name}"
+            script {
+              def author_name = sh(script: "git log -n 1 ${env.GIT_COMMIT} --format=%aN", returnStdout: true).trim()
+              echo "Author_name of last commit is ${author_name}"
+            }
 
             ws(dir: WORKSPACE + '/linux-dir') {
               echo "pipeline GIT_AUTHOR_NAME in linux ws is ${env.GIT_AUTHOR_NAME}"
