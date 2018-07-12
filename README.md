@@ -1,7 +1,4 @@
-# [JENKINS-42440](https://issues.jenkins-ci.org/browse/JENKINS-42440) declarative not performing checkout
+# [JENKINS-52511](https://issues.jenkins-ci.org/browse/JENKINS-52511) declarative not setting GIT_AUTHOR_NAME
 
-Boris Folgmann noted that declarative was not performing a checkout
-for him with his declarative pipeline job.  Unfortunately, he provided
-no further details.  The original bug describes a scripted pipeline,
-not a declarative pipeline, and was resolved by adding the required
-`checkout scm` step to the scripted pipeline.
+Imran Kahn reported that GIT_AUTHOR_NAME and GIT_COMMITTER_NAME are not
+set by declarative Pipeline during its implict checkout.
