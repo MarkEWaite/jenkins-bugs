@@ -13,7 +13,7 @@ def branch = 'JENKINS-42860'
 node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
-                branches: [[name: branch]],
+                branches: scm.branches,
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                              [$class: 'LocalBranch', localBranch: branch]
                             ],
