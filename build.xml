@@ -36,7 +36,7 @@
     <tstamp>
       <format property="current.time" pattern="yyyy-MM-dd HH:mm:ss" />
     </tstamp>
-    <concat destfile="JENKINS-33433-branch-1" append="true" fixlastline="yes" eol="unix"> ${current.time} </concat>
+    <concat destfile="JENKINS-33433-branch-1" append="true" fixlastline="yes" eol="unix"> ${current.time}</concat>
     <exec executable="git">
       <arg value="add"/>
       <arg value="JENKINS-33433-branch-1"/>
