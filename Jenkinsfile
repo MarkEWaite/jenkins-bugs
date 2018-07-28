@@ -16,14 +16,15 @@ def implementations = [ 'git', 'jgit', 'jgitapache' ]
 
 def systemConfig = scm.userRemoteConfigs[0]
 def systemRemoteName = systemConfig.name
+def systemRemoteUrl = systemConfig.url
 // Major time and bandwidth savings by narrowing refspec to single branch
 systemConfig.refspec = "+refs/heads/${branch}:refs/remotes/${systemRemoteName}/${branch}"
 def cacheConfig = [name: 'git-markwaite-net',
                    refspec: "+refs/heads/${branch}:refs/remotes/git-markwaite-net/${branch}",
                    credentialsId: 'mwaite-mark-pc1-rsa-private-key',
                    url: 'mwaite@git.markwaite.net:git/bare/bugs/jenkins-bugs.git']
-
-def combinedRemoteConfig = env.JENKINS_URL.contains("markwaite.net") ? [ cacheConfig, systemConfig ] : [ systemConfig ]
+// Refer to cache config before system config to reduce wide area network use
+def combinedRemoteConfig = env.JENKINS_URL.contains("markwaite.net") && !systemRemoteUrl.contains("markwaite.net") ? [ cacheConfig, systemConfig ] : [ systemConfig ]
 
 def tasks = [ : ]
 
