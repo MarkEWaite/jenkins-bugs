@@ -16,7 +16,7 @@ def implementations = [ 'git', 'jgit', 'jgitapache' ]
 
 def systemConfig = scm.userRemoteConfigs[0]
 def systemOrigin = systemConfig['origin']
-systemConfig['refspec'] = "+refs/heads/${branch}:refs/remotes/${systemOrigin}/${branch}",
+systemConfig['refspec'] = "+refs/heads/${branch}:refs/remotes/${systemOrigin}/${branch}"
 
 def localCacheConfig = [
                         [name: 'git-markwaite-net',
