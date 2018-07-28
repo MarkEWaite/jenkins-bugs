@@ -23,7 +23,7 @@ def cacheConfig = [name: 'git-markwaite-net',
                    credentialsId: 'mwaite-mark-pc1-rsa-private-key',
                    url: 'mwaite@git.markwaite.net:git/bare/bugs/jenkins-bugs.git']
 
-def combinedRemoteConfig = [ cacheConfig, systemConfig ]
+def combinedRemoteConfig = env.JENKINS_URL.contains("markwaite.net") ? [ cacheConfig, systemConfig ] : [ systemConfig ]
 
 def tasks = [ : ]
 
