@@ -4,7 +4,7 @@
 import com.markwaite.Assert
 import com.markwaite.Build
 
-def branch = 'JENKINS-15103'
+def branch = 'JENKINS-15103' // BRANCH_NAME
 def origin = 'origin' // "${branch}-original"
 def repo = 'https://github.com/MarkEWaite/jenkins-bugs'
 
@@ -14,12 +14,16 @@ def random = new Random()
 
 def implementations = [ 'git', 'jgit', 'jgitapache' ]
 
+def systemConfig = scm.userRemoteConfigs[0]
+def systemOrigin = systemConfig['origin']
+systemConfig['refspec'] = "+refs/heads/${branch}:refs/remotes/${systemOrigin}/${branch}",
+
 def localCacheConfig = [
                         [name: 'git-markwaite-net',
                          refspec: "+refs/heads/${branch}:refs/remotes/git-markwaite-net/${branch}",
                          credentialsId: 'mwaite-mark-pc1-rsa-private-key',
                          url: 'mwaite@git.markwaite.net:git/bare/bugs/jenkins-bugs.git'],
-                        scm.userRemoteConfigs[0]
+                        systemConfig
                        ]
 
 def tasks = [ : ]
