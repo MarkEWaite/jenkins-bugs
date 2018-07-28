@@ -14,12 +14,11 @@ def random = new Random()
 
 def implementations = [ 'git', 'jgit', 'jgitapache' ]
 
-def localCacheConfig = [[name: 'git-markwaite-net',
+def localCacheConfig = [scm.userRemoteConfigs[0],
+                        [name: 'git-markwaite-net',
                          refspec: "+refs/heads/${branch}:refs/remotes/git-markwaite-net/${branch}",
                          credentialsId: 'mwaite-mark-pc1-rsa-private-key',
                          url: 'mwaite@git.markwaite.net:git/bare/bugs/jenkins-bugs.git']]
-
-def combinedRemoteConfigs = localCacheConfig << scm.userRemoteConfigs
 
 def tasks = [ : ]
 
@@ -50,7 +49,7 @@ for (int i = 0; i < implementations.size(); ++i) {
                   ],
                   gitTool: implementation,
                   // userRemoteConfigs: [[name: "${origin}", refspec: "+refs/heads/${branch}:refs/remotes/${origin}/${branch}", url: "${repo}"]]
-                  userRemoteConfigs: combinedRemoteConfigs
+                  userRemoteConfigs: localCacheConfig
                  ]
                 )
         my_check.assertCondition(fileExists('.git/objects'), '.git/objects does not exist after checkout')
