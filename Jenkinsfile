@@ -14,11 +14,13 @@ def random = new Random()
 
 def implementations = [ 'git', 'jgit', 'jgitapache' ]
 
-def localCacheConfig = [scm.userRemoteConfigs[0],
+def localCacheConfig = [
                         [name: 'git-markwaite-net',
                          refspec: "+refs/heads/${branch}:refs/remotes/git-markwaite-net/${branch}",
                          credentialsId: 'mwaite-mark-pc1-rsa-private-key',
-                         url: 'mwaite@git.markwaite.net:git/bare/bugs/jenkins-bugs.git']]
+                         url: 'mwaite@git.markwaite.net:git/bare/bugs/jenkins-bugs.git'],
+                        scm.userRemoteConfigs[0]
+                       ]
 
 def tasks = [ : ]
 
