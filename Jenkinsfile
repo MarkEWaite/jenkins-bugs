@@ -5,7 +5,7 @@ import com.markwaite.Assert
 import com.markwaite.Build
 
 def branch = 'JENKINS-15103'
-def origin = 'origin' # "${branch}-original"
+def origin = 'origin' // "${branch}-original"
 def repo = 'https://github.com/MarkEWaite/jenkins-bugs'
 
 import java.util.Random
