@@ -42,7 +42,8 @@ for (int i = 0; i < implementations.size(); ++i) {
                     [$class: 'WipeWorkspace'] /* WipeWorkspace causes the failure due to busy pack file */
                   ],
                   gitTool: implementation,
-                  userRemoteConfigs: [[name: "${origin}", refspec: "+refs/heads/${branch}:refs/remotes/${origin}/${branch}", url: "${repo}"]]
+                  // userRemoteConfigs: [[name: "${origin}", refspec: "+refs/heads/${branch}:refs/remotes/${origin}/${branch}", url: "${repo}"]]
+                  userRemoteConfigs: scm.userRemoteConfigs
                  ]
                 )
         my_check.assertCondition(fileExists('.git/objects'), '.git/objects does not exist after checkout')
