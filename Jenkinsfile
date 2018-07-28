@@ -3,6 +3,7 @@
 @Library('globalPipelineLibraryMarkEWaite') _
 import com.markwaite.Assert
 import com.markwaite.Build
+import com.markwaite.GitUtils
 
 def branch = 'JENKINS-15103' // BRANCH_NAME
 def origin = 'origin' // "${branch}-original"
