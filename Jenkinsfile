@@ -21,7 +21,7 @@ systemConfig.refspec = "+refs/heads/${branch}:refs/remotes/${systemRemoteName}/$
 def cacheConfig = [name: 'git-markwaite-net',
                    refspec: "+refs/heads/${branch}:refs/remotes/git-markwaite-net/${branch}",
                    credentialsId: 'mwaite-mark-pc1-rsa-private-key',
-                   url: 'mwaite@git.markwaite.net:git/bare/bugs/jenkins-bugs.git'],
+                   url: 'mwaite@git.markwaite.net:git/bare/bugs/jenkins-bugs.git']
 
 def combinedRemoteConfig = [ cacheConfig, systemConfig ]
 
