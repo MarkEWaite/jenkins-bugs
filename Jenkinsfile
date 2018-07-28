@@ -42,6 +42,8 @@ for (int i = 0; i < implementations.size(); ++i) {
           }
         }
         def implementation = gitImplementation == "git" ? "Default" : gitImplementation
+        echo "===== userRemoteConfig ${scm.userRemoteConfigs[0]} ====="
+        echo "===== userRemoteConfig ${scm.userRemoteConfigs} ====="
         checkout([$class: 'GitSCM',
                   branches: [[name: "${origin}/${branch}*"]], /* Trailing '*' required to see bug */
                   browser: [$class: 'GithubWeb', repoUrl: repo],
