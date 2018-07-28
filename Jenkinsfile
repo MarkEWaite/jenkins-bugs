@@ -15,8 +15,8 @@ def random = new Random()
 def implementations = [ 'git', 'jgit', 'jgitapache' ]
 
 def systemConfig = scm.userRemoteConfigs[0]
-def systemOrigin = systemConfig.origin
-systemConfig.refspec = "+refs/heads/${branch}:refs/remotes/${systemOrigin}/${branch}"
+def systemRemoteName = systemConfig.name
+systemConfig.refspec = "+refs/heads/${branch}:refs/remotes/${systemRemoteName}/${branch}"
 
 def localCacheConfig = [
                         [name: 'git-markwaite-net',
