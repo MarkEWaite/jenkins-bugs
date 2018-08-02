@@ -35,6 +35,6 @@ node {
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     // Value of GIT_CHECKOUT_DIR should not be set in this context
-    my_check.logContains(".*[*] env.GIT_CHECKOUT_DIR.*", 'GIT_CHECKOUT_DIR unexpectedly available')
+    my_check.logContains(".*GIT_CHECKOUT_DIR is .*env.GIT_CHECKOUT_DIR.*", 'GIT_CHECKOUT_DIR unexpectedly available')
   }
 }
