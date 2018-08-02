@@ -15,7 +15,7 @@ node {
   stage('Checkout') {
     def my_utils = new com.markwaite.GitUtils()
     checkout([$class: 'GitSCM',
-              branches: [[name: "${origin}/${branch}"]],
+              branches: [[name: "origin/${branch}"]],
               browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
               extensions: [
                 [$class: 'CloneOption', honorRefspec: true, noTags: true],
