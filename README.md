@@ -1,11 +1,12 @@
-# Jenkins bug verification public repository
+# [JENKINS-52855](https://issues.jenkins-ci.org/browse/JENKINS-52855) Add GIT_CHECKOUT_DIR env var
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations to
-duplicate the bug.  This repository captures some of those configurations
-in a way that is publicly visible so that automated tests can use this
-repository.
+When a Freestyle job performs a checkout to a subdirectory the
+containing build script needs to make guesses about the name of
+that directory. Make it easier for containing scripts by adding the
+GIT_CHECKOUT_DIR environment variable when a Freestyle job performs a
+checkout to a subdirectory.
 
-This repository includes many branches with a Jenkinsfile pipeline
-definition for branches where the pipeline definition can encapsulate
-at least a portion of the bug verification.
+Pipeline jobs and multibranch Pipeline jobs should not use the git
+plugin's checkout to a subdirectory facility. They should instead use
+the Pipeline steps which will perform the same type of operation within
+a Pipeline. For example, they should use the `dir` step or the `ws` step.
