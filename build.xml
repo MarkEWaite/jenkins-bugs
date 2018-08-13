@@ -1,4 +1,4 @@
-<project name="JENKINS-46054" default="increment" basedir=".">
+<project name="JENKINS-21248" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
     <git command="pull" />
@@ -20,8 +20,8 @@
   <target name="info" description="Report info about this repo">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
-    <!-- JENKINS-46504 reports that submodule did not clone if the
-         URL to submodule includes 'url' as a substring -->
+    <!-- JENKINS-21248 requests shallow clone support for submodules -->
+    <!-- Log should contain only 1 entry -->
     <exec executable="git">
       <arg value="-C" />
       <arg value="modules/JENKINS-46504.url" />
