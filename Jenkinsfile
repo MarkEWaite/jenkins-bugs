@@ -34,8 +34,8 @@ node('git-1.9+') { // Needs 'git -C' argument support
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     /* JENKINS-21248 requests shallow clone support for submodules.  */
-    my_check.logContains('.*Add distinctive message in submodule README.*', 'Distinctive 1st commit message not found')
-    my_check.logDoesNotContain('.*Reduce title length.*', 'Distinctive 2nd commit message found')
+    my_check.logContains('.*Add distinctive message in submodule README.*', 'Default distinctive 1st commit message not found')
+    my_check.logDoesNotContain('.*Reduce title length.*', 'Default distinctive 2nd commit message found')
   }
 
   /* depth 2 should clone 2 commits */
@@ -59,9 +59,9 @@ node('git-1.9+') { // Needs 'git -C' argument support
   stage('Verify depth 2') {
     def my_check = new com.markwaite.Assert()
     /* JENKINS-21248 requests shallow clone support for submodules.  */
-    my_check.logContains('.*Add distinctive message in submodule README.*', 'Distinctive 1st commit message not found')
-    my_check.logContains('.*Reduce title length.*', 'Distinctive 2nd commit message not found')
-    my_check.logDoesNotContain('.*Link from README to bug report.*', 'Distinctive 3rd commit message found')
+    my_check.logContains('.*Add distinctive message in submodule README.*', '2 - Distinctive 1st commit message not found')
+    my_check.logContains('.*Reduce title length.*', '2 - Distinctive 2nd commit message not found')
+    my_check.logDoesNotContain('.*Link from README to bug report.*', '2 - Distinctive 3rd commit message found')
   }
 
   /* depth 0 should clone no commits */
@@ -85,9 +85,9 @@ node('git-1.9+') { // Needs 'git -C' argument support
   stage('Verify depth 0') {
     def my_check = new com.markwaite.Assert()
     /* JENKINS-21248 requests shallow clone support for submodules.  */
-    my_check.logDoesNotContain('.*Add distinctive message in submodule README.*', 'Distinctive 1st commit message found')
-    my_check.logDoesNotContain('.*Reduce title length.*', 'Distinctive 2nd commit message found')
-    my_check.logDoesNotContain('.*Link from README to bug report.*', 'Distinctive 3rd commit message found')
+    my_check.logDoesNotContain('.*Add distinctive message in submodule README.*', '0 - Distinctive 1st commit message found')
+    my_check.logDoesNotContain('.*Reduce title length.*', '0 - Distinctive 2nd commit message found')
+    my_check.logDoesNotContain('.*Link from README to bug report.*', '0 - Distinctive 3rd commit message found')
   }
 
 }
