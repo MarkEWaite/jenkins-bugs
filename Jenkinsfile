@@ -13,7 +13,7 @@ def repo_url='https://github.com/MarkEWaite/jenkins-bugs'
 
 node('git-1.9+') { // Needs 'git -C' argument support
   stage('Checkout') {
-    deleteDir() // Really scrub the workspace
+    // deleteDir() // Really scrub the workspace
     checkout([$class: 'GitSCM',
               branches: [[name: branch]],
               extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
