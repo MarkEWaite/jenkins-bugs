@@ -31,6 +31,7 @@ node('git-1.9+') { // Needs 'git -C' argument support
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     /* JENKINS-21248 requests shallow clone support for submodules.  */
-    my_check.logContains('.*Add distinctive message in submodule README.*', 'Distinctive commit message not found')
+    my_check.logContains('.*Add distinctive message in submodule README.*', 'Distinctive 1st commit message not found')
+    my_check.logDoesNotContain('.*Reduce title length.*', 'Distinctive 2nd commit message found')
   }
 }
