@@ -19,7 +19,7 @@ node('git-1.9+') { // Needs 'git -C' argument support
               extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                            [$class: 'SubmoduleOption', disableSubmodules: false, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: true, trackingSubmodules: false],
                            [$class: 'LocalBranch', localBranch: branch]],
-              gitTool: 'Default',
+              gitTool: scm.gitTool,
               userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: repo_url]]])
   }
 
