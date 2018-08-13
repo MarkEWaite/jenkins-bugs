@@ -8,7 +8,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-def branch='JENKINS-46054'
+def branch='JENKINS-21248'
 def repo_url='https://github.com/MarkEWaite/jenkins-bugs'
 
 node('git-1.9+') { // Needs 'git -C' argument support
@@ -30,9 +30,7 @@ node('git-1.9+') { // Needs 'git -C' argument support
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    /* JENKINS-46053 reports that submodule clone fails if the repo
-     * URL includes '.url'.
-     */
+    /* JENKINS-21248 requests shallow clone support for submodules.  */
     my_check.logContains('.*Add distinctive message in submodule README.*', 'Distinctive commit message not found')
   }
 }
