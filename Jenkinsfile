@@ -22,6 +22,7 @@ pipeline {
                                extensions: [
                                             [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bare/bugs/jenkins-bugs.git'],
                                             [$class: 'AuthorInChangelog'],
+                                            [$class: 'LocalBranch', localBranch: 'JENKINS-52746'],
                                            ],
                                gitTool: scm.gitTool,
                                userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-52746:refs/remotes/origin/JENKINS-52746', url: 'git://wheezy64b.markwaite.net/mwaite/bugs/jenkins-bugs.git']]])
