@@ -20,7 +20,7 @@ pipeline {
                                             [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bare/bugs/jenkins-bugs.git'],
                                             [$class: 'AuthorInChangelog'],
                                            ],
-                               gitTool: 'Default',
+                               gitTool: scm.gitTool,
                                userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-52746:refs/remotes/origin/JENKINS-52746', url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
             }
         }
