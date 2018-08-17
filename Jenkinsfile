@@ -32,7 +32,8 @@ pipeline {
     }
     post {
         always {
-            deleteDir()
+            // Confirmed that if deleteDir is there, then multibranch pipeline will build the branch on every poll.
+            // deleteDir()
         }
     }
 }
