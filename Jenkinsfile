@@ -22,7 +22,6 @@ pipeline {
                                             [$class: 'AuthorInChangelog'],
                                             [$class: 'RelativeTargetDirectory', relativeTargetDir: '.'],
                                             [$class: 'PruneStaleBranch'],
-                                            [$class: 'SubmoduleOption', disableSubmodules: false, parentCredentials: true, recursiveSubmodules: true, reference: '', trackingSubmodules: false]
                                            ],
                                gitTool: 'Default',
                                submoduleCfg: [],
