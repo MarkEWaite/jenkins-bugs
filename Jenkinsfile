@@ -21,7 +21,6 @@ pipeline {
                                             [$class: 'AuthorInChangelog'],
                                            ],
                                gitTool: 'Default',
-                               submoduleCfg: [],
                                userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-52746:refs/remotes/origin/JENKINS-52746', url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
             }
         }
