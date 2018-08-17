@@ -18,6 +18,7 @@ pipeline {
                                branches: [[name: 'refs/heads/JENKINS-52746']],
                                doGenerateSubmoduleConfigurations: false,
                                extensions: [
+                                            [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bare/bugs/jenkins-bugs.git'],
                                             [$class: 'GitLFSPull'],
                                             [$class: 'AuthorInChangelog'],
                                             [$class: 'RelativeTargetDirectory', relativeTargetDir: '.'],
@@ -25,7 +26,7 @@ pipeline {
                                            ],
                                gitTool: 'Default',
                                submoduleCfg: [],
-                               userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
+                               userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-52746:refs/remotes/origin/JENKINS-52746', url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
             }
         }
         stage('Test and Package') {
