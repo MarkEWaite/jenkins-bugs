@@ -8,7 +8,7 @@ pipeline {
         buildDiscarder(logRotator(artifactDaysToKeepStr: '2', artifactNumToKeepStr: '5', daysToKeepStr: '15', numToKeepStr: '15'))
     }
     triggers {
-        pollSCM('H/2 * * * *')
+        pollSCM('H/7 * * * *')
     }
     tools {
       ant 'ant-latest'
@@ -25,7 +25,7 @@ pipeline {
                                             [$class: 'LocalBranch', localBranch: 'JENKINS-52746'],
                                            ],
                                gitTool: scm.gitTool,
-                               userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-52746:refs/remotes/origin/JENKINS-52746', url: 'git://wheezy64b.markwaite.net/mwaite/bugs/jenkins-bugs.git']]])
+                               userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-52746:refs/remotes/origin/JENKINS-52746', url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
             }
         }
         stage('Test and Package') {
