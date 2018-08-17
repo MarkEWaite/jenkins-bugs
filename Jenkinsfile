@@ -24,7 +24,7 @@ pipeline {
                                             [$class: 'AuthorInChangelog'],
                                            ],
                                gitTool: scm.gitTool,
-                               userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-52746:refs/remotes/origin/JENKINS-52746', url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
+                               userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-52746:refs/remotes/origin/JENKINS-52746', url: 'git://wheezy64b.markwaite.net/mwaite/bugs/jenkins-bugs.git']]])
             }
         }
         stage('Test and Package') {
