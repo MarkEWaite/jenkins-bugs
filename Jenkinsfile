@@ -19,7 +19,6 @@ pipeline {
                                doGenerateSubmoduleConfigurations: false,
                                extensions: [
                                             [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bare/bugs/jenkins-bugs.git'],
-                                            [$class: 'GitLFSPull'],
                                             [$class: 'AuthorInChangelog'],
                                             [$class: 'RelativeTargetDirectory', relativeTargetDir: '.'],
                                             [$class: 'PruneStaleBranch'],
