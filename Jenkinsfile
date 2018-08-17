@@ -5,7 +5,7 @@ pipeline {
     options {
         timeout(time: 4, unit: 'HOURS')
         timestamps()
-        buildDiscarder(logRotator(artifactDaysToKeepStr: '2', artifactNumToKeepStr: '5', daysToKeepStr: '15', numToKeepStr: '60'))
+        buildDiscarder(logRotator(artifactDaysToKeepStr: '2', artifactNumToKeepStr: '5', daysToKeepStr: '15', numToKeepStr: '15'))
     }
     triggers {
         pollSCM('H/2 * * * *')
