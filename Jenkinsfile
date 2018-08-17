@@ -16,7 +16,6 @@ pipeline {
                 checkout(poll: true,
                          scm: [$class: 'GitSCM',
                                branches: [[name: 'refs/heads/JENKINS-52746']],
-                               doGenerateSubmoduleConfigurations: false,
                                extensions: [
                                             [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bare/bugs/jenkins-bugs.git'],
                                             [$class: 'AuthorInChangelog'],
