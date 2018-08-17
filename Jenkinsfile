@@ -10,6 +10,9 @@ pipeline {
     triggers {
         pollSCM('H/2 * * * *')
     }
+    tools {
+      ant 'ant-latest'
+    }
     stages {
         stage('Checkout') {
             steps {
