@@ -29,7 +29,7 @@ pipeline {
         }
         stage('Test and Package') {
             steps {
-                sh 'ls'
+                sh 'ant info'
             }
         }
     }
