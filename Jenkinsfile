@@ -1,18 +1,28 @@
 pipeline {
-  agent any
+  agent none
   environment {
     name='ビルド番号をインクリメント' // Japanese text
   }
   stages {
-    stage('Display name') {
+    stage('Unix echo non-English text') {
+      agent {
+        label '!windows'
+      }
       steps {
         echo "Environment name is ${env.name}"
         withAnt(installation: 'ant-latest') {
-          if (isUnix()) {
-            sh 'ant info'
-          } else {
-            bat 'ant info'
-          }
+          sh 'ant info'
+        }
+      }
+    }
+    stage('Windows echo non-English text') {
+      agent {
+        label 'windows'
+      }
+      steps {
+        echo "Environment name is ${env.name}"
+        withAnt(installation: 'ant-latest') {
+          bat 'ant info'
         }
       }
     }
