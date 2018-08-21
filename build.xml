@@ -1,7 +1,7 @@
-<project name="JENKINS-6203" default="increment" basedir=".">
+<project name="JENKINS-52844" default="increment" basedir=".">
 
   <!-- Increment build number, commit the change -->
-  <target name="increment" description="Show JENKINS-6203 is a bug">
+  <target name="increment" description="Show JENKINS-52844 is a bug">
     <exec executable="git">
       <arg value="pull"/>
     </exec>
