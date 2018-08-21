@@ -1,9 +1,6 @@
-# [JENKINS-6203](https://issues.jenkins-ci.org/browse/JENKINS-6203) - UTF-8 not used to read changelog
+# [JENKINS-52844](https://issues.jenkins-ci.org/browse/JENKINS-52844) - Declarative reports no such DSL method
 
-The git changelog was previously processed with the default runtime
-character set, even though git writes it (by default) as UTF-8.
-
-Other issues explored by this job include:
-
-* Pipeline warning "Using the ‘stage’ step without a block argument is deprecated"
-* Private pipeline job fails to detect changes, while public detects
+One user reported on the mailing list that the problem only appeared
+if the Jenkinsfile was "UTF-8".  The Jenkinsfile in this repository
+includes Japanese characters which are used successfully in other tests.
+They are definitely not ASCII characters. I believe they are UTF-8.
