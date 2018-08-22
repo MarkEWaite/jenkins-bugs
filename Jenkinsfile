@@ -1,7 +1,7 @@
 pipeline {
   agent none
   environment {
-    name='ビルド番号をインクリメント' // Japanese text
+    name='ビルド番号をインクリメント and “Ω” should appear as greek uppercase omega letter enclosed in quotation marks.' // Japanese text
   }
   stages {
     stage('Unix echo non-English text') {
