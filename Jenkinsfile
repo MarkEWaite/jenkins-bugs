@@ -41,7 +41,7 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.assertCondition(map1['GIT_COMMIT'] != map2['GIT_COMMIT'], "${map1['GIT_COMMIT']} == ${map2['GIT_COMMIT']}")
+    my_check.assertCondition(map1['GIT_COMMIT'] != map2['GIT_COMMIT'], "git commit on base branch is ${map1['GIT_COMMIT']} same as git commit ${map2['GIT_COMMIT']} on master branch")
     my_check.logContains(".*[*] ${branch}.*", 'Wrong branch reported')
     my_check.logDoesNotContain(".*env.GIT_.*", 'GIT environment variable unresolved')
   }
