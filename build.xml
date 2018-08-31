@@ -26,14 +26,14 @@
     <echo>GIT_COMMITTER_NAME=${env.GIT_COMMITTER_NAME}</echo>
     <echo>GIT_LOCAL_BRANCH=${env.GIT_LOCAL_BRANCH}</echo>
     <echo>GIT_URL=${env.GIT_URL}</echo>
-    <fail message="GIT_AUTHOR_EMAIL not set" unless="env.GIT_AUTHOR_EMAIL"/>
-    <fail message="GIT_AUTHOR_NAME not set" unless="env.GIT_AUTHOR_NAME"/>
-    <fail message="GIT_BRANCH not set" unless="env.GIT_BRANCH"/>
-    <fail message="GIT_COMMIT not set" unless="env.GIT_COMMIT"/>
-    <fail message="GIT_COMMITTER_EMAIL not set" unless="env.GIT_COMMITTER_EMAIL"/>
-    <fail message="GIT_COMMITTER_NAME not set" unless="env.GIT_COMMITTER_NAME"/>
-    <fail message="GIT_LOCAL_BRANCH not set" unless="env.GIT_LOCAL_BRANCH"/>
-    <fail message="GIT_URL not set" unless="env.GIT_URL"/>
+    <!-- <fail message="GIT_AUTHOR_EMAIL not set" unless="env.GIT_AUTHOR_EMAIL"/> -->
+    <!-- <fail message="GIT_AUTHOR_NAME not set" unless="env.GIT_AUTHOR_NAME"/> -->
+    <!-- <fail message="GIT_BRANCH not set" unless="env.GIT_BRANCH"/> -->
+    <!-- <fail message="GIT_COMMIT not set" unless="env.GIT_COMMIT"/> -->
+    <!-- <fail message="GIT_COMMITTER_EMAIL not set" unless="env.GIT_COMMITTER_EMAIL"/> -->
+    <!-- <fail message="GIT_COMMITTER_NAME not set" unless="env.GIT_COMMITTER_NAME"/> -->
+    <!-- <fail message="GIT_LOCAL_BRANCH not set" unless="env.GIT_LOCAL_BRANCH"/> -->
+    <!-- <fail message="GIT_URL not set" unless="env.GIT_URL"/> -->
 
     <echo>GIT_ env var checks all passed</echo>
   </target>
