@@ -22,6 +22,7 @@ node {
                 gitTool: scm.gitTool,
                 userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
     ws() {
+      branch='master'
       map2 = checkout([$class: 'GitSCM',
                 branches: [[name: branch]],
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
@@ -40,6 +41,7 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
+    my_check.assertCondition(map1['GIT_COMMIT'] != map2['GIT_COMMIT'], "${map1['GIT_COMMIT']} == ${map2['GIT_COMMIT']}")
     my_check.logContains(".*[*] ${branch}.*", 'Wrong branch reported')
     my_check.logDoesNotContain(".*env.GIT_.*", 'GIT environment variable unresolved')
   }
