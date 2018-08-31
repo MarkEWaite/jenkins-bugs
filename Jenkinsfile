@@ -41,6 +41,6 @@ node {
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     my_check.logContains(".*[*] ${branch}.*", 'Wrong branch reported')
-    my_check.logDoesNotContain(".*env.GIT_COMMIT.*", 'Environment variable GIT_COMMIT not resolved')
+    my_check.logDoesNotContain(".*env.GIT_.*", 'GIT environment variable unresolved')
   }
 }
