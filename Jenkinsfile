@@ -35,7 +35,7 @@ node {
     ws() {
       masterBranch='master'
       map2 = checkout([$class: 'GitSCM',
-                masterBranches: [[name: masterBranch]],
+                branches: [[name: masterBranch]],
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                              [$class: 'LocalBranch', localBranch: masterBranch]
                             ],
