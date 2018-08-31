@@ -1,4 +1,4 @@
-<project name="jenkins-bugs-master-branch" default="sync" basedir=".">
+<project name="JENKINS-53346" default="increment" basedir=".">
 
   <property environment="env"/>
 
@@ -27,16 +27,6 @@
     <echo>GIT_ env var checks all passed</echo>
   </target>
 
-  <!-- Synchronize repositories -->
-  <target name="sync" description="Synchronize git repositories">
-    <git command="pull">
-      <args>
-        <arg value="--all"/>
-        <arg value="--prune"/>
-      </args>
-    </git>
-  </target>
-
   <target name="increment" description="Increment build number">
     <buildnumber/>
     <git command="commit">
@@ -49,20 +39,12 @@
   </target>
 
   <!-- Info about this repository -->
-  <target name="info" description="Report info about this repo">
+  <target name="info" description="Report info about this repo" depends="check-git-env-vars">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
-    <!-- JENKINS-41906 reports that master branch built without
-         any commits.  This reports commits on this branch in the last 15
-         minutes -->
-    <echo>Displaying git log messages on this branch from last 15 minutes</echo>
-    <git command="log">
-      <args>
-        <arg value="--since='15 minutes ago'"/>
-      </args>
-    </git>
-    <echo>End of git log messages on this branch from last 15 minutes</echo>
+    <!-- JENKINS-53346 reports that checkout returns the same map on a second
+         call even though the branch for checkout is different than first. -->
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
