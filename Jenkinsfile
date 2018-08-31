@@ -11,8 +11,10 @@ properties([[$class: 'BuildDiscarderProperty',
 def branch = 'JENKINS-53346'
 
 node {
+  def map1 = [:]
+  def map2 = [:]
   stage('Checkout') {
-    def map1 = checkout([$class: 'GitSCM',
+    map1 = checkout([$class: 'GitSCM',
                 branches: [[name: branch]],
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                              [$class: 'LocalBranch', localBranch: branch]
