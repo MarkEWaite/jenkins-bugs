@@ -10,6 +10,16 @@ properties([[$class: 'BuildDiscarderProperty',
 
 def branch = 'JENKINS-53346'
 
+def get_commit_sha1() {
+  def sha1 = "unknown"
+  if (isUnix()) {
+    sha1 = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
+  } else {
+    sha1 = bat(returnStdout: true, script: '@ECHO OFF && git rev-parse --short HEAD').trim()
+  }
+  return sha1
+}
+
 node {
   def map1 = [:]
   def map2 = [:]
@@ -21,6 +31,7 @@ node {
                             ],
                 gitTool: scm.gitTool,
                 userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
+    map1['shell_output'] = get_commit_sha1()
     ws() {
       branch='master'
       map2 = checkout([$class: 'GitSCM',
@@ -30,6 +41,7 @@ node {
                             ],
                 gitTool: scm.gitTool,
                 userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
+      map2['shell_output'] = get_commit_sha1()
     }
   }
 
@@ -42,6 +54,7 @@ node {
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     my_check.assertCondition(map1['GIT_COMMIT'] != map2['GIT_COMMIT'], "git commit on base branch is ${map1['GIT_COMMIT']} same as git commit ${map2['GIT_COMMIT']} on master branch")
+    my_check.assertCondition(map1['shell_output'] != map2['shell_output'], "Shell git commit on base is ${map1['shell_output']} same as git commit ${map2['shell_output']} on master branch")
     my_check.logContains(".*[*] ${branch}.*", 'Wrong branch reported')
     my_check.logDoesNotContain(".*env.GIT_.*", 'GIT environment variable unresolved')
   }
