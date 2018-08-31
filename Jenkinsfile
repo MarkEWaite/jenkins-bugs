@@ -20,7 +20,7 @@ def get_commit_sha1() {
   return sha1
 }
 
-node {
+node('windows') {
   def map1 = [:]
   def map2 = [:]
   stage('Checkout') {
