@@ -12,18 +12,14 @@ def branch = 'JENKINS-53346'
 
 node {
   stage('Checkout') {
-    def map1
-    def map2
-    dir('map1') {
-      map1 = checkout([$class: 'GitSCM',
+    def map1 = checkout([$class: 'GitSCM',
                 branches: [[name: branch]],
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                              [$class: 'LocalBranch', localBranch: branch]
                             ],
                 gitTool: scm.gitTool,
                 userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
-    }
-    dir('map2') {
+    ws() {
       map2 = checkout([$class: 'GitSCM',
                 branches: [[name: branch]],
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
