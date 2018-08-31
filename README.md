@@ -1,11 +1,4 @@
-# Jenkins bug verification public repository
+# [JENKINS-53346](https://issues.jenkins-ci.org/browse/JENKINS-53346) checkout returns same value on subsequent calls
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations to
-duplicate the bug.  This repository captures some of those configurations
-in a way that is publicly visible so that automated tests can use this
-repository.
-
-This repository includes many branches with a Jenkinsfile pipeline
-definition for branches where the pipeline definition can encapsulate
-at least a portion of the bug verification.
+Two calls to checkout in a Pipeline returned the same values in the
+map, even though the two checkout steps were distinct commits.
