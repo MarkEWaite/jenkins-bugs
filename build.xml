@@ -8,16 +8,14 @@
     </condition>
   </target>
 
-  <!-- Check environment variables only in builds 2+ -->
+  <!-- Report environment variables only in builds 2+ -->
   <target name="check-non-initial-build" description="Check git env vars at build 2+" depends="is-first-build" if="env.JENKINS_URL" unless="first.build">
     <echo>GIT_PREVIOUS_COMMIT=${env.GIT_PREVIOUS_COMMIT}</echo>
     <echo>GIT_PREVIOUS_SUCCESSFUL_COMMIT=${env.GIT_PREVIOUS_SUCCESSFUL_COMMIT}</echo>
-    <!-- <fail message="GIT_PREVIOUS_COMMIT not set" unless="env.GIT_PREVIOUS_COMMIT"/> -->
-    <!-- <fail message="GIT_PREVIOUS_SUCCESSFUL_COMMIT not set" unless="env.GIT_PREVIOUS_SUCCESSFUL_COMMIT"/> -->
   </target>
 
-  <!-- Check environment variables in all builds -->
-  <target name="check-git-env-vars" description="Check all git env vars" depends="check-non-initial-build" if="env.JENKINS_URL">
+  <!-- Report environment variables in all builds -->
+  <target name="report-git-env-vars" description="Check all git env vars" depends="check-non-initial-build" if="env.JENKINS_URL">
     <echo>GIT_AUTHOR_EMAIL=${env.GIT_AUTHOR_EMAIL}</echo>
     <echo>GIT_AUTHOR_NAME=${env.GIT_AUTHOR_NAME}</echo>
     <echo>GIT_BRANCH=${env.GIT_BRANCH}</echo>
@@ -26,16 +24,6 @@
     <echo>GIT_COMMITTER_NAME=${env.GIT_COMMITTER_NAME}</echo>
     <echo>GIT_LOCAL_BRANCH=${env.GIT_LOCAL_BRANCH}</echo>
     <echo>GIT_URL=${env.GIT_URL}</echo>
-    <!-- <fail message="GIT_AUTHOR_EMAIL not set" unless="env.GIT_AUTHOR_EMAIL"/> -->
-    <!-- <fail message="GIT_AUTHOR_NAME not set" unless="env.GIT_AUTHOR_NAME"/> -->
-    <!-- <fail message="GIT_BRANCH not set" unless="env.GIT_BRANCH"/> -->
-    <!-- <fail message="GIT_COMMIT not set" unless="env.GIT_COMMIT"/> -->
-    <!-- <fail message="GIT_COMMITTER_EMAIL not set" unless="env.GIT_COMMITTER_EMAIL"/> -->
-    <!-- <fail message="GIT_COMMITTER_NAME not set" unless="env.GIT_COMMITTER_NAME"/> -->
-    <!-- <fail message="GIT_LOCAL_BRANCH not set" unless="env.GIT_LOCAL_BRANCH"/> -->
-    <!-- <fail message="GIT_URL not set" unless="env.GIT_URL"/> -->
-
-    <echo>GIT_ env var checks all passed</echo>
   </target>
 
   <target name="increment" description="Increment build number">
@@ -50,7 +38,7 @@
   </target>
 
   <!-- Info about this repository -->
-  <target name="info" description="Report info about this repo" depends="check-git-env-vars">
+  <target name="info" description="Report info about this repo" depends="report-git-env-vars">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
