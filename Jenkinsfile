@@ -31,7 +31,7 @@ node('!windows') { // Windows reports 'Cannot find a suitable ssh-agent provider
     /* sshagent allows multiple credentials as arguments */
     /* not required, but an interesting test case */
     sshagent(credentials: ['MarkEWaite-github-rsa-private-key-has-passphrase', 'MarkEWaite-github-rsa-private-key', 'mwaite-mark-pc1-rsa-private-key']) {
-      my_step.ant 'info'
+      my_step.ant 'info-and-push-tag'
     }
   }
 
