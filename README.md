@@ -1,11 +1,13 @@
-# Jenkins bug verification public repository
+# [ZD-64922](https://cloudbees.zendesk.com/agent/tickets/64922) How to tag from multibranch Pipeline
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations to
-duplicate the bug.  This repository captures some of those configurations
-in a way that is publicly visible so that automated tests can use this
-repository.
+User wants to tag and push a commit from a multibranch Pipeline.  Some
+of the scenarios that need to be handled and may encounter surprises
+include:
 
-This repository includes many branches with a Jenkinsfile pipeline
-definition for branches where the pipeline definition can encapsulate
-at least a portion of the bug verification.
+* Merge commits may be made locally in the multibranch Pipeline
+  workspace which are not pushed to the remote repository
+
+* No branch is defined in the workspace of the multibranch Pipeline
+  unless the local branch extension is used.  Without a local branch
+  there is no obvious name to descrie the remote destination which
+  should receive commits that only exist locally
