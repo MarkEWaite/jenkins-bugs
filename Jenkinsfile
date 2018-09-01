@@ -8,7 +8,9 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-def branch = 'master'
+def branch = 'ZD-64922'
+/* Intentionally using private key to allow sshagent wrapper around `ant info` */
+def repoUrl = 'git@github.com:MarkEWaite/jenkins-bugs.git'
 
 node {
   stage('Checkout') {
@@ -18,21 +20,23 @@ node {
                              [$class: 'LocalBranch', localBranch: branch]
                             ],
                 gitTool: scm.gitTool,
-                userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
+                userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: repoUrl]]])
   }
 
   stage('Build') {
     /* Call the ant build. */
     def my_step = new com.markwaite.Build()
-    my_step.ant 'info'
+    /* sshagent allows multiple credentials as arguments */
+    /* not required, but an interesting test case */
+    sshagent(credentials: ['MarkEWaite-github-rsa-private-key-has-passphrase', 'MarkEWaite-github-rsa-private-key', 'mwaite-mark-pc1-rsa-private-key']) {
+      my_step.ant 'info'
+    }
   }
 
   stage('Verify') {
+    def properties = readProperties file: 'build.number'
+    def tagPrefix = "${branch}-${buildNumber}-"
     def my_check = new com.markwaite.Assert()
-    my_check.logContains(".*[*] ${branch}.*", 'Wrong branch reported')
-    // if (currentBuild.number > 1) { // Don't check first build
-      // my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
-      // my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
-    // }
+    my_check.logContains(".*new tag.*${tagPrefix}-.* ${tagPrefix}-.*", "Tag ${tagPrefix} not pushed")
   }
 }
