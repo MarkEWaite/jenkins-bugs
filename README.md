@@ -21,3 +21,10 @@ include:
 * Need a tag scrubber to remove useless test tags from the origin
   repository.  The tag clutter in this repository is becoming too
   painful.
+
+* JGit ssh fetch failed without a credential.  That means this
+  repository is now requiring a credential for at least one of its
+  branches.  Unfortunate, but better to make the technique publicly
+  visible rather than have to hide it in a private repository just
+  because it uses a credential.  The repository does not expose the
+  values of the credential, just its identifier.
