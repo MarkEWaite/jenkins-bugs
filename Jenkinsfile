@@ -22,7 +22,9 @@ node('!windows') { // Windows reports 'Cannot find a suitable ssh-agent provider
                 gitTool: scm.gitTool,
                 userRemoteConfigs: [[credentialsId: 'MarkEWaite-github-rsa-private-key-has-passphrase',
                                      refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}",
-                                     url: repoUrl]]])
+                                     url: repoUrl
+                                   ]]
+             ])
   }
 
   stage('Build') {
