@@ -12,7 +12,7 @@ def branch = 'ZD-64922'
 /* Intentionally using private key to allow sshagent wrapper around `ant info` */
 def repoUrl = 'git@github.com:MarkEWaite/jenkins-bugs.git'
 
-node('windows') {
+node('!windows') { // Windows reports 'Cannot find a suitable ssh-agent provider' on my machines
   stage('Checkout') {
     checkout([$class: 'GitSCM',
                 branches: [[name: branch]],
