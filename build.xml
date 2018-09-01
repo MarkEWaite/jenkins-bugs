@@ -52,7 +52,7 @@
         <arg value="-a"/>
         <arg value="-m"/>
         <arg value="Annotated tag for ${ant.project.name} build ${build.number}"/>
-        <arg value="${ant.project.name}-${build.number}-${env.JOB_NAME}"/>
+        <arg value="${ant.project.name}-${build.number}-${env.JOB_NAME}-${env.BUILD_NUMBER}"/>
         <arg value="HEAD"/>
       </args>
     </git>
