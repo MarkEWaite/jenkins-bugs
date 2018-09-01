@@ -17,3 +17,7 @@ include:
   If https, then the ant script needs to somehow get the username and
   password.  Since the user was using ssh, may simplify and do nothing
   if remote protocol is https
+
+* Need a tag scrubber to remove useless test tags from the origin
+  repository.  The tag clutter in this repository is becoming too
+  painful.
