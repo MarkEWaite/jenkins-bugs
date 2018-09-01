@@ -12,7 +12,7 @@ def branch = 'ZD-64922'
 /* Intentionally using private key to allow sshagent wrapper around `ant info` */
 def repoUrl = 'git@github.com:MarkEWaite/jenkins-bugs.git'
 
-node {
+node('windows') {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
                 branches: [[name: branch]],
