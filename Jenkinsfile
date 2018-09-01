@@ -20,7 +20,9 @@ node {
                              [$class: 'LocalBranch', localBranch: branch]
                             ],
                 gitTool: scm.gitTool,
-                userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: repoUrl]]])
+                userRemoteConfigs: [[credentialsId: 'MarkEWaite-github-rsa-private-key-has-passphrase',
+                                     refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}",
+                                     url: repoUrl]]])
   }
 
   stage('Build') {
