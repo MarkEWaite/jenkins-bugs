@@ -59,7 +59,9 @@
     <!-- Push the head commit to assure that head commit is on remote -->
     <git command="push">
       <args>
+        <arg value="--set-upstream"/>
         <arg value="origin"/>
+        <arg value="${ant.project.name}"/>
       </args>
     </git>
     <!-- Push tags -->
