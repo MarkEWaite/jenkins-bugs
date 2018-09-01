@@ -36,10 +36,8 @@ node {
   stage('Verify') {
     def properties = readProperties file: 'build.number'
     def buildNumber = properties['build.number']
-    echo "buildNumber is ${buildNumber}"
     def tagPrefix = "${branch}-${buildNumber}-"
-    echo "tagPrefix is ${tagPrefix}"
     def my_check = new com.markwaite.Assert()
-    my_check.logContains(".*new tag.*${tagPrefix}-.* ${tagPrefix}-.*", "Tag ${tagPrefix} not pushed")
+    my_check.logContains(".*new tag.*${tagPrefix}.* ${tagPrefix}.*", "Tag ${tagPrefix} not pushed")
   }
 }
