@@ -1,5 +1,8 @@
 pipeline {
   agent none
+  options {
+    durabilityHint('PERFORMANCE_OPTIMIZED')
+  }
   stages {
     stage('parallel') {
       parallel {
