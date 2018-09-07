@@ -6,6 +6,7 @@ pipeline {
         timeout(time: 4, unit: 'HOURS')
         timestamps()
         buildDiscarder(logRotator(artifactDaysToKeepStr: '2', artifactNumToKeepStr: '5', daysToKeepStr: '15', numToKeepStr: '15'))
+        durabilityHint('PERFORMANCE_OPTIMIZED')
     }
     triggers {
         pollSCM('H/7 * * * *')
