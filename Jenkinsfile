@@ -1,5 +1,8 @@
 pipeline {
   agent none
+  options {
+    durabilityHint('PERFORMANCE_OPTIMIZED')
+  }
   environment {
     name='ビルド番号をインクリメント and “Ω” should be a greek uppercase omega letter enclosed in quotation marks.' // Japanese text
   }
