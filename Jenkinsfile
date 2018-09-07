@@ -3,6 +3,10 @@ pipeline {
         label '!windows'
     }
 
+    options {
+        durabilityHint('PERFORMANCE_OPTIMIZED')
+    }
+
     parameters {
         booleanParam(defaultValue: true, description: 'Job will fail if this is not checked', name: 'booleanParamJENKINS36451')
     }
