@@ -14,7 +14,7 @@
     <buildnumber file="${build.number.file}"/>
     <copy file="${build.number.file}" tofile="${build.number.copy1}" overwrite="true"/>
     <copy file="${build.number.file}" tofile="${build.number.copy2}" overwrite="true"/>
-    <git command="commit">
+    <git command="add">
       <args>
         <arg value="${build.number.file}"/>
         <arg value="${build.number.copy1}"/>
