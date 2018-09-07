@@ -1,6 +1,9 @@
 <project name="JENKINS-42597" default="increment" basedir=".">
 
   <property name="build.number.file" value="build-100%-number"/>
+  <property name="build.number.copy1" value="build-%ABC%-number"/>
+  <property name="build.number.copy2" value="build-^%ABC%^-number"/>
+
   <target name="increment" description="Increment build number">
     <git command="pull">
       <args>
@@ -9,9 +12,13 @@
       </args>
     </git>
     <buildnumber file="${build.number.file}"/>
+    <copy file="${build.number.file}" tofile="${build.number.copy1}" overwrite="true"/>
+    <copy file="${build.number.file}" tofile="${build.number.copy2}" overwrite="true"/>
     <git command="commit">
       <args>
         <arg value="${build.number.file}"/>
+        <arg value="${build.number.copy1}"/>
+        <arg value="${build.number.copy2}"/>
       </args>
     </git>
     <git command="commit">
