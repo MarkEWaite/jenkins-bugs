@@ -38,5 +38,7 @@ node {
     /* JENKINS-42597 reports that modified files which include a '%' in
        their name are not correctly linked from the changes page. */
     my_check.logContains('.*build-100%-number.*', 'build.number file name not in diff output')
+    my_check.logContains('.*build-%ABC%-number.*', 'build.number copied file name not in diff output')
+    my_check.logContains('.*build-.%ABC%.-number.*', 'build.number copied file name 2 not in diff output')
   }
 }
