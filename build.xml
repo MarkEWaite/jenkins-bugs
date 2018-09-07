@@ -2,12 +2,22 @@
 
   <property name="build.number.file" value="build-100%-number"/>
   <target name="increment" description="Increment build number">
+    <git command="pull">
+      <args>
+        <arg value="--all"/>
+        <arg value="--prune"/>
+      </args>
+    </git>
     <buildnumber file="${build.number.file}"/>
+    <git command="commit">
+      <args>
+        <arg value="${build.number.file}"/>
+      </args>
+    </git>
     <git command="commit">
       <args>
         <arg value="-m"/>
         <arg value="[${ant.project.name}] build++, was ${build.number}"/>
-        <arg value="${build.number.file}"/>
       </args>
     </git>
   </target>
