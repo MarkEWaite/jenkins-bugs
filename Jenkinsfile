@@ -1,6 +1,8 @@
 pipeline {
     agent {
         label '!windows'
+    }
+    options {
         durabilityHint('PERFORMANCE_OPTIMIZED')
     }
     stages {
