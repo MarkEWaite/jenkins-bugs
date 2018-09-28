@@ -27,8 +27,7 @@ pipeline {
                                             [$class: 'LocalBranch', localBranch: "${env.BRANCH_NAME}"],
                                            ],
                                gitTool: scm.gitTool,
-                               userRemoteConfigs: scm.userRemoteConfigs
-				])
+                               userRemoteConfigs: scm.userRemoteConfigs])
             }
         }
         stage('Test and Package') {
