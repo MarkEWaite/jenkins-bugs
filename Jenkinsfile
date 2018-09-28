@@ -20,14 +20,14 @@ pipeline {
             steps {
                 checkout(poll: true,
                          scm: [$class: 'GitSCM',
-                               branches: [[name: 'refs/heads/JENKINS-52746']],
+                               branches: [[name: "refs/heads/${env.BRANCH_NAME}"]],
                                extensions: [
                                             [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                                             [$class: 'AuthorInChangelog'],
-                                            [$class: 'LocalBranch', localBranch: 'JENKINS-52746'],
+                                            [$class: 'LocalBranch', localBranch: "${env.BRANCH_NAME}"],
                                            ],
                                gitTool: scm.gitTool,
-                               userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-52746:refs/remotes/origin/JENKINS-52746', url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
+                               userRemoteConfigs: [[refspec: "+refs/heads/${env.BRANCH_NAME}:refs/remotes/origin/${env.BRANCH_NAME}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
             }
         }
         stage('Test and Package') {
