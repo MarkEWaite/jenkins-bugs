@@ -33,6 +33,7 @@ pipeline {
         stage('Test and Package') {
             steps {
                 sh 'ant info'
+                sh 'env | sort'
             }
         }
     }
