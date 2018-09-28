@@ -22,7 +22,7 @@ pipeline {
                          scm: [$class: 'GitSCM',
                                branches: [[name: 'refs/heads/JENKINS-52746']],
                                extensions: [
-                                            [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bare/bugs/jenkins-bugs.git'],
+                                            [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                                             [$class: 'AuthorInChangelog'],
                                             [$class: 'LocalBranch', localBranch: 'JENKINS-52746'],
                                            ],
