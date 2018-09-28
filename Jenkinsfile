@@ -27,7 +27,8 @@ pipeline {
                                             [$class: 'LocalBranch', localBranch: "${env.BRANCH_NAME}"],
                                            ],
                                gitTool: scm.gitTool,
-                               userRemoteConfigs: [[refspec: "+refs/heads/${env.BRANCH_NAME}:refs/remotes/origin/${env.BRANCH_NAME}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
+                               userRemoteConfigs: scm.userRemoteConfigs
+				])
             }
         }
         stage('Test and Package') {
