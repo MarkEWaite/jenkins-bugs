@@ -62,7 +62,7 @@ node {
             fileFound = true
           }
         }
-        sleep(0.1)
+        sleep(time:100, unit:MILLISECONDS)
       }
     }
   }
