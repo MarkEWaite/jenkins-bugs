@@ -57,7 +57,7 @@ node {
         my_check.assertCondition(!fileExists(branch + "@tmp"), "Temp dir " + branch + "@tmp" + " found in workspace")
         my_check.assertCondition(!fileExists(branch1 + "@tmp"), "Temp dir " + branch1 + "@tmp" + " found in workspace")
         my_check.assertCondition(!fileExists(branch2 + "@tmp"), "Temp dir " + branch2 + "@tmp" + " found in workspace")
-        sleep(1)
+        sleep(0.1)
       }
     }
 
