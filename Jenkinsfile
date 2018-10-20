@@ -3,6 +3,7 @@
 @Library('globalPipelineLibraryMarkEWaite') _
 import com.markwaite.Assert
 import com.markwaite.Build
+import java.util.concurrent.TimeUnit
 
 /* Only keep the 10 most recent builds. */
 properties([[$class: 'BuildDiscarderProperty',
@@ -62,7 +63,7 @@ node {
             fileFound = true
           }
         }
-        sleep(time:100, unit:MILLISECONDS)
+        sleep(time: 131, unit: TimeUnit.MILLISECONDS)
       }
     }
   }
