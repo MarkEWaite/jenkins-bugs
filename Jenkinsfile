@@ -57,8 +57,8 @@ node {
       def endTime = System.currentTimeMillis() + 3 * 1000L // Watch for 3 seconds
       while (!fileFound && System.currentTimeMillis() < endTime) {
         sleep(0.1)
-        for (branch in branches) {
-          def tmpName = branch + "@tmp"
+        for (branchName in branches) {
+          def tmpName = branchName + "@tmp"
           if (fileExists(tmpName)) {
             my_check.assertCondition(false, "Temp dir " + tmpName + " found in workspace")
             fileFound = true
