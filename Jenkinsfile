@@ -52,12 +52,18 @@ node {
       }
     }, monitor: {
       def my_check = new com.markwaite.Assert()
-      def endTime = System.currentTimeMillis() + 3 * 1000L
-      while (System.currentTimeMillis() < endTime) {
-        my_check.assertCondition(!fileExists(branch + "@tmp"), "Temp dir " + branch + "@tmp" + " found in workspace")
-        my_check.assertCondition(!fileExists(branch1 + "@tmp"), "Temp dir " + branch1 + "@tmp" + " found in workspace")
-        my_check.assertCondition(!fileExists(branch2 + "@tmp"), "Temp dir " + branch2 + "@tmp" + " found in workspace")
+      def fileFound = false
+      def branches = [ branch, branch1, branch2 ]
+      def endTime = System.currentTimeMillis() + 3 * 1000L // Watch for 3 seconds
+      while (!fileFound && System.currentTimeMillis() < endTime) {
         sleep(0.1)
+        for (branch in branches) {
+          def tmpName = branch + "@tmp"
+          if (fileExists(tmpName)) {
+            my_check.assertCondition(false, "Temp dir " + tmpName + " found in workspace")
+            fileFound = true
+          }
+        }
       }
     }
 
