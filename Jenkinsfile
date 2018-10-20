@@ -20,34 +20,45 @@ def origin2 = 'origin-45894'
 node {
   stage('Checkout') {
 
-    dir(branch) {
-      checkout([$class: 'GitSCM',
-        branches: [[name: "${origin}/${branch}"]],
-        extensions: [
-          [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-          [$class: 'LocalBranch', localBranch: branch]],
-        gitTool: scm.gitTool,
-        userRemoteConfigs: [[name: origin, refspec: "+refs/heads/${branch}:refs/remotes/${origin}/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
-    }
-
-    dir(branch1) {
-      checkout([$class: 'GitSCM',
-        branches: [[name: "${origin1}/${branch1}"]],
-        extensions: [
-          [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-          [$class: 'LocalBranch', localBranch: branch1]],
-        gitTool: scm.gitTool,
-        userRemoteConfigs: [[name: origin1, refspec: "+refs/heads/${branch1}:refs/remotes/${origin1}/${branch1}", url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
-    }
-
-    dir(branch2) {
-      checkout([$class: 'GitSCM',
-        branches: [[name: "${origin2}/${branch2}"]],
-        extensions: [
-          [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-          [$class: 'LocalBranch', localBranch: branch2]],
-        gitTool: scm.gitTool,
-        userRemoteConfigs: [[name: origin2, refspec: "+refs/heads/${branch2}:refs/remotes/${origin2}/${branch2}", url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
+    parallel branch: {
+      dir(branch) {
+	checkout([$class: 'GitSCM',
+	  branches: [[name: "${origin}/${branch}"]],
+	  extensions: [
+	    [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+	    [$class: 'LocalBranch', localBranch: branch]],
+	  gitTool: scm.gitTool,
+	  userRemoteConfigs: [[name: origin, refspec: "+refs/heads/${branch}:refs/remotes/${origin}/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
+      }
+    }, branch1: {
+      dir(branch1) {
+	checkout([$class: 'GitSCM',
+	  branches: [[name: "${origin1}/${branch1}"]],
+	  extensions: [
+	    [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+	    [$class: 'LocalBranch', localBranch: branch1]],
+	  gitTool: scm.gitTool,
+	  userRemoteConfigs: [[name: origin1, refspec: "+refs/heads/${branch1}:refs/remotes/${origin1}/${branch1}", url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
+      }
+    }, branch2: {
+      dir(branch2) {
+	checkout([$class: 'GitSCM',
+	  branches: [[name: "${origin2}/${branch2}"]],
+	  extensions: [
+	    [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+	    [$class: 'LocalBranch', localBranch: branch2]],
+	  gitTool: scm.gitTool,
+	  userRemoteConfigs: [[name: origin2, refspec: "+refs/heads/${branch2}:refs/remotes/${origin2}/${branch2}", url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
+      }
+    }, monitor: {
+      def my_check = new com.markwaite.Assert()
+      def endTime = System.currentTimeMillis() + 3 * 1000L
+      while (System.currentTimeMillis() < endTime) {
+        assertCondition(!fileExists(branch + "@tmp"), "Temp dir " + branch + "@tmp" + " found in workspace")
+        assertCondition(!fileExists(branch1 + "@tmp"), "Temp dir " + branch1 + "@tmp" + " found in workspace")
+        assertCondition(!fileExists(branch2 + "@tmp"), "Temp dir " + branch2 + "@tmp" + " found in workspace")
+        sleep(1)
+      }
     }
 
   }
