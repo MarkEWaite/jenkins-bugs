@@ -54,9 +54,9 @@ node {
       def my_check = new com.markwaite.Assert()
       def endTime = System.currentTimeMillis() + 3 * 1000L
       while (System.currentTimeMillis() < endTime) {
-        assertCondition(!fileExists(branch + "@tmp"), "Temp dir " + branch + "@tmp" + " found in workspace")
-        assertCondition(!fileExists(branch1 + "@tmp"), "Temp dir " + branch1 + "@tmp" + " found in workspace")
-        assertCondition(!fileExists(branch2 + "@tmp"), "Temp dir " + branch2 + "@tmp" + " found in workspace")
+        my_check.assertCondition(!fileExists(branch + "@tmp"), "Temp dir " + branch + "@tmp" + " found in workspace")
+        my_check.assertCondition(!fileExists(branch1 + "@tmp"), "Temp dir " + branch1 + "@tmp" + " found in workspace")
+        my_check.assertCondition(!fileExists(branch2 + "@tmp"), "Temp dir " + branch2 + "@tmp" + " found in workspace")
         sleep(1)
       }
     }
