@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        milestone()
+        milestone(ordinal:1, label: 'Milestone One')
         checkout scm
       }
     }
