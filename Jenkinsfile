@@ -7,7 +7,7 @@ pipeline {
       steps {
         milestone(ordinal:1, label: 'Milestone One')
         checkout scm
-        withAnt('ant-latest') {
+        withAnt(installation:'ant-latest') {
           sh 'ant info'
         }
       }
