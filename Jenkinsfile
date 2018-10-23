@@ -1,9 +1,11 @@
 pipeline {
   agent any
   stages {
-    stage('Checkout') {
-      milestone()
-      checkout scm
+    steps {
+      stage('Checkout') {
+        milestone()
+        checkout scm
+      }
     }
   }
 }
