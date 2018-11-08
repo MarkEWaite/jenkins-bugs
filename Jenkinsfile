@@ -37,6 +37,6 @@ node {
     my_check.logContains('.*user dir is.*', 'Ant script missing output')
     my_check.logContains('.*No space contents check: LICENSE.*', 'Content missing for simple submodule')
     my_check.logContains('.*Has space contents check: README.md.*', 'Content missing for submodule with space in name')
-    my_check.logContains('.*Has README check: ''.*', 'Checkout was not sparse - README detected')
+    my_check.logContains('.*Has README check: //.*', 'Checkout was not sparse - README detected')
   }
 }

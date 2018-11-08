@@ -34,7 +34,7 @@
     <!-- Echo if README is found, should not be found due to sparse checkout -->
     <fileset id="has.README" dir="." includes="README.md"/> 
     <property name="prop.has.README" refid="has.README"/>
-    <echo>Has README check: '${prop.has.README}'</echo>
+    <echo>Has README check: /${prop.has.README}/</echo>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
