@@ -9,22 +9,25 @@ pipeline {
         buildDiscarder(logRotator(artifactDaysToKeepStr: '2', artifactNumToKeepStr: '5', daysToKeepStr: '15', numToKeepStr: '15'))
         durabilityHint('PERFORMANCE_OPTIMIZED')
     }
+    parameters {
+        string(defaultValue: 'JENKINS-52746', description: 'Branch name', name: 'GIT_BRANCH')
+    }
     triggers {
         pollSCM('H/7 * * * *')
     }
     tools {
-      ant 'ant-latest'
+        ant 'ant-latest'
     }
     stages {
         stage('Checkout') {
             steps {
                 checkout(poll: true,
                          scm: [$class: 'GitSCM',
-                               branches: [[name: "refs/heads/${env.BRANCH_NAME}"]],
+                               branches: [[name: "refs/heads/${params.BRANCH_NAME}"]],
                                extensions: [
                                             [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                                             [$class: 'AuthorInChangelog'],
-                                            [$class: 'LocalBranch', localBranch: "${env.BRANCH_NAME}"],
+                                            [$class: 'LocalBranch', localBranch: "${params.BRANCH_NAME}"],
                                            ],
                                gitTool: scm.gitTool,
                                userRemoteConfigs: scm.userRemoteConfigs])
