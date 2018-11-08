@@ -23,11 +23,11 @@ pipeline {
             steps {
                 checkout(poll: true,
                          scm: [$class: 'GitSCM',
-                               branches: [[name: params.BRANCH_NAME]],
+                               branches: [[name: "${params.BRANCH_NAME}"]],
                                extensions: [
                                             [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                                             [$class: 'AuthorInChangelog'],
-                                            [$class: 'LocalBranch', localBranch: params.BRANCH_NAME],
+                                            [$class: 'LocalBranch', localBranch: "${params.BRANCH_NAME}"],
                                            ],
                                gitTool: scm.gitTool,
                                userRemoteConfigs: scm.userRemoteConfigs])
