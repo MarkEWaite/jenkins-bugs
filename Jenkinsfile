@@ -22,8 +22,10 @@ pipeline {
                          scm: [$class: 'GitSCM',
                                branches: [[name: "refs/heads/${env.BRANCH_NAME}"]],
                                extensions: [
+                                            [$class: 'CheckoutOption', timeout: 3],
                                             [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                                             [$class: 'LocalBranch', localBranch: "${env.BRANCH_NAME}"],
+                                            [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [[path: 'build.xml'], [path: 'Jenkinsfile'], [path: 'build.number']]],
                                            ],
                                gitTool: scm.gitTool,
                                userRemoteConfigs: scm.userRemoteConfigs])
@@ -33,6 +35,7 @@ pipeline {
             steps {
                 sh 'ant info'
                 sh 'env | sort'
+                sh 'ls'
             }
         }
     }
