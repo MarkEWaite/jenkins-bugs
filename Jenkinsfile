@@ -19,6 +19,7 @@ node {
                     [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/bugs/jenkins-bugs.git'],
                     [$class: 'LocalBranch', localBranch: 'JENKINS-48818'],
                     [$class: 'SubmoduleOption', disableSubmodules: false, recursiveSubmodules: false, reference: '/var/lib/git/jenkins/jenkins-pipeline-utils.git', trackingSubmodules: false],
+                    // Sparse checkout and submodule checkout don't work well together
                     // [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [[path: 'build.xml'], [path: 'Jenkinsfile'], [path: 'build.number'], [path: 'modules']]],
                 ],
                 gitTool: 'Default', // JGitAPIImpl doesn't fully support submodules or sparse checkout
