@@ -25,9 +25,11 @@ pipeline {
                                             [$class: 'CheckoutOption', timeout: 3],
                                             [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                                             [$class: 'LocalBranch', localBranch: "${env.BRANCH_NAME}"],
+                                            // Sparse checkout not implemented in JGit
                                             [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [[path: 'build.xml'], [path: 'Jenkinsfile'], [path: 'build.number']]],
                                            ],
-                               gitTool: scm.gitTool,
+                               // gitTool: scm.gitTool, // Sparse checkout not implemented in JGit
+                               gitTool: 'git',
                                userRemoteConfigs: scm.userRemoteConfigs])
             }
         }
