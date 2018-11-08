@@ -23,7 +23,7 @@ pipeline {
             steps {
                 checkout(poll: true,
                          scm: [$class: 'GitSCM',
-                               branches: [[name: "remotes/origin/${params.BRANCH_NAME}"]],
+                               branches: [[name: "${params.BRANCH_NAME}"]],
                                extensions: [
                                             [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                                             [$class: 'AuthorInChangelog'],
