@@ -20,11 +20,11 @@ pipeline {
             steps {
                 checkout(poll: true,
                          scm: [$class: 'GitSCM',
-                               branches: [[name: "refs/heads/${BRANCH_NAME}"]],
+                               branches: [[name: 'refs/heads/JENKINS-52746']],
                                extensions: [
                                             [$class: 'CheckoutOption', timeout: 3],
                                             [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                                            [$class: 'LocalBranch', localBranch: "${BRANCH_NAME}"],
+                                            [$class: 'LocalBranch', localBranch: 'JENKINS-52746'],
                                             // Sparse checkout not implemented in JGit
                                             // [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [[path: 'build.xml'], [path: 'Jenkinsfile'], [path: 'build.number']]],
                                            ],
