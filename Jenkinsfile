@@ -19,7 +19,7 @@ node {
                     [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/bugs/jenkins-bugs.git'],
                     [$class: 'LocalBranch', localBranch: 'JENKINS-48818'],
                     [$class: 'SubmoduleOption', disableSubmodules: false, recursiveSubmodules: false, reference: '/var/lib/git/jenkins/jenkins-pipeline-utils.git', trackingSubmodules: false],
-                    [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [[path: 'build.xml'], [path: 'Jenkinsfile'], [path: 'build.number'], [path: 'modules']]],
+                    // [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [[path: 'build.xml'], [path: 'Jenkinsfile'], [path: 'build.number'], [path: 'modules']]],
                 ],
                 gitTool: 'Default', // JGitAPIImpl doesn't fully support submodules or sparse checkout
                 submoduleCfg: [],
@@ -37,6 +37,6 @@ node {
     my_check.logContains('.*user dir is.*', 'Ant script missing output')
     my_check.logContains('.*No space contents check: LICENSE.*', 'Content missing for simple submodule')
     my_check.logContains('.*Has space contents check: README.md.*', 'Content missing for submodule with space in name')
-    my_check.logContains('.*Has README check: //.*', 'Checkout was not sparse - README detected')
+    // my_check.logContains('.*Has README check: //.*', 'Checkout was not sparse - README detected')
   }
 }
