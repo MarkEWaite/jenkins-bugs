@@ -26,7 +26,7 @@ node('master') {
                             timeout: 3],
                            [$class: 'LocalBranch', localBranch: branch],
                            [$class: 'PruneStaleBranch'],
-                           [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [[path: 'build.xml'], [path: 'Jenkinsfile'], [path: 'build.number'], [path: 'jobs']]],
+                           [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [[path: 'build.xml'], [path: 'Jenkinsfile'], [path: 'jobs']]],
                           ],
               gitTool: 'Default', // Default shows the bug, jgit does not
              ])
