@@ -1,4 +1,4 @@
-# [JENKINS-23606(https://issues.jenkins-ci.org/browse/JENKINS-23606) - merge commit changes report more than actually changed
+# [JENKINS-23606](https://issues.jenkins-ci.org/browse/JENKINS-23606) - merge commit changes report more than actually changed
 
 User has projects defined as subdirectories within their git repository.
 
