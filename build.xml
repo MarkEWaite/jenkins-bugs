@@ -11,7 +11,7 @@
     <git command="commit">
       <args>
         <arg value="-m"/>
-        <arg value="User interface truncates change messages ${ant.project.name} ${user.name} build++, was ${build.number} with an intentionally long first line of the commit message.  It should be truncated in the Jenkins user interface"/>
+        <arg value="build++, was ${build.number} of ${ant.project.name} user interface truncates change messages with an intentionally long first line of the commit message.  It should be truncated in the Jenkins user interface"/>
       </args>
     </git>
   </target>
