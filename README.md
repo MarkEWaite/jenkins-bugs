@@ -1,4 +1,4 @@
-# [JENKINS-33827](https://issues.jenkins-ci.org/browse/JENKINS-33827) Bug Verification
+# [JENKINS-33827](https://issues.jenkins-ci.org/browse/JENKINS-33827) Build chooser strategy combinations
 
 Multiple build chooser strategy specifications within the same job
 definition seem to interact in unexpected ways.  This page includes a
