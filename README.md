@@ -1,11 +1,10 @@
 # Jenkins bug verification public repository
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations to
-duplicate the bug.  This repository captures some of those configurations
-in a way that is publicly visible so that automated tests can use this
-repository.
+Ivan Fernandez Calvo reported that a Pipeline job would not calculate
+the changelog using a base branch for the first build.  A Freestyle
+job will compute a changelog for the first build when given a base
+branch.
 
-This repository includes many branches with a Jenkinsfile pipeline
-definition for branches where the pipeline definition can encapsulate
-at least a portion of the bug verification.
+It may be that the default clone of the narrow refspec makes the
+baseline branch "invisible" in the Pipeline job that is computing the
+changelog.
