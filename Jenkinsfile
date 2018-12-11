@@ -15,10 +15,10 @@ node {
     checkout([$class: 'GitSCM',
                 branches: [[name: branch]],
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                             [$class: 'LocalBranch', localBranch: branch]
+                             [$class: 'ChangelogToBranch', options: [compareRemote: 'origin', compareTarget: 'master']]
                             ],
                 gitTool: scm.gitTool,
-                userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
+                userRemoteConfigs: [[refspec: "+refs/heads/*:refs/remotes/origin/*", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
   }
 
   stage('Build') {
