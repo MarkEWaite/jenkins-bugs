@@ -20,25 +20,25 @@ def get_commit_sha1() {
   return sha1
 }
 
-def do_checkout(branch) {
+def do_checkout(branch, repoUrlSuffix) {
   return checkout([$class: 'GitSCM',
 	  branches: [[name: branch]],
-	  extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+	  extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: "/var/lib/git/mwaite/bugs/${repoUrlSuffix}"],
 		       [$class: 'LocalBranch', localBranch: branch]
 		      ],
 	  gitTool: scm.gitTool,
-	  userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
+	  userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: "https://github.com/MarkEWaite/${repoUrlSuffix}"]]])
 }
 
 node {
   def map1 = [:]
   def map2 = [:]
   stage('Checkout') {
-    map1 = do_checkout(branch)
+    map1 = do_checkout(branch, 'jenkins-bugs')
     map1['shell_output'] = get_commit_sha1()
     ws() {
       masterBranch='master'
-      map2 = do_checkout('master')
+      map2 = do_checkout('master', 'git-client-plugin')
       map2['shell_output'] = get_commit_sha1()
     }
   }
