@@ -8,7 +8,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-def branch = 'JENKINS-53346'
+def branch = 'JENKINS-39968'
 
 def get_commit_sha1() {
   def sha1 = "unknown"
