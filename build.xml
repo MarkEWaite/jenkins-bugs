@@ -1,4 +1,4 @@
-<project name="JENKINS-53346" default="increment" basedir=".">
+<project name="JENKINS-39968" default="increment" basedir=".">
 
   <property environment="env"/>
 
@@ -42,8 +42,8 @@
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
-    <!-- JENKINS-53346 reports that checkout returns the same map on a second
-         call even though the branch for checkout is different than first. -->
+    <!-- JENKINS-39968 reports that checkout returns the same map on a second
+         call even though the repository and branch for the second checkout is different than first. -->
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
