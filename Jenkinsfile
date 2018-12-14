@@ -38,7 +38,7 @@ node {
     map1['shell_output'] = get_commit_sha1()
     ws() {
       masterBranch='master'
-      map2 = do_checkout('master', 'git-client-plugin')
+      map2 = do_checkout('master', 'jenkins-bugs') // Must be same repo as first checkout to show bug
       map2['shell_output'] = get_commit_sha1()
     }
   }
