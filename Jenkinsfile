@@ -1,6 +1,5 @@
 pipeline {
     options {
-        durabilityHint('PERFORMANCE_OPTIMIZED')
         skipDefaultCheckout()
         timestamps()
     }
