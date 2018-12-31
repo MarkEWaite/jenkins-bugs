@@ -9,17 +9,17 @@ pipeline {
     stages {
         stage('Info') {
             steps {
-                git 'https://github.com/amuniz/maven-helloworld'
-                // checkout([
-                //   $class: 'GitSCM',
-                //   branches: scm.branches,
-                //   extensions: scm.extensions,
-                //   userRemoteConfigs: scm.userRemoteConfigs
-                // ])
+                // git 'https://github.com/amuniz/maven-helloworld'
                 // git branch: 'JENKINS-55257', url: 'https://github.com/MarkEWaite/jenkins-bugs'
-                // withAnt(installation: 'ant-latest') {
-                //     bat 'ant info'
-                // }
+                checkout([
+                  $class: 'GitSCM',
+                  branches: scm.branches,
+                  extensions: scm.extensions,
+                  userRemoteConfigs: scm.userRemoteConfigs
+                ])
+                withAnt(installation: 'ant-latest') {
+                    bat 'ant info'
+                }
             }
         }
     }
