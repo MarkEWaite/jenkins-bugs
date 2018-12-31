@@ -10,15 +10,15 @@ pipeline {
         stage('Info') {
             steps {
                 // checkout([
-		//   $class: 'GitSCM',
-		//   branches: scm.branches,
-		//   extensions: scm.extensions,
-		//   userRemoteConfigs: scm.userRemoteConfigs
+                //   $class: 'GitSCM',
+                //   branches: scm.branches,
+                //   extensions: scm.extensions,
+                //   userRemoteConfigs: scm.userRemoteConfigs
                 // ])
-		git branch: 'JENKINS-55257', url: 'https://github.com/MarkEWaite/jenkins-bugs'
-		withAnt(installation: 'ant-latest') {
-		    bat 'ant info'
-		}
+                git branch: 'JENKINS-55257', url: 'https://github.com/MarkEWaite/jenkins-bugs'
+                withAnt(installation: 'ant-latest') {
+                    bat 'ant info'
+                }
             }
         }
     }
