@@ -3,8 +3,9 @@ pipeline {
         label 'windows'
     }
     options {
-        timestamps()
         durabilityHint('PERFORMANCE_OPTIMIZED')
+        skipDefaultCheckout()
+        timestamps()
     }
     triggers {
         pollSCM('H/13 * * * *')
@@ -13,8 +14,14 @@ pipeline {
         ant 'ant-latest'
     }
     stages {
-        stage('Test and Package') {
+        stage('Info') {
             steps {
+                checkout([
+		  $class: 'GitSCM',
+		  branches: scm.branches,
+		  extensions: scm.extensions,
+		  userRemoteConfigs: scm.userRemoteConfigs
+                ])
                 bat 'ant info'
             }
         }
