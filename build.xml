@@ -1,4 +1,4 @@
-<project name="JENINS-52746" default="increment" basedir=".">
+<project name="JENINS-55257" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
     <git command="pull">
@@ -26,20 +26,7 @@
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
-    <!-- JENKINS-52746 reports that branch builds without
-         any commits.  This reports commits on this branch in the last 15
-         minutes -->
-    <echo>Displaying git log messages on this branch from last 15 minutes</echo>
-    <git command="log">
-      <args>
-        <arg value="--since='15 minutes ago'"/>
-      </args>
-    </git>
-    <echo>End of git log messages on this branch from last 15 minutes</echo>
-    <!-- Fail build if not a sparse checkout - see Jenkinsfile -->
-    <!-- Sparse checkout not available with JGit -->
-    <!-- <available file="README.md" property="README.exists"/> -->
-    <!-- <fail message="Checkout was not sparse - found README.md" if="README.exists"/> -->
+    <!-- JENKINS-55257 reports that timestamper breaks builds on Windows agents. -->
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
