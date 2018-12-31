@@ -1,17 +1,11 @@
 pipeline {
-    agent {
-        label 'windows'
-    }
     options {
         durabilityHint('PERFORMANCE_OPTIMIZED')
         skipDefaultCheckout()
         timestamps()
     }
-    triggers {
-        pollSCM('H/13 * * * *')
-    }
-    tools {
-        ant 'ant-latest'
+    agent {
+        label 'windows'
     }
     stages {
         stage('Info') {
@@ -22,7 +16,9 @@ pipeline {
 		  extensions: scm.extensions,
 		  userRemoteConfigs: scm.userRemoteConfigs
                 ])
-                bat 'ant info'
+		withAnt(installation: 'ant-latest') {
+		    bat 'ant info'
+		}
             }
         }
     }
