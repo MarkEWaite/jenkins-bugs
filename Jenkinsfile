@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('Test and Package') {
             steps {
-                sh 'ant info'
+                bat 'ant info'
             }
         }
     }
