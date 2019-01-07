@@ -1,0 +1,32 @@
+[submodule "JENKINS-14798"]
+	path = submodule-dir/JENKINS-14798
+	url = https://github.com/MarkEWaite/jenkins-bugs
+	branch = JENKINS-14798
+[submodule "JENKINS-21248"]
+	path = submodule-dir/JENKINS-21248
+	url = https://github.com/MarkEWaite/jenkins-bugs
+	branch = JENKINS-21248
+[submodule "JENKINS-22547"]
+	path = submodule-dir/JENKINS-22547
+	url = https://github.com/MarkEWaite/jenkins-bugs
+	branch = JENKINS-22547
+[submodule "JENKINS-22795"]
+	path = submodule-dir/JENKINS-22795
+	url = https://github.com/MarkEWaite/jenkins-bugs
+	branch = JENKINS-22795
+[submodule "JENKINS-23476"]
+	path = submodule-dir/JENKINS-23476
+	url = https://github.com/MarkEWaite/jenkins-bugs
+	branch = JENKINS-23476
+[submodule "JENKINS-24304"]
+	path = submodule-dir/JENKINS-24304
+	url = https://github.com/MarkEWaite/jenkins-bugs
+	branch = JENKINS-24304
+[submodule "JENKINS-26660"]
+	path = submodule-dir/JENKINS-26660
+	url = https://github.com/MarkEWaite/jenkins-bugs
+	branch = JENKINS-26660
+[submodule "JENKINS-28529"]
+	path = submodule-dir/JENKINS-28529
+	url = https://github.com/MarkEWaite/jenkins-bugs
+	branch = JENKINS-28529
