@@ -13,12 +13,13 @@ def branch = 'master'
 node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
-                branches: [[name: branch]],
+                branches: scm.branches,
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                             [$class: 'LocalBranch', localBranch: branch]
+                             [$class: 'LocalBranch', localBranch: branch],
+                             [$class: 'SubmoduleOption', parentCredentials: true, recursiveSubmodules: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', threads: 4]
                             ],
                 gitTool: scm.gitTool,
-                userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
+                userRemoteConfigs: scm.userRemoteConfigs])
   }
 
   stage('Build') {
@@ -29,10 +30,6 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains(".*[*] ${branch}.*", 'Wrong branch reported')
-    // if (currentBuild.number > 1) { // Don't check first build
-      // my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
-      // my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
-    // }
+    my_check.logContains(".*submodule xyzzy up to date.*", 'Missing expected submodule')
   }
 }
