@@ -7,15 +7,26 @@
         <arg value="--prune"/>
       </args>
     </git>
-    <buildnumber/>
     <git command="submodule">
       <args>
         <arg value="update"/>
         <arg value="--remote"/>
-        <arg value="--merge"/>
+        <arg value="--checkout"/>
         <arg value="--recursive"/>
       </args>
     </git>
+    <git command="add">
+      <args>
+        <arg value="."/>
+      </args>
+    </git>
+    <git command="commit">
+      <args>
+        <arg value="-m"/>
+        <arg value="Update submodules of [${ant.project.name}]"/>
+      </args>
+    </git>
+    <buildnumber/>
     <git command="add">
       <args>
         <arg value="build.number"/>
