@@ -10,6 +10,7 @@
     <git command="submodule">
       <args>
         <arg value="update"/>
+        <arg value="--init"/>
         <arg value="--remote"/>
         <arg value="--checkout"/>
         <arg value="--recursive"/>
