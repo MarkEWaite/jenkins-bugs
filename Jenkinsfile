@@ -30,6 +30,12 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains(".*submodule xyzzy up to date.*", 'Missing expected submodule')
+    my_check.logContains(".*submodule-dir/JENKINS-14798 .*", 'Missing JENKINS-14798 submodule')
+    my_check.logContains(".*submodule-dir/JENKINS-21248 .*", 'Missing JENKINS-21248 submodule')
+    my_check.logContains(".*submodule-dir/JENKINS-22547 .*", 'Missing JENKINS-22547 submodule')
+    my_check.logContains(".*submodule-dir/JENKINS-22795 .*", 'Missing JENKINS-22795 submodule')
+    my_check.logContains(".*submodule-dir/JENKINS-23476 .*", 'Missing JENKINS-23476 submodule')
+    my_check.logContains(".*submodule-dir/JENKINS-24304 .*", 'Missing JENKINS-24304 submodule')
+    my_check.logContains(".*submodule-dir/JENKINS-26660 .*", 'Missing JENKINS-26660 submodule')
   }
 }
