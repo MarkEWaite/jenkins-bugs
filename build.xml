@@ -13,6 +13,10 @@
         <arg value="--init"/>
         <arg value="--remote"/>
         <arg value="--checkout"/>
+        <arg value="--reference"/>
+        <arg value="/var/lib/git/mwaite/bugs/jenkins-bugs.git"/>
+        <arg value="--depth"/>
+        <arg value="1"/>
         <arg value="--recursive"/>
       </args>
     </git>
