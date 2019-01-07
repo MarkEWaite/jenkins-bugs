@@ -8,6 +8,14 @@
       </args>
     </git>
     <buildnumber/>
+    <git command="submodule">
+      <args>
+        <arg value="update"/>
+        <arg value="--remote"/>
+        <arg value="--merge"/>
+        <arg value="--recursive"/>
+      </args>
+    </git>
     <git command="add">
       <args>
         <arg value="build.number"/>
