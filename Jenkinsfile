@@ -18,7 +18,7 @@ node {
                              [$class: 'LocalBranch', localBranch: branch],
                              [$class: 'SubmoduleOption', parentCredentials: true, recursiveSubmodules: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', threads: 4]
                             ],
-                gitTool: scm.gitTool,
+                gitTool: 'git', // JGit implementation does not yet support submodules in git client plugin
                 userRemoteConfigs: scm.userRemoteConfigs])
   }
 
