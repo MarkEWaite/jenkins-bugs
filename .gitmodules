@@ -30,3 +30,7 @@
 	path = submodule-dir/JENKINS-28529
 	url = https://github.com/MarkEWaite/jenkins-bugs
 	branch = JENKINS-28529
+[submodule "JENKINS-34350"]
+	path = JENKINS-34350
+	url = https://github.com/MarkEWaite/jenkins-bugs
+	branch = JENKINS-34350
