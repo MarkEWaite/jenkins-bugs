@@ -11,11 +11,17 @@
       <args>
         <arg value="update"/>
         <arg value="--init"/>
-        <arg value="--remote"/>
         <arg value="--checkout"/>
         <arg value="--reference"/>
         <arg value="/var/lib/git/mwaite/bugs/jenkins-bugs.git"/>
         <arg value="--recursive"/>
+      </args>
+    </git>
+    <git command="submodule">
+      <args>
+        <arg value="update"/>
+        <arg value="--remote"/>
+        <arg value="--merge"/>
       </args>
     </git>
     <git command="add">
