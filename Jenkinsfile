@@ -18,6 +18,9 @@ pipeline {
             }
             steps {
                 echo "stage will pass due to ${params.booleanParamJENKINS36451} parameter"
+                dir('pass-dir') {
+                    sh 'pwd'
+                }
             }
         }
         stage("fail if param is false") {
@@ -25,6 +28,9 @@ pipeline {
                 expression { return ! params.booleanParamJENKINS36451 }
             }
             steps {
+                dir('fail-dir') {
+                    sh 'pwd'
+                }
                 echo "stage will fail due to ${params.booleanParamJENKINS36451} parameter"
                 sh 'exit 1'
             }
