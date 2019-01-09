@@ -9,6 +9,7 @@ properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
 def branch = 'JENKINS-55284'
+def sha1 = ''
 
 node {
   stage('Checkout') {
@@ -25,10 +26,11 @@ node {
     /* Call the ant build. */
     def my_step = new com.markwaite.Build()
     my_step.ant 'info'
+    sha1 = my_step.getSHA1('HEAD')
   }
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains(".*JENKINS-55284-.*", 'Wrong tag reported')
+    my_check.logContains(".*${sha1}.*JENKINS-55284-moving.*", "Wrong tag or sha1 reported, expected '${sha1}'")
   }
 }
