@@ -19,7 +19,7 @@
     <git command="commit">
       <args>
         <arg value="-m"/>
-        <arg value="[${ant.project.name}] ${user.name} build++, was ${build.number}"/>
+        <arg value="[${ant.project.name}] build++, was ${build.number}"/>
       </args>
     </git>
     <!-- Delete existing tag -->
@@ -34,7 +34,7 @@
       <args>
         <arg value="-a"/>
         <arg value="-m"/>
-        <arg value="Tag build number 1+${build.number}"/>
+        <arg value="Tag [${ant.project.name}] build++, was ${build.number}"/>
         <arg value="${tag.name}"/>
       </args>
     </git>
