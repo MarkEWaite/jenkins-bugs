@@ -41,6 +41,11 @@
     <git command="push">
       <args>
         <arg value="origin"/>
+      </args>
+    </git>
+    <git command="push">
+      <args>
+        <arg value="origin"/>
         <arg value="--force"/>
         <arg value="${tag.name}"/>
       </args>
