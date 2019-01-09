@@ -25,13 +25,13 @@ node('!git-2.20+') {
   stage('Build git before 2.20') {
     /* Call the ant build. */
     def my_step = new com.markwaite.Build()
-    my_step.ant 'info'
+    my_step.ant 'info-before-2.20'
     sha1 = my_step.getSHA1('HEAD')
   }
 
   stage('Verify git before 2.20') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains(".*${sha1}.*JENKINS-55284-moving.*", "Non git 2.20 wrong tag or sha1 reported, expected '${sha1}'")
+    my_check.logContains(".*${sha1}.*JENKINS-55284-moving before-2.20 .*", "Non git 2.20 wrong tag or sha1 reported, expected '${sha1}'")
   }
 }
 
@@ -55,6 +55,6 @@ node('git-2.20+') {
 
   stage('Verify git 2.20') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains(".*${sha1}.*JENKINS-55284-moving.*", "Git 2.20 wrong tag or sha1 reported, expected '${sha1}'")
+    my_check.logContains(".*${sha1}.*JENKINS-55284-moving 2.20-and-later .*", "Git 2.20 wrong tag or sha1 reported, expected '${sha1}'")
   }
 }

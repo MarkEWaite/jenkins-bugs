@@ -52,8 +52,15 @@
     </git>
   </target>
 
-  <!-- Info about this repository -->
-  <target name="info" description="Report info about this repo">
+  <!-- Calculate locally installed CLI git version -->
+  <target name="calculate-git-version" description="Collect locally installed git version">
+    <exec executable="git" outputproperty="git.version">
+      <arg value="--version"/>
+    </exec>
+  </target>
+
+  <!-- Info about this repository, called for git 2.20 and later -->
+  <target name="info" description="Report info about this repo with git 2.20 and later" depends="calculate-git-version">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <!-- JENKINS-55284 reports that git 2.20 does not pull updated tags -->
@@ -62,7 +69,23 @@
       <args>
         <arg value="-n"/>
         <arg value="1"/>
-        <arg value="--format=format:%H ${tag.name}"/>
+        <arg value="--format=format:%H ${tag.name} 2.20-and-later ${git.version}"/>
+        <arg value="${tag.name}"/>
+      </args>
+    </git>
+  </target>
+
+  <!-- Info about this repository, called for git 2.20 and later -->
+  <target name="info-before-2.20" description="Report info about this repo before 2.20" depends="calculate-git-version">
+    <echo>java is ${java.version}</echo>
+    <echo>user dir is ${user.dir}</echo>
+    <!-- JENKINS-55284 reports that git 2.20 does not pull updated tags -->
+    <!-- Report the SHA1 that is tagged by tag.name -->
+    <git command="rev-list">
+      <args>
+        <arg value="-n"/>
+        <arg value="1"/>
+        <arg value="--format=format:%H ${tag.name} before-2.20 ${git.version}"/>
         <arg value="${tag.name}"/>
       </args>
     </git>
