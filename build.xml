@@ -60,6 +60,7 @@
     <git command="tag">
       <args>
         <arg value="-l"/>
+        <arg value="--format=%(objectname) %(refname:short) %(subject)"/>
         <arg value="${tag.name}"/>
       </args>
     </git>
