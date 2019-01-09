@@ -1,12 +1,48 @@
 <project name="JENKINS-55284" default="increment" basedir=".">
 
+  <property name="tag.name" value="JENKINS-55284-moving"/>
+
   <target name="increment" description="Increment build number">
+    <git command="pull">
+      <args>
+        <arg value="--all"/>
+        <arg value="--prune"/>
+        <arg value="--force"/>
+      </args>
+    </git>
     <buildnumber/>
+    <git command="add">
+      <args>
+        <arg value="build.number"/>
+      </args>
+    </git>
     <git command="commit">
       <args>
         <arg value="-m"/>
         <arg value="[${ant.project.name}] ${user.name} build++, was ${build.number}"/>
-        <arg value="build.number"/>
+      </args>
+    </git>
+    <!-- Delete existing tag -->
+    <git command="tag">
+      <args>
+        <arg value="-d"/>
+        <arg value="${tag.name}"/>
+      </args>
+    </git>
+    <!-- Create new tag -->
+    <git command="tag">
+      <args>
+        <arg value="-a"/>
+        <arg value="-m"/>
+        <arg value="Tag build number 1+${build.number}"/>
+        <arg value="${tag.name}"/>
+      </args>
+    </git>
+    <git command="push">
+      <args>
+        <arg value="origin"/>
+        <arg value="--force"/>
+        <arg value="${tag.name}"/>
       </args>
     </git>
   </target>
@@ -19,7 +55,7 @@
     <git command="tag">
       <args>
         <arg value="-l"/>
-        <arg value="JENKINS-55284-*"/>
+        <arg value="${tag.name}"/>
       </args>
     </git>
   </target>
