@@ -57,10 +57,12 @@
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <!-- JENKINS-55284 reports that git 2.20 does not pull updated tags -->
-    <git command="tag">
+    <!-- Report the SHA1 that is tagged by tag.name -->
+    <git command="rev-list">
       <args>
-        <arg value="-l"/>
-        <arg value="--format=%(objectname) %(refname:short) %(subject)"/>
+        <arg value="-n"/>
+        <arg value="1"/>
+        <arg value="--format=format:%H ${tag.name}"/>
         <arg value="${tag.name}"/>
       </args>
     </git>
