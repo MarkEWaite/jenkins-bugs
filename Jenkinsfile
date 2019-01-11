@@ -29,7 +29,7 @@ def credential_ids  =         [
                                 existing_but_unusable_credentials_id_2,
                               ]
 
-node('windows || home-hasphrase') {
+node('home-hasphrase') {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
                 branches: scm.branches,
