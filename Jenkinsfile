@@ -10,6 +10,22 @@ properties([[$class: 'BuildDiscarderProperty',
 
 def branch = 'JENKINS-30515'
 def non_existent_credentials_id = 'JENKINS-30515-non-existent-credentials-id'
+def existing_but_unusable_credentials_id = 'MarkE-ed25519-private-key-mark-pc4'
+
+def public_repository_urls =  [
+				'https://github.com/MarkEWaite/jenkins-bugs',
+				'git@github.com:MarkEWaite/jenkins-bugs.git',
+			      ]
+
+def private_repository_urls = [
+                                'https://github.com/MarkEWaite/jenkins-bugs-private',
+                                'git@github.com:MarkEWaite/jenkins-bugs-private.git',
+                              ]
+
+def credential_ids  =         [
+                                non_existent_credentials_id,
+                                existing_but_unusable_credentials_id,
+                              ]
 
 node {
   stage('Checkout') {
@@ -20,16 +36,21 @@ node {
                             ],
                 gitTool: scm.gitTool,
                 userRemoteConfigs: scm.userRemoteConfigs])
-    ws() {
-      checkout([$class: 'GitSCM',
-                  branches: [[name: 'master']],
-		  extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true]],
-		  gitTool: scm.gitTool,
-		  userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
-				       credentialsId: non_existent_credentials_id,
-				       name: 'non-existent-credentials-origin',
-				       refspec: "+refs/heads/master:refs/remotes/non-existent-credentials-origin/master",
-				      ]]])
+
+    for (repository_url : public_repository_urls) {
+      for (credential_id : credential_ids) {
+        ws() {
+          checkout([$class: 'GitSCM',
+                      branches: [[name: 'master']],
+                      extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true]],
+                      gitTool: scm.gitTool,
+                      userRemoteConfigs: [[url: repository_url,
+                                           credentialsId: credential_id,
+                                           name: "${credential_id}-origin",
+                                           refspec: "+refs/heads/master:refs/remotes/${credential_id}-origin/master",
+                                          ]]])
+        }
+      }
     }
   }
 
