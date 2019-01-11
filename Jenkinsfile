@@ -27,7 +27,7 @@ def credential_ids  =         [
                                 existing_but_unusable_credentials_id,
                               ]
 
-node {
+node('windows || home-hasphrase || remote') {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
                 branches: scm.branches,
@@ -35,7 +35,8 @@ node {
                              [$class: 'LocalBranch', localBranch: branch]
                             ],
                 gitTool: scm.gitTool,
-                userRemoteConfigs: scm.userRemoteConfigs])
+                userRemoteConfigs: [url: 'https://github.com/MarkEWaite/jenkins-bugs',
+                                    refspec: '+refs/heads/master:refs/remotes/origin/master'])
 
     for (repository_url in public_repository_urls) {
       for (credential_id in credential_ids) {
@@ -91,6 +92,11 @@ node {
     for (repository_url in public_repository_urls) {
       for (credential_id in credential_ids) {
 	my_check.logContains(".*[^/]${credential_id}[^-].*", "credential ${credential_id} not reported")
+      }
+    }
+    for (repository_url in private_repository_urls) {
+      for (credential_id in credential_ids) {
+	my_check.logContains(".*Warning:.*[^/]${credential_id}[^-].*", "credential ${credential_id} not reported")
       }
     }
     my_check.logContains(".*user dir is .*", 'Missing expected output')
