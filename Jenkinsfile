@@ -11,7 +11,7 @@ properties([[$class: 'BuildDiscarderProperty',
 def branch = 'JENKINS-30515'
 def non_existent_credentials_id = 'JENKINS-30515-non-existent-credentials-id'
 def existing_but_unusable_credentials_id_1 = 'MarkE-ed25519-private-key-mark-pc4'
-def existing_but_unusable_credentials_id_2 = 'assembla-rsa-from-centos7x64'
+def existing_but_unusable_credentials_id_2 = 'jagent-aws-ubuntu-18-a-rsa-private-key-with-passphrase'
 
 def public_repository_urls =  [
 				'https://github.com/MarkEWaite/jenkins-bugs',
@@ -29,7 +29,7 @@ def credential_ids  =         [
                                 existing_but_unusable_credentials_id_2,
                               ]
 
-node('windows || home-hasphrase || remote') {
+node('windows || home-hasphrase') {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
                 branches: scm.branches,
