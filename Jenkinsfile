@@ -8,17 +8,21 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-def branch = 'master'
+def branch = 'JENKINS-55536'
+
+def httpsRemoteConfig = [ url: 'https://github.com/MarkEWaite/jenkins-bugs',
+                          name: 'https-origin',
+                          refspec: "+refs/heads/${branch}:refs/remotes/https-origin/${branch}" ]
 
 node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
-                branches: [[name: branch]],
+                branches: scm.branches,
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                              [$class: 'LocalBranch', localBranch: branch]
                             ],
                 gitTool: scm.gitTool,
-                userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
+                userRemoteConfigs: [ scm.userRemoteConfigs[0] + httpsRemoteConfig ])
   }
 
   stage('Build') {
@@ -29,10 +33,7 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains(".*[*] ${branch}.*", 'Wrong branch reported')
-    // if (currentBuild.number > 1) { // Don't check first build
-      // my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
-      // my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
-    // }
+    my_check.logContains(".*fetch.*https-origin.*", 'Did not fetch from second origin')
+    my_check.logContains(".*https-origin.*https://github.com/MarkEWaite/jenkins-bugs.*", 'Repo missing second origin')
   }
 }
