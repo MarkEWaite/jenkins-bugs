@@ -33,7 +33,9 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains(".*fetch.*https-origin.*", 'Did not fetch from second origin')
-    my_check.logContains(".*https-origin.*https://github.com/MarkEWaite/jenkins-bugs.*", 'Repo missing second origin')
+    my_check.logContains(".*fetch.*refs/heads/JENKINS-55536:refs/remotes/origin/JENKINS-55536.*", 'Did not fetch from first origin')
+    my_check.logContains(".*fetch.*refs/heads/JENKINS-55536:refs/remotes/https-origin/JENKINS-55536.*", 'Did not fetch from second origin')
+    my_check.logContains(".* origin.*https://github.com/MarkEWaite/jenkins-bugs.*", 'Repo missing first origin')
+    my_check.logContains(".* https-origin.*https://github.com/MarkEWaite/jenkins-bugs.*", 'Repo missing second origin')
   }
 }
