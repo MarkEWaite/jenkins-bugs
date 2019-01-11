@@ -1,11 +1,14 @@
-# Jenkins bug verification public repository
+# [JENKINS-30515](https://issues.jenkins-ci.org/browse/JENKINS-30515) Missing credentials not clearly reported
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations to
-duplicate the bug.  This repository captures some of those configurations
-in a way that is publicly visible so that automated tests can use this
-repository.
+When incorrect credentials are provided to checkout the error message
+is not clear. It reports a stack trace instead of reporting that the
+credentials could not be found.
 
-This repository includes many branches with a Jenkinsfile pipeline
-definition for branches where the pipeline definition can encapsulate
-at least a portion of the bug verification.
+Some of the cases to test include:
+
+* Non-existent credentials to a public https repository
+* Non-existent credentials to a public ssh repository
+* Non-existent credentials to a private https repository
+* Non-existent credentials to a private ssh repository
+* Incorrect credentials to a private https repository
+* Incorrect credentials to a private ssh repository
