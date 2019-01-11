@@ -14,10 +14,10 @@ def existing_but_unusable_credentials_id = 'MarkE-ed25519-private-key-mark-pc4'
 
 def public_repository_urls =  [
 				'https://github.com/MarkEWaite/jenkins-bugs',
-				'git@github.com:MarkEWaite/jenkins-bugs.git',
 			      ]
 
 def private_repository_urls = [
+				'git@github.com:MarkEWaite/jenkins-bugs.git',
                                 'https://github.com/MarkEWaite/jenkins-bugs-private',
                                 'git@github.com:MarkEWaite/jenkins-bugs-private.git',
                               ]
