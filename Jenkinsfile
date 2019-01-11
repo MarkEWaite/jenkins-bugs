@@ -52,6 +52,27 @@ node {
         }
       }
     }
+
+    for (repository_url in private_repository_urls) {
+      for (credential_id in credential_ids) {
+        ws() {
+	  try {
+	    checkout([$class: 'GitSCM',
+			branches: [[name: 'master']],
+			extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true]],
+			gitTool: scm.gitTool,
+			userRemoteConfigs: [[url: repository_url,
+					     credentialsId: credential_id,
+					     name: "${credential_id}-origin",
+					     refspec: "+refs/heads/master:refs/remotes/${credential_id}-origin/master",
+					    ]]])
+	    assertCondition(false, "private checkout of ${repository_url} with ${credential_id} succeeded unexpectedly")
+	  } catch (all) {
+	    assert all in hudson.plugins.git.GitException
+	  }
+        }
+      }
+    }
   }
 
   stage('Build') {
