@@ -22,7 +22,7 @@ node {
                              [$class: 'LocalBranch', localBranch: branch]
                             ],
                 gitTool: scm.gitTool,
-                userRemoteConfigs: [ scm.userRemoteConfigs[0] + httpsRemoteConfig ])
+                userRemoteConfigs: [ scm.userRemoteConfigs[0] + httpsRemoteConfig ]])
   }
 
   stage('Build') {
