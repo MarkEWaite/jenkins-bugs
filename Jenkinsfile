@@ -70,8 +70,8 @@ node {
 					    ]]])
 	    echo "********** After checkout ${repository_url} with ${credential_id}"
 	    // my_assert.assertCondition(false, "private checkout of ${repository_url} with ${credential_id} succeeded unexpectedly")
-	  } catch (hudson.plugins.git.GitException ge) {
-	    echo "Caught exception was ${ge}"
+	  } catch (Exception e) {
+	    echo "Caught exception was ${e}"
 	  }
         }
       }
