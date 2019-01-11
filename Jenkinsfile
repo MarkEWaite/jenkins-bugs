@@ -27,7 +27,7 @@ node {
 		  gitTool: scm.gitTool,
 		  userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
 				       credentialsId: non_existent_credentials_id,
-				       name: 'non-existent-credentials-origin'
+				       name: 'non-existent-credentials-origin',
 				       refspec: "+refs/heads/master:refs/remotes/non-existent-credentials-origin/master",
 				      ]])
     }
