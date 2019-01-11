@@ -92,7 +92,7 @@ node('home-hasphrase || remote || windows') {
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     for (credential_id in credential_ids) {
-      my_check.logContains(".*(using credential|Warning: CredentialId).* ${credential_id}.*", "credential ${credential_id} not reported")
+      my_check.logContains(".*(using credential|Warning: CredentialId).*${credential_id}.*", "credential ${credential_id} not reported")
     }
     my_check.logContains(".*user dir is .*", 'Missing user dir report')
   }
