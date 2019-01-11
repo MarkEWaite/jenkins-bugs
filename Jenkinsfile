@@ -22,7 +22,7 @@ node {
                 userRemoteConfigs: scm.userRemoteConfigs])
     ws() {
       checkout([$class: 'GitSCM',
-		  branches: [ 'master' ],
+                  branches: [[name: 'master']],
 		  extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true]],
 		  gitTool: scm.gitTool,
 		  userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
