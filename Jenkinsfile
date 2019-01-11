@@ -62,7 +62,11 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains(".*${non_existent_credentials_id}.*", 'Non-existing credentials ID not reported')
+    for (repository_url in public_repository_urls) {
+      for (credential_id in credential_ids) {
+	my_check.logContains(".*${credential_id}.*", "credential ${credential_id} not reported")
+      }
+    }
     my_check.logContains(".*user dir is .*", 'Missing expected output')
   }
 }
