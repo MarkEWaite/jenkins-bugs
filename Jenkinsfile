@@ -68,8 +68,8 @@ node {
 					     refspec: "+refs/heads/master:refs/remotes/${credential_id}-origin/master",
 					    ]]])
 	    my_assert.assertCondition(false, "private checkout of ${repository_url} with ${credential_id} succeeded unexpectedly")
-	  } catch (all) {
-	    assert all in hudson.plugins.git.GitException
+	  } catch (hudson.plugins.git.GitException ge) {
+	    echo "Caught exception was ${ge}"
 	  }
         }
       }
