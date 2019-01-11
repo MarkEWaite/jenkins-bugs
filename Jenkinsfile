@@ -29,7 +29,7 @@ node {
 				       credentialsId: non_existent_credentials_id,
 				       name: 'non-existent-credentials-origin',
 				       refspec: "+refs/heads/master:refs/remotes/non-existent-credentials-origin/master",
-				      ]])
+				      ]]])
     }
   }
 
