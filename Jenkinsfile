@@ -60,7 +60,6 @@ node('home-hasphrase || remote || windows') {
     for (repository_url in private_repository_urls) {
       for (credential_id in credential_ids) {
         ws() {
-	  echo "********** Before checkout ${repository_url} with ${credential_id}"
 	  try {
 	    checkout([$class: 'GitSCM',
 			branches: [[name: 'master']],
@@ -73,11 +72,8 @@ node('home-hasphrase || remote || windows') {
 					    ]]])
 	    my_assert.assertCondition(false, "private checkout of ${repository_url} with ${credential_id} succeeded unexpectedly")
 	  } catch (Exception e) {
-	    echo "********** Start of caught exception"
 	    echo "Caught exception was ${e}"
-	    echo "********** End of caught exception"
 	  }
-	  echo "********** After checkout ${repository_url} with ${credential_id}"
         }
       }
     }
