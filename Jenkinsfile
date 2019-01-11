@@ -58,9 +58,7 @@ node {
       for (credential_id in credential_ids) {
         ws() {
 	 try {
-	    echo '**********'
 	    echo "********** Before checkout ${repository_url} with ${credential_id}"
-	    echo '**********'
 	    checkout([$class: 'GitSCM',
 			branches: [[name: 'master']],
 			extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true]],
@@ -70,9 +68,7 @@ node {
 					     name: "${credential_id}-origin",
 					     refspec: "+refs/heads/master:refs/remotes/${credential_id}-origin/master",
 					    ]]])
-	    echo '**********'
 	    echo "********** After checkout ${repository_url} with ${credential_id}"
-	    echo '**********'
 	    // my_assert.assertCondition(false, "private checkout of ${repository_url} with ${credential_id} succeeded unexpectedly")
 	  } catch (hudson.plugins.git.GitException ge) {
 	    echo "Caught exception was ${ge}"
