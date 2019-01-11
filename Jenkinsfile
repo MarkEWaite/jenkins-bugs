@@ -37,8 +37,8 @@ node {
                 gitTool: scm.gitTool,
                 userRemoteConfigs: scm.userRemoteConfigs])
 
-    for (repository_url : public_repository_urls) {
-      for (credential_id : credential_ids) {
+    for (repository_url in public_repository_urls) {
+      for (credential_id in credential_ids) {
         ws() {
           checkout([$class: 'GitSCM',
                       branches: [[name: 'master']],
