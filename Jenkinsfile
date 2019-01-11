@@ -67,8 +67,8 @@ node('home-hasphrase || remote || windows') {
 			gitTool: scm.gitTool,
 			userRemoteConfigs: [[url: repository_url,
 					     credentialsId: credential_id,
-					     name: "${credential_id}-origin",
-					     refspec: "+refs/heads/master:refs/remotes/${credential_id}-origin/master",
+					     name: "X${credential_id}-originX",
+					     refspec: "+refs/heads/master:refs/remotes/X${credential_id}-originX/master",
 					    ]]])
 	    my_assert.assertCondition(false, "private checkout of ${repository_url} with ${credential_id} succeeded unexpectedly")
 	  } catch (Exception e) {
