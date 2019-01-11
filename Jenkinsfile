@@ -9,6 +9,7 @@ properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
 def branch = 'JENKINS-30515'
+def non_existent_credentials_id = 'JENKINS-30515-non-existent-credentials-id'
 
 node {
   stage('Checkout') {
@@ -19,6 +20,17 @@ node {
                             ],
                 gitTool: scm.gitTool,
                 userRemoteConfigs: scm.userRemoteConfigs])
+    ws() {
+      checkout([$class: 'GitSCM',
+		  branches: [[ 'master' ]],
+		  extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true]],
+		  gitTool: scm.gitTool,
+		  userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
+				       credentialsId: non_existent_credentials_id,
+				       name: 'non-existent-credentials-origin'
+				       refspec: "+refs/heads/master:refs/remotes/non-existent-credentials-origin/master",
+				      ]])
+    }
   }
 
   stage('Build') {
@@ -29,6 +41,7 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
+    my_check.logContains(".*${non_existent_credentials_id}.*", 'Non-existing credentials ID not reported')
     my_check.logContains(".*user dir is .*", 'Missing expected output')
   }
 }
