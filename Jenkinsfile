@@ -33,8 +33,11 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains(".*fetch.*refs/heads/.*:refs/remotes/origin/.*", 'Did not fetch from first origin')
-    my_check.logContains(".*fetch.*refs/heads/.*:refs/remotes/https-origin/.*", 'Did not fetch from second origin')
+    if (!scm.gitTool.startsWith("jgit")) {
+      /* JGit does not log fetch operations like command line git */
+      my_check.logContains(".*fetch.*refs/heads/.*:refs/remotes/origin/.*", 'Did not fetch from first origin')
+      my_check.logContains(".*fetch.*refs/heads/.*:refs/remotes/https-origin/.*", 'Did not fetch from second origin')
+    }
     my_check.logContains(".* origin.*https://github.com/MarkEWaite/jenkins-bugs.*", 'Repo missing first origin')
     my_check.logContains(".* https-origin.*https://github.com/MarkEWaite/jenkins-bugs.*", 'Repo missing second origin')
   }
