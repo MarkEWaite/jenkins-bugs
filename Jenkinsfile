@@ -35,8 +35,8 @@ node('windows || home-hasphrase || remote') {
                              [$class: 'LocalBranch', localBranch: branch]
                             ],
                 gitTool: scm.gitTool,
-                userRemoteConfigs: [url: 'https://github.com/MarkEWaite/jenkins-bugs',
-                                    refspec: '+refs/heads/master:refs/remotes/origin/master']])
+                userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
+                                    refspec: '+refs/heads/master:refs/remotes/origin/master']]])
 
     for (repository_url in public_repository_urls) {
       for (credential_id in credential_ids) {
