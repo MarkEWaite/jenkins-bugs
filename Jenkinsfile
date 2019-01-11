@@ -29,7 +29,7 @@ def credential_ids  =         [
                                 existing_but_unusable_credentials_id_2,
                               ]
 
-node('home-hasphrase || remote') {
+node('home-hasphrase || mark-pc2-beemarkwaite || remote || jagent') {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
                 branches: scm.branches,
