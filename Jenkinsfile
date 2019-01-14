@@ -14,7 +14,7 @@ pipeline {
     stages {
         stage("Build") {
             steps {
-                withAnt("ant-latest") {
+                withAnt(installation: "ant-latest") {
                     sh "ant info"
                 }
             }
