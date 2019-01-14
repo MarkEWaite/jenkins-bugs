@@ -1,6 +1,6 @@
 #!groovy
 
-// @Library('globalPipelineLibraryMarkEWaite') _
+@Library('globalPipelineLibraryMarkEWaite') _
 
 pipeline {
     agent {
