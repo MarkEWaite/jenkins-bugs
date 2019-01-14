@@ -8,7 +8,7 @@ pipeline {
     }
 
     options {
-        durabilityHint('This-is-a-directory')
+        checkoutToSubdirectory('This-is-a-directory')
     }
 
     stages {
