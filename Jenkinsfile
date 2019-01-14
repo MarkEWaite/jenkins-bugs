@@ -14,7 +14,7 @@ pipeline {
     stages {
         stage("Build") {
             steps {
-                withAnt(installation: "ant-latest") {
+                withAnt(installation: "ant-latest", jdk: "jdk-8") {
                     sh "ant -f This-is-a-directory/build.xml info"
                 }
             }
