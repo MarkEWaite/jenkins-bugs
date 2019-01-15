@@ -17,7 +17,7 @@ pipeline {
                 withAnt(installation: "ant-latest", jdk: "jdk8") {
                     sh "ant -f This-is-a-directory/build.xml info"
                 }
-                logContains([expectedRegEx: ".*Buildfile:.*This-is-a-directory.*",
+                logContains([expectedRegEx: ".*Buildfile:.*XThis-is-a-directory.*",
                              failureMessage: "Missing expected build file name"])
             }
         }
