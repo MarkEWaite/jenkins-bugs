@@ -14,7 +14,7 @@ pipeline {
     stages {
         stage("Build") {
             steps {
-                withAnt(installation: "ant-latest", jdk: "jdk-8") {
+                withAnt(installation: "ant-latest", jdk: "jdk8") {
                     sh "ant -f This-is-a-directory/build.xml info"
                 }
                 logContains(".*Buildfile:.*This-is-a-directory.*", "Missing expected build file name")
