@@ -20,8 +20,6 @@ def delete_tags(tags):
     print("Deleting local tags: " + ' '.join(tags))
     for tag in tags:
         subprocess.check_call(["git", "tag", "--delete", tag])
-        subprocess.call(["git", "push", "--delete", "bare", tag])
-        subprocess.call(["git", "push", "--delete", "cache", tag])
     print("Deleting remote tags: " + ' '.join(tags))
     subprocess.call(["git", "push", "--delete", "origin"] + tags)
 
