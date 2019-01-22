@@ -21,6 +21,9 @@
         <arg value="[${ant.project.name}] ${user.name} build++, was ${build.number}"/>
       </args>
     </git>
+    <exec executable="python">
+      <arg value="clean_tags.py" />
+    </exec>
   </target>
 
   <!-- Info about this repository -->
