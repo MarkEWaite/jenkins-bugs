@@ -38,6 +38,7 @@
       <arg value="${jenkins.url}"/>
     </exec>
     <echo>notifyCommit script exited normally</echo>
+    <sleep minutes="2"/>
   </target>
 
   <target name="increment-and-notify" description="Increment build number and notify Jenkins" depends="increment,notify" />
