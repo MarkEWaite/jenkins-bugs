@@ -1,4 +1,11 @@
-<project name="JENKINS-32174" default="increment" basedir=".">
+<project name="JENKINS-32174" default="increment-and-notify" basedir=".">
+
+  <property environment="env"/>
+
+  <!-- jenkins.url is hostname of Jenkins server to notify -->
+  <condition property="jenkins.url" value="${env.JENKINS_URL}" else="http://mark-pc2.markwaite.net:8080/">
+    <isset property="env.JENKINS_URL" />
+  </condition>
 
   <target name="increment" description="Increment build number">
     <git command="pull" />
@@ -11,10 +18,29 @@
     <git command="commit">
       <args>
         <arg value="-m"/>
-        <arg value="[${ant.project.name}] ${user.name} build++, was ${build.number}"/>
+        <arg value="[${ant.project.name}] build++, was ${build.number}"/>
+        <arg value="-m"/>
+        <arg value="Committed by ${user.name} from ${user.dir}, home is ${user.home}"/>
+        <arg value="-m"/>
+        <arg value="Java version is ${java.version} on ${os.name} with ${os.arch}"/>
       </args>
     </git>
+    <!-- push to origin, intentionally do not push to cache or bare -->
+    <git command="push" />
   </target>
+
+  <target name="notify" description="Notify Jenkins of commit">
+    <!-- Poke the notifyCommit URL with url and branches arguments -->
+    <!-- Should start the build -->
+    <!-- Must have curl program installed -->
+    <exec executable="./notifyCommit" failonerror="true">
+      <arg value="-s"/>
+      <arg value="${jenkins.url}"/>
+    </exec>
+    <echo>notifyCommit script exited normally</echo>
+  </target>
+
+  <target name="increment-and-notify" description="Increment build number and notify Jenkins" depends="increment,notify" />
 
   <!-- Info about this repository -->
   <target name="info" description="Report info about this repo">
