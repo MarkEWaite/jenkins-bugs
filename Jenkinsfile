@@ -8,7 +8,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-def branch = 'JENKINS-32174/with/slashes'
+def branch = 'JENKINS-32174-without-slashes'
 
 node {
   stage('Checkout') {
