@@ -1,4 +1,4 @@
-<project name="JENKINS-32174" default="increment-and-notify" basedir=".">
+<project name="JENKINS-32174-without-slashes" default="increment-and-notify" basedir=".">
 
   <property environment="env"/>
 
