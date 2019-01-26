@@ -3,7 +3,7 @@
   <property environment="env"/>
 
   <!-- jenkins.url is hostname of Jenkins server to notify -->
-  <condition property="jenkins.url" value="${env.JENKINS_URL}" else="http://jenkins.markwaite.net:8080/">
+  <condition property="jenkins.url" value="${env.JENKINS_URL}" else="http://mark-pc2.markwaite.net:8080/">
     <isset property="env.JENKINS_URL" />
   </condition>
 
