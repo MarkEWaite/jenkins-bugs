@@ -104,6 +104,6 @@ no_crumb_output=${prefix}-crumbless
 echo "Notifying URL=$SERVER POST with no crumb"
 curl -s -X POST $SERVER/git/notifyCommit?url=$GIT_URL\&branches=has-slash/JENKINS-29603 -o $no_crumb_output
 grep -q -F '<html>' $no_crumb_output && failed_without_crumb
-rm -f no_$crumb_output
+rm -f $no_crumb_output
 
 exit 0
