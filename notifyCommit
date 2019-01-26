@@ -1,0 +1,109 @@
+#!/bin/bash
+
+# Call the Jenkins /git/notifyCommit URL with git repo url
+#
+# Default Jenkins URL from JENKINS_URL environment variable
+# Default git repo URL from current repository
+
+usage() { echo "Usage: $0 [-s jenkins_server_url] [-u git_repo_url] [-n]" 1>&2; exit 1; }
+
+failed_with_crumb() { echo Failed with crumb; exit 2; }
+
+failed_without_crumb() { echo Failed without crumb; exit 3; }
+
+SERVER=
+GIT_URL=
+NEED_CRUMB=true
+
+while getopts ":s:u:n" o; do
+    case "${o}" in
+        s)
+            SERVER=${OPTARG}
+            ;;
+        u)
+            GIT_URL=${OPTARG}
+            ;;
+        n)
+            NEED_CRUMB=false
+            ;;
+        *)
+            usage
+            ;;
+    esac
+done
+shift $((OPTIND-1))
+
+# Assure URL of Jenkins server is set
+
+if [ -z "$SERVER" ]; then
+    SERVER=$JENKINS_URL
+fi
+if [ -z "$SERVER" ]; then
+    usage
+fi
+# remove trailing slash from SERVER, fails CSRF exclusion check
+SERVER=${SERVER%/}
+
+# Assure URL of git repository is set
+
+if [ -n "$GIT_URL" ]; then
+    echo Using GIT_URL: $GIT_URL
+else
+    GIT_URL=$(git remote -v | grep fetch | awk 'NR==1{print $2}')
+    if [ -n "$GIT_URL" ]; then
+        echo Using GIT_URL from fetch remote: $GIT_URL
+    else
+        GIT_URL=$(git remote -v | awk 'NR==1{print $2}')
+        if [ -n "$GIT_URL" ]; then
+            echo Using GIT_URL from first remote: $GIT_URL
+        else
+            GIT_URL=https://github.com/MarkEWaite/jenkins-bugs
+            echo Using default GIT_URL: $GIT_URL
+        fi
+    fi
+fi
+if [ -z "$GIT_URL" ]; then
+    usage
+fi
+
+if [ "$NEED_CRUMB" == "true" ]; then
+    crumb=$(curl -s $SERVER/crumbIssuer/api/xml?xpath=concat\(//crumbRequestField,%22:%22,//crumb\))
+    if [ -z "$crumb" ]; then
+        echo Exiting: No crumb returned by $SERVER
+        exit 4
+    fi
+    if [[ $crumb =~ 'HTTP ERROR 404' ]]; then
+        NEED_CRUMB=false
+    else
+        if [[ $crumb =~ '<html>' ]]; then
+            echo Exiting: html instead of crumb returned by $SERVER: $crumb
+            exit 5
+        fi
+        if [ ${#crumb} -gt 60 ]; then
+            echo Exiting: Long crumb returned by $SERVER: $crumb
+            exit 6
+        fi
+    fi
+fi
+
+prefix=$RANDOM
+
+# Check that it works with the crumb (if crumb needed)
+
+if [ "$NEED_CRUMB" == "true" ]; then
+    crumb_output=${prefix}-crumbfull
+    echo "Notifying URL=$SERVER POST using crumb: $crumb"
+    curl -s -H "$crumb" -X POST $SERVER/git/notifyCommit?url=$GIT_URL\&branches=JENKINS-32174/with/slashes -o $crumb_output
+    grep -q -F '<html>' $crumb_output && failed_with_crumb
+    rm -f $crumb_output
+fi
+
+# Check that it works without the crumb (always)
+
+no_crumb_output=${prefix}-crumbless
+echo "Notifying URL=$SERVER POST with no crumb"
+curl -s -X POST $SERVER/git/notifyCommit?url=$GIT_URL\&branches=JENKINS-32174/with/slashes -o $no_crumb_output
+grep -q -F '<html>' $no_crumb_output && failed_without_crumb
+rm -f $no_crumb_output
+
+exit 0
