@@ -40,6 +40,8 @@ if [ -z "$SERVER" ]; then
 fi
 if [ -z "$SERVER" ]; then
     usage
+else
+    echo Using SERVER=$SERVER
 fi
 # remove trailing slash from SERVER, fails CSRF exclusion check
 SERVER=${SERVER%/}
@@ -64,6 +66,8 @@ else
 fi
 if [ -z "$GIT_URL" ]; then
     usage
+else
+    echo Using GIT_URL=$GIT_URL
 fi
 
 if [ "$NEED_CRUMB" == "true" ]; then
