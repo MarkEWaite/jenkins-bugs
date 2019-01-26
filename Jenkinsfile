@@ -8,7 +8,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-def branch = 'master'
+def branch = 'JENKINS-32174/with/slashes'
 
 node {
   stage('Checkout') {
@@ -30,9 +30,9 @@ node {
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     my_check.logContains(".*[*] ${branch}.*", 'Wrong branch reported')
-    // if (currentBuild.number > 1) { // Don't check first build
-      // my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
-      // my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
-    // }
+    if (currentBuild.number > 1) { // Don't check first build
+      my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
+      my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
+    }
   }
 }
