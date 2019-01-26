@@ -33,14 +33,8 @@
     <!-- Poke the notifyCommit URL with url and branches arguments -->
     <!-- Should start the build -->
     <!-- Must have curl program installed -->
-    <exec executable="curl" failonerror="true">
-      <arg value="-s" />
-      <arg value="${jenkins.url}/git/notifyCommit" />
-      <arg value="-d" />
-      <arg value="url=https://github.com/MarkEWaite/jenkins-bugs" />
-      <arg value="-d" />
-      <arg value="branches=has-slash/JENKINS-29603" />
-    </exec>
+    <exec executable="./notifyCommit" failonerror="true"/>
+    <echo>notifyCommit script exited normally</echo>
   </target>
 
   <target name="increment-and-notify" description="Increment build number and notify Jenkins" depends="increment,notify" />
