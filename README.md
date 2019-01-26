@@ -2,3 +2,6 @@
 
 A notifyCommit with a branches argument value containing the '/' character
 is ignored.  The build does not start when it was expected to start.
+
+This branch intentionally does not contain a slash in its name so that
+it can be used for Freestyle job tests.
