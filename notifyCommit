@@ -49,11 +49,11 @@ SERVER=${SERVER%/}
 if [ -n "$GIT_URL" ]; then
     echo Using GIT_URL: $GIT_URL
 else
-    GIT_URL=$(git remote -v | grep fetch | awk 'NR==1{print $2}')
+    GIT_URL=$(git remote -v | grep origin | grep fetch | awk 'NR==1{print $2}')
     if [ -n "$GIT_URL" ]; then
         echo Using GIT_URL from fetch remote: $GIT_URL
     else
-        GIT_URL=$(git remote -v | awk 'NR==1{print $2}')
+        GIT_URL=$(git remote -v | grep origin | awk 'NR==1{print $2}')
         if [ -n "$GIT_URL" ]; then
             echo Using GIT_URL from first remote: $GIT_URL
         else
