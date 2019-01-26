@@ -93,7 +93,7 @@ prefix=$RANDOM
 if [ "$NEED_CRUMB" == "true" ]; then
     crumb_output=${prefix}-crumbfull
     echo "Notifying URL=$SERVER POST using crumb: $crumb"
-    curl -s -H "$crumb" -X POST $SERVER/git/notifyCommit?url=$GIT_URL\&branches=JENKINS-32174/with/slashes -o $crumb_output
+    curl -s -H "$crumb" -X POST $SERVER/git/notifyCommit?url=$GIT_URL\&branches=JENKINS-32174-without-slashes -o $crumb_output
     grep -q -F '<html>' $crumb_output && failed_with_crumb
     rm -f $crumb_output
 fi
@@ -102,7 +102,7 @@ fi
 
 no_crumb_output=${prefix}-crumbless
 echo "Notifying URL=$SERVER POST with no crumb"
-curl -s -X POST $SERVER/git/notifyCommit?url=$GIT_URL\&branches=JENKINS-32174/with/slashes -o $no_crumb_output
+curl -s -X POST $SERVER/git/notifyCommit?url=$GIT_URL\&branches=JENKINS-32174-without-slashes -o $no_crumb_output
 grep -q -F '<html>' $no_crumb_output && failed_without_crumb
 rm -f $no_crumb_output
 
