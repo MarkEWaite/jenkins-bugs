@@ -33,7 +33,10 @@
     <!-- Poke the notifyCommit URL with url and branches arguments -->
     <!-- Should start the build -->
     <!-- Must have curl program installed -->
-    <exec executable="./notifyCommit" failonerror="true"/>
+    <exec executable="./notifyCommit" failonerror="true">
+      <arg value="-s"/>
+      <arg value="${jenkins.url}"/>
+    </exec>
     <echo>notifyCommit script exited normally</echo>
   </target>
 
