@@ -95,6 +95,7 @@ if [ "$NEED_CRUMB" == "true" ]; then
     echo "Notifying URL=$SERVER POST using crumb: $crumb"
     curl -s -H "$crumb" -X POST $SERVER/git/notifyCommit?url=$GIT_URL\&branches=has-slash/JENKINS-29603 -o $crumb_output
     grep -q -F '<html>' $crumb_output && failed_with_crumb
+    rm -f $crumb_output
 fi
 
 # Check that it works without the crumb (always)
@@ -103,5 +104,6 @@ no_crumb_output=${prefix}-crumbless
 echo "Notifying URL=$SERVER POST with no crumb"
 curl -s -X POST $SERVER/git/notifyCommit?url=$GIT_URL\&branches=has-slash/JENKINS-29603 -o $no_crumb_output
 grep -q -F '<html>' $no_crumb_output && failed_without_crumb
+rm -f no_$crumb_output
 
 exit 0
