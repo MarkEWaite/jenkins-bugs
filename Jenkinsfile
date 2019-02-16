@@ -20,16 +20,21 @@ node('!windows') {
     checkout([$class: 'GitSCM',
                 branches: scm.branches,
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                             [$class: 'LocalBranch', localBranch: branch]
+                             [$class: 'LocalBranch', localBranch: branch],
+                             [$class: 'SubmoduleOption', recursiveSubmodules: true]
                             ],
                 gitTool: scm.gitTool,
                 userRemoteConfigs: [ scm.userRemoteConfigs[0], httpsRemoteConfig ]])
+checkout([$class: 'GitSCM', branches: [[name: '*/master']], 
+          doGenerateSubmoduleConfigurations: false, 
+          extensions: [], gitTool: 'Default', submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
     sh 'touch .gitmodules'
     /* JENKINS-56150 reports null pointer exception if empty .gitmodules file exists */
     checkout([$class: 'GitSCM',
                 branches: scm.branches,
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                             [$class: 'LocalBranch', localBranch: branch]
+                             [$class: 'LocalBranch', localBranch: branch],
+                             [$class: 'SubmoduleOption', recursiveSubmodules: true]
                             ],
                 gitTool: scm.gitTool,
                 userRemoteConfigs: [ scm.userRemoteConfigs[0], httpsRemoteConfig ]])
