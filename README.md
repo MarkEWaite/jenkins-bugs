@@ -1,11 +1,4 @@
-# [JENKINS-xxxxx](https://issues.jenkins-ci.org/browse/JENKINS-56116) check public repository
+# [JENKINS-56116](https://issues.jenkins-ci.org/browse/JENKINS-56116) CentOS 7 git changes output is incorrect
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations to
-duplicate the bug.  This repository captures some of those configurations
-in a way that is publicly visible so that automated tests can use this
-repository.
-
-This repository includes many branches with a Jenkinsfile pipeline
-definition for branches where the pipeline definition can encapsulate
-a portion of the bug verification.
+The user reported that the `git log` output presented in the user interface included '%B' instead of the change message.
+I was unable to duplicate the problem with a Freestyle job.
