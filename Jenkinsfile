@@ -30,6 +30,6 @@ node('!windows') {
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     my_check.logContains(".*[*] ${branch}.*", 'Wrong branch reported')
-    my_check.logContains(".*${branch}.* build++, was.*", 'Changes did not include version number increment message')
+    my_check.logContains(".*<.*issues.jenkins-ci.org.*${branch}.*>.*${branch}.* build.., was .*", 'Changes did not include version number increment message')
   }
 }
