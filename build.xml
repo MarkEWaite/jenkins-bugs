@@ -32,6 +32,7 @@
     <!-- JENKINS-56116 reports that changes displayed are incorrect in Jenkins -->
     <echo>Begin changes query of ${env.BUILD_URL}changes</echo>
     <exec executable="curl" failonerror="true">
+      <arg value="--silent" />
       <arg value="${env.BUILD_URL}changes" />
     </exec>
     <echo>End changes query</echo>
