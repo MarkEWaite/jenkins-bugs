@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mirror_git.py
+# mirror_git.py
 
 # Run each test twice, some tests toggle bad to good each time
 for dir in $(ls | shuf; ls | shuf); do
