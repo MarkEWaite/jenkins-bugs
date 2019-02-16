@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This is a work in progress - does not yet do what needs to be done
+# This is a work in progress - does not yet do all that needs to be done
 
 for origin in $(git branch -a | grep origin.*JENKINS | sed 's!remotes/!!g'); do
         bug=$(echo $origin | sed -e 's!.*JENKINS!JENKINS!g' -e 's!/.*$!!g')
@@ -14,7 +14,9 @@ for origin in $(git branch -a | grep origin.*JENKINS | sed 's!remotes/!!g'); do
                     $dir )
         ( cd ../$dir && \
           git config remote.origin.pushurl git@github.com:MarkEWaite/jenkins-bugs.git &&
-          git remote add cache /var/lib/git/mwaite/bugs/jenkins-bugs.git && \
+          git remote add cache mwaite@git.markwaite.net:git/bare/bugs/jenkins-bugs.git && \
           git config remote.cache.fetch $(git config --get remote.origin.fetch | sed 's/origin/cache/g') && \
+          git remote add bare /var/lib/git/mwaite/bugs/jenkins-bugs.git && \
+          git config remote.bare.fetch $(git config --get remote.origin.fetch | sed 's/origin/bare/g') && \
           git pull --all --prune )
 done
