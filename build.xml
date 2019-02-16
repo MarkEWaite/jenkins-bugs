@@ -1,4 +1,4 @@
-<project name="JENKINS-50158" default="increment" basedir=".">
+<project name="JENKINS-50394" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
     <git command="pull" />
@@ -12,6 +12,45 @@
       <args>
         <arg value="-m"/>
         <arg value="[${ant.project.name}] build++, was ${build.number}"/>
+      </args>
+    </git>
+    <git command="push">
+      <args>
+        <arg value="--all"/>
+      </args>
+    </git>
+    <buildnumber/>
+    <git command="add">
+      <args>
+        <arg value="build.number"/>
+      </args>
+    </git>
+    <git command="commit">
+      <args>
+        <arg value="-m"/>
+        <arg value="[${ant.project.name}] fast build++, was ${build.number}"/>
+      </args>
+    </git>
+    <git command="push">
+      <args>
+        <arg value="--all"/>
+      </args>
+    </git>
+    <buildnumber/>
+    <git command="add">
+      <args>
+        <arg value="build.number"/>
+      </args>
+    </git>
+    <git command="commit">
+      <args>
+        <arg value="-m"/>
+        <arg value="[${ant.project.name}] faster build++, was ${build.number}"/>
+      </args>
+    </git>
+    <git command="push">
+      <args>
+        <arg value="--all"/>
       </args>
     </git>
   </target>
