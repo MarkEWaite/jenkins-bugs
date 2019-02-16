@@ -30,7 +30,7 @@
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
     <!-- JENKINS-56116 reports that changes displayed are incorrect in Jenkins -->
-    <echo>Begin changes query</echo>
+    <echo>Begin changes query of ${env.BUILD_URL}//lastBuild/changes</echo>
     <exec executable="curl" failonerror="true">
       <arg value="--fail" />
       <arg value="--silent" />
