@@ -21,7 +21,7 @@ node('!windows') {
                 branches: scm.branches,
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                              [$class: 'LocalBranch', localBranch: branch],
-                             [$class: 'SubmoduleOption', recursiveSubmodules: true]
+                             // [$class: 'SubmoduleOption', recursiveSubmodules: true]
                             ],
                 gitTool: scm.gitTool,
                 userRemoteConfigs: [ scm.userRemoteConfigs[0], httpsRemoteConfig ]])
