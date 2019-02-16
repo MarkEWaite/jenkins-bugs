@@ -1,4 +1,4 @@
-# Jenkins bug verification public repository
+# [JENKINS-xxxxx](https://issues.jenkins-ci.org/browse/JENKINS-56116) check public repository
 
 Many of the bug reports on the Jenkins git plugin and the Jenkins git
 client plugin need a repository which contains specific configurations to
@@ -8,4 +8,4 @@ repository.
 
 This repository includes many branches with a Jenkinsfile pipeline
 definition for branches where the pipeline definition can encapsulate
-at least a portion of the bug verification.
+a portion of the bug verification.
