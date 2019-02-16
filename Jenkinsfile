@@ -12,8 +12,7 @@ properties([[$class: 'BuildDiscarderProperty',
 node {
   stage('Checkout') {
     // JENKINS-50394 reports missing object exception during branch indexing
-    def my_checkout = new com.markwaite.Checkout()
-    my_checkout.checkoutBranch('JENKINS-50394')
+    checkout scm
   }
 
   stage('Build') {
