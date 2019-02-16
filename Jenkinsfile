@@ -30,6 +30,7 @@ node('!windows') {
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     my_check.logContains(".*[*] ${branch}.*", 'Wrong branch reported')
+    /* This assertion relies on the Jira plugin replacing the JENKINS-56116 with a hyperlink in the HTML output */
     my_check.logContains(".*<.*issues.jenkins-ci.org.*${branch}.*>.*${branch}.* build.., was .*", 'Changes did not include version number increment message')
   }
 }
