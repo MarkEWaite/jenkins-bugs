@@ -8,14 +8,24 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-def branch = 'JENKINS-55536'
+def branch = 'JENKINS-56150'
 
 def httpsRemoteConfig = [ url: 'https://github.com/MarkEWaite/jenkins-bugs',
                           name: 'https-origin',
                           refspec: "+refs/heads/${branch}:refs/remotes/https-origin/${branch}" ]
 
-node {
+node('!windows') {
   stage('Checkout') {
+    sh 'rm -f .gitmodules'
+    checkout([$class: 'GitSCM',
+                branches: scm.branches,
+                extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+                             [$class: 'LocalBranch', localBranch: branch]
+                            ],
+                gitTool: scm.gitTool,
+                userRemoteConfigs: [ scm.userRemoteConfigs[0], httpsRemoteConfig ]])
+    sh 'touch .gitmodules'
+    /* JENKINS-56150 reports null pointer exception if empty .gitmodules file exists */
     checkout([$class: 'GitSCM',
                 branches: scm.branches,
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
