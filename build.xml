@@ -1,5 +1,14 @@
 <project name="JENKINS-56176" default="increment" basedir=".">
 
+  <property environment="env"/>
+
+  <target name="is-first-build">
+    <condition property="first.build">
+      <equals arg1="${env.BUILD_NUMBER}" arg2="1"/>
+    </condition>
+  </target>
+
+
   <!-- Check environment variables only in builds 2+ -->
   <target name="check-non-initial-build" description="Check git env vars at build 2+" depends="is-first-build" if="env.JENKINS_URL" unless="first.build">
     <fail message="GIT_REVISION not set" unless="env.GIT_REVISION"/>
