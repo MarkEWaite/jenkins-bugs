@@ -1,11 +1,8 @@
-# [JENKINS-xxxxx](https://issues.jenkins-ci.org/browse/JENKINS-56116) check public repository
+# [JENKINS-56176](https://issues.jenkins-ci.org/browse/JENKINS-56176) GIT_REVISION not available in git plugin 4.0.0-rc
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations to
-duplicate the bug.  This repository captures some of those configurations
-in a way that is publicly visible so that automated tests can use this
-repository.
+The GIT_REVISION variable that was available with git plugin 3
+and earlier is not available with git plugin 4.0.0-rc.
 
-This repository includes many branches with a Jenkinsfile pipeline
-definition for branches where the pipeline definition can encapsulate
-a portion of the bug verification.
+User created a Freestyle job and assigned the build name as a
+post build action with the build name setter plugin. It works
+with git plugin 3 and fails with git plugin 4.
