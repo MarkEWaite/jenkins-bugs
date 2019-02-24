@@ -29,10 +29,9 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains(".*[*] ${branch}.*", 'Wrong branch reported')
-    // if (currentBuild.number > 1) { // Don't check first build
-      // my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
-      // my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
-    // }
+    if (currentBuild.number > 1) { // Don't check first build
+      my_check.logContains('.*GIT_REVISION.*', 'No GIT_REVISION reported')
+      my_check.logContains('.*GIT_COMMIT:.*', 'No GIT_COMMIT reported')
+    }
   }
 }
