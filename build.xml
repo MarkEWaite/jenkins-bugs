@@ -8,7 +8,6 @@
     </condition>
   </target>
 
-
   <!-- Check environment variables only in builds 2+ -->
   <target name="check-non-initial-build" description="Check git env vars at build 2+" depends="is-first-build" if="env.JENKINS_URL" unless="first.build">
     <fail message="GIT_REVISION not set" unless="env.GIT_REVISION"/>
@@ -50,20 +49,11 @@
   </target>
 
   <!-- Info about this repository -->
-  <target name="info" description="Report info about this repo">
+  <target name="info" description="Report info about this repo" depends="check-git-env-vars">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
-    <!-- JENKINS-41906 reports that master branch built without
-         any commits.  This reports commits on this branch in the last 15
-         minutes -->
-    <echo>Displaying git log messages on this branch from last 15 minutes</echo>
-    <git command="log">
-      <args>
-        <arg value="--since='15 minutes ago'"/>
-      </args>
-    </git>
-    <echo>End of git log messages on this branch from last 15 minutes</echo>
+    <!-- JENKINS-56176 reports that GIT_REVISION is no longer available -->
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
