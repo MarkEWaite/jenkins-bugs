@@ -1,15 +1,8 @@
-<project name="jenkins-bugs-master-branch" default="sync" basedir=".">
-
-  <property environment="env"/>
-
-  <target name="is-first-build">
-    <condition property="first.build">
-      <equals arg1="${env.BUILD_NUMBER}" arg2="1"/>
-    </condition>
-  </target>
+<project name="JENKINS-56176" default="increment" basedir=".">
 
   <!-- Check environment variables only in builds 2+ -->
   <target name="check-non-initial-build" description="Check git env vars at build 2+" depends="is-first-build" if="env.JENKINS_URL" unless="first.build">
+    <fail message="GIT_REVISION not set" unless="env.GIT_REVISION"/>
     <fail message="GIT_PREVIOUS_COMMIT not set" unless="env.GIT_PREVIOUS_COMMIT"/>
     <fail message="GIT_PREVIOUS_SUCCESSFUL_COMMIT not set" unless="env.GIT_PREVIOUS_SUCCESSFUL_COMMIT"/>
   </target>
@@ -27,23 +20,22 @@
     <echo>GIT_ env var checks all passed</echo>
   </target>
 
-  <!-- Synchronize repositories -->
-  <target name="sync" description="Synchronize git repositories">
+  <target name="increment" description="Increment build number">
     <git command="pull">
       <args>
         <arg value="--all"/>
-        <arg value="--prune"/>
       </args>
     </git>
-  </target>
-
-  <target name="increment" description="Increment build number">
     <buildnumber/>
+    <git command="add">
+      <args>
+        <arg value="build.number"/>
+      </args>
+    </git>
     <git command="commit">
       <args>
         <arg value="-m"/>
         <arg value="[${ant.project.name}] ${user.name} build++, was ${build.number}"/>
-        <arg value="build.number"/>
       </args>
     </git>
   </target>
