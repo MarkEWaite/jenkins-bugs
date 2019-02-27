@@ -54,6 +54,8 @@
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
     <!-- JENKINS-56176 reports that GIT_REVISION is no longer available -->
+    <exec executable="env">
+    </exec>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
