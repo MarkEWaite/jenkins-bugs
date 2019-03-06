@@ -24,29 +24,33 @@ pipeline {
                                userRemoteConfigs: scm.userRemoteConfigs])
             }
         }
-        parallel {
-            stage('Build Up') {
-                steps {
-                    sh 'ant info'
-                }
-            }
-            stage('Build Down') {
-                steps {
-                    sh 'echo build down'
-                }
-            }
+        stage('Build') {
+	    parallel {
+		stage('Build Up') {
+		    steps {
+			sh 'ant info'
+		    }
+		}
+		stage('Build Down') {
+		    steps {
+			sh 'echo build down'
+		    }
+		}
+	    }
         }
-        parallel {
-            stage('Test Up') {
-                steps {
-                    sh 'echo test up'
-                }
-            }
-            stage('Test Down') {
-                steps {
-                    sh 'echo test down'
-                }
-            }
+        stage('Test') {
+	    parallel {
+		stage('Test Up') {
+		    steps {
+			sh 'echo test up'
+		    }
+		}
+		stage('Test Down') {
+		    steps {
+			sh 'echo test down'
+		    }
+		}
+	    }
         }
         stage('Deploy') {
             steps {
