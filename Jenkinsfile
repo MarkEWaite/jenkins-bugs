@@ -4,13 +4,7 @@ pipeline {
     }
     options {
         skipDefaultCheckout(true)
-        timeout(time: 4, unit: 'HOURS')
-        timestamps()
         buildDiscarder(logRotator(artifactDaysToKeepStr: '2', artifactNumToKeepStr: '5', daysToKeepStr: '15', numToKeepStr: '15'))
-        durabilityHint('PERFORMANCE_OPTIMIZED')
-    }
-    triggers {
-        pollSCM('H/7 * * * *')
     }
     tools {
         ant 'ant-latest'
@@ -20,23 +14,43 @@ pipeline {
             steps {
                 checkout(poll: true,
                          scm: [$class: 'GitSCM',
-                               branches: [[name: 'refs/heads/JENKINS-52746']],
+                               branches: [[name: 'JENKINS-56383']],
                                extensions: [
                                             [$class: 'CheckoutOption', timeout: 3],
                                             [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                                            [$class: 'LocalBranch', localBranch: 'JENKINS-52746'],
-                                            // Sparse checkout not implemented in JGit
-                                            // [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [[path: 'build.xml'], [path: 'Jenkinsfile'], [path: 'build.number']]],
+                                            [$class: 'LocalBranch', localBranch: 'JENKINS-56383'],
                                            ],
                                gitTool: scm.gitTool,
-                               // gitTool: 'git', // Sparse checkout not implemented in JGit
                                userRemoteConfigs: scm.userRemoteConfigs])
             }
         }
-        stage('Test and Package') {
+        parallel {
+            stage('Build Up') {
+                steps {
+                    sh 'ant info'
+                }
+            }
+            stage('Build Down') {
+                steps {
+                    sh 'echo build down'
+                }
+            }
+        }
+        parallel {
+            stage('Test Up') {
+                steps {
+                    sh 'echo test up'
+                }
+            }
+            stage('Test Down') {
+                steps {
+                    sh 'echo test down'
+                }
+            }
+        }
+        stage('Deploy') {
             steps {
-                sh 'ant info'
-                sh 'env | sort'
+                sh 'echo deploy'
             }
         }
     }
