@@ -6,12 +6,14 @@ for origin in $(git branch -a | grep origin.*JENKINS | sed 's!remotes/!!g'); do
         bug=$(echo $origin | sed -e 's!.*JENKINS!JENKINS!g' -e 's!/.*$!!g')
         branch=$(echo $origin | sed 's!origin/!!g')
         dir=$(echo $origin | sed -e 's!.*JENKINS!JENKINS!g' -e 's!/!-!g')
+        echo Cloning for bug $bug, branch $branch, dir $dir
         ( cd .. && \
           git clone --branch $branch \
                     --single-branch \
                     --reference /var/lib/git/mwaite/bugs/jenkins-bugs.git \
                     https://github.com/MarkEWaite/jenkins-bugs \
                     $dir )
+        echo Cloned for bug $bug, branch $branch, dir $dir
         ( cd ../$dir && \
           git config remote.origin.pushurl git@github.com:MarkEWaite/jenkins-bugs.git &&
           git remote add cache mwaite@git.markwaite.net:git/bare/bugs/jenkins-bugs.git && \
@@ -19,4 +21,5 @@ for origin in $(git branch -a | grep origin.*JENKINS | sed 's!remotes/!!g'); do
           git remote add bare /var/lib/git/mwaite/bugs/jenkins-bugs.git && \
           git config remote.bare.fetch $(git config --get remote.origin.fetch | sed 's/origin/bare/g') && \
           git pull --all --prune )
+        echo Configured for bug $bug, branch $branch, dir $dir
 done
