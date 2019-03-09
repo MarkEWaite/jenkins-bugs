@@ -1,14 +1,14 @@
-# [JENKINS-30515](https://issues.jenkins-ci.org/browse/JENKINS-30515) Missing credentials not clearly reported
+# [JENKINS-56326](https://issues.jenkins-ci.org/browse/JENKINS-56326) Later checkout fails if new commit to master branch
 
-When incorrect credentials are provided to checkout the error message
-is not clear. It reports a stack trace instead of reporting that the
-credentials could not be found.
+Bug is described as:
 
-Some of the cases to test include:
+1. Commit to master branch
+2. Commit to non-master branch
+3. Start long running build on non-master branch
+4. During long running build on non-master branch, commit to master branch
+5. During long running build on non-master branch, perform a new checkout
 
-* Non-existent credentials to a public https repository
-* Non-existent credentials to a public ssh repository
-* Non-existent credentials to a private https repository
-* Non-existent credentials to a private ssh repository
-* Incorrect credentials to a private https repository
-* Incorrect credentials to a private ssh repository
+Expected result: New checkout inside the build should use the same SHA1 as 
+the original checkout that started the build.
+
+Reported result: Command line git error performing a fetch, cannot lock ref 'refs/remotes/origin/master'
