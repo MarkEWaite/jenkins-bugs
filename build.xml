@@ -18,11 +18,11 @@
         <arg value="[${ant.project.name}] ${user.name} build++, was ${build.number}"/>
       </args>
     </git>
+    <git command="push"/>
     <git command="push">
       <args>
-        <arg value="--all"/>
+        <arg value="cache"/>
       </args>
-    </git>
     <echo>sleeping 53 seconds</echo>
     <sleep seconds="53"/> <!-- Wait long enough for job to start but not finish -->
     <echo>slept 53 seconds, awake and continuing</echo>
