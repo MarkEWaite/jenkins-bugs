@@ -30,11 +30,16 @@
 
   <!-- Info about this repository and a sleep -->
   <target name="info" description="Report info about this repo">
+    <exec executable="git" outputproperty="git.HEAD">
+      <arg value="rev-parse"/>
+      <arg value="HEAD"/>
+    </exec>
+    <echo>Git HEAD is ${git.HEAD}</echo>
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <!-- JENKINS-56326 reports that later clones don't use same SHA1 as original -->
     <echo>sleeping 90 seconds</echo>
-    <sleep seconds="90"/> <!-- Wait long enough for job to start but not finish -->
+    <!-- <sleep seconds="90"/> Wait long enough for job to start but not finish -->
     <echo>slept 90 seconds, awake and continuing</echo>
   </target>
 
