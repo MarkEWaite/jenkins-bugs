@@ -12,3 +12,5 @@ Expected result: New checkout inside the build should use the same SHA1 as
 the original checkout that started the build.
 
 Reported result: Command line git error performing a fetch, cannot lock ref 'refs/remotes/origin/master'
+
+I was unable to duplicate the bug.
