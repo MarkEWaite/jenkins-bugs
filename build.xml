@@ -26,6 +26,8 @@
     <echo>sleeping 53 seconds</echo>
     <sleep seconds="53"/> <!-- Wait long enough for job to start but not finish -->
     <echo>slept 53 seconds, awake and continuing</echo>
+    <!-- Commit a change to master branch -->
+    <ant antfile="../master/build.xml" dir="../master" target="increment"/>
   </target>
 
   <!-- Info about this repository and a sleep -->
