@@ -38,6 +38,11 @@
   </target>
 
   <target name="increment" description="Increment build number">
+    <git command="pull">
+      <args>
+        <arg value="--all"/>
+      </args>
+    </git>
     <buildnumber/>
     <git command="commit">
       <args>
@@ -46,6 +51,7 @@
         <arg value="build.number"/>
       </args>
     </git>
+    <git command="push"/>
   </target>
 
   <!-- Info about this repository -->
