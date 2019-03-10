@@ -23,6 +23,7 @@
       <args>
         <arg value="cache"/>
       </args>
+    </git>
     <echo>sleeping 53 seconds</echo>
     <sleep seconds="53"/> <!-- Wait long enough for job to start but not finish -->
     <echo>slept 53 seconds, awake and continuing</echo>
