@@ -37,7 +37,6 @@
       <arg value="HEAD"/>
     </exec>
     <echo>Sleeping git HEAD is ${git.HEAD}</echo>
-    <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <!-- JENKINS-56326 reports that later clones don't use same SHA1 as original -->
     <echo>sleeping 90 seconds</echo>
@@ -52,6 +51,7 @@
       <arg value="HEAD"/>
     </exec>
     <echo>Sleepless git HEAD is ${git.HEAD}</echo>
+    <echo>user dir is ${user.dir}</echo>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
