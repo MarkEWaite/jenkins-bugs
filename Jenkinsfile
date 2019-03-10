@@ -10,7 +10,7 @@ properties([[$class: 'BuildDiscarderProperty',
 
 def branch = 'JENKINS-56326'
 
-node(!windows) { /* Includes sh steps not available on Windows */
+node('!windows') { /* Includes sh steps not available on Windows */
   def scmVars
   stage('Checkout') {
     scmVars = checkout([$class: 'GitSCM',
