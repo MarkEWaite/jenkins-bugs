@@ -10,7 +10,7 @@ properties([[$class: 'BuildDiscarderProperty',
 
 def branch = 'JENKINS-56326'
 
-node('!windows') { /* Includes sh steps not available on Windows */
+node {
   def scmVars
   stage('Checkout') {
     scmVars = checkout([$class: 'GitSCM',
@@ -40,12 +40,16 @@ node('!windows') { /* Includes sh steps not available on Windows */
 		  gitTool: scm.gitTool,
 		  userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
 				      refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}"]]])
+      def my_step = new com.markwaite.Build()
+      my_step.ant 'info-sleepless'
     }
   }
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains(".*Git HEAD is ${scmVars.GIT_COMMIT}.*", 'Missing root GIT_COMMIT in log')
-    my_check.logContains(".*Git HEAD is ${wsVars.GIT_COMMIT}.*", 'Missing workspace GIT_COMMIT in log')
+    my_check.logContains(".*Sleeping git HEAD is ${scmVars.GIT_COMMIT}.*", 'Missing root GIT_COMMIT in sleeping log')
+    my_check.logContains(".*Sleeping git HEAD is ${wsVars.GIT_COMMIT}.*", 'Missing root GIT_COMMIT in sleeping log')
+    my_check.logContains(".*Sleepless git HEAD is ${scmVars.GIT_COMMIT}.*", 'Missing workspace GIT_COMMIT in sleepless log')
+    my_check.logContains(".*Sleepless git HEAD is ${wsVars.GIT_COMMIT}.*", 'Missing workspace GIT_COMMIT in sleepless log')
   }
 }
