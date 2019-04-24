@@ -14,9 +14,10 @@
         <arg value="[${ant.project.name}] build++, was ${build.number}"/>
       </args>
     </git>
+    <git command="push" />
     <git command="push">
       <args>
-        <arg value="--all"/>
+        <arg value="cache"/>
       </args>
     </git>
 
@@ -33,9 +34,10 @@
         <arg value="[${ant.project.name}] fast build++, was ${build.number}"/>
       </args>
     </git>
+    <git command="push" />
     <git command="push">
       <args>
-        <arg value="--all"/>
+        <arg value="origin"/>
       </args>
     </git>
 
@@ -52,9 +54,10 @@
         <arg value="[${ant.project.name}] faster build++, was ${build.number}"/>
       </args>
     </git>
+    <git command="push" />
     <git command="push">
       <args>
-        <arg value="--all"/>
+        <arg value="origin"/>
       </args>
     </git>
   </target>
