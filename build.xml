@@ -19,6 +19,8 @@
         <arg value="--all"/>
       </args>
     </git>
+
+    <sleep seconds="3"/>
     <buildnumber/>
     <git command="add">
       <args>
@@ -36,6 +38,8 @@
         <arg value="--all"/>
       </args>
     </git>
+
+    <sleep seconds="5"/>
     <buildnumber/>
     <git command="add">
       <args>
