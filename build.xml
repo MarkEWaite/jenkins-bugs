@@ -64,7 +64,7 @@
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
-    <!-- JENKINS-50158 reports a checkout step from a library fails if LocalBranch is used.  -->
+    <!-- JENKINS-50394 reports that newer changes are found remotely which don't exist in local repo.  -->
     <echo>Displaying git log messages on this branch from last 15 minutes</echo>
     <git command="log">
       <args>
