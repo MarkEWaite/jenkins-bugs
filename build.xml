@@ -52,6 +52,8 @@
     <echo>Displaying git log messages on this branch from last 3 commits</echo>
     <git command="log">
       <args>
+        <arg value="--graph"/>
+        <arg value="--decorate"/>
         <arg value="-n"/>
         <arg value="3"/>
       </args>
