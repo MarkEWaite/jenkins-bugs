@@ -1,21 +1,43 @@
-<project name="JENKINS-23606" default="increment" basedir=".">
+<project name="JENKINS-51638" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
-    <git command="pull" />
+    <git command="pull">
+      <args>
+        <arg value="--all"/>
+      </args>
+    </git>
     <exec executable="git" outputproperty="git.branch" failifexecutionfails="false">
       <arg line="rev-parse --abbrev-ref HEAD"/>
     </exec>
     <echo message="Current branch: ${git.branch}"/> 
+    <git command="merge">
+      <args>
+        <arg value="--no-edit"/>
+        <arg value="origin/JENKINS-51638-project-1"/>
+      </args>
+    </git>
     <buildnumber file="${git.branch}/build.number" />
     <git command="add">
       <args>
         <arg value="${git.branch}/build.number"/>
       </args>
     </git>
+    <exec executable="git" outputproperty="git.log.output">
+      <arg value="log"/>
+      <arg value="--oneline"/>
+      <arg value="--numstat"/>
+      <arg value="origin/${git.branch}..HEAD"/>
+    </exec>
     <git command="commit">
       <args>
         <arg value="-m"/>
         <arg value="[${ant.project.name}] ${git.branch}/build++, was ${build.number}"/>
+        <arg value="-m"/>
+        <arg value="Numstat output from git log --oneline"/>
+        <arg value="-m"/>
+        <arg value="Used for test assertions"/>
+        <arg value="-m"/>
+        <arg value="${git.log.output}"/>
       </args>
     </git>
   </target>
@@ -25,15 +47,16 @@
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
-    <!-- JENKINS-23606 reports that merge commits trigger branches which should
-         be ignoring the changes that were merged. -->
-    <echo>Displaying git log messages on this branch from last 15 minutes</echo>
+    <!-- JENKINS-51638 reports that Jenkinsfile reference to merge strategy 'default'
+         fails on upgrade to git plugin 3.9.x -->
+    <echo>Displaying git log messages on this branch from last 3 commits</echo>
     <git command="log">
       <args>
-        <arg value="--since='15 minutes ago'"/>
+        <arg value="-n"/>
+        <arg value="3"/>
       </args>
     </git>
-    <echo>End of git log messages on this branch from last 15 minutes</echo>
+    <echo>End of git log messages on this branch from last 3 commits</echo>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
