@@ -38,7 +38,7 @@
         <arg value="--graph"/>
         <arg value="--decorate"/>
         <arg value="-n"/>
-        <arg value="3"/>
+        <arg value="6"/>
       </args>
     </git>
     <echo>End of git log messages on this branch from last 3 commits</echo>
