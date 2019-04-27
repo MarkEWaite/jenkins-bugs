@@ -20,8 +20,8 @@ node {
                            [$class: 'PreBuildMerge', options: [
                             fastForwardMode: 'FF',
                             mergeRemote: 'origin',
-                            // mergeStrategy: 'default', // JENKINS-51638 - works in git plugin 3.8.0, not 3.9.3
-                            mergeStrategy: 'DEFAULT', // JENKINS-51638 work around - works in git plugin 3.8.0 and 3.9.3
+                            mergeStrategy: 'default', // JENKINS-51638 - works in git plugin 3.8.0, not 3.9.3
+                            // mergeStrategy: 'DEFAULT', // JENKINS-51638 work around - works in git plugin 3.8.0 and 3.9.3
                             mergeTarget: "${branch}-project-1"
                            ]]
                           ],
