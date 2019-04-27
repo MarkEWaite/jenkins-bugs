@@ -42,10 +42,16 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    if (currentBuild.number > 1) { // Don't check first build
-      /* Not a good check of the bug, need better assertions */
-      my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
-      my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
-    }
+    /* Log should contain something like this:
+     [echo] git log
+     [exec] *   commit 76f19bc20b9e5a601da2a622c8e9c18eb552ebd9 (HEAD)
+     [exec] |\  Merge: 77b1a6e 0c9f26a
+     [exec] | | Author: Vojtěch-Zweibrücken-Šafařík <email.address.from.git.client.plugin.test@example.com>
+     [exec] | | Date:   Sat Apr 27 14:19:58 2019 +0000
+     [exec] | | 
+     [exec] | |     Merge commit '0c9f26a1eda7e9a91fca11e10b17f5725ff10417' into HEAD
+     [exec] | |   
+     */
+    my_check.logContains('.* ..  Merge: [0-9a-f]+ [0-9a-f]+.*', 'Missing merge commit')
   }
 }
