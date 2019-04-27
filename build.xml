@@ -21,12 +21,6 @@
       <args>
         <arg value="-m"/>
         <arg value="[${ant.project.name}] ${git.branch}/build++, was ${build.number}"/>
-        <arg value="-m"/>
-        <arg value="Numstat output from git log --oneline"/>
-        <arg value="-m"/>
-        <arg value="Used for test assertions"/>
-        <arg value="-m"/>
-        <arg value="${git.log.output}"/>
       </args>
     </git>
   </target>
