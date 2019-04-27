@@ -26,7 +26,10 @@ node {
                           ],
               gitTool: scm.gitTool,
               userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
-                                  refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}"]]])
+                                  refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}" +
+                                           " +refs/heads/${branch}-project-1:refs/remotes/origin/${branch}-project-1"
+                                  ]]
+            ])
 
   }
 
