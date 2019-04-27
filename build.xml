@@ -3,7 +3,8 @@
   <target name="increment" description="Increment build number">
     <git command="pull">
       <args>
-        <arg value="--all"/>
+        <arg value="https://github.com/MarkEWaite/jenkins-bugs"/>
+        <arg value="JENKINS-51638"/>
       </args>
     </git>
     <exec executable="git" outputproperty="git.branch" failifexecutionfails="false">
