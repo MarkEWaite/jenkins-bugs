@@ -3,41 +3,24 @@
   <target name="increment" description="Increment build number">
     <git command="pull">
       <args>
-        <arg value="--all"/>
+        <arg value="https://github.com/MarkEWaite/jenkins-bugs"/>
+        <arg value="JENKINS-51638"/>
       </args>
     </git>
     <exec executable="git" outputproperty="git.branch" failifexecutionfails="false">
       <arg line="rev-parse --abbrev-ref HEAD"/>
     </exec>
     <echo message="Current branch: ${git.branch}"/> 
-    <git command="merge">
-      <args>
-        <arg value="--no-edit"/>
-        <arg value="origin/JENKINS-51638-project-1"/>
-      </args>
-    </git>
     <buildnumber file="${git.branch}/build.number" />
     <git command="add">
       <args>
         <arg value="${git.branch}/build.number"/>
       </args>
     </git>
-    <exec executable="git" outputproperty="git.log.output">
-      <arg value="log"/>
-      <arg value="--oneline"/>
-      <arg value="--numstat"/>
-      <arg value="origin/${git.branch}..HEAD"/>
-    </exec>
     <git command="commit">
       <args>
         <arg value="-m"/>
         <arg value="[${ant.project.name}] ${git.branch}/build++, was ${build.number}"/>
-        <arg value="-m"/>
-        <arg value="Numstat output from git log --oneline"/>
-        <arg value="-m"/>
-        <arg value="Used for test assertions"/>
-        <arg value="-m"/>
-        <arg value="${git.log.output}"/>
       </args>
     </git>
   </target>
