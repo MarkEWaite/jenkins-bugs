@@ -1,4 +1,4 @@
-<project name="JENKINS-23606" default="increment" basedir=".">
+<project name="JENKINS-51638" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
     <git command="pull">
@@ -13,13 +13,7 @@
     <git command="merge">
       <args>
         <arg value="--no-edit"/>
-        <arg value="origin/JENKINS-23606-project-1"/>
-      </args>
-    </git>
-    <git command="merge">
-      <args>
-        <arg value="--no-edit"/>
-        <arg value="origin/JENKINS-23606-project-2"/>
+        <arg value="origin/JENKINS-51638-project-1"/>
       </args>
     </git>
     <buildnumber file="${git.branch}/build.number" />
@@ -53,8 +47,8 @@
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
-    <!-- JENKINS-23606 reports that merge commits trigger branches which should
-         be ignoring the changes that were merged. -->
+    <!-- JENKINS-51638 reports that Jenkinsfile reference to merge strategy 'default'
+         fails on upgrade to git plugin 3.9.x -->
     <echo>Displaying git log messages on this branch from last 3 commits</echo>
     <git command="log">
       <args>
