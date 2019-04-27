@@ -8,26 +8,25 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
+def branch = 'JENKINS-51638'
+
 node {
   stage('Checkout') {
-    checkout scm: [ $class: 'GitSCM',
-                    branches: [[name: 'origin/JENKINS-51638']],
-                    extensions: [[
-                      $class: 'PreBuildMerge',
-                      options: [
-                        fastForwardMode: 'FF',
-                        mergeRemote: 'origin',
-                        mergeStrategy: 'default',
-                        mergeTarget: 'JENKINS-51638-project-1'
-                      ]
-                    ]],
-                    userRemoteConfigs: [[
-                      /* Needs work here */
-                      credentialsId: 'gitcredentialshere',
-                      name: 'origin',
-                      url: "https://somegit.somewhere"
-                    ]]
-                  ]
+    checkout([$class: 'GitSCM',
+              // branches: [[name: "origin/${branch}"]],
+              branches: scm.branches,
+              extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+                           // [$class: 'LocalBranch', localBranch: branch],
+                           [$class: 'PreBuildMerge', options: [
+                            fastForwardMode: 'FF',
+                            mergeRemote: 'origin',
+                            mergeStrategy: 'default', // JENKINS-51638 - works in git plugin 3.8.0, not in 3.9.3
+                            mergeTarget: "${branch}-project-1"
+                           ]]
+                          ],
+              gitTool: scm.gitTool,
+              userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
+                                  refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}"]]])
 
   }
 
