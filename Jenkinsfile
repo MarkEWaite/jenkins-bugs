@@ -42,6 +42,7 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
+
     /* Log should contain something like this:
      [echo] git log
      [exec] *   commit 76f19bc20b9e5a601da2a622c8e9c18eb552ebd9 (HEAD)
@@ -53,5 +54,11 @@ node {
      [exec] | |   
      */
     my_check.logContains('.* ..  Merge: [0-9a-f]+ [0-9a-f]+.*', 'Missing merge commit')
+
+    /* Log should contain something like this (depending on LocalBranch setting):
+     [echo] git branch
+     [exec] * (HEAD detached from origin/JENKINS-51638-project-1)
+    */
+    my_check.logContains(".*.exec. . .*origin/${branch}-project-1.*", 'Wrong branch name')
   }
 }
