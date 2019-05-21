@@ -1,4 +1,4 @@
-<project name="JENKINS-55539" default="increment" basedir=".">
+<project name="JENKINS-57587" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
     <git command="pull">
@@ -23,8 +23,7 @@
   <!-- Info about this repository -->
   <target name="info" description="Report info about this repo">
     <echo>java is ${java.version}</echo>
-    <!-- JENKINS-55539 reports that declarative Pipeline
-         checkoutToSubdirectory behaves incorrectly. -->
+    <!-- JENKINS-57587 reports null pointer exception on lightweight checkout. -->
     <echo>user dir is ${user.dir}</echo>
   </target>
 
