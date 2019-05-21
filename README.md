@@ -4,6 +4,7 @@ With the most basic Pipeline job from SCM with "Lightweight checkout" checked, t
 
 Unchecking "Lightweight checkout" solves the immediate NPE issue and the job completes.
 
+```
 Started by user <redacted>java.lang.NullPointerException
  at jenkins.plugins.git.GitSCMFileSystem$1.invoke(GitSCMFileSystem.java:117)
  at jenkins.plugins.git.GitSCMFileSystem$1.invoke(GitSCMFileSystem.java:114)
@@ -21,3 +22,4 @@ Started by user <redacted>java.lang.NullPointerException
  at hudson.model.ResourceController.execute(ResourceController.java:97)
  at hudson.model.Executor.run(Executor.java:429)
 Finished: FAILURE
+```
