@@ -23,3 +23,5 @@ Started by user <redacted>java.lang.NullPointerException
  at hudson.model.Executor.run(Executor.java:429)
 Finished: FAILURE
 ```
+
+I was unable to duplicate the problem as described in the initial bug report.
