@@ -1,6 +1,8 @@
 pipeline {
   agent none
   options {
+    skipDefaultCheckout(true)
+    buildDiscarder(logRotator(artifactDaysToKeepStr: '2', artifactNumToKeepStr: '5', daysToKeepStr: '15', numToKeepStr: '15'))
     durabilityHint('PERFORMANCE_OPTIMIZED')
   }
   environment {
@@ -12,6 +14,14 @@ pipeline {
         label '!windows'
       }
       steps {
+	checkout([$class: 'GitSCM',
+		  branches: [[name: 'JENKINS-52844']],
+		  doGenerateSubmoduleConfigurations: false,
+		  extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: true, depth: 1, timeout: 3]],
+		  gitTool: scm.gitTool,
+		  submoduleCfg: [],
+		  userRemoteConfigs: scm.userRemoteConfigs,
+                 ])
         echo "Environment name is ${env.name}"
         withAnt(installation: 'ant-latest') {
           sh 'ant info'
@@ -23,6 +33,14 @@ pipeline {
         label 'windows'
       }
       steps {
+	checkout([$class: 'GitSCM',
+		  branches: [[name: 'JENKINS-52844']],
+		  doGenerateSubmoduleConfigurations: false,
+		  extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: true, depth: 1, timeout: 3]],
+		  gitTool: scm.gitTool,
+		  submoduleCfg: [],
+		  userRemoteConfigs: scm.userRemoteConfigs,
+                 ])
         echo "Environment name is ${env.name}"
         withAnt(installation: 'ant-latest') {
           bat 'ant info'
