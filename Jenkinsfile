@@ -16,10 +16,11 @@ pipeline {
       steps {
 	checkout([$class: 'GitSCM',
 		  branches: [[name: 'JENKINS-52844']],
-		  doGenerateSubmoduleConfigurations: false,
-		  extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: true, depth: 1, timeout: 3]],
+		  extensions: [
+                                [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: true, depth: 1, timeout: 3],
+                                [$class: 'LocalBranch', localBranch: 'JENKINS-52844']
+                              ],
 		  gitTool: scm.gitTool,
-		  submoduleCfg: [],
 		  userRemoteConfigs: scm.userRemoteConfigs,
                  ])
         echo "Environment name is ${env.name}"
@@ -35,10 +36,11 @@ pipeline {
       steps {
 	checkout([$class: 'GitSCM',
 		  branches: [[name: 'JENKINS-52844']],
-		  doGenerateSubmoduleConfigurations: false,
-		  extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: true, depth: 1, timeout: 3]],
+		  extensions: [
+                                [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: true, depth: 1, timeout: 3],
+                                [$class: 'LocalBranch', localBranch: 'JENKINS-52844']
+                              ],
 		  gitTool: scm.gitTool,
-		  submoduleCfg: [],
 		  userRemoteConfigs: scm.userRemoteConfigs,
                  ])
         echo "Environment name is ${env.name}"
