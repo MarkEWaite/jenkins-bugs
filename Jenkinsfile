@@ -10,7 +10,7 @@ properties([[$class: 'BuildDiscarderProperty',
 
 branch = 'JENKINS-55939'
 
-node('linux') { // Needs 'wget' in build.xml
+node('linux && !cloud') { // Needs 'wget' in build.xml, must be able to reach server with wget
   stage('Checkout') {
     checkout([$class: 'GitSCM',
               branches: scm.branches,
