@@ -19,6 +19,7 @@ node('linux && !cloud') { // Needs 'wget' in build.xml, must be able to reach se
               gitTool: scm.gitTool,
               userRemoteConfigs: scm.userRemoteConfigs
              ])
+    sh('git clean -xffd') // Remove extraneous files
   }
 
   stage('Build') {
