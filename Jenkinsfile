@@ -8,9 +8,17 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
+branch = 'JENKINS-55939'
+
 node('linux') { // Needs 'wget' in build.xml
   stage('Checkout') {
-    checkout scm
+    checkout([$class: 'GitSCM',
+              branches: scm.branches,
+              extensions: [ [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+                            [$class: 'LocalBranch', localBranch: branch]],
+              gitTool: scm.gitTool,
+              userRemoteConfigs: scm.userRemoteConfigs
+             ])
   }
 
   stage('Build') {
@@ -21,7 +29,7 @@ node('linux') { // Needs 'wget' in build.xml
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains('.*http.*/Bugs-Pipeline-Checks/.*/JENKINS-55939/.*', 'Bug ID job path not found')
+    my_check.logContains(".*http.*/Bugs-Pipeline-Checks/.*/${branch}/.*", 'Bug ID job path not found')
     my_check.logContains('.*"lastBuiltRevision".*', 'lastBuiltRevision not found')
   }
 }
