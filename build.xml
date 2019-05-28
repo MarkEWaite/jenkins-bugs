@@ -29,11 +29,11 @@
     <exec executable="wget" failonerror="true">
       <arg value="--output-document" />
       <arg value="build-data.json" />
-      <arg value="${env.JENKINS_URL}/job/Bugs-Pipeline-Checks/job/jenkins-bugs-multibranch-pipeline/job/JENKINS-50168/api/json?pretty=true&amp;tree=name,lastSuccessfulBuild[number,url,timestamp,result,actions[lastBuiltRevision[SHA1]]],builds[number,url,timestamp,result,actions[lastBuiltRevision[SHA1]]]{0,20}" />
+      <arg value="${env.JENKINS_URL}/job/Bugs-Pipeline-Checks/job/jenkins-bugs-multibranch-pipeline/job/JENKINS-55939/api/json?pretty=true&amp;tree=name,lastSuccessfulBuild[number,url,timestamp,result,actions[lastBuiltRevision[SHA1]]],builds[number,url,timestamp,result,actions[lastBuiltRevision[SHA1]]]{0,20}" />
     </exec>
     <exec executable="grep" failonerror="true">
       <arg value="-E" />
-      <arg value="JENKINS-50168|lastBuiltRevision" />
+      <arg value="JENKINS-55939|lastBuiltRevision" />
       <arg value="build-data.json" />
     </exec>
   </target>

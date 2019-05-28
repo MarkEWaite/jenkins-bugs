@@ -8,7 +8,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-node('linux') { // Needs 'curl' in build.xml
+node('linux') { // Needs 'wget' in build.xml
   stage('Checkout') {
     checkout scm
   }
@@ -21,6 +21,7 @@ node('linux') { // Needs 'curl' in build.xml
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains('.*poll.* Last Built .*Revision.*JENKINS-50168.*', 'Polled non-default branch')
+    my_check.logContains('.*http.*/Bugs-Pipeline-Checks/.*/JENKINS-55939/.*', 'Bug ID job path not found')
+    my_check.logContains('.*"lastBuiltRevision".*', 'lastBuiltRevision not found')
   }
 }
