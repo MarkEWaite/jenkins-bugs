@@ -32,5 +32,6 @@ node('linux && !cloud') { // Needs 'wget' in build.xml, must be able to reach se
     def my_check = new com.markwaite.Assert()
     my_check.logContains(".*http.*/Bugs-Pipeline-Checks/.*/${branch}/.*", 'Bug ID job path not found')
     my_check.logContains('.*"lastBuiltRevision".*', 'lastBuiltRevision not found')
+    my_check.logContains('.*"SHA1".*:.*".*".*', 'SHA1 of lastBuiltRevision not found')
   }
 }
