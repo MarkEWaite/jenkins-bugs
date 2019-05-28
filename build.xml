@@ -33,7 +33,7 @@
     </exec>
     <exec executable="grep" failonerror="true">
       <arg value="-E" />
-      <arg value="JENKINS-55939|lastBuiltRevision" />
+      <arg value="JENKINS-55939|lastBuiltRevision|SHA1" />
       <arg value="build-data.json" />
     </exec>
   </target>
