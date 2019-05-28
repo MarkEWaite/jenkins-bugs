@@ -1,6 +1,6 @@
 # Contributing
 
-Please use the following contribution guidelines:
+Please follow these contribution guidelines:
 
 * Each bug is represented as one or more branches, commonly named by the bug ID being checked
 * Each branch should include a Jenkinsfile that performs verification steps
