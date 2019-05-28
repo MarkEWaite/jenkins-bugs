@@ -1,4 +1,4 @@
-<project name="JENKINS-50168" default="increment" basedir=".">
+<project name="JENKINS-55939" default="increment" basedir=".">
 
   <property environment="env" />
   <!-- Give value in case env does not contain one -->
@@ -25,12 +25,16 @@
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
-    <!-- JENKINS-50168 reports that polling uses the last built branch
-         in a parameterized Pipeline job.  -->
-    <exec executable="curl" failonerror="true">
-      <arg value="--fail" />
-      <arg value="--silent" />
-      <arg value="${env.JENKINS_URL}/job/Bugs-Individual/job/JENKINS-50168-parameterized-polls-with-last-built-branch/scmPollLog/" />
+    <!-- JENKINS-55939 - REST API broke compatibility in 4.0.0-rc -->
+    <exec executable="wget" failonerror="true">
+      <arg value="--output-document" />
+      <arg value="build-data.json" />
+      <arg value="${env.JENKINS_URL}/job/Bugs-Pipeline-Checks/job/jenkins-bugs-multibranch-pipeline/job/JENKINS-50168/api/json?pretty=true&amp;tree=name,lastSuccessfulBuild[number,url,timestamp,result,actions[lastBuiltRevision[SHA1]]],builds[number,url,timestamp,result,actions[lastBuiltRevision[SHA1]]]{0,20}" />
+    </exec>
+    <exec executable="grep" failonerror="true">
+      <arg value="-E" />
+      <arg value="JENKINS-50168|lastBuiltRevision" />
+      <arg value="build-data.json" />
     </exec>
   </target>
 
