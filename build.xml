@@ -4,15 +4,6 @@
     <git command="pull">
       <args>
         <arg value="--all"/>
-        <arg value="--prune"/>
-      </args>
-    </git>
-  </target>
-
-  <target name="increment" description="Increment build number">
-    <git command="pull">
-      <args>
-        <arg value="--all"/>
       </args>
     </git>
     <buildnumber/>
