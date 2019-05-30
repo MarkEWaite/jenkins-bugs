@@ -16,7 +16,7 @@ node { // This once was Windows specific, but 2019-05-29 check shows it is no lo
               userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
                                    refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}",
                                   ]],
-              branches: scm.branches
+              branches: scm.branches,
               extensions: [[$class: 'AuthorInChangelog'],
                            [$class: 'CleanCheckout'],
                            [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', timeout: 3],
