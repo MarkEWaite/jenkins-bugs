@@ -10,7 +10,7 @@ properties([[$class: 'BuildDiscarderProperty',
 
 def branch="has-percent-%-JENKINS-44360"
 
-node('windows') { // Nick Jones indicated this may be Windows specific
+node('!windows') { // Nick Jones indicated this may be Windows specific
   stage('Checkout') {
     checkout([$class: 'GitSCM',
               userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
