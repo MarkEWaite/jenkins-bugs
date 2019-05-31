@@ -16,6 +16,7 @@ for origin in $(git branch -a | grep $filter | grep origin.*JENKINS | sed 's!rem
         ( cd .. && \
           git clone --branch $branch \
                     --single-branch \
+                    --no-tags \
                     --reference /var/lib/git/mwaite/bugs/jenkins-bugs.git \
                     https://github.com/MarkEWaite/jenkins-bugs \
                     $dir )
