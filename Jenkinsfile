@@ -8,7 +8,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-branch = 'JENKINS-55939'
+def branch = 'JENKINS-55939'
 
 node('linux && !cloud') { // Needs 'wget' in build.xml, must be able to reach server with wget
   stage('Checkout') {
