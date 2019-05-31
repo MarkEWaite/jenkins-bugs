@@ -15,11 +15,11 @@ pipeline {
 
             script {
               // extract author name, committer name, and commit message of GIT_COMMIT
-              author_name = bat(script: "@echo off\ngit log -n 1 ${env.GIT_COMMIT} --format=%%aN", returnStdout: true).trim()
+              def author_name = bat(script: "@echo off\ngit log -n 1 ${env.GIT_COMMIT} --format=%%aN", returnStdout: true).trim()
               echo "Author name of last commit is ${author_name}"
-              committer_name = bat(script: "@echo off\ngit log -n 1 ${env.GIT_COMMIT} --format=%%cN", returnStdout: true).trim()
+              def committer_name = bat(script: "@echo off\ngit log -n 1 ${env.GIT_COMMIT} --format=%%cN", returnStdout: true).trim()
               echo "Committer name of last commit is ${committer_name}"
-              commit_message = powershell(script: "git log -1 --format=%B ${GIT_COMMIT}", returnStdout: true).trim()
+              def commit_message = powershell(script: "git log -1 --format=%B ${GIT_COMMIT}", returnStdout: true).trim()
               echo "Commit message of last commit is ${commit_message}"
             }
 
@@ -46,9 +46,9 @@ pipeline {
               // extract author name, committer name, and commit message of GIT_COMMIT
               def author_name = sh(script: "git log -n 1 ${env.GIT_COMMIT} --format=%aN", returnStdout: true).trim()
               echo "Author name of last commit is ${author_name}"
-              committer_name = sh(script: "git log -n 1 ${env.GIT_COMMIT} --format=%cN", returnStdout: true).trim()
+              def committer_name = sh(script: "git log -n 1 ${env.GIT_COMMIT} --format=%cN", returnStdout: true).trim()
               echo "Committer name of last commit is ${committer_name}"
-              commit_message = sh(script: "git log -1 --format=%B ${GIT_COMMIT}", returnStdout: true).trim()
+              def commit_message = sh(script: "git log -1 --format=%B ${GIT_COMMIT}", returnStdout: true).trim()
               echo "Commit message of last commit is ${commit_message}"
             }
 
