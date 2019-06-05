@@ -31,7 +31,6 @@ node {
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     my_check.logContains(".*[*] ${branch}.*", 'Wrong branch reported')
-    echo "CHANGE_ID is ${env.CHANGE_ID}"
     if (env.CHANGE_ID) { // Only defined for branch source providers like GitHub, not simple providers like Git
       echo "CHANGE_ID is " + env.CHANGE_ID
       my_check.logContains(".*CHANGE_ID is [0-9]+.*", 'Wrong CHANGE_ID reported')
