@@ -31,9 +31,14 @@ node {
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     my_check.logContains(".*[*] ${branch}.*", 'Wrong branch reported')
-    // if (currentBuild.number > 1) { // Don't check first build
-      // my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
-      // my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
-    // }
+    my_check.logContains(".*CHANGE_ID is [0-9]+.*", 'Wrong CHANGE_ID reported')
+    my_check.logContains(".*CHANGE_TARGET is master.*", 'Wrong CHANGE_TARGET reported')
+    my_check.logContains(".*CHANGE_BRANCH is JENKINS-54xxx.*", 'Wrong CHANGE_BRANCH reported')
+    my_check.logContains(".*CHANGE_FORK is .*env.CHANGE_FORK.*", 'CHANGE_FORK reported, not expected')
+    my_check.logContains(".*CHANGE_URL is .*https://github.com/MarkEWaite/jenkins-bugs.*", 'Wrong CHANGE_URL reported')
+    my_check.logContains(".*CHANGE_TITLE is Jenkins 54xxx to master DO NOT MERGE.*", 'Wrong CHANGE_TITLE reported')
+    my_check.logContains(".*CHANGE_AUTHOR is .*aite.*", 'Wrong CHANGE_AUTHOR reported')
+    my_check.logContains(".*CHANGE_AUTHOR_DISPLAY_NAME is .*ark.*aite.*", 'Wrong CHANGE_AUTHOR_DISPLAY_NAME reported')
+    my_check.logContains(".*CHANGE_AUTHOR_EMAIL is .*ark.*aite.*", 'Wrong CHANGE_AUTHOR_EMAIL reported')
   }
 }
