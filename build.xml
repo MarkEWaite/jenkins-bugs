@@ -1,5 +1,7 @@
 <project name="JENKINS-54xxx" default="increment" basedir=".">
 
+  <property environment="env"/>
+
   <target name="increment" description="Increment build number">
     <git command="pull">
       <args>
@@ -26,6 +28,19 @@
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
+    <!-- From https://github.com/jenkinsci/branch-api-plugin/blob/master/src/main/java/jenkins/branch/BranchNameContributor.java -->
+    <echo>CHANGE_ID is ${env.CHANGE_ID}</echo>
+    <echo>CHANGE_TARGET is ${env.CHANGE_TARGET}</echo>
+    <echo>CHANGE_BRANCH is ${env.CHANGE_BRANCH}</echo>
+    <echo>CHANGE_FORK is ${env.CHANGE_FORK}</echo>
+    <echo>CHANGE_URL is ${env.CHANGE_URL}</echo>
+    <echo>CHANGE_TITLE is ${env.CHANGE_TITLE}</echo>
+    <echo>CHANGE_AUTHOR is ${env.CHANGE_AUTHOR}</echo>
+    <echo>CHANGE_AUTHOR_DISPLAY_NAME is ${env.CHANGE_AUTHOR_DISPLAY_NAME}</echo>
+    <echo>CHANGE_AUTHOR_EMAIL is ${env.CHANGE_AUTHOR_EMAIL}</echo>
+    <echo>TAG_TIMESTAMP is ${env.TAG_TIMESTAMP}</echo>
+    <echo>TAG_UNIXTIME is ${env.TAG_UNIXTIME}</echo>
+    <echo>TAG_DATE is ${env.TAG_DATE}</echo>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
