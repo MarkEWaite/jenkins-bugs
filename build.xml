@@ -2,12 +2,22 @@
 
   <target name="increment" description="Increment build number">
     <echo>java is ${java.version}</echo>
+    <git command="pull">
+      <args>
+        <arg value="--all"/>
+        <arg value="--prune"/>
+      </args>
+    </git>
     <buildnumber/>
+    <git command="add">
+      <args>
+        <arg value="build.number"/>
+      </args>
+    </git>
     <git command="commit">
       <args>
         <arg value="-m"/>
         <arg value="${ant.project.name} ${user.name} build++, was ${build.number}"/>
-        <arg value="build.number"/>
       </args>
     </git>
   </target>
