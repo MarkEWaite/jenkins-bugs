@@ -25,9 +25,11 @@ node('!windows') {
                             ],
                 gitTool: scm.gitTool,
                 userRemoteConfigs: [ scm.userRemoteConfigs[0], httpsRemoteConfig ]])
-checkout([$class: 'GitSCM', branches: [[name: '*/master']], 
-          doGenerateSubmoduleConfigurations: false, 
-          extensions: [], gitTool: 'Default', submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
+
+    checkout([$class: 'GitSCM', branches: [[name: '*/master']], 
+	      doGenerateSubmoduleConfigurations: false, 
+	      extensions: [], gitTool: 'Default', submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
+
     sh 'touch .gitmodules'
     /* JENKINS-56150 reports null pointer exception if empty .gitmodules file exists */
     checkout([$class: 'GitSCM',
