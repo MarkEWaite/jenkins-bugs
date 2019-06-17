@@ -32,6 +32,9 @@
     <dirset id="dir.contents" dir="." includes="C*"/>
     <property name="prop.dir.contents" refid="dir.contents"/>
     <echo>Dir contents for 'C*' are ${prop.dir.contents}</echo>
+    <dirset id="tdir.contents" dir="." includes="T*"/>
+    <property name="prop.tdir.contents" refid="tdir.contents"/>
+    <echo>Dir contents for 'T*' are ${prop.tdir.contents}</echo>
     <git command="remote">
       <args>
         <arg value="-v"/>
