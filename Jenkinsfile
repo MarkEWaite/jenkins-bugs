@@ -34,7 +34,9 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logDoesNotContain(".*Dir contents for .* are .*CONTRIBUTING.md.*", 'Found C* files that should have been excluded by sparse checkout')
+    my_check.logDoesNotContain(".*Files contents for .* are .*CONTRIBUTING.md.*", 'Found C* files that should have been excluded by sparse checkout')
+    my_check.logContains(".*Files contents for .*", 'Info tasks did not report dir contents')
+    my_check.logDoesNotContain(".*Dir contents for .* are .*C-dir.*", 'Found C* dir that should have been excluded by sparse checkout')
     my_check.logContains(".*Dir contents for .*", 'Info tasks did not report dir contents')
   }
 }
