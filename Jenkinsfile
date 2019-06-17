@@ -14,16 +14,17 @@ node {
   stage('Checkout') {
     checkout([$class: 'GitSCM', branches: [[name: 'JENKINS-58049']],
                                 extensions: [
-        				[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: false],
-					[$class: 'LocalBranch', localBranch: 'JENKINS-58049'],
-					[$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [[path: 'build.number'], [path: 'build.xml'], [path: 'Jenkinsfile']]],
-					[$class: 'AuthorInChangelog'],
-					[$class: 'CleanBeforeCheckout']],
-				gitTool: scm.gitTool,
-				userRemoteConfigs: [
-					[refspec: '+refs/heads/JENKINS-58049:refs/remotes/origin/JENKINS-58049', url: 'https://github.com/MarkEWaite/jenkins-bugs']
-				]
-		])
+                                        [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: false],
+                                        [$class: 'LocalBranch', localBranch: branch],
+                                        [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [[path: 'build.number'], [path: 'build.xml'], [path: 'Jenkinsfile']]],
+                                        [$class: 'AuthorInChangelog'],
+                                        [$class: 'CleanBeforeCheckout']
+                                ],
+                                gitTool: scm.gitTool,
+                                userRemoteConfigs: [
+                                        [refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs']
+                                ]
+                ])
   }
 
   stage('Build') {
@@ -34,7 +35,7 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains(".* origin.*https://github.com/MarkEWaite/jenkins-bugs.*", 'Repo missing first origin')
-    my_check.logContains(".* https-origin.*https://github.com/MarkEWaite/jenkins-bugs.*", 'Repo missing second origin')
+    my_check.logDoesNotContain(".*Dir contents for .* are .*CONTRIBUTING.md.*", 'Found C* files that should have been excluded by sparse checkout')
+    my_check.logContains(".*Dir contents for .*", 'Info tasks did not report dir contents')
   }
 }
