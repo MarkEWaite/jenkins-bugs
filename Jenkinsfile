@@ -8,7 +8,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-def branch = 'JENKINS-56150'
+def branch = 'JENKINS-58049'
 
 def httpsRemoteConfig = [ url: 'https://github.com/MarkEWaite/jenkins-bugs',
                           name: 'https-origin',
@@ -31,7 +31,7 @@ node('!windows') {
 	      extensions: [], gitTool: 'Default', submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
 
     sh 'touch .gitmodules'
-    /* JENKINS-56150 reports null pointer exception if empty .gitmodules file exists */
+    /* JENKINS-58049 reports multiple sparse checkout paths are ignored */
     checkout([$class: 'GitSCM',
                 branches: scm.branches,
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
