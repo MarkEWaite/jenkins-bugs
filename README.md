@@ -1,12 +1,3 @@
-# [JENKINS-55536](https://issues.jenkins-ci.org/browse/JENKINS-55536) Use multiple remotes in Jenkinsfile
+# [JENKINS-56150](https://issues.jenkins-ci.org/browse/JENKINS-56150) NPE during submodule update with empty .gitmodules file
 
-The bug report says that multiple remotes are not supported by the git
-plugin.  As far as I can tell, multiple remotes are supported in all the
-job types that I've used, including Freestyle, Matrix, Scripted Pipeline,
-and Declarative Pipeline jobs.
-
-Multiple remotes are not available in the branch source plugins that use
-REST API calls to improve change detection performance.  A GitHub branch
-source, Bitbucket branch source, or Gitea based multibranch Pipeline
-will need to declare the additional remotes in the Jenkinsfile rather
-than declaring it in the configuration of the multibranch Pipeline.
+If a git repository has an empty .gitmodules file, the git client plugin will assume that the repository has submodules. When the submodule update is run, it crashes with what a null pointer exception.
