@@ -19,7 +19,7 @@ node {
                   [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [[path: 'build.number'], [path: 'build.xml'], [path: 'Jenkinsfile'], [path: 'TIA-Profiles']]],
                   [$class: 'CleanBeforeCheckout']
               ],
-              gitTool: scm.gitTool,
+              gitTool: "Default",  // JGit does not support sparse checkout, can't use scm.gitTool
               userRemoteConfigs: [
                   [refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs']
               ]
