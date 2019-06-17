@@ -1,4 +1,4 @@
-<project name="JENKINS-56150" default="increment" basedir=".">
+<project name="JENKINS-58049" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
     <git command="pull">
@@ -25,7 +25,10 @@
   <target name="info" description="Report info about this repo">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
-    <!-- JENKINS-56150 reports empty .gitmodules file will NPE during submodule update -->
+    <!-- JENKINS-58049 reports sparse checkout does not support multiple paths -->
+    <fileset id="dist.contents" dir="." includes="C*"/> 
+    <property name="prop.dist.contents" refid="dist.contents"/>
+    <echo>Dir contents for 'C*' are ${prop.dist.contents}</echo>
     <git command="remote">
       <args>
         <arg value="-v"/>
