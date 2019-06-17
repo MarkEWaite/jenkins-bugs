@@ -26,15 +26,15 @@
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <!-- JENKINS-58049 reports sparse checkout does not support multiple paths -->
-    <fileset id="files.contents" dir="." includes="C*"/>
-    <property name="prop.files.contents" refid="files.contents"/>
-    <echo>Files contents for 'C*' are ${prop.files.contents}</echo>
-    <dirset id="dir.contents" dir="." includes="C*"/>
-    <property name="prop.dir.contents" refid="dir.contents"/>
-    <echo>Dir contents for 'C*' are ${prop.dir.contents}</echo>
-    <dirset id="tdir.contents" dir="." includes="T*"/>
-    <property name="prop.tdir.contents" refid="tdir.contents"/>
-    <echo>Dir contents for 'T*' are ${prop.tdir.contents}</echo>
+    <fileset id="files.list" dir="." includes="C*"/>
+    <property name="prop.files.list" refid="files.list"/>
+    <echo>Files list for 'C*' are ${prop.files.list}</echo>
+    <dirset id="dir.list" dir="." includes="C*"/>
+    <property name="prop.dir.list" refid="dir.list"/>
+    <echo>Dir list for 'C*' are ${prop.dir.list}</echo>
+    <dirset id="tdir.list" dir="." includes="T*"/>
+    <property name="prop.tdir.list" refid="tdir.list"/>
+    <echo>Dir list for 'T*' are ${prop.tdir.list}</echo>
     <git command="remote">
       <args>
         <arg value="-v"/>
