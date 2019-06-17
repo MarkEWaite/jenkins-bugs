@@ -12,19 +12,18 @@ def branch = 'JENKINS-58049'
 
 node {
   stage('Checkout') {
-    checkout([$class: 'GitSCM', branches: [[name: 'JENKINS-58049']],
-                                extensions: [
-                                        [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: false],
-                                        [$class: 'LocalBranch', localBranch: branch],
-                                        [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [[path: 'build.number'], [path: 'build.xml'], [path: 'Jenkinsfile']]],
-                                        [$class: 'AuthorInChangelog'],
-                                        [$class: 'CleanBeforeCheckout']
-                                ],
-                                gitTool: scm.gitTool,
-                                userRemoteConfigs: [
-                                        [refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs']
-                                ]
-                ])
+    checkout([$class: 'GitSCM',
+              branches: [[name: branch]],
+              extensions: [
+                  [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+                  [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [[path: 'build.number'], [path: 'build.xml'], [path: 'Jenkinsfile']]],
+                  [$class: 'CleanBeforeCheckout']
+              ],
+              gitTool: scm.gitTool,
+              userRemoteConfigs: [
+                  [refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs']
+              ]
+        ])
   }
 
   stage('Build') {
