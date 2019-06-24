@@ -29,6 +29,6 @@ for origin in $(git branch -a | grep $filter | grep origin.*JENKINS | sed 's!rem
           git config remote.bare.fetch $(git config --get remote.origin.fetch | sed 's/origin/bare/g') && \
           git push cache && \
           git push bare && \
-          git pull --all --prune )
+          git pull --no-tags --all --prune )
         echo Configured for bug $bug, branch $branch, dir $dir
 done
