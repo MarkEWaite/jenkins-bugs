@@ -8,7 +8,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-node('linux') { // Needs 'curl' in build.xml
+node('linux && !cloud') { // Needs 'curl' in build.xml
   stage('Checkout') {
     checkout scm
   }
