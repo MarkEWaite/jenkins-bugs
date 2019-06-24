@@ -1,11 +1,12 @@
 # [JENKINS-xxxxx](https://issues.jenkins-ci.org/browse/JENKINS-xxxxx) check public repository
 
 Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations to
-duplicate the bug.  This repository captures some of those configurations
-in a way that is publicly visible so that automated tests can use this
-repository.
+client plugin need a repository which contains specific configurations
+to duplicate the bug.  This repository publicly captures configurations
+so that automated tests can use this repository.
 
 This repository includes many branches with a Jenkinsfile pipeline
-definition for branches where the pipeline definition can encapsulate
-a portion of the bug verification.
+definition where the pipeline definition can encapsulate a portion of the
+bug verification. It is an imperfect attempt to accelerate interactive
+testing of Jenkins bug reports while allowing some reuse of the work to
+test those bug reports.
