@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This is a work in progress - does not yet do all that needs to be done
+# This is a work in progress - does most of what needs to be done
 
 if [ "$1" != "" ]; then
         filter=$1
