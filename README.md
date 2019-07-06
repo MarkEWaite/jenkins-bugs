@@ -1,12 +1,7 @@
-# [JENKINS-xxxxx](https://issues.jenkins-ci.org/browse/JENKINS-xxxxx) check public repository
+# Pipeline Utilities Branch
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations
-to duplicate the bug.  This repository publicly captures configurations
-so that automated tests can use this repository.
+Some individuals and groups have mistakenly allowed their pipeline
+shared library repository to become very large.  This branch will
+simulate some aspects of a pipeline library in a large repository.
 
-This repository includes many branches with a Jenkinsfile pipeline
-definition where the pipeline definition can encapsulate a portion of the
-bug verification. It is an imperfect attempt to accelerate interactive
-testing of Jenkins bug reports while allowing some reuse of the work to
-test those bug reports.
+It includes a copy of [jenkins-pipeline-utils](https://github.com/MarkEWaite/jenkins-pipeline-utils)
