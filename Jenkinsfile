@@ -53,7 +53,7 @@ node('!cloud') {
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     my_check.logContains(".*[*] ${branch}.*", "Wrong branch reported, expected '${branch}'")
-    my_check.logContains('.*git fetch .*--force --progress.*linux-stable.* # timeout=1[^0-9]*', 'Missing linux-stable timeout=1')
+    my_check.logContains('.*git fetch .*--progress.*linux-stable.* # timeout=1[^0-9]*', 'Missing linux-stable timeout=1')
     // Many checkout operations fail with an AbortException that does not report the timeout message
     // my_check.logContains('.*ERROR: Timeout after 1 minutes.*', 'Timeout error not reported')
     my_check.logContains('.*Caught linux-stable checkout exception: .*Exception.*', 'Exception not caught in linux-stable checkout')
