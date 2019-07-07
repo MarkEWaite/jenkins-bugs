@@ -11,7 +11,7 @@ properties([[$class: 'BuildDiscarderProperty',
 def branch = 'JENKINS-58349'
 
 def checkout_result = {}
-def expected_sha1 = "f0fae702de30331a8ce913cdb87ac0bdf990d85f"
+def expected_sha1 = 'f0fae702de30331a8ce913cdb87ac0bdf990d85f'
 
 /* Only run on local agents, not cloud agents.  Cloud agents can't see my local git caching server */
 node('(testing-a-jagent || debian9-a-mwaite) && !cloud') {
@@ -53,8 +53,9 @@ node('(testing-a-jagent || debian9-a-mwaite) && !cloud') {
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     my_check.logContains(".*[*] ${branch}.*", "Wrong branch reported, expected '${branch}'")
-    my_check.logContains(".*git fetch .*--force --progress.*linux-stable.* # timeout=1[^0-9]*", "Missing linux-stable timeout=1")
-    my_check.logContains(".*Caught linux-stable checkout exception: .*Exception.*", "Exception not caught in linux-stable checkout")
-    my_check.logDoesNotContain(".*linux-stable-v5.1.15-commit-SHA1-is-${expected_sha1}.*", "Timeout did not expire on linux-stable checkout, checkout found '${expected_sha1}'")
+    my_check.logContains('.*git fetch .*--force --progress.*linux-stable.* # timeout=1[^0-9]*', 'Missing linux-stable timeout=1')
+    my_check.logContains('.*ERROR: Timeout after 1 minutes.*', 'Timeout error not reported')
+    my_check.logContains('.*Caught linux-stable checkout exception: .*Exception.*', 'Exception not caught in linux-stable checkout')
+    my_check.logDoesNotContain('.*linux-stable-v5.1.15-commit-SHA1-is-${expected_sha1}.*', 'Timeout did not expire on linux-stable checkout, checkout found '${expected_sha1}'')
   }
 }
