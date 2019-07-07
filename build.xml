@@ -30,6 +30,11 @@
       <arg value="--pretty=format:JENKINS-58349-HEAD-commit-SHA1-is-%H"/>
       <arg value="HEAD"/>
     </exec>
+    <exec executable="git">
+      <arg value="-C"/>
+      <arg value="linux-stable"/>
+      <arg value="branch"/>
+    </exec>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
