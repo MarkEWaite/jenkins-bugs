@@ -56,6 +56,6 @@ node('(testing-a-jagent || debian9-a-mwaite) && !cloud') {
     my_check.logContains('.*git fetch .*--force --progress.*linux-stable.* # timeout=1[^0-9]*', 'Missing linux-stable timeout=1')
     my_check.logContains('.*ERROR: Timeout after 1 minutes.*', 'Timeout error not reported')
     my_check.logContains('.*Caught linux-stable checkout exception: .*Exception.*', 'Exception not caught in linux-stable checkout')
-    my_check.logDoesNotContain('.*linux-stable-v5.1.15-commit-SHA1-is-${expected_sha1}.*', 'Timeout did not expire on linux-stable checkout, checkout found '${expected_sha1}'')
+    my_check.logDoesNotContain(".*linux-stable-v5.1.15-commit-SHA1-is-${expected_sha1}.*", "Timeout did not expire on linux-stable checkout, checkout found '${expected_sha1}'")
   }
 }
