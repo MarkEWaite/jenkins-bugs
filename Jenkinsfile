@@ -34,7 +34,7 @@ node('!cloud') {
                     branches: [[name: 'v5.1.15']],
                     extensions: [
                       [$class: 'LocalBranch', localBranch: 'branch-v5.1.15'],
-                      [$class: 'CloneOption', reference: '/var/lib/git/mwaite/linux/linux-stable.git', timeout: 1]],
+                      [$class: 'CloneOption', timeout: 1]],
                     gitTool: 'git', // JGit does not support timeout
                     userRemoteConfigs: [[credentialsId: 'mwaite-git-markwaite-net-rsa-private-key-from-mark-pc2', url: 'mwaite@git.markwaite.net:git/bare/linux/linux-stable.git']]])
         expected_sha1 = checkout_result['GIT_COMMIT']
