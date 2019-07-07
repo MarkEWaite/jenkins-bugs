@@ -21,14 +21,15 @@
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <!-- JENKINS-58349 reports that timeout is ignored on a pipeline job -->
-    <git command="log">
-      <args>
-        <arg value="-n"/>
-        <arg value="1"/>
-        <arg value="--pretty=format:JENKINS-58349-HEAD-commit-SHA1-is-%H"/>
-        <arg value="HEAD"/>
-      </args>
-    </git>
+    <exec executable="git">
+      <arg value="-C"/>
+      <arg value="linux-stable"/>
+      <arg value="log"/>
+      <arg value="-n"/>
+      <arg value="1"/>
+      <arg value="--pretty=format:JENKINS-58349-HEAD-commit-SHA1-is-%H"/>
+      <arg value="HEAD"/>
+    </exec>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
