@@ -54,7 +54,7 @@ node('(testing-a-jagent || debian9-a-mwaite) && !cloud') {
     def my_check = new com.markwaite.Assert()
     my_check.logContains(".*[*] branch-v5.1.15.*", "Wrong branch reported, expected 'branch-v5.1.15'")
     my_check.logContains(".*JENKINS-58349-HEAD-commit-SHA1-is-${expected_sha1}.*", "Wrong sha1 checkout at HEAD, expected '${expected_sha1}'")
-    my_check.logContains(".*git fetch .*--force --progress.* # timeout=1[^0-9]*", "Missing timeout=1")
+    my_check.logContains(".*git fetch .*--force --progress.*linux-stable.* # timeout=1[^0-9]*", "Missing linux-stable timeout=1")
     my_check.logDoesNotContain(".*Caught linux-stable checkout exception: .*Exception.*", "Exception caught in checkout")
   }
 }
