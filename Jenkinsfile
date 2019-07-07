@@ -35,7 +35,7 @@ node('(testing-a-jagent || debian9-a-mwaite) && !cloud') {
                     extensions: [
                       [$class: 'LocalBranch', localBranch: 'branch-v5.1.15'],
                       [$class: 'CloneOption', reference: '/var/lib/git/mwaite/linux/linux-stable.git', timeout: 1]],
-                    gitTool: scm.gitTool,
+                    gitTool: 'git', // JGit does not support timeout
                     userRemoteConfigs: [[credentialsId: 'mwaite-git-markwaite-net-rsa-private-key-from-mark-pc2', url: 'mwaite@git.markwaite.net:git/bare/linux/linux-stable.git']]])
         expected_sha1 = checkout_result['GIT_COMMIT']
       } catch (Exception e) {
@@ -52,9 +52,9 @@ node('(testing-a-jagent || debian9-a-mwaite) && !cloud') {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains(".*[*] branch-v5.1.15.*", "Wrong branch reported, expected 'branch-v5.1.15'")
-    my_check.logContains(".*JENKINS-58349-HEAD-commit-SHA1-is-${expected_sha1}.*", "Wrong sha1 checkout at HEAD, expected '${expected_sha1}'")
+    my_check.logContains(".*[*] ${branch}.*", "Wrong branch reported, expected '${branch}'")
     my_check.logContains(".*git fetch .*--force --progress.*linux-stable.* # timeout=1[^0-9]*", "Missing linux-stable timeout=1")
-    my_check.logDoesNotContain(".*Caught linux-stable checkout exception: .*Exception.*", "Exception caught in checkout")
+    my_check.logContains(".*Caught linux-stable checkout exception: .*Exception.*", "Exception not caught in linux-stable checkout")
+    my_check.logDoesNotContain(".*linux-stable-v5.1.15-commit-SHA1-is-${expected_sha1}.*", "Timeout did not expire on linux-stable checkout, checkout found '${expected_sha1}'")
   }
 }

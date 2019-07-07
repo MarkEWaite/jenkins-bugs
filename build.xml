@@ -20,6 +20,9 @@
   <target name="info" description="Report info about this repo">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
+    <exec executable="git">
+      <arg value="branch"/>
+    </exec>
     <!-- JENKINS-58349 reports that timeout is ignored on a pipeline job -->
     <exec executable="git">
       <arg value="-C"/>
@@ -27,13 +30,8 @@
       <arg value="log"/>
       <arg value="-n"/>
       <arg value="1"/>
-      <arg value="--pretty=format:JENKINS-58349-HEAD-commit-SHA1-is-%H"/>
+      <arg value="--pretty=format:linux-stable-v5.1.15-commit-SHA1-is-%H"/>
       <arg value="HEAD"/>
-    </exec>
-    <exec executable="git">
-      <arg value="-C"/>
-      <arg value="linux-stable"/>
-      <arg value="branch"/>
     </exec>
   </target>
 
