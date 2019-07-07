@@ -1,7 +1,10 @@
-# [JENKINS-50401](https://issues.jenkins-ci.org/browse/JENKINS-50401) local branch extension causes incorrect checkout
+# [JENKINS-58349](https://issues.jenkins-ci.org/browse/JENKINS-58349) Timeout ignored for pipeline checkout
 
-If the git plugin uses a local branch which is named the same as the
-remote and contains a forward slash, it will cause the checkout command
-to not update to the latest commit.
+Bug report says that the timeout setting for a checkout from Pipeline is ignored.
+This repository includes a Jenkinsfile that reads from the Linux kernel git 
+repository (larger than 2 GB repository) with an intentionally short timeout.
+The checkout step honors the timeout setting.
 
-See also [JENKINS-37263](https://issues.jenkins-ci.org/browse/JENKINS-37263)
+The issue is likely when a large repository includes a Jenkinsfile,
+then the initial checkout to obtain the Jenkinsfile does not honor the timeout.
+That failure was reported as [JENKINS-38973](https://issues.jenkins-ci.org/browse/JENKINS-38973).
