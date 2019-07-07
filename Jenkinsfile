@@ -33,7 +33,7 @@ node('testing-a-jagent && !cloud') {
                     branches: [[name: 'v5.1.15']],
                     extensions: [
                       [$class: 'LocalBranch', localBranch: 'branch-v5.1.15'],
-                      [$class: 'CloneOption', depth: 1, honorRefspec: true, noTags: false, reference: '/var/lib/git/mwaite/linux/linux-stable.git', shallow: true, timeout: 1]],
+                      [$class: 'CloneOption', reference: '/var/lib/git/mwaite/linux/linux-stable.git', timeout: 1]],
                     gitTool: scm.gitTool,
                     userRemoteConfigs: [[credentialsId: 'mwaite-git-markwaite-net-rsa-private-key-from-mark-pc2', url: 'mwaite@git.markwaite.net:git/bare/linux/linux-stable.git']]])
         expected_sha1 = checkout_result['GIT_COMMIT']
