@@ -14,7 +14,8 @@ def checkout_result = {}
 def expected_sha1 = "f0fae702de30331a8ce913cdb87ac0bdf990d85f"
 
 /* Only run on local agents, not cloud agents.  Cloud agents can't see my local git caching server */
-node('testing-a-jagent && !cloud') {
+node('(testing-a-jagent || debian9-a-mwaite) && !cloud') {
+  deleteDir() // Force each run to be a fresh copy
   checkout([$class: 'GitSCM',
           branches: [[name: branch]],
           extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
