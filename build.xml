@@ -1,4 +1,4 @@
-<project name="JENKINS-50401" default="increment" basedir=".">
+<project name="JENKINS-58349" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
     <git command="pull" />
@@ -20,23 +20,13 @@
   <target name="info" description="Report info about this repo">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
-    <!-- JENKINS-50401 reports that checkout selects the wrong commit
-         when the LocalBranch extension is used -->
-    <git command="branch" />
+    <!-- JENKINS-58349 reports that timeout is ignored on a pipeline job -->
     <git command="log">
       <args>
         <arg value="-n"/>
         <arg value="1"/>
-        <arg value="--pretty=format:HEAD-commit-SHA1-is-%H"/>
+        <arg value="--pretty=format:JENKINS-58349-HEAD-commit-SHA1-is-%H"/>
         <arg value="HEAD"/>
-      </args>
-    </git>
-    <git command="log">
-      <args>
-        <arg value="-n"/>
-        <arg value="1"/>
-        <arg value="--pretty=format:remote-commit-SHA1-is-%H"/>
-        <arg value="refs/remotes/origin/has-slash/${ant.project.name}"/>
       </args>
     </git>
   </target>
