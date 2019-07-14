@@ -18,7 +18,7 @@ node('git-1.8+') { // Submodules require git 1.8 or newer
                              [$class: 'LocalBranch', localBranch: branch],
                              [$class: 'SubmoduleOption', parentCredentials: true, recursiveSubmodules: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', threads: 4]
                             ],
-                gitTool: 'git', // JGit implementation does not yet support submodules in git client plugin
+                gitTool: 'Default', // JGit implementation does not yet support submodules in git client plugin
                 userRemoteConfigs: scm.userRemoteConfigs])
   }
 
