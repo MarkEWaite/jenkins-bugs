@@ -18,7 +18,7 @@ node('git-lfs && git-1.9+') { // Large file support equires a node with git LFS 
               // Don't use the GitLFSPull extension
               // Rely on smudge filter to update content
               // extensions: [[$class: 'GitLFSPull']],
-              extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+              extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git']],
               userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']],
         ]
     )
