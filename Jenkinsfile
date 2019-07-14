@@ -8,7 +8,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
              strategy: [$class: 'LogRotator', numToKeepStr: '7']]])
 
-node('git-lfs') { // Large file support equires a node with git LFS installed
+node('git-lfs && git-1.9+') { // Large file support equires a node with git LFS installed and git 1.9 or later
 
   stage('Checkout') {
     checkout([$class: 'GitSCM',
@@ -16,7 +16,7 @@ node('git-lfs') { // Large file support equires a node with git LFS installed
               // Don't use the GitLFSPull extension
               // Rely on smudge filter to update content
               // extensions: [[$class: 'GitLFSPull']],
-              userRemoteConfigs: [[url: 'https://github.com/markewaite/jenkins-bugs.git']],
+              userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs.git']],
         ]
     )
   }
