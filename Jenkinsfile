@@ -32,6 +32,7 @@ node {
                             disableSubmodules: false,
                             recursiveSubmodules: true,
                             reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
+                            threads: 2,
                             trackingSubmodules: false],
                            [$class: 'WipeWorkspace'],
                            ],
