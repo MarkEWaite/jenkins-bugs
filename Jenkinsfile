@@ -10,7 +10,7 @@ properties([[$class: 'BuildDiscarderProperty',
 
 def branch = 'master'
 
-node {
+node('git-1.8+') { // Submodules require git 1.8 or newer
   stage('Checkout') {
     checkout([$class: 'GitSCM',
                 branches: scm.branches,
