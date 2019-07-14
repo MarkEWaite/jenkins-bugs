@@ -1,6 +1,6 @@
 #!groovy
 
-@Library('globalPipelineLibraryMarkEWaite@branch-for-checkout-in-library') _
+@Library('globalPipelineLibraryMarkEWaite') _
 import com.markwaite.Assert
 import com.markwaite.Build
 import com.markwaite.Checkout
