@@ -1,7 +1,7 @@
-<project name="JENKINS-35687" default="increment" basedir=".">
+<project name="JENKINS-35687-pub" default="increment" basedir=".">
 
   <!-- Increment build number, commit the change -->
-  <target name="increment" description="Increment for JENKINS-39905">
+  <target name="increment" description="Increment for JENKINS-35687-pub">
     <echo>java is ${java.version}</echo>
     <buildnumber/>
     <echo>Build number was ${build.number}</echo>
