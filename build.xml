@@ -2,7 +2,7 @@
 
   <target name="increment" description="Increment build number">
     <echo>java is ${java.version}</echo>
-    <exec executable="/bin/sh"/>
+    <exec executable="/bin/sh">
       <arg value="./remove-remotes.sh"/>
     </exec>
     <buildnumber/>
