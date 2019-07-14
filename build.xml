@@ -2,6 +2,9 @@
 
   <target name="increment" description="Increment build number">
     <echo>java is ${java.version}</echo>
+    <exec executable="/bin/sh"/>
+      <arg value="./remove-remotes.sh"/>
+    </exec>
     <buildnumber/>
     <git command="commit">
       <args>
@@ -19,7 +22,7 @@
     <git command="branch" />
     <!-- JENKINS-43687 reports that polling configured from inside
          Jenkinsfile does not detect changes in the branch.
-         This job does not show the bug, but it shows that the job
+         This job does not show the bug, but it sometimes shows that the job
          builds repeatedly even if no changes are made to the repo.
          -->
     <echo>Displaying git log messages on this branch from last 15 minutes</echo>
