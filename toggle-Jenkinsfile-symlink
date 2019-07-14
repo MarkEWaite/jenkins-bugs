@@ -8,7 +8,12 @@ else
         git rm -f Jenkinsfile
         ln -s subdir/Jenkinsfile .
         commit_message="Make Jenkinsfile a symlink to subdir/Jenkinsfile"
+        # Schedule to switch it back in 11 minutes
+        echo ./toggle-Jenkinsfile-symlink | at "now+11 minutes"
 fi
 
 git add Jenkinsfile
 git commit -m "$commit_message"
+git push
+git remote | grep -q -w cache && git push cache
+git remote | grep -q -w bare  && git push bare
