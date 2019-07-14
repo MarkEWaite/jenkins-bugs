@@ -3,7 +3,6 @@
 @Library('globalPipelineLibraryMarkEWaite@branch-for-checkout-in-library') _
 import com.markwaite.Assert
 import com.markwaite.Build
-import com.markwaite.Checkout
 
 /* Only keep the 10 most recent builds. */
 properties([[$class: 'BuildDiscarderProperty',
