@@ -11,30 +11,30 @@
   <!-- Check environment variables only in builds 2+ -->
   <target name="check-non-initial-build" description="Check git env vars at build 2+" depends="is-first-build" if="env.JENKINS_URL" unless="first.build">
     <echo>GIT_PREVIOUS_COMMIT is ${env.GIT_PREVIOUS_COMMIT}</echo>
-    <fail message="GIT_PREVIOUS_COMMIT not set" unless="env.GIT_PREVIOUS_COMMIT"/>
     <echo>env.GIT_PREVIOUS_SUCCESSFUL_COMMIT is ${env.GIT_PREVIOUS_SUCCESSFUL_COMMIT}</echo>
+    <fail message="GIT_PREVIOUS_COMMIT not set" unless="env.GIT_PREVIOUS_COMMIT"/>
     <fail message="GIT_PREVIOUS_SUCCESSFUL_COMMIT not set" unless="env.GIT_PREVIOUS_SUCCESSFUL_COMMIT"/>
   </target>
 
   <!-- Check environment variables in all builds -->
   <target name="check-git-env-vars" description="Check all git env vars" depends="check-non-initial-build" if="env.JENKINS_URL">
     <echo>env.GIT_AUTHOR_EMAIL is ${env.GIT_AUTHOR_EMAIL}</echo>
-    <fail message="GIT_AUTHOR_EMAIL not set" unless="env.GIT_AUTHOR_EMAIL"/>
     <echo>env.GIT_AUTHOR_NAME is ${env.GIT_AUTHOR_NAME}</echo>
-    <fail message="GIT_AUTHOR_NAME not set" unless="env.GIT_AUTHOR_NAME"/>
     <echo>env.GIT_BRANCH is ${env.GIT_BRANCH}</echo>
-    <fail message="GIT_BRANCH not set" unless="env.GIT_BRANCH"/>
     <echo>env.GIT_COMMIT is ${env.GIT_COMMIT}</echo>
-    <fail message="GIT_COMMIT not set" unless="env.GIT_COMMIT"/>
     <echo>env.GIT_COMMITTER_EMAIL is ${env.GIT_COMMITTER_EMAIL}</echo>
-    <fail message="GIT_COMMITTER_EMAIL not set" unless="env.GIT_COMMITTER_EMAIL"/>
     <echo>env.GIT_COMMITTER_NAME is ${env.GIT_COMMITTER_NAME}</echo>
-    <fail message="GIT_COMMITTER_NAME not set" unless="env.GIT_COMMITTER_NAME"/>
     <echo>env.GIT_LOCAL_BRANCH is ${env.GIT_LOCAL_BRANCH}</echo>
-    <fail message="GIT_LOCAL_BRANCH not set" unless="env.GIT_LOCAL_BRANCH"/>
     <echo>env.GIT_URL is ${env.GIT_URL}</echo>
-    <fail message="GIT_URL not set" unless="env.GIT_URL"/>
     <echo>GIT_ env var checks all passed</echo>
+    <fail message="GIT_AUTHOR_EMAIL not set" unless="env.GIT_AUTHOR_EMAIL"/>
+    <fail message="GIT_AUTHOR_NAME not set" unless="env.GIT_AUTHOR_NAME"/>
+    <fail message="GIT_BRANCH not set" unless="env.GIT_BRANCH"/>
+    <fail message="GIT_COMMIT not set" unless="env.GIT_COMMIT"/>
+    <fail message="GIT_COMMITTER_EMAIL not set" unless="env.GIT_COMMITTER_EMAIL"/>
+    <fail message="GIT_COMMITTER_NAME not set" unless="env.GIT_COMMITTER_NAME"/>
+    <fail message="GIT_LOCAL_BRANCH not set" unless="env.GIT_LOCAL_BRANCH"/>
+    <fail message="GIT_URL not set" unless="env.GIT_URL"/>
   </target>
 
   <!-- Synchronize repositories -->
