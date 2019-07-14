@@ -10,3 +10,5 @@ definition where the pipeline definition can encapsulate a portion of the
 bug verification. It is an imperfect attempt to accelerate interactive
 testing of Jenkins bug reports while allowing some reuse of the work to
 test those bug reports.
+
+The master branch is also used in several freestyle jobs.
