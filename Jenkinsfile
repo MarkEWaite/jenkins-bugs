@@ -11,7 +11,7 @@ properties([[$class: 'BuildDiscarderProperty',
 
 def branch = 'JENKINS-52855'
 
-node {
+node('!cloud') {
   stage('Checkout') {
     def my_utils = new com.markwaite.GitUtils()
     checkout([$class: 'GitSCM',
