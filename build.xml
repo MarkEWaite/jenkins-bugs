@@ -13,7 +13,7 @@
     <echo>GIT_PREVIOUS_COMMIT is ${env.GIT_PREVIOUS_COMMIT}</echo>
     <echo>env.GIT_PREVIOUS_SUCCESSFUL_COMMIT is ${env.GIT_PREVIOUS_SUCCESSFUL_COMMIT}</echo>
     <fail message="GIT_PREVIOUS_COMMIT not set" unless="env.GIT_PREVIOUS_COMMIT"/>
-    <fail message="GIT_PREVIOUS_SUCCESSFUL_COMMIT not set" unless="env.GIT_PREVIOUS_SUCCESSFUL_COMMIT"/>
+    <!-- <fail message="GIT_PREVIOUS_SUCCESSFUL_COMMIT not set" unless="env.GIT_PREVIOUS_SUCCESSFUL_COMMIT"/> -->
   </target>
 
   <!-- Check environment variables in all builds -->
