@@ -8,15 +8,18 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
              strategy: [$class: 'LogRotator', numToKeepStr: '7']]])
 
+def branch = 'JENKINS-35687-pub'
+
 node('git-lfs && git-1.9+') { // Large file support equires a node with git LFS installed and git 1.9 or later
 
   stage('Checkout') {
     checkout([$class: 'GitSCM',
-              branches: [[name: '*/JENKINS-35687-pub']],
+              branches: [[name: "*/${branch}"]],
               // Don't use the GitLFSPull extension
               // Rely on smudge filter to update content
               // extensions: [[$class: 'GitLFSPull']],
-              userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs.git']],
+              extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+              userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']],
         ]
     )
   }
