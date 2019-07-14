@@ -4,7 +4,7 @@
 import com.markwaite.Assert
 import com.markwaite.Build
 
-node('linux') { // Needs curl installed
+node('linux && !cloud') { // Needs curl installed, needs local access to Jenkins server
   stage('Checkout') {
     checkout([$class: 'GitSCM',
               branches: [[name: 'JENKINS-34350']],
