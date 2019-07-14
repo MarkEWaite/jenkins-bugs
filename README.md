@@ -1,4 +1,4 @@
-# [JENKINS-xxxxx](https://issues.jenkins-ci.org/browse/JENKINS-56116) check public repository
+# JENKINS-54xxx changelog from base branch
 
 Ivan Fernandez Calvo reported that a Pipeline job would not calculate
 the changelog using a base branch for the first build.  A Freestyle

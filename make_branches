@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This is a work in progress - does not yet do all that needs to be done
+# This is a work in progress - does most of what needs to be done
 
 if [ "$1" != "" ]; then
         filter=$1
@@ -16,6 +16,7 @@ for origin in $(git branch -a | grep $filter | grep origin.*JENKINS | sed 's!rem
         ( cd .. && \
           git clone --branch $branch \
                     --single-branch \
+                    --no-tags \
                     --reference /var/lib/git/mwaite/bugs/jenkins-bugs.git \
                     https://github.com/MarkEWaite/jenkins-bugs \
                     $dir )
@@ -28,6 +29,6 @@ for origin in $(git branch -a | grep $filter | grep origin.*JENKINS | sed 's!rem
           git config remote.bare.fetch $(git config --get remote.origin.fetch | sed 's/origin/bare/g') && \
           git push cache && \
           git push bare && \
-          git pull --all --prune )
+          git pull --no-tags --all --prune )
         echo Configured for bug $bug, branch $branch, dir $dir
 done
