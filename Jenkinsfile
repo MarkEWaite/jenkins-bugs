@@ -10,7 +10,7 @@ properties([[$class: 'BuildDiscarderProperty',
 
 def branch='JENKINS-29977'
 
-node('linux') { // ant command calls shell script that calls curl
+node('linux && git-1.8+') { // ant command calls shell script that calls curl
   stage('Checkout') {
     checkout([$class: 'GitSCM',
               userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
