@@ -14,7 +14,7 @@ def httpsRemoteConfig = [ url: 'https://github.com/MarkEWaite/jenkins-bugs',
                           name: 'https-origin',
                           refspec: "+refs/heads/${branch}:refs/remotes/https-origin/${branch}" ]
 
-node('!windows') {
+node('!windows && git-1.8+') {
   stage('Checkout') {
     sh 'rm -f .gitmodules'
     checkout([$class: 'GitSCM',
@@ -23,7 +23,7 @@ node('!windows') {
                              [$class: 'LocalBranch', localBranch: branch],
                              // [$class: 'SubmoduleOption', recursiveSubmodules: true]
                             ],
-                gitTool: scm.gitTool,
+                gitTool: 'Default',
                 userRemoteConfigs: [ scm.userRemoteConfigs[0], httpsRemoteConfig ]])
 
     checkout([$class: 'GitSCM', branches: [[name: '*/master']], 
@@ -38,7 +38,7 @@ node('!windows') {
                              [$class: 'LocalBranch', localBranch: branch],
                              [$class: 'SubmoduleOption', recursiveSubmodules: true]
                             ],
-                gitTool: scm.gitTool,
+                gitTool: 'Default',
                 userRemoteConfigs: [ scm.userRemoteConfigs[0], httpsRemoteConfig ]])
   }
 
