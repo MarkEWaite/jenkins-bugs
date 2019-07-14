@@ -26,13 +26,6 @@ for (int i = 0; i < implementations.size(); ++i) {
         if (random.nextBoolean()) { /* Randomly use pipeline native command to wipe workspace */
           deleteDir()
           my_check.assertCondition(!fileExists('.git/objects'), ".git/objects exists after ${gitImplementation} deleteDir")
-        } else {
-          if (currentBuild.number == 1) {
-            my_check.assertCondition(!fileExists('.git/objects'), ".git/objects exists on first ${gitImplementation} build")
-          } else {
-            /* Will fail if a build moves from one node to another, or uses a different workspace */
-            my_check.assertCondition(fileExists('.git/objects'), ".git/objects does not exist on subsequent ${gitImplementation} build")
-          }
         }
         def implementation = gitImplementation == "git" ? "Default" : gitImplementation
         def my_utils = new com.markwaite.GitUtils()
