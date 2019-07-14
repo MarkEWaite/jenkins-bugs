@@ -18,7 +18,7 @@ node('git-1.8+') {
                              [$class: 'LocalBranch', localBranch: branch],
                              [$class: 'SubmoduleOption', parentCredentials: true, recursiveSubmodules: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs-private.git', threads: 2]
                             ],
-                gitTool: scm.gitTool,
+                gitTool: 'Default', // JGit does not support submodules
                 userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
   }
 
