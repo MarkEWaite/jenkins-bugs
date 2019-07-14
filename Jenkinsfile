@@ -38,7 +38,7 @@ node('linux && git-1.8+ && !cloud') { // ant command calls shell script that cal
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    if (currentBuild.number > 1) { // Don't check first build
+    if (currentBuild.number > 1 && currentBuild.changeSets.size() > 0) { // Don't check first build or builds with no changes
       // Check for start of message in HTML output
       my_check.logContains('.*<li>User interface truncates change messages.*</li>.*', 'Start of commit message missing')
       // Check for middle of message in HTML output
