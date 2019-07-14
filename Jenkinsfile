@@ -10,7 +10,7 @@ properties([[$class: 'BuildDiscarderProperty',
 
 def branch = 'JENKINS-58049'
 
-node {
+node('git-1.8+') { // Git versions older than 1.8 don't support sparse checkout
   stage('Checkout') {
     checkout([$class: 'GitSCM',
               branches: [[name: branch]],
