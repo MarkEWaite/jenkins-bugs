@@ -18,8 +18,7 @@ node {
                            [$class: 'CleanCheckout'],
                            [$class: 'AuthorInChangelog']
                           ],
-              userRemoteConfigs: [[name: 'bugs-origin',
-                                   refspec: '+refs/heads/JENKINS-43687:refs/remotes/bugs-origin/JENKINS-43687',
+              userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-43687:refs/remotes/origin/JENKINS-43687',
                                    url: 'https://github.com/MarkEWaite/jenkins-bugs']],
             ])
   }
