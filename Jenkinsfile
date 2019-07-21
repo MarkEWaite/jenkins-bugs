@@ -29,6 +29,7 @@ node {
     my_step.ant 'info' /* Will intentionally delay the build */
   }
 
+  def wsVars
   stage('Delayed checkout') {
     /* Use a separate workspace */
     ws() {
@@ -47,9 +48,9 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains(".*Sleeping git HEAD is ${scmVars.GIT_COMMIT}.*", 'Missing root GIT_COMMIT in sleeping log')
-    my_check.logContains(".*Sleeping git HEAD is ${wsVars.GIT_COMMIT}.*", 'Missing root GIT_COMMIT in sleeping log')
-    my_check.logContains(".*Sleepless git HEAD is ${scmVars.GIT_COMMIT}.*", 'Missing workspace GIT_COMMIT in sleepless log')
-    my_check.logContains(".*Sleepless git HEAD is ${wsVars.GIT_COMMIT}.*", 'Missing workspace GIT_COMMIT in sleepless log')
+    my_check.logContains(".*Sleeping git HEAD is ${scmVars.GIT_COMMIT}.*", "Missing scmVars GIT_COMMIT in sleeping log, expected SHA1 ${scmVars.GIT_COMMIT}")
+    my_check.logContains(".*Sleeping git HEAD is ${wsVars.GIT_COMMIT}.*", "Missing wsVars GIT_COMMIT in sleeping log, expected SHA1 ${wsVars.GIT_COMMIT}")
+    my_check.logContains(".*Sleepless git HEAD is ${scmVars.GIT_COMMIT}.*", "Missing scmVars GIT_COMMIT in sleepless log, expected SHA1 ${scmVars.GIT_COMMIT}")
+    my_check.logContains(".*Sleepless git HEAD is ${wsVars.GIT_COMMIT}.*", "Missing wsVars GIT_COMMIT in sleepless log, expected SHA1 ${wsVars.GIT_COMMIT}")
   }
 }
