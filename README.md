@@ -1,16 +1,10 @@
-# [JENKINS-56326](https://issues.jenkins-ci.org/browse/JENKINS-56326) Later checkout fails if new commit to master branch
+# [JENKINS-58587](https://issues.jenkins-ci.org/browse/JENKINS-58587) Second commit can't compute SHA1
 
 Bug is described as:
 
-1. Commit to master branch
-2. Commit to non-master branch
-3. Start long running build on non-master branch
-4. During long running build on non-master branch, commit to master branch
-5. During long running build on non-master branch, perform a new checkout
+1. Checkout to a Windows workspace, compute the SHA1 of HEAD
+2. Checkout to a different Windows workspace, compute the SHA1 of HEAD
 
-Expected result: New checkout inside the build should use the same SHA1 as 
-the original checkout that started the build.
-
-Reported result: Command line git error performing a fetch, cannot lock ref 'refs/remotes/origin/master'
+Expected result: Second checkout computes SHA1 as readily as first checkout
 
 I was unable to duplicate the bug.
