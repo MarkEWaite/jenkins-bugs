@@ -10,7 +10,7 @@ properties([[$class: 'BuildDiscarderProperty',
 
 def branch = 'JENKINS-58587'
 
-node {
+node('windows') {
   def firstScmVars
   def firstSHA1
   stage('First Checkout') {
