@@ -26,6 +26,7 @@ node {
     def my_step = new com.markwaite.Build()
     my_step.ant 'info' /* Message from first checkout */
     firstSHA1 = getSHA1('HEAD')
+    echo "First SHA1 is ${firstSHA1}"
   }
 
   def secondScmVars
@@ -44,6 +45,7 @@ node {
       def my_step = new com.markwaite.Build()
       my_step.ant 'info-second' /* Message from second checkout */
       secondSHA1 = getSHA1('HEAD')
+      echo "Second SHA1 is ${secondSHA1}"
     }
   }
 
@@ -54,8 +56,6 @@ node {
     my_check.logContains(".*Second git HEAD is ${secondScmVars.GIT_COMMIT}.*", "Missing secondScmVars GIT_COMMIT in second log, expected SHA1 ${secondScmVars.GIT_COMMIT}")
     my_check.assertCondition(firstSHA1 == firstScmVars.GIT_COMMIT, "first computed ${firstSHA1} !=  first returned ${firstScmVars.GIT_COMMIT}")
     my_check.assertCondition(secondSHA1 == secondScmVars.GIT_COMMIT, "second computed ${secondSHA1} !=  second returned ${secondScmVars.GIT_COMMIT}")
-    echo "First SHA1 is ${firstSHA1}"
-    echo "Second SHA1 is ${secondSHA1}"
   }
 }
 
