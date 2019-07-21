@@ -8,12 +8,12 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-def branch = 'JENKINS-56326'
+def branch = 'JENKINS-58587'
 
 node {
-  def scmVars
-  stage('Checkout') {
-    scmVars = checkout([$class: 'GitSCM',
+  def firstScmVars
+  stage('First Checkout') {
+    firstScmVars = checkout([$class: 'GitSCM',
                 branches: scm.branches,
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                              [$class: 'LocalBranch', localBranch: branch]
@@ -21,19 +21,16 @@ node {
                 gitTool: scm.gitTool,
                 userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
                                     refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}"]]])
-  }
-
-  stage('Build') {
     /* Call the ant build. */
     def my_step = new com.markwaite.Build()
-    my_step.ant 'info' /* Will intentionally delay the build */
+    my_step.ant 'info' /* Message from first checkout */
   }
 
-  def wsVars
-  stage('Delayed checkout') {
+  def secondScmVars
+  stage('Second checkout') {
     /* Use a separate workspace */
     ws() {
-      wsVars = checkout([$class: 'GitSCM',
+      secondScmVars = checkout([$class: 'GitSCM',
 		  branches: scm.branches,
 		  extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
 			       [$class: 'LocalBranch', localBranch: branch]
@@ -42,15 +39,13 @@ node {
 		  userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
 				      refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}"]]])
       def my_step = new com.markwaite.Build()
-      my_step.ant 'info-sleepless'
+      my_step.ant 'info-second' /* Message from second checkout */
     }
   }
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains(".*Sleeping git HEAD is ${scmVars.GIT_COMMIT}.*", "Missing scmVars GIT_COMMIT in sleeping log, expected SHA1 ${scmVars.GIT_COMMIT}")
-    my_check.logContains(".*Sleeping git HEAD is ${wsVars.GIT_COMMIT}.*", "Missing wsVars GIT_COMMIT in sleeping log, expected SHA1 ${wsVars.GIT_COMMIT}")
-    my_check.logContains(".*Sleepless git HEAD is ${scmVars.GIT_COMMIT}.*", "Missing scmVars GIT_COMMIT in sleepless log, expected SHA1 ${scmVars.GIT_COMMIT}")
-    my_check.logContains(".*Sleepless git HEAD is ${wsVars.GIT_COMMIT}.*", "Missing wsVars GIT_COMMIT in sleepless log, expected SHA1 ${wsVars.GIT_COMMIT}")
+    my_check.logContains(".*First git HEAD is ${firstScmVars.GIT_COMMIT}.*", "Missing firstScmVars GIT_COMMIT in first log, expected SHA1 ${firstScmVars.GIT_COMMIT}")
+    my_check.logContains(".*Second git HEAD is ${secondScmVars.GIT_COMMIT}.*", "Missing secondScmVars GIT_COMMIT in second log, expected SHA1 ${secondScmVars.GIT_COMMIT}")
   }
 }
