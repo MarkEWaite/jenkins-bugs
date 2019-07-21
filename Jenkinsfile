@@ -54,6 +54,8 @@ node {
     my_check.logContains(".*Second git HEAD is ${secondScmVars.GIT_COMMIT}.*", "Missing secondScmVars GIT_COMMIT in second log, expected SHA1 ${secondScmVars.GIT_COMMIT}")
     my_check.assertCondition(firstSHA1 == firstScmVars.GIT_COMMIT, "first computed ${firstSHA1} !=  first returned ${firstScmVars.GIT_COMMIT}")
     my_check.assertCondition(secondSHA1 == secondScmVars.GIT_COMMIT, "second computed ${secondSHA1} !=  second returned ${secondScmVars.GIT_COMMIT}")
+    echo "First SHA1 is ${firstSHA1}"
+    echo "Second SHA1 is ${secondSHA1}"
   }
 }
 
@@ -74,4 +76,4 @@ def getSHA1(def commit) {
     sha1 = sha1.substring(sha1.length() - 40)
   }
   return sha1
-t}
+}
