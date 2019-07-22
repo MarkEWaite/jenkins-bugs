@@ -27,8 +27,9 @@ pipeline {
           logContains(expectedRegEx: ".*Git HEAD is ${scmVars.GIT_COMMIT}.*",
                       failureMessage: "Missing checkout return of GIT_COMMIT value '${scmVars.GIT_COMMIT}'")
         }
-        logContains(expectedRegEx: ".*Git HEAD is ${env.GIT_COMMIT}.*",
-                    failureMessage: "Missing env GIT_COMMIT value '${env.GIT_COMMIT}'")
+        // Reasonable that env.GIT_COMMIT is not set, since there was no default checkout
+        logDoesNotContain(expectedRegEx: ".*Git HEAD is ${env.GIT_COMMIT}.*",
+                          failureMessage: "Missing env GIT_COMMIT value '${env.GIT_COMMIT}'")
       }
     }
   }
