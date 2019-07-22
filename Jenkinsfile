@@ -23,10 +23,10 @@ pipeline {
                             gitTool: scm.gitTool,
                             userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
                                                 refspec: '+refs/heads/JENKINS-52059-declarative:refs/remotes/origin/JENKINS-52059-declarative']]])
+          sh 'ant info'
           logContains(expectedRegEx: ".*Git HEAD is ${scmVars.GIT_COMMIT}.*",
                       failureMessage: "Missing checkout return of GIT_COMMIT value '${scmVars.GIT_COMMIT}'")
         }
-        sh 'ant info'
         logContains(expectedRegEx: ".*Git HEAD is ${env.GIT_COMMIT}.*",
                     failureMessage: "Missing env GIT_COMMIT value '${env.GIT_COMMIT}'")
       }
