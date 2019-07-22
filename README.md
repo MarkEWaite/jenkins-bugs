@@ -1,10 +1,5 @@
-# [JENKINS-58587](https://issues.jenkins-ci.org/browse/JENKINS-58587) Second commit can't compute SHA1
+# [JENKINS-52059](https://issues.jenkins-ci.org/browse/JENKINS-52059) scripted pipeline checkout scm does not populate environment
 
-Bug is described as:
-
-1. Checkout to a Windows workspace, compute the SHA1 of HEAD
-2. Checkout to a different Windows workspace, compute the SHA1 of HEAD
-
-Expected result: Second checkout computes SHA1 as readily as first checkout
-
-I was unable to duplicate the bug.
+The scripted pipeline checkout step does not populate the environment
+with GIT_* values like GIT_COMMIT.  It returns them from the checkout
+step in a map of names and their values.
