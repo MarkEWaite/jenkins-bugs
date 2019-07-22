@@ -30,6 +30,7 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
+    my_check.assertCondition(scmVars.GIT_COMMIT != null, "GIT_COMMIT from checkout is null")
     my_check.logContains(".*Git HEAD is ${scmVars.GIT_COMMIT}.*", "Missing scmVars GIT_COMMIT in log, expected SHA1 '${scmVars.GIT_COMMIT}'")
     my_check.assertCondition(firstSHA1 == scmVars.GIT_COMMIT, "first computed '${firstSHA1}' != first returned '${scmVars.GIT_COMMIT}'")
   }
