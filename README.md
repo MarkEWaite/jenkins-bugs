@@ -1,5 +1,4 @@
-# [JENKINS-52059](https://issues.jenkins-ci.org/browse/JENKINS-52059) scripted pipeline checkout scm does not populate environment
+# [JENKINS-52059](https://issues.jenkins-ci.org/browse/JENKINS-52059) pipeline checkout scm populates environment
 
-The scripted pipeline checkout step does not populate the environment
-with GIT_* values like GIT_COMMIT.  It returns them from the checkout
-step in a map of names and their values.
+The declarative pipeline checkout step does populates the environment
+with GIT_* values like GIT_COMMIT.
