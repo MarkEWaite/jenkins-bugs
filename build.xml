@@ -1,4 +1,4 @@
-<project name="JENKINS-58587" default="increment" basedir=".">
+<project name="JENKINS-52059" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
     <git command="pull">
@@ -26,17 +26,7 @@
       <arg value="rev-parse"/>
       <arg value="HEAD"/>
     </exec>
-    <echo>First git HEAD is ${git.HEAD}</echo>
-    <echo>user dir is ${user.dir}</echo>
-  </target>
-
-  <!-- Info about this repository with 'Second' message -->
-  <target name="info-second" description="Report info about this repo without sleeping">
-    <exec executable="git" outputproperty="git.HEAD">
-      <arg value="rev-parse"/>
-      <arg value="HEAD"/>
-    </exec>
-    <echo>Second git HEAD is ${git.HEAD}</echo>
+    <echo>Git HEAD is ${git.HEAD}</echo>
     <echo>user dir is ${user.dir}</echo>
   </target>
 
