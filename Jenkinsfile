@@ -13,7 +13,7 @@ def branch = 'JENKINS-52059'
 node {
   def scmVars
   def firstSHA1
-  stage('Checkout') {
+  stage('Checkout & Build') {
     scmVars = checkout([$class: 'GitSCM',
                 branches: scm.branches,
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
