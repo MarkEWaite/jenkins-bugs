@@ -37,7 +37,12 @@ node {
     if (currentBuild.changeSets.size() > 0) {
       def my_check = new com.markwaite.Assert()
       /* JENKINS-42597 reports that modified files which include a '%' in
-         their name are not correctly linked from the changes page. */
+         their name are not correctly linked from the changes page.
+         This does not test for correct lnks on the changes page,
+         it only tests that the git diff output includes files with
+         names that include '%' so that a human can check the links.
+         Last checked July 22, 2019 with git plugin 4.0.0.beta11-SNAPSHOT.
+         */
       my_check.logContains('.*build-100%-number.*', 'build.number file name not in diff output')
       my_check.logContains('.*build-%ABC%-number.*', 'build.number copied file name not in diff output')
       my_check.logContains('.*build-.%ABC%.-number.*', 'build.number copied file name 2 not in diff output')
