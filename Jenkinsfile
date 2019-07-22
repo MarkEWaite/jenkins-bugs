@@ -17,7 +17,6 @@ node {
     scmVars = checkout([$class: 'GitSCM',
                 branches: scm.branches,
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                             [$class: 'LocalBranch', localBranch: branch]
                             ],
                 gitTool: scm.gitTool,
                 userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
