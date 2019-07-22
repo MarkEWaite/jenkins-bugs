@@ -26,9 +26,15 @@ node {
     my_step.ant 'info' /* Message from first checkout */	  
     firstSHA1 = my_step.getSHA1('HEAD')
     echo "First SHA1 is ${firstSHA1}"
+    /* Check the environment from the checkout */
+    def my_check = new com.markwaite.Assert()
+    my_check.assertCondition(env.GIT_COMMIT != null, "env.GIT_COMMIT from checkout is null")
+    my_check.logContains(".*Git HEAD is ${env.GIT_COMMIT}.*", "Missing env.GIT_COMMIT in log, expected SHA1 '${env.GIT_COMMIT}'")
+    my_check.assertCondition(firstSHA1 == env.GIT_COMMIT, "first computed '${firstSHA1}' != first returned env '${env.GIT_COMMIT}'")
   }
 
   stage('Verify') {
+    /* Check the return value from the checkout */
     def my_check = new com.markwaite.Assert()
     my_check.assertCondition(scmVars.GIT_COMMIT != null, "GIT_COMMIT from checkout is null")
     my_check.logContains(".*Git HEAD is ${scmVars.GIT_COMMIT}.*", "Missing scmVars GIT_COMMIT in log, expected SHA1 '${scmVars.GIT_COMMIT}'")
