@@ -58,6 +58,10 @@
   <!-- Info about this repository -->
   <target name="info" description="Report info about this repo" depends="output,check-git-env-vars" />
 
+  <!-- Info about this repository when running in a pipeline -->
+  <!-- No envrionment variables are to be checked -->
+  <target name="info-pipeline" description="Report info about this repo" depends="output" />
+
   <!-- From https://gist.github.com/davejlong/874521 -->
   <macrodef name="git">
     <attribute name="command" />

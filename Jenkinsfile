@@ -24,14 +24,13 @@ node('!windows') {
   stage('Build') {
     /* Call the ant build. */
     def my_step = new com.markwaite.Build()
-    my_step.ant 'info'
+    my_step.ant 'info-pipeline'
   }
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    if (currentBuild.number > 1) { // Don't check first build
-      my_check.logContains('.*GIT_REVISION.*', 'No GIT_REVISION reported')
-      my_check.logContains('.*GIT_COMMIT:.*', 'No GIT_COMMIT reported')
-    }
+    /* JENKINS-56176 must be checked in a freestyle job, not pipeline */
+    my_check.logDoesNotContain('.*GIT_REVISION.*', 'GIT_REVISION env var reported')
+    my_check.logDoesNotContain('.*GIT_COMMIT:.*', 'GIT_COMMIT env var reported')
   }
 }
