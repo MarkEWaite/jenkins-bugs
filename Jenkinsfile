@@ -8,25 +8,13 @@ pipeline {
     }
 
     parameters {
-        booleanParam(defaultValue: true, description: 'Job will fail if this is not checked', name: 'booleanParamJENKINS36451')
+        file description: 'Uploaded file parameter to test JENKINS-47333', name: 'test-JENKINS-47333'
     }
 
     stages {
-        stage("pass if param is true") {
-            when {
-                expression { return params.booleanParamJENKINS36451 }
-            }
+        stage("List workspace contents") {
             steps {
-                echo "stage will pass due to ${params.booleanParamJENKINS36451} parameter"
-            }
-        }
-        stage("fail if param is false") {
-            when {
-                expression { return ! params.booleanParamJENKINS36451 }
-            }
-            steps {
-                echo "stage will fail due to ${params.booleanParamJENKINS36451} parameter"
-                sh 'exit 1'
+                sh 'ls'
             }
         }
     }
