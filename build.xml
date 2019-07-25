@@ -1,4 +1,4 @@
-<project name="JENKINS-36451" default="increment" basedir=".">
+<project name="JENKINS-47333" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
     <buildnumber/>
@@ -16,7 +16,7 @@
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
-    <!-- JENKINS-36451 reports that repo browser URL not saved in pipeline config.  -->
+    <!-- JENKINS-47333 reports that pipeline does not save file uploaded as a parameter into the workspace.  -->
     <!-- Needs interactive check -->
   </target>
 
