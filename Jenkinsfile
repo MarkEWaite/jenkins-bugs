@@ -5,7 +5,7 @@
 pipeline {
     agent any
     tools {
-        ant: 'ant-latest'
+        ant 'ant-latest'
     }
 
     stages {
