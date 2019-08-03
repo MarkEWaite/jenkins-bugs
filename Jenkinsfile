@@ -8,6 +8,8 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
+def repo_url = scm.userRemoteConfigs[0].url
+
 node {
   stage('Checkout') {
     // Slow form - clone the whole repository
@@ -15,11 +17,9 @@ node {
 
     // Fast form - clone subset
     checkout([$class: 'GitSCM',
-              userRemoteConfigs: [[name: 'bugs-origin',
-                                   refspec: '+refs/heads/JENKINS-35475:refs/remotes/bugs-origin/JENKINS-35475',
-                                   url: 'https://github.com/MarkEWaite/jenkins-bugs']],
+              userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-35475:refs/remotes/origin/JENKINS-35475',
+                                   url: repo_url ]],
               branches: [[name: 'bugs-origin/JENKINS-35475']],
-              browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
               extensions: [
                 [$class: 'AuthorInChangelog'],
                 [$class: 'CleanBeforeCheckout'],
@@ -32,11 +32,9 @@ node {
     // Fast form - clone subset to subdirectory
     dir('JENKINS-35475') {
       checkout([$class: 'GitSCM',
-                userRemoteConfigs: [[name: 'bugs-origin-subdir',
-                                     refspec: '+refs/heads/JENKINS-35475:refs/remotes/bugs-origin-subdir/JENKINS-35475',
-                                     url: 'https://github.com/MarkEWaite/jenkins-bugs']],
+                userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-35475:refs/remotes/origin/JENKINS-35475',
+                                     url: repo_url ]],
                 branches: [[name: 'JENKINS-35475']],
-                browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
                 extensions: [
                   [$class: 'AuthorInChangelog'],
                   [$class: 'CleanBeforeCheckout'],
