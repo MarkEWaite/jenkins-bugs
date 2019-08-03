@@ -9,6 +9,7 @@ properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
 def branch = 'JENKINS-32174/with/slashes'
+def repo_url=scm.userRemoteConfigs[0].url
 
 node {
   stage('Checkout') {
@@ -18,7 +19,7 @@ node {
                              [$class: 'LocalBranch', localBranch: branch]
                             ],
                 gitTool: scm.gitTool,
-                userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
+                userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: repo_url]]])
   }
 
   stage('Build') {
