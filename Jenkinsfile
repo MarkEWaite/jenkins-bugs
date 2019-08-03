@@ -4,6 +4,8 @@
 import com.markwaite.Assert
 import com.markwaite.Build
 
+def repo_url=scm.userRemoteConfigs[0].url
+
 node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
@@ -12,7 +14,8 @@ node {
                              [$class: 'LocalBranch', localBranch: '**'],
                              [$class: 'AuthorInChangelog']],
                 gitTool: scm.gitTool,
-                userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-15103:refs/remotes/origin/JENKINS-15103 +refs/heads/JENKINS-31828:refs/remotes/origin/JENKINS-31828 +refs/heads/master:refs/remotes/origin/master', url: 'git://github.com/MarkEWaite/jenkins-bugs.git']]])
+                userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-15103:refs/remotes/origin/JENKINS-15103 +refs/heads/JENKINS-31828:refs/remotes/origin/JENKINS-31828 +refs/heads/master:refs/remotes/origin/master',
+                                     url: repo_url]]])
   }
 
   stage('Build') {
