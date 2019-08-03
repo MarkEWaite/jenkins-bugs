@@ -9,6 +9,7 @@ properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
 def expectedText = 'This file written before checkout scm'
+def repoUrl = scm.userRemoteConfigs[0].url
 
 node {
   stage('Checkout') {
@@ -18,7 +19,7 @@ node {
                 branches: [[name: 'JENKINS-22795']],
                 extensions: [[$class: 'CloneOption', depth: 0, honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: false]],
                 gitTool: scm.gitTool,
-                userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-22795:refs/remotes/origin/JENKINS-22795', url: 'https://github.com/MarkEWaite/jenkins-bugs/']]])
+                userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-22795:refs/remotes/origin/JENKINS-22795', url: repoUrl]]])
   }
 
   stage('Build') {
