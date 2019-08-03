@@ -9,15 +9,14 @@ properties([[$class: 'BuildDiscarderProperty',
              strategy: [$class: 'LogRotator', numToKeepStr: '7']]])
 
 def branch='JENKINS-22547'
+def repoUrl = scm.userRemoteConfigs[0].url
 
-node("git-1.9+") { // Shallow clone fails on git versions before 1.9
+node('git-1.9+') { // Shallow clone fails on git versions before 1.9
   stage('Checkout') {
     checkout([$class: 'GitSCM',
 	      userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}",
-				   url: 'https://github.com/MarkEWaite/jenkins-bugs']],
+                                   url: repoUrl]],
 	      branches: [[name: "*/${branch}"]],
-	      browser: [$class: 'GithubWeb',
-			repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
 	      extensions: [[$class: 'AuthorInChangelog'],
 			   [$class: 'CheckoutOption', timeout: 37],
 			   [$class: 'CleanBeforeCheckout'],
@@ -31,7 +30,7 @@ node("git-1.9+") { // Shallow clone fails on git versions before 1.9
 			   [$class: 'LocalBranch', localBranch: '**'],
 			   [$class: 'PruneStaleBranch'],
 			  ],
-              gitTool: 'git',
+              gitTool: 'git', // Shallow clone not supported by our JGit implementation
 	     ])
   }
 
