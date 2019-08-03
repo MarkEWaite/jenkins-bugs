@@ -19,7 +19,7 @@ node {
     checkout([$class: 'GitSCM',
               userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-35475:refs/remotes/origin/JENKINS-35475',
                                    url: repo_url ]],
-              branches: [[name: 'bugs-origin/JENKINS-35475']],
+              branches: [[name: 'origin/JENKINS-35475']],
               extensions: [
                 [$class: 'AuthorInChangelog'],
                 [$class: 'CleanBeforeCheckout'],
