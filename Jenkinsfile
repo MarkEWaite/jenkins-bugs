@@ -9,7 +9,7 @@ properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
 def branch='JENKINS-34309'
-def repoUrl = scm.userRemoteConfigs[0].url
+def repo_url = scm.userRemoteConfigs[0].url
 
 node {
   stage('Checkout') {
@@ -24,7 +24,7 @@ node {
 			   [$class: 'AuthorInChangelog']],
 	      gitTool: scm.gitTool,
 	      userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}",
-				   url: repoUrl ]]])
+				   url: repo_url ]]])
   }
 
   stage('Build') {
