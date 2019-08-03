@@ -13,6 +13,7 @@ node {
     checkout([$class: 'GitSCM',
               branches: [[name: '*/JENKINS-35687']],
               extensions: [[$class: 'GitLFSPull']],
+              gitTool: 'Default', // No Git LFS support in JGit
               userRemoteConfigs: scm.userRemoteConfigs,
         ]
     )
