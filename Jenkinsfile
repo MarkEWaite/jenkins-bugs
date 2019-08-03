@@ -10,7 +10,9 @@ properties([[$class: 'BuildDiscarderProperty',
 
 def branch = 'JENKINS-35687-pub'
 
-node('git-lfs && git-1.9+') { // Large file support equires a node with git LFS installed and git 1.9 or later
+def repo_url = scm.userRemoteConfigs[0].url
+
+node('git-lfs && git-1.9+') { // Large file support requires a node with git LFS installed and git 1.9 or later
 
   stage('Checkout') {
     checkout([$class: 'GitSCM',
@@ -18,8 +20,9 @@ node('git-lfs && git-1.9+') { // Large file support equires a node with git LFS 
               // Don't use the GitLFSPull extension
               // Rely on smudge filter to update content
               // extensions: [[$class: 'GitLFSPull']],
+              gitTool: 'Default', // JGit does not support LFS
               extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git']],
-              userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']],
+              userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: repo_url ]],
         ]
     )
   }
