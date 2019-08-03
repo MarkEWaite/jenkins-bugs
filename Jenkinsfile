@@ -9,11 +9,12 @@ properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
 def branch='JENKINS-29977'
+def repo_url=scm.userRemoteConfigs[0].url
 
 node('linux && git-1.8+ && !cloud') { // ant command calls shell script that calls curl that connects to Jenkins server
   stage('Checkout') {
     checkout([$class: 'GitSCM',
-              userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
+              userRemoteConfigs: [[url: repo_url,
                                    refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}",
                                   ]],
               branches: [[name: branch]],
