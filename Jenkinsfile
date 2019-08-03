@@ -8,7 +8,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
              strategy: [$class: 'LogRotator', numToKeepStr: '7']]])
 
-node {
+node('git-1.9+ && git-lfs') { // Required for git LFS
   stage('Checkout') {
     checkout([$class: 'GitSCM',
               branches: [[name: '*/JENKINS-35687']],
