@@ -9,6 +9,7 @@ properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
 def branch = 'master'
+def repoUrl = scm.userRemoteConfigs[0].url
 
 node {
   stage('Checkout') {
