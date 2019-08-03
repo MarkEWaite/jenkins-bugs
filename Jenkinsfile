@@ -15,6 +15,7 @@ node {
     // Slow form - clone the whole repository
     // checkout scm
 
+    deleteDir()
     // Fast form - clone subset
     checkout([$class: 'GitSCM',
               userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-35475:refs/remotes/origin/JENKINS-35475',
