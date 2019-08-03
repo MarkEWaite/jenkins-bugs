@@ -3,7 +3,9 @@
 @Library('globalPipelineLibraryMarkEWaite') _
 
 pipeline {
-    agent any
+    agent {
+        label '!windows'
+    }
     tools {
         ant 'ant-latest'
     }
