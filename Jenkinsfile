@@ -8,22 +8,23 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
+def branch='JENKINS-34309'
+def repoUrl = scm.userRemoteConfigs[0].url
+
 node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
-	      branches: [[name: 'origin/JENKINS-34309']],
-	      browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
+	      branches: [[name: "origin/${branch}"]],
 	      extensions: [[$class: 'CloneOption',
 			    honorRefspec: true,
 			    noTags: true,
 			    reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
 			    timeout: 13],
-			   [$class: 'LocalBranch', localBranch: 'JENKINS-34309'],
+			   [$class: 'LocalBranch', localBranch: branch],
 			   [$class: 'AuthorInChangelog']],
-	      gitTool: 'Default',
-	      userRemoteConfigs: [[name: 'origin',
-				   refspec: '+refs/heads/JENKINS-34309:refs/remotes/origin/JENKINS-34309',
-				   url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
+	      gitTool: scm.gitTool,
+	      userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}",
+				   url: repoUrl ]]])
   }
 
   stage('Build') {
