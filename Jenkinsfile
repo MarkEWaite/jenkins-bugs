@@ -4,6 +4,8 @@
 import com.markwaite.Assert
 import com.markwaite.Build
 
+def repo_url = scm.userRemoteConfigs[0].url
+
 node('linux && !cloud') { // Needs curl installed, needs local access to Jenkins server
   stage('Checkout') {
     checkout([$class: 'GitSCM',
@@ -16,7 +18,7 @@ node('linux && !cloud') { // Needs curl installed, needs local access to Jenkins
                           ],
               userRemoteConfigs: [[name: 'bugs-origin',
                                    refspec: '+refs/heads/JENKINS-34350:refs/remotes/bugs-origin/JENKINS-34350',
-                                   url: 'https://github.com/MarkEWaite/jenkins-bugs']],
+                                   url: repo_url ]],
             ])
   }
 
