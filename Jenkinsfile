@@ -8,6 +8,8 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
+def repo_url=scm.userRemoteConfigs[0].url
+
 node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
@@ -21,7 +23,7 @@ node {
                 [[credentialsId: 'MarkEWaite-github-username-password',
                   refspec: '+refs/heads/production/JENKINS-29796:refs/remotes/origin/production/JENKINS-29796' + ' ' +
                            '+refs/heads/develop/JENKINS-29796:refs/remotes/origin/develop/JENKINS-29796',
-                  url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
+                  url: repo_url]]])
 
   }
 
