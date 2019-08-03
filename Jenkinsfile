@@ -9,12 +9,11 @@ properties([[$class: 'BuildDiscarderProperty',
              strategy: [$class: 'LogRotator', numToKeepStr: '7']]])
 
 node {
-
   stage('Checkout') {
     checkout([$class: 'GitSCM',
               branches: [[name: '*/JENKINS-35687']],
               extensions: [[$class: 'GitLFSPull']],
-              userRemoteConfigs: [[url: 'https://github.com/markewaite/jenkins-bugs.git']],
+              userRemoteConfigs: scm.userRemoteConfigs,
         ]
     )
   }
