@@ -18,7 +18,7 @@ node {
               branches: [[name: older_sha1]],
               extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git']],
               gitTool: scm.gitTool,
-              userRemoteConfigs: [[refspec: "+refs/heads/${bugId}:refs/remotes/origin/${bugId}", url: repoUrl]]])
+              userRemoteConfigs: [[refspec: "+refs/heads/${bugId}:refs/remotes/origin/${bugId}", url: repo_url]]])
   }
 
   stage('Build') {
