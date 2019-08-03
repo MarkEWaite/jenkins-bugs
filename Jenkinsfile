@@ -9,6 +9,7 @@ properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
 def branch = 'JENKINS-34042'
+def repo_url = scm.userRemoteConfigs[0].url
 
 node {
   stage('Checkout') {
@@ -22,7 +23,7 @@ node {
                                [$class: 'LocalBranch', localBranch: branch]
                               ],
                   gitTool: scm.gitTool,
-                  userRemoteConfigs: [[refspec: 'intentionally-invalid-refspec', url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
+                  userRemoteConfigs: [[refspec: 'intentionally-invalid-refspec', url: repo_url ]]])
       my_check.assertCondition(false, "Unexpected location 1 in Jenkinsfile")
     } catch (Exception e) {
       exception_class_name = e.class.name
