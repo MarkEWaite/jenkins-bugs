@@ -12,18 +12,17 @@ properties([[$class: 'BuildDiscarderProperty',
              strategy: [$class: 'LogRotator', numToKeepStr: '7']]])
 
 def branch="JENKINS-33827"
+def repo_url = scm.userRemoteConfigs[0].url
 
 node('master') {
 
   stage('Checkout') {
     checkout([$class: 'GitSCM',
-              userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
+              userRemoteConfigs: [[url: repo_url,
                                    name: 'jenkins-bugs-origin',
                                    refspec: "+refs/heads/${branch}:refs/remotes/jenkins-bugs-origin/${branch}",
                                   ]],
               branches: [[name: "*/${branch}"]],
-              browser: [$class: 'GithubWeb',
-                        repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
               extensions: [[$class: 'AuthorInChangelog'],
                            [$class: 'CheckoutOption', timeout: 1],
                            [$class: 'CleanCheckout'],
