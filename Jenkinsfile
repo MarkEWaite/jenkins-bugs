@@ -9,7 +9,7 @@ properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
 def branch='JENKINS-21248'
-def repo_url='https://github.com/MarkEWaite/jenkins-bugs'
+def repo_url=scm.userRemoteConfigs[0].url
 
 node('git-1.9+') { // Needs 'git -C' argument support
 
