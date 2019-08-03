@@ -8,11 +8,12 @@ properties([[$class: 'BuildDiscarderProperty',
 
 def branch="JENKINS-28529"
 def origin="J-28529-origin"
+def repoUrl = scm.userRemoteConfigs[0].url
 
 node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
-              userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
+              userRemoteConfigs: [[url: repoUrl,
                                    name: origin,
                                    refspec: "+refs/heads/${branch}:refs/remotes/${origin}/${branch}",
                                   ]],
