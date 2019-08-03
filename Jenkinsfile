@@ -8,7 +8,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '17']]])
 
-def repo_url='https://github.com/MarkEWaite/jenkins-bugs'
+def repo_url=scm.userRemoteConfigs[0].url
 def branch_name='has-slash/JENKINS-29603'
 
 node {
