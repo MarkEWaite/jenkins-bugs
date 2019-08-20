@@ -51,7 +51,7 @@ fi
 # JENKINS_JOB_URL= http://mark-pc2.markwaite.net:8080/job/Bugs-Pipeline-Checks/job/jenkins-bugs-multibranch-pipeline-github/job/JENKINS-15103/
 # SCAN_LOG_URL   = http://mark-pc2.markwaite.net:8080/job/Bugs-Pipeline-Checks/job/jenkins-bugs-multibranch-pipeline-github/indexing/consoleText
 
-SCAN_LOG_URL=$(echo $JENKINS_JOB_URL | sed 's,job/JENKINS-.*,indexing/consoleText,')
+SCAN_LOG_URL=$(echo $JENKINS_JOB_URL | sed 's,job/JENKINS-[[:digit:]]*/$,indexing/consoleText,')
 
 crumb=$(curl -s $SERVER/crumbIssuer/api/xml?xpath=concat\(//crumbRequestField,%22:%22,//crumb\))
 if [ -z "$crumb" ]; then
