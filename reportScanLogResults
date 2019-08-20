@@ -1,30 +1,24 @@
 #!/bin/bash
 
-# Call the Jenkins /git/notifyCommit URL with git repo url
+# Read the Jenkins scan log for multibranch pipeline that defined this job
 #
 # Default Jenkins URL from JENKINS_URL environment variable
-# Default git repo URL from current repository
+# Default Jenkins job repo URL from JOB_URL environment variable
 
-usage() { echo "Usage: $0 [-s jenkins_server_url] [-u git_repo_url] [-n]" 1>&2; exit 1; }
+usage() { echo "Usage: $0 [-s jenkins_server_url] [ -j jenkins_job_url ]" 1>&2; exit 1; }
 
-failed_with_crumb() { echo Failed with crumb; exit 2; }
-
-failed_without_crumb() { echo Failed without crumb; exit 3; }
+failed() { echo Failed querying $1; exit 2; }
 
 SERVER=
-GIT_URL=
-NEED_CRUMB=true
+JENKINS_JOB_URL=
 
-while getopts ":s:u:n" o; do
+while getopts ":s:j:" o; do
     case "${o}" in
         s)
             SERVER=${OPTARG}
             ;;
-        u)
-            GIT_URL=${OPTARG}
-            ;;
-        n)
-            NEED_CRUMB=false
+        j)
+            JENKINS_JOB_URL=${OPTARG}
             ;;
         *)
             usage
@@ -44,64 +38,65 @@ fi
 # remove trailing slash from SERVER, fails CSRF exclusion check
 SERVER=${SERVER%/}
 
-# Assure URL of git repository is set
+# Assure URL of job is set
 
-if [ -n "$GIT_URL" ]; then
-    echo Using GIT_URL: $GIT_URL
-else
-    GIT_URL=$(git remote -v | grep fetch | awk 'NR==1{print $2}')
-    if [ -n "$GIT_URL" ]; then
-        echo Using GIT_URL from fetch remote: $GIT_URL
-    else
-        GIT_URL=$(git remote -v | awk 'NR==1{print $2}')
-        if [ -n "$GIT_URL" ]; then
-            echo Using GIT_URL from first remote: $GIT_URL
-        else
-            GIT_URL=https://github.com/MarkEWaite/jenkins-bugs
-            echo Using default GIT_URL: $GIT_URL
-        fi
-    fi
+if [ -z "$JENKINS_JOB_URL" ]; then
+    JENKINS_JOB_URL=$JOB_URL
 fi
-if [ -z "$GIT_URL" ]; then
+if [ -z "$JENKINS_JOB_URL" ]; then
     usage
 fi
 
-if [ "$NEED_CRUMB" == "true" ]; then
-    crumb=$(curl -s $SERVER/crumbIssuer/api/xml?xpath=concat\(//crumbRequestField,%22:%22,//crumb\))
-    if [ -z "$crumb" ]; then
-        echo Exiting: No crumb returned by $SERVER
-        exit 4
+# Convert JENKINS_JOB_URL into SCAN_LOG_URL
+# JENKINS_JOB_URL= http://mark-pc2.markwaite.net:8080/job/Bugs-Pipeline-Checks/job/jenkins-bugs-multibranch-pipeline-github/job/JENKINS-15103/
+# SCAN_LOG_URL   = http://mark-pc2.markwaite.net:8080/job/Bugs-Pipeline-Checks/job/jenkins-bugs-multibranch-pipeline-github/indexing/consoleText
+
+SCAN_LOG_URL=$(echo $JENKINS_JOB_URL | sed 's,job/JENKINS-.*,indexing/consoleText,')
+
+crumb=$(curl -s $SERVER/crumbIssuer/api/xml?xpath=concat\(//crumbRequestField,%22:%22,//crumb\))
+if [ -z "$crumb" ]; then
+    echo Exiting: No crumb returned by $SERVER
+    exit 4
+fi
+if [[ $crumb =~ 'HTTP ERROR 404' ]]; then
+    echo "Crumb request not answered - failing"
+    echo $crumb
+    echo "End of failed crumb request output - not found"
+    exit 5
+else
+    if [[ $crumb =~ '<html>' ]]; then
+        echo Exiting: html instead of crumb returned by $SERVER: $crumb
+        echo $crumb
+        echo "End of failed crumb request output - html"
+        exit 6
     fi
-    if [[ $crumb =~ 'HTTP ERROR 404' ]]; then
-        NEED_CRUMB=false
-    else
-        if [[ $crumb =~ '<html>' ]]; then
-            echo Exiting: html instead of crumb returned by $SERVER: $crumb
-            exit 5
-        fi
-        if [ ${#crumb} -gt 60 ]; then
-            echo Exiting: Long crumb returned by $SERVER: $crumb
-            exit 6
-        fi
+    if [ ${#crumb} -gt 60 ]; then
+        echo Exiting: Long crumb returned by $SERVER: $crumb
+        echo $crumb
+        echo "End of failed crumb request output - long"
+        exit 7
     fi
 fi
 
 prefix=$RANDOM
 
-# Check that it works with the crumb (if crumb needed)
+# Use the crumb to query the scan log
 
-if [ "$NEED_CRUMB" == "true" ]; then
-    crumb_output=${prefix}-crumbfull
-    echo "Notifying URL=$SERVER POST using crumb: $crumb"
-    curl -s -H "$crumb" -X POST $SERVER/git/notifyCommit?url=$GIT_URL -o $crumb_output
-    grep -q -F '<html>' $crumb_output && failed_with_crumb
-fi
+crumb_output=${prefix}-crumbfull
+echo "Querying GitHub branch scan log with crumb $crumb"
+curl -s -H "$crumb" -X POST $SCAN_LOG_URL -o $crumb_output
+# echo === output from query with crumb
+# cat $crumb_output
+# echo === End of output from query with crumb
 
-# Check that it works without the crumb (always)
+# Check for message that should always be in every scan log
+grep -q 'Starting branch indexing' $crumb_output                             || failed $SCAN_LOG_URL
 
-no_crumb_output=${prefix}-crumbless
-echo "Notifying URL=$SERVER POST with no crumb"
-curl -s -X POST $SERVER/git/notifyCommit?url=$GIT_URL -o $no_crumb_output
-grep -q -F '<html>' $no_crumb_output && failed_without_crumb
+# Check for the success message - using specific credentials
+grep -q 'Connecting to .*api.github.com.* using ' $crumb_output              || failed $SCAN_LOG_URL
 
+# Check for the failure message - using no credentials
+grep -q 'Connecting to .*api.github.com.* with no credentials' $crumb_output && failed $SCAN_LOG_URL
+
+echo "Branch scan log $SCAN_LOG_URL contains expected content"
 exit 0

@@ -26,6 +26,7 @@ node('linux && !cloud') { // Needs curl installed, needs local access to Jenkins
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     /* JENKINS-59016 reports branch scan does not use folder scoped credentials.  */
-    my_check.logContains('.*reportScanLogResults script exited normally.*', 'branch scan did not use credentials')
+    my_check.logContains('.*reportScanLogResults script exited normally.*',  'branch scan test script unexpected exit')
+    my_check.logContains('.*Branch scan log .* contains expected content.*', 'Branch scan not authenticated')
   }
 }
