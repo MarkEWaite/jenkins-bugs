@@ -14,6 +14,7 @@ node('linux && !cloud') { // Needs curl installed, needs local access to Jenkins
                            [$class: 'LocalBranch', localBranch: '**'],
                            [$class: 'CleanCheckout'], // ant info clutters workspace with output files
                           ],
+              gitTool: scm.gitTool,
               userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-59016:refs/remotes/origin/JENKINS-59016', url: repo_url ]],
             ])
   }
