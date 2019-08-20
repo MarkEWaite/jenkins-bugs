@@ -12,6 +12,7 @@ node('linux && !cloud') { // Needs curl installed, needs local access to Jenkins
               branches: [[name: 'JENKINS-59016']],
               extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                            [$class: 'LocalBranch', localBranch: '**'],
+                           [$class: 'CleanCheckout'], // ant info clutters workspace with output files
                           ],
               userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-59016:refs/remotes/origin/JENKINS-59016', url: repo_url ]],
             ])
