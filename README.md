@@ -1,4 +1,4 @@
-# [JENKINS-34350](https://issues.jenkins-ci.org/browse/JENKINS-34350) notifyCommit fails POST if CSRF defense is enabled
+# [JENKINS-59016](https://issues.jenkins-ci.org/browse/JENKINS-59016) Folder scoped credential not used for GitUHub branch scan
 
-The notifyCommit HTTP request fails if POST is used and CSRF defense
-is enabled.  It works correctly if GET is used, and fails if POST is used.
+A credential defined in a folder (and not at the root level) is not used
+by the GitHub branch source plugin when scanning for repositories.
