@@ -56,7 +56,7 @@ node {
         echo "${entry.commitId} by ${entry.author} on ${new Date(entry.timestamp)}: ${entry.msg}"
       }
     }
-    if (currentBuild.number > 1) { // Don't check first build
+    if (currentBuild.number > 1 && currentBuild.changeSets.size() > 0) { // Don't check first build or if build has no changesets
       my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
       my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
     }
