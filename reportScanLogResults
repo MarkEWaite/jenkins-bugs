@@ -90,14 +90,14 @@ curl -s -H "$crumb" -X POST $SCAN_LOG_URL -o $query_output
 # echo === End of output from query with crumb
 
 # Check for message that should always be in every scan log
-grep -q 'Starting branch indexing' $query_output                                 || failed ", branch indexing message not found in $SCAN_LOG_URL"
+grep -q 'Starting branch indexing' $query_output                             || failed ", branch indexing message not found in $SCAN_LOG_URL"
 
 if grep -q 'Connecting to .*api.github.com' $query_output; then
     # Check for the success message - using specific credentials
-    grep -q 'Connecting to .*api.github.com.* using ' $query_output              || failed ", GitHub connecting message not found in $SCAN_LOG_URL"
+    grep -q 'Connecting to .*api.github.com.* using ' $query_output          || failed ", GitHub connecting message not found in $SCAN_LOG_URL"
 
-    # Check for the failure message - using no credentials
-    grep -q 'Connecting to .*api.github.com.* with no credentials' $query_output && failed ", no credentials used scanning $SCAN_LOG_URL"
+    # Check for the failure message - no credentials
+    grep -q 'Connecting to .*api.github.com .* no credentials' $query_output && failed ", no credentials used scanning $SCAN_LOG_URL"
 else
     echo "Not github output"
 fi
