@@ -82,21 +82,25 @@ prefix=$RANDOM
 
 # Use the crumb to query the scan log
 
-crumb_output=${prefix}-crumbfull
+query_output=${prefix}-crumbfull
 echo "Querying GitHub branch scan log with crumb $crumb"
-curl -s -H "$crumb" -X POST $SCAN_LOG_URL -o $crumb_output
+curl -s -H "$crumb" -X POST $SCAN_LOG_URL -o $query_output
 # echo === output from query with crumb
-# cat $crumb_output
+# cat $query_output
 # echo === End of output from query with crumb
 
 # Check for message that should always be in every scan log
-grep -q 'Starting branch indexing' $crumb_output                             || failed $SCAN_LOG_URL
+grep -q 'Starting branch indexing' $query_output                                 || failed $SCAN_LOG_URL
 
-# Check for the success message - using specific credentials
-grep -q 'Connecting to .*api.github.com.* using ' $crumb_output              || failed $SCAN_LOG_URL
+if grep -q 'Connecting to .*api.github.com' $query_output; then
+    # Check for the success message - using specific credentials
+    grep -q 'Connecting to .*api.github.com.* using ' $query_output              || failed $SCAN_LOG_URL
 
-# Check for the failure message - using no credentials
-grep -q 'Connecting to .*api.github.com.* with no credentials' $crumb_output && failed $SCAN_LOG_URL
+    # Check for the failure message - using no credentials
+    grep -q 'Connecting to .*api.github.com.* with no credentials' $query_output && failed $SCAN_LOG_URL
+else
+    echo "Not github output"
+fi
 
 echo "Branch scan log $SCAN_LOG_URL contains expected content"
 exit 0
