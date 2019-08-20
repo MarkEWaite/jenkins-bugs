@@ -97,7 +97,7 @@ if grep -q 'Connecting to .*api.github.com' $query_output; then
     grep -q 'Connecting to .*api.github.com.* using ' $query_output              || failed $SCAN_LOG_URL
 
     # Check for the failure message - using no credentials
-    grep -q 'Connecting to .*api.github.com.* with no credentials' $query_output && failed $SCAN_LOG_URL
+    grep -q 'Connecting to .*api.github.com.* with no credentials' $query_output && failed ", no credentials used scanning $SCAN_LOG_URL"
 else
     echo "Not github output"
 fi
