@@ -1,10 +1,10 @@
-<project name="JENKINS-51638" default="increment" basedir=".">
+<project name="JENKINS-59008" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
     <git command="pull">
       <args>
         <arg value="https://github.com/MarkEWaite/jenkins-bugs"/>
-        <arg value="JENKINS-51638"/>
+        <arg value="JENKINS-59008"/>
       </args>
     </git>
     <exec executable="git" outputproperty="git.branch" failifexecutionfails="false">
@@ -30,8 +30,7 @@
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
-    <!-- JENKINS-51638 reports that Jenkinsfile reference to merge strategy 'default'
-         fails on upgrade to git plugin 3.9.x -->
+    <!-- JENKINS-59008 reports that merge fails on second build when targeting a tag -->
     <echo>Displaying git log messages on this branch from last 3 commits</echo>
     <git command="log">
       <args>
