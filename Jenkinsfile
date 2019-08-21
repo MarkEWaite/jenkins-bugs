@@ -61,6 +61,6 @@ node('git-1.8+ && !windows') {
      [exec] * (HEAD detached from origin/JENKINS-59008-project-1)
      unless running an older git version like git 1.7.1 on CentOS 6
     */
-    my_check.logContains(".*.exec. . .*origin/${branch}-project-1.*", 'Wrong branch name')
+    my_check.logContains(".*.exec. . .*${branch}.*", 'Wrong branch name')
   }
 }
