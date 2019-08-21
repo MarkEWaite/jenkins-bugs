@@ -11,8 +11,10 @@ properties([[$class: 'BuildDiscarderProperty',
 def branch = 'JENKINS-59008'
 def tagName = "${branch}-project-1-tag-a"
 
-node('git-1.8+') {
+node('git-1.8+ && !windows') {
   stage('Checkout') {
+    sh('git tag')
+    sh('git branch')
     checkout([$class: 'GitSCM',
               branches: [[name: branch]],
               // branches: scm.branches,
