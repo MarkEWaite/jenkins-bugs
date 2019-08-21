@@ -13,8 +13,6 @@ def tagName = "${branch}-project-1-tag-a"
 
 node('git-1.8+ && !windows') {
   stage('Checkout') {
-    // sh('[ -d .git ] && git tag')
-    // sh('[ -d .git ] && git branch')
     checkout([$class: 'GitSCM',
               branches: [[name: branch]],
               // branches: scm.branches,
