@@ -21,7 +21,7 @@ node('git-1.8+') {
                             fastForwardMode: 'FF',
                             mergeRemote: 'origin',
                             mergeStrategy: 'default',
-                            mergeTarget: "${branch}-project-1"
+                            mergeTarget: "${branch}-project-1-tag-a"
                            ]]
                           ],
               gitTool: scm.gitTool,
