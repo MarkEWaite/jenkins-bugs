@@ -8,26 +8,27 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-def branch = 'JENKINS-59008'
+def branch = 'JENKINS-59008-project-1'
+def tag = "${branch}-tag-a"
 
 node('git-1.8+') {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
               // branches: [[name: "origin/${branch}"]],
               branches: scm.branches,
-              extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+              extensions: [[$class: 'CloneOption', honorRefspec: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                            // [$class: 'LocalBranch', localBranch: branch],
                            [$class: 'PreBuildMerge', options: [
                             fastForwardMode: 'FF',
                             mergeRemote: 'origin',
                             mergeStrategy: 'default',
-                            mergeTarget: "${branch}-project-1-tag-a"
+                            mergeTarget: tag
                            ]]
                           ],
               gitTool: scm.gitTool,
               userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
                                   refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}" +
-                                           " +refs/heads/${branch}-project-1:refs/remotes/origin/${branch}-project-1"
+                                           " +refs/tags/${tag}:refs/remotes/origin/tags/${tag}"
                                   ]]
             ])
   }
