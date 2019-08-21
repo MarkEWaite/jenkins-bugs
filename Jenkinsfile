@@ -26,7 +26,7 @@ node('git-1.8+ && !windows') {
                             mergeTarget: mergeTargetName
                            ]]
                           ],
-              gitTool: scm.gitTool,
+              gitTool: scm.gitTool, // Null pointer exception when JGit implementation
               userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
                                   refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}" +
                                            " +refs/heads/${mergeTargetName}:refs/remotes/origin/${mergeTargetName}" +
