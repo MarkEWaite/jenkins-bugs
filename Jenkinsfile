@@ -24,7 +24,7 @@ node('git-1.8+ && !windows') {
                             fastForwardMode: 'FF',
                             mergeRemote: 'origin',
                             mergeStrategy: 'default',
-                            mergeTarget: tagName
+                            mergeTarget: "refs/tags/${tagName}"
                            ]]
                           ],
               gitTool: scm.gitTool,
