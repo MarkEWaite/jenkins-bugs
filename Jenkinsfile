@@ -12,7 +12,7 @@ def branch = 'JENKINS-59008'
 def mergeTargetName = "${branch}-project-1"
 def tagName = "${branch}-project-1-tag-a"
 
-node('git-1.8+ && !windows') {
+node('git-1.8+') {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
               branches: [[name: branch]],
