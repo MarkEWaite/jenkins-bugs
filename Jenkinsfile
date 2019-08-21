@@ -14,10 +14,10 @@ def tag = "${branch}-project-1-tag-a"
 node('git-1.8+') {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
-              // branches: [[name: "origin/${branch}"]],
-              branches: scm.branches,
+              branches: [[name: branch]],
+              // branches: scm.branches,
               extensions: [[$class: 'CloneOption', honorRefspec: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                           // [$class: 'LocalBranch', localBranch: branch],
+                           [$class: 'LocalBranch', localBranch: branch],
                            [$class: 'PreBuildMerge', options: [
                             fastForwardMode: 'FF',
                             mergeRemote: 'origin',
