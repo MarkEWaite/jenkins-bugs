@@ -8,7 +8,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-def branch = 'JENKINS-51638'
+def branch = 'JENKINS-59008'
 
 node('git-1.8+') {
   stage('Checkout') {
@@ -20,8 +20,7 @@ node('git-1.8+') {
                            [$class: 'PreBuildMerge', options: [
                             fastForwardMode: 'FF',
                             mergeRemote: 'origin',
-                            mergeStrategy: 'default', // JENKINS-51638 - works in git plugin 3.8.0, not 3.9.3
-                            // mergeStrategy: 'DEFAULT', // JENKINS-51638 work around - works in git plugin 3.8.0 and 3.9.3
+                            mergeStrategy: 'default',
                             mergeTarget: "${branch}-project-1"
                            ]]
                           ],
@@ -31,7 +30,6 @@ node('git-1.8+') {
                                            " +refs/heads/${branch}-project-1:refs/remotes/origin/${branch}-project-1"
                                   ]]
             ])
-
   }
 
   stage('Build') {
@@ -57,7 +55,7 @@ node('git-1.8+') {
 
     /* Log should contain something like this (depending on LocalBranch setting):
      [echo] git branch
-     [exec] * (HEAD detached from origin/JENKINS-51638-project-1)
+     [exec] * (HEAD detached from origin/JENKINS-59008-project-1)
      unless running an older git version like git 1.7.1 on CentOS 6
     */
     my_check.logContains(".*.exec. . .*origin/${branch}-project-1.*", 'Wrong branch name')
