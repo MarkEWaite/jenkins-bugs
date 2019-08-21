@@ -8,8 +8,8 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-def branch = 'JENKINS-59008-project-1'
-def tag = "${branch}-tag-a"
+def branch = 'JENKINS-59008'
+def tag = "${branch}-project-1-tag-a"
 
 node('git-1.8+') {
   stage('Checkout') {
@@ -28,6 +28,7 @@ node('git-1.8+') {
               gitTool: scm.gitTool,
               userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
                                   refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}" +
+                                           " +refs/heads/${branch}-project-1:refs/remotes/origin/${branch}-project-1" +
                                            " +refs/tags/${tag}:refs/remotes/origin/tags/${tag}"
                                   ]]
             ])
