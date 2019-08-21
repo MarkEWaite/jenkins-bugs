@@ -9,9 +9,10 @@ properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
 def branch = 'JENKINS-59008'
+def mergeTargetName = "${branch}-project-1"
 def tagName = "${branch}-project-1-tag-a"
 
-node('git-1.8+') {
+node('git-1.8+ && !windows') {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
               branches: [[name: branch]],
@@ -22,13 +23,13 @@ node('git-1.8+') {
                             fastForwardMode: 'FF',
                             mergeRemote: 'origin',
                             mergeStrategy: 'default',
-                            mergeTarget: tagName
+                            mergeTarget: mergeTargetName
                            ]]
                           ],
-              gitTool: scm.gitTool,
+              gitTool: scm.gitTool, // Null pointer exception when JGit implementation
               userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
                                   refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}" +
-                                           " +refs/heads/${branch}-project-1:refs/remotes/origin/${branch}-project-1" +
+                                           " +refs/heads/${mergeTargetName}:refs/remotes/origin/${mergeTargetName}" +
                                            " +refs/tags/${tagName}:refs/remotes/origin/tags/${tagName}"
                                   ]]
             ])
@@ -60,6 +61,6 @@ node('git-1.8+') {
      [exec] * (HEAD detached from origin/JENKINS-59008-project-1)
      unless running an older git version like git 1.7.1 on CentOS 6
     */
-    my_check.logContains(".*.exec. . .*origin/${branch}-project-1.*", 'Wrong branch name')
+    my_check.logContains(".*.exec. . .*${branch}.*", 'Wrong branch name')
   }
 }
