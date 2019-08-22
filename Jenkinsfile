@@ -7,7 +7,7 @@ import com.markwaite.Build
 // Narrow the respec to only this branch
 def branch = 'JENKINS-59016'
 def myRemoteConfigs = scm.userRemoteConfigs
-myRemoteConfigs[0].refspec = myRemoteConfigs[0].refspec.replace('*', "${branch}")
+myRemoteConfigs[0].refspec = myRemoteConfigs[0].refspec.replace('*', branch)
 
 /* Only keep the 10 most recent builds. */
 properties([[$class: 'BuildDiscarderProperty',
