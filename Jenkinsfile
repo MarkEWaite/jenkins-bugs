@@ -4,16 +4,16 @@
 
 pipeline {
   agent {
-    label '!windows' // For sh build step
+    label 'windows' // For bat build step
   }
   tools {
     ant 'ant-latest'
-    git 'jgit'
+    git 'git-windows'
   }
   stages {
     stage('Build') {
       steps {
-        sh 'ant info'
+        bat 'ant info'
         logContains(expectedRegEx: ".*Git HEAD is ${env.GIT_COMMIT}.*",
                     failureMessage: "Missing env GIT_COMMIT value '${env.GIT_COMMIT}'")
       }
