@@ -4,7 +4,7 @@
 
 pipeline {
   agent {
-    label '!windows'
+    label '!windows' // For sh build step
   }
   tools {
     ant 'ant-latest'
