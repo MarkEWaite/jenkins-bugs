@@ -7,7 +7,7 @@ import com.markwaite.Build
 // Narrow the respec to only this branch
 def branch = 'JENKINS-59016'
 def myRemoteConfigs = scm.userRemoteConfigs
-myRemoteConfigs[0].refspec = "+refs/heads/${branch}:refs/remotes/origin/${branch}"
+myRemoteConfigs[0].refspec = myRemoteConfigs[0].refspec.replace('*', "${branch}")
 
 node('linux && !cloud') { // Needs curl installed, needs local access to Jenkins server
   stage('Checkout') {
