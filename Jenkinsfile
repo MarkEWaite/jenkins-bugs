@@ -9,6 +9,10 @@ def branch = 'JENKINS-59016'
 def myRemoteConfigs = scm.userRemoteConfigs
 myRemoteConfigs[0].refspec = myRemoteConfigs[0].refspec.replace('*', "${branch}")
 
+/* Only keep the 10 most recent builds. */
+properties([[$class: 'BuildDiscarderProperty',
+                strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
+
 node('linux && !cloud') { // Needs curl installed, needs local access to Jenkins server
   stage('Checkout') {
     checkout([$class: 'GitSCM',
