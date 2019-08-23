@@ -12,7 +12,7 @@ def branch = 'JENKINS-59008'
 def branchTargetName = "${branch}-project-1"
 def tagTargetName = "${branch}-project-1-tag-a"
 
-def mergeTargetName = tagTargetName
+def mergeTargetName = branchTargetName
 
 node('git-1.8+') {
   stage('Checkout') {
