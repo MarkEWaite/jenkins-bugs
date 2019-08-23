@@ -9,8 +9,10 @@ properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
 def branch = 'JENKINS-59008'
-def mergeTargetName = "${branch}-project-1"
-def tagName = "${branch}-project-1-tag-a"
+def branchTargetName = "${branch}-project-1"
+def tagTargetName = "${branch}-project-1-tag-a"
+
+def mergeTargetName = tagTargetName
 
 node('git-1.8+') {
   stage('Checkout') {
@@ -30,7 +32,7 @@ node('git-1.8+') {
               userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
                                   refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}" +
                                            " +refs/heads/${mergeTargetName}:refs/remotes/origin/${mergeTargetName}" +
-                                           " +refs/tags/${tagName}:refs/remotes/origin/tags/${tagName}"
+                                           " +refs/tags/${tagTargetName}:refs/remotes/origin/tags/${tagTargetName}"
                                   ]]
             ])
   }
