@@ -9,8 +9,8 @@ properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
 def branch = 'JENKINS-59008'
-def branchTargetName = "${branch}-project-1"
-def tagTargetName = "${branch}-project-1-tag-a"
+def branchTargetName = "${branch}-project-1"    // Merge target as a branch works so long as the LocalBranch extension is also used
+def tagTargetName = "${branch}-project-1-tag-a" // Merge target as a tag will not work, can't make a tag a merge target
 
 def mergeTargetName = branchTargetName
 
