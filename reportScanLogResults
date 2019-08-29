@@ -66,16 +66,13 @@ if [[ $crumb =~ 'HTTP ERROR 404' ]]; then
 else
     if [[ $crumb =~ '<html>' ]]; then
         echo Exiting: html instead of crumb returned by $SERVER: $crumb
-        echo $crumb
         echo "End of failed crumb request output - html"
         exit 6
     fi
     if [ ${#crumb} -gt 90 ]; then
         # First detected in Jenkins 2.190 that crumb is now 79 characters long
-        echo Exiting: Long crumb returned by $SERVER: $crumb
-        echo $crumb
+        echo Long crumb returned by $SERVER: $crumb
         echo "End of failed crumb request output - long"
-        exit 7
     fi
 fi
 
