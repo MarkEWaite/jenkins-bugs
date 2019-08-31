@@ -68,9 +68,8 @@ if [ -z "$GIT_URL" ]; then
     usage
 fi
 
-cookie_file=$(mktemp /tmp/reportScanLogResults-script.XXXXXX)
-
 if [ "$NEED_CRUMB" == "true" ]; then
+    cookie_file=$(mktemp /tmp/reportScanLogResults-script.XXXXXX)
     crumb=$(curl --cookie-jar $cookie_file -s $SERVER/crumbIssuer/api/xml?xpath=concat\(//crumbRequestField,%22:%22,//crumb\))
     if [ -z "$crumb" ]; then
         echo Exiting: No crumb returned by $SERVER
