@@ -83,7 +83,7 @@ if [ "$NEED_CRUMB" == "true" ]; then
             echo Exiting: html instead of crumb returned by $SERVER: $crumb
             exit 5
         fi
-        if [ ${#crumb} -gt 60 ]; then
+        if [ ${#crumb} -gt 150 ]; then
             echo Exiting: Long crumb returned by $SERVER: $crumb
             exit 6
         fi
