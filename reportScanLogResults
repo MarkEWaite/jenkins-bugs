@@ -72,7 +72,7 @@ else
         exit 6
     fi
     if [ ${#crumb} -gt 90 ]; then
-        # First detected in Jenkins 2.190 that crumb is now 79 characters long
+        # First detected in Jenkins 2.190 and 2.176.3 that crumb is now 79 characters long
         echo Long crumb returned by $SERVER: $crumb
     fi
 fi
