@@ -9,7 +9,7 @@ node {
     checkout([
       $class: 'GitSCM',
       branches: scm.branches,
-      userRemoteConfigs: scm.userRemoteConfigs + [name: 'origin']
+      userRemoteConfigs: scm.userRemoteConfigs + [name: 'origin'] // Add a new entry with only a name and no URL
     ])
   }
 
