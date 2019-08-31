@@ -22,7 +22,7 @@
     <echo>user dir is ${user.dir}</echo>
     <!-- JENKINS-29977 reports that the commit summary line in the Jenkins UI
          is truncated for display. -->
-    <exec executable="./readChangesFromBuildUrl"/>
+    <exec executable="./readChangesFromBuildUrl" failonerror="true"/>
     <echo>readChangesFromBuildUrl script exited normally</echo>
   </target>
 
