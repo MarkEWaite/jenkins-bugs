@@ -67,7 +67,8 @@ if [ -z "$GIT_URL" ]; then
 fi
 
 if [ "$NEED_CRUMB" == "true" ]; then
-    crumb=$(curl -s $SERVER/crumbIssuer/api/xml?xpath=concat\(//crumbRequestField,%22:%22,//crumb\))
+    cookie_file=$(mktemp /tmp/reportScanLogResults-script.XXXXXX)
+    crumb=$(curl --cookie-jar $cookie_file -s $SERVER/crumbIssuer/api/xml?xpath=concat\(//crumbRequestField,%22:%22,//crumb\))
     if [ -z "$crumb" ]; then
         echo Exiting: No crumb returned by $SERVER
         exit 4
@@ -79,7 +80,7 @@ if [ "$NEED_CRUMB" == "true" ]; then
             echo Exiting: html instead of crumb returned by $SERVER: $crumb
             exit 5
         fi
-        if [ ${#crumb} -gt 60 ]; then
+        if [ ${#crumb} -gt 150 ]; then
             echo Exiting: Long crumb returned by $SERVER: $crumb
             exit 6
         fi
@@ -93,8 +94,9 @@ prefix=$RANDOM
 if [ "$NEED_CRUMB" == "true" ]; then
     crumb_output=${prefix}-crumbfull
     echo "Notifying URL=$SERVER POST using crumb: $crumb"
-    curl -s -H "$crumb" -X POST $SERVER/git/notifyCommit?url=$GIT_URL -o $crumb_output
+    curl --cookie $cookie_file -s -H "$crumb" -X POST $SERVER/git/notifyCommit?url=$GIT_URL -o $crumb_output
     grep -q -F '<html>' $crumb_output && failed_with_crumb
+    rm -f $crumb_output $cookie_file
 fi
 
 # Check that it works without the crumb (always)
