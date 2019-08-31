@@ -53,7 +53,9 @@ fi
 
 SCAN_LOG_URL=$(echo $JENKINS_JOB_URL | sed 's,job/JENKINS-[[:digit:]]*/$,indexing/consoleText,')
 
-crumb=$(curl -s $SERVER/crumbIssuer/api/xml?xpath=concat\(//crumbRequestField,%22:%22,//crumb\))
+cookie_file=$(mktemp /tmp/reportScanLogResults-script.XXXXXX)
+
+crumb=$(curl --cookie $cookie_file -s $SERVER/crumbIssuer/api/xml?xpath=concat\(//crumbRequestField,%22:%22,//crumb\))
 if [ -z "$crumb" ]; then
     echo Exiting: No crumb returned by $SERVER
     exit 4
@@ -82,7 +84,9 @@ prefix=$RANDOM
 
 query_output=${prefix}-crumbfull
 echo "Querying GitHub branch scan log with crumb $crumb"
-curl -s -H "$crumb" -X POST $SCAN_LOG_URL -o $query_output
+curl -s -H "$crumb" --cookie $cookie_file -X POST $SCAN_LOG_URL -o $query_output
+rm $cookie_file
+
 # echo === output from query with crumb
 # cat $query_output
 # echo === End of output from query with crumb
