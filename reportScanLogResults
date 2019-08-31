@@ -54,8 +54,12 @@ fi
 SCAN_LOG_URL=$(echo $JENKINS_JOB_URL | sed 's,job/JENKINS-[[:digit:]]*/$,indexing/consoleText,')
 
 cookie_file=$(mktemp /tmp/reportScanLogResults-script.XXXXXX)
+touch $cookie_file
 
 crumb=$(curl --cookie $cookie_file -s $SERVER/crumbIssuer/api/xml?xpath=concat\(//crumbRequestField,%22:%22,//crumb\))
+echo ==== Cookie file contents
+cat $cookie_file
+echo ==== End of cookie file contents
 if [ -z "$crumb" ]; then
     echo Exiting: No crumb returned by $SERVER
     exit 4
