@@ -56,7 +56,7 @@ SCAN_LOG_URL=$(echo $JENKINS_JOB_URL | sed 's,job/JENKINS-[[:digit:]]*/$,indexin
 cookie_file=$(mktemp /tmp/reportScanLogResults-script.XXXXXX)
 touch $cookie_file
 
-crumb=$(curl --cookie $cookie_file -s $SERVER/crumbIssuer/api/xml?xpath=concat\(//crumbRequestField,%22:%22,//crumb\))
+crumb=$(curl --cookie-jar $cookie_file -s $SERVER/crumbIssuer/api/xml?xpath=concat\(//crumbRequestField,%22:%22,//crumb\))
 echo ==== Cookie file contents
 cat $cookie_file
 echo ==== End of cookie file contents
