@@ -74,7 +74,6 @@ else
     if [ ${#crumb} -gt 90 ]; then
         # First detected in Jenkins 2.190 that crumb is now 79 characters long
         echo Long crumb returned by $SERVER: $crumb
-        echo "End of failed crumb request output - long"
     fi
 fi
 
