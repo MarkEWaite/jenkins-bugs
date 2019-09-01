@@ -1,4 +1,4 @@
-#!groovy
+6#!groovy
 
 @Library('globalPipelineLibraryMarkEWaite') _
 import com.markwaite.Assert
@@ -14,11 +14,11 @@ def existing_but_unusable_credentials_id_1 = 'MarkE-ed25519-private-key-mark-pc4
 def existing_but_unusable_credentials_id_2 = 'jagent-aws-ubuntu-18-a-rsa-private-key-with-passphrase'
 
 def public_repository_urls =  [
-				'https://github.com/MarkEWaite/jenkins-bugs',
-			      ]
+                                'https://github.com/MarkEWaite/jenkins-bugs',
+                              ]
 
 def private_repository_urls = [
-				'git@github.com:MarkEWaite/jenkins-bugs.git',
+                                'git@github.com:MarkEWaite/jenkins-bugs.git',
                                 'https://github.com/MarkEWaite/jenkins-bugs-private',
                                 'git@github.com:MarkEWaite/jenkins-bugs-private.git',
                               ]
@@ -60,20 +60,20 @@ node('home-hasphrase || mark-pc2-beemarkwaite || remote || jagent') {
     for (repository_url in private_repository_urls) {
       for (credential_id in credential_ids) {
         ws() {
-	  try {
-	    checkout([$class: 'GitSCM',
-			branches: [[name: 'master']],
-			extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true]],
-			gitTool: scm.gitTool,
-			userRemoteConfigs: [[url: repository_url,
-					     credentialsId: credential_id,
-					     name: "X${credential_id}-originX",
-					     refspec: "+refs/heads/master:refs/remotes/X${credential_id}-originX/master",
-					    ]]])
-	    my_assert.assertCondition(false, "private checkout of ${repository_url} with ${credential_id} succeeded unexpectedly")
-	  } catch (Exception e) {
-	    echo "Caught exception was ${e}"
-	  }
+          try {
+            checkout([$class: 'GitSCM',
+                        branches: [[name: 'master']],
+                        extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true]],
+                        gitTool: scm.gitTool,
+                        userRemoteConfigs: [[url: repository_url,
+                                             credentialsId: credential_id,
+                                             name: "X${credential_id}-originX",
+                                             refspec: "+refs/heads/master:refs/remotes/X${credential_id}-originX/master",
+                                            ]]])
+            my_assert.assertCondition(false, "private checkout of ${repository_url} with ${credential_id} succeeded unexpectedly")
+          } catch (Exception e) {
+            echo "Caught exception was ${e}"
+          }
         }
       }
     }
