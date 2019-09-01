@@ -6,3 +6,4 @@ use command line git.
 
 This bug requires interactive verification by calling the syntax generator.
 This branch is used to confirm that the correct declarative syntax works as expected.
+Scripting the test would be painful, at best.
