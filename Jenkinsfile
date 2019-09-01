@@ -1,4 +1,4 @@
-6#!groovy
+#!groovy
 
 @Library('globalPipelineLibraryMarkEWaite') _
 import com.markwaite.Assert
