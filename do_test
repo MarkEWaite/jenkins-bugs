@@ -6,3 +6,8 @@
 for dir in $(ls | shuf; ls | shuf); do
         [ -f $dir/build.xml ] && (cd $dir && git pull-a && sleep 3 && ant && sleep 2 && git push && sleep 5 && git push cache && sleep 7 && git push bare)
 done
+
+# Run tests again that are harmed by other tests
+for dir in JENKINS-20941 JENKINS-20941-base JENKINS-20941-https-simple JENKINS-21248-a JENKINS-29796-develop JENKINS-29796-production JENKINS-29977 JENKINS-32174 JENKINS-32174-without-slashes; do
+        [ -f $dir/build.xml ] && (cd $dir && git pull-a && sleep 3 && ant && sleep 2 && git push && sleep 5 && git push cache && sleep 7 && git push bare)
+done
