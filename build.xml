@@ -58,6 +58,13 @@
         <arg value="--since='15 minutes ago'"/>
       </args>
     </git>
+    <git command="log">
+      <args>
+        <arg value="-n"/>
+        <arg value="3"/>
+        <arg value="${env.GIT_COMMIT}"/>
+      </args>
+    </git>
     <echo>End of git log messages on this branch from last 15 minutes</echo>
   </target>
 
