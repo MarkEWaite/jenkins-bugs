@@ -14,7 +14,7 @@ def isCliGit = true
 node('linux && git-1.9+') { // This specific reference syntax is limited to Unix file systems
   stage('Checkout') {
     deleteDir() // Force each run to be a fresh copy
-    if (scm.gitTool.startsWith('jgit')) {
+    if (scm.gitTool == 'jgit') {
       isCliGit = false
     }
     checkout([$class: 'GitSCM',
