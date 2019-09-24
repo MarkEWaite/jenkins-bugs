@@ -18,6 +18,7 @@ node('git-1.9+') {
   checkout([$class: 'GitSCM',
           branches: [[name: branch]],
           extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+                       [$class: 'LocalBranch', localBranch: branch],
                       ],
           gitTool: scm.gitTool,
           userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
