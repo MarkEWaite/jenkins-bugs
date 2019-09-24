@@ -13,19 +13,23 @@ def branch = 'JENKINS-59497'
 node('linux && git-1.9+') { // This specific reference syntax is limited to Unix file systems
   stage('Checkout') {
     deleteDir() // Force each run to be a fresh copy
-    checkout([$class: 'GitSCM',
-            branches: [[name: branch]],
-            extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                         [$class: 'LocalBranch', localBranch: branch],
-                        ],
-            gitTool: scm.gitTool,
-            userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
+    dir('a-subdir') {
+      checkout([$class: 'GitSCM',
+              branches: [[name: branch]],
+              extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+                           [$class: 'LocalBranch', localBranch: branch],
+                          ],
+              gitTool: scm.gitTool,
+              userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
+    }
   }
 
   stage('Build') {
     /* Call the ant build. */
     def my_step = new com.markwaite.Build()
-    my_step.ant 'info'
+    dir('a-subdir') {
+      my_step.ant 'info'
+    }
   }
 
   stage('Verify') {
