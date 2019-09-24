@@ -10,18 +10,17 @@ properties([[$class: 'BuildDiscarderProperty',
 
 def branch = 'JENKINS-59497'
 
-def checkout_result = {}
-def expected_sha1 = 'f0fae702de30331a8ce913cdb87ac0bdf990d85f'
-
 node('git-1.9+') {
-  deleteDir() // Force each run to be a fresh copy
-  checkout([$class: 'GitSCM',
-          branches: [[name: branch]],
-          extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                       [$class: 'LocalBranch', localBranch: branch],
-                      ],
-          gitTool: scm.gitTool,
-          userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
+  stage('Checkout') {
+    deleteDir() // Force each run to be a fresh copy
+    checkout([$class: 'GitSCM',
+            branches: [[name: branch]],
+            extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+                         [$class: 'LocalBranch', localBranch: branch],
+                        ],
+            gitTool: scm.gitTool,
+            userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
+  }
 
   stage('Build') {
     /* Call the ant build. */
