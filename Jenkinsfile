@@ -31,6 +31,6 @@ node('git-1.9+') {
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     my_check.logContains(".*[*] ${branch}.*", "Wrong branch reported, expected '${branch}'")
-    my_check.logContains(".*alternates is .*bugs.jenkins-bugs.git.*'", "No reference repo, alternates file content missing")
+    my_check.logContains(".*alternates is .*bugs.jenkins-bugs.git.*", "No reference repo, alternates file content missing")
   }
 }
