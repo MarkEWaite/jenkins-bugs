@@ -1,4 +1,4 @@
-<project name="JENKINS-58349" default="increment" basedir=".">
+<project name="JENKINS-59497" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
     <git command="pull" />
@@ -23,16 +23,9 @@
     <exec executable="git">
       <arg value="branch"/>
     </exec>
-    <!-- JENKINS-58349 reports that timeout is ignored on a pipeline job -->
-    <exec executable="git">
-      <arg value="-C"/>
-      <arg value="linux-stable"/>
-      <arg value="log"/>
-      <arg value="-n"/>
-      <arg value="1"/>
-      <arg value="--pretty=format:linux-stable-v5.1.15-commit-SHA1-is-%H"/>
-      <arg value="HEAD"/>
-    </exec>
+    <!-- JENKINS-59497 reports that reference repository is ignored in a pipeline job -->
+    <loadfile property="message" srcFile=".git/objects/info/alternates"/>
+    <echo>alternates is ${message}</echo>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
