@@ -35,5 +35,8 @@ node('linux && git-1.9+') { // This specific reference syntax is limited to Unix
     def my_check = new com.markwaite.Assert()
     my_check.logContains(".*[*] ${branch}.*", "Wrong branch reported, expected '${branch}'")
     my_check.logContains(".*alternates is .*bugs.jenkins-bugs.git.*", "No reference repo, alternates file content missing")
+    if (!scm.gitTool.startsWith('jgit')) { // JGit does not print the message
+      my_check.logContains(".*Using reference repository.*", "No message using reference repository")
+    }
   }
 }
