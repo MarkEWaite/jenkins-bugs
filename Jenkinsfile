@@ -13,8 +13,7 @@ def branch = 'JENKINS-59497'
 def checkout_result = {}
 def expected_sha1 = 'f0fae702de30331a8ce913cdb87ac0bdf990d85f'
 
-/* Only run on local agents, not cloud agents.  Cloud agents can't see my local git caching server */
-node('linux && git-1.9+') {
+node('git-1.9+') {
   deleteDir() // Force each run to be a fresh copy
   checkout([$class: 'GitSCM',
           branches: [[name: branch]],
@@ -32,5 +31,6 @@ node('linux && git-1.9+') {
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     my_check.logContains(".*[*] ${branch}.*", "Wrong branch reported, expected '${branch}'")
+    my_check.logContains(".*alternates is .*bugs.jenkins-bugs.git.*'", "No reference repo, alternates file content missing")
   }
 }
