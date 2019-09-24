@@ -16,7 +16,7 @@ node('linux && git-1.9+') { // This specific reference syntax is limited to Unix
     checkout([$class: 'GitSCM',
             branches: [[name: branch]],
             extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                         [relativeTargetDir: 'b-subdir'],
+                         [$class: 'RelativeTargetDirectory', relativeTargetDir: 'b-subdir'],
                          [$class: 'LocalBranch', localBranch: branch],
                         ],
             gitTool: scm.gitTool,
