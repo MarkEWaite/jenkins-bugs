@@ -33,7 +33,7 @@ node('linux && git-1.9+') { // This specific reference syntax is limited to Unix
     dir('b-subdir') {
       my_step.ant 'info'
     }
-    archiveArtifacts allowEmptyArchive: true, artifacts: 'build.number', fingerprint: true, onlyIfSuccessful: true
+    archiveArtifacts allowEmptyArchive: true, artifacts: '**/build.number', fingerprint: true, onlyIfSuccessful: true
   }
 
   stage('Verify') {
