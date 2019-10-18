@@ -9,6 +9,7 @@ node {
     checkout([
       $class: 'GitSCM',
       branches: scm.branches,
+      extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git']],
       // userRemoteConfigs: scm.userRemoteConfigs // devoptics null pointer exception if next line replaces this line
       userRemoteConfigs: scm.userRemoteConfigs + [name: 'origin'] // Add a new entry with only a name and no URL
     ])
