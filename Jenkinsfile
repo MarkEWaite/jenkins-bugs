@@ -4,6 +4,8 @@
 import com.markwaite.Assert
 import com.markwaite.Build
 
+def branch = 'JENKINS-43630'
+
 node {
   stage('Checkout') {
     checkout([
@@ -11,7 +13,7 @@ node {
       branches: scm.branches,
       extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git']],
       // userRemoteConfigs: scm.userRemoteConfigs // devoptics null pointer exception if next line replaces this line
-      userRemoteConfigs: [name: scm.userRemoteConfigs.name, url: scm.userRemoteConfigs.url] + [name: 'origin-xyzzy'] // Add a new entry with only a name and no URL
+      userRemoteConfigs: [name: scm.userRemoteConfigs[0].name, url: scm.userRemoteConfigs[0].url, refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}"] + [name: 'origin-xyzzy'] // Add a new entry with only a name and no URL
     ])
   }
 
