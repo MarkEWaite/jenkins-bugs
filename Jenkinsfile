@@ -8,7 +8,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '17']]])
 
-node('linux') {
+node('linux && git-1.8+') { // Git versions before 1.8 not supported for https authenticated access
   stage('Checkout') {
     checkout([$class: 'GitSCM',
                 branches: [[name: 'ZD-60033']],
