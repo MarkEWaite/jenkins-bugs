@@ -7,7 +7,7 @@ import com.markwaite.Build
 /* Poll to see bug */
 properties([
     pipelineTriggers([
-        [$class: "SCMTrigger", scmpoll_spec: "H/29 * * * *"],
+        [$class: "SCMTrigger", scmpoll_spec: "H/47 * * * *"],
     ])
 ])
 
