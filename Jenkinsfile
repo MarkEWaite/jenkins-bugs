@@ -1,6 +1,10 @@
 #!groovy
 
-@Library('globalPipelineLibraryMarkEWaite@JENKINS-48938-build-every-poll') _
+// Branch deleted...
+// @Library('globalPipelineLibraryMarkEWaite@JENKINS-48938-build-every-poll') _
+
+@Library('globalPipelineLibraryMarkEWaite') _
+
 import com.markwaite.Assert
 import com.markwaite.Build
 
