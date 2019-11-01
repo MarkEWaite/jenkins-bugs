@@ -3,23 +3,6 @@
   <target name="increment" description="Increment build number">
     <git command="pull" />
     <buildnumber/>
-    <!-- Set local repository committer name to Mark Waite -->
-    <exec executable="git">
-      <arg value="config"/>
-      <arg value="user.name"/>
-      <arg value="Mark Waite"/>
-    </exec>
-    <!-- Set local repository committer email to empty string -->
-    <exec executable="git">
-      <arg value="config"/>
-      <arg value="user.email"/>
-      <arg value=""/>
-    </exec>
-    <!-- change committer name -->
-    <replaceregexp file=".git/config"
-                   match="(Mark Waite).*"
-                   replace="\1 as ${build.number}"
-    />
     <git command="add">
       <args>
         <arg value="build.number"/>
