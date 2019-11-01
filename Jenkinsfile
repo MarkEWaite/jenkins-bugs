@@ -15,7 +15,7 @@ node {
         branches: [[name: BRANCH_NAME]],
         extensions: [
             [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-            [$class: 'PruneStaleBranchTrait']],
+            [$class: 'PruneStaleBranch']],
         gitTool: scm.gitTool,
         userRemoteConfigs: [[refspec: "+refs/heads/${BRANCH_NAME}:refs/remotes/origin/${BRANCH_NAME}",
                              url: 'git://github.com/MarkEWaite/jenkins-bugs.git']]])
