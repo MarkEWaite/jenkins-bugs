@@ -9,6 +9,8 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
+def usingJGit = scm.gitTool?.startsWith('jgit')
+
 node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
@@ -31,7 +33,7 @@ node {
     def my_check = new com.markwaite.Assert()
     // JENKINS-18834 detected that the initial fetch does not include the prune argument.
     // That causes the initial fetch to fail in some cases.
-    if (!scm.gitTool.startsWith('jgit')) {
+    if (!usingJGit) {
       my_check.logDoesNotContain(".*git fetch.*((?!prune).)*${BRANCH_NAME}.*", 'Fetch found without prune')
       my_check.logContains(".*git fetch.*--prune.*${BRANCH_NAME}.*", 'No prune in the git fetch command')
     }
