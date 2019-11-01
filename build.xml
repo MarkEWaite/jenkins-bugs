@@ -1,4 +1,4 @@
-<project name="JENKINS-48589" default="increment" basedir=".">
+<project name="JENKINS-18834" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
     <git command="pull" />
@@ -37,15 +37,15 @@
   <target name="info" description="Report info about this repo">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
-    <!-- JENKINS-48589 reports that a commit with empty committer e-mail address
-         causes exceptions in changeset calculation.  -->
-    <echo>Displaying git log messages on this branch from last 15 minutes</echo>
+    <!-- JENKINS-18834 reports that prune is not included on all fetch calls -->
+    <echo>Displaying last git log message</echo>
     <git command="log">
       <args>
-        <arg value="--since='15 minutes ago'"/>
+        <arg value="-n"/>
+        <arg value="1"/>
       </args>
     </git>
-    <echo>End of git log messages on this branch from last 15 minutes</echo>
+    <echo>End of displaying last git log message</echo>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
