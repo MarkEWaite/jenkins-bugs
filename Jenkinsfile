@@ -29,6 +29,7 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains('.*git fetch.*--prune.*', 'No prune in the git fetch command')
+    my_check.logDoesNotContain(".*git fetch.*((?!prune).)*${BRANCH_NAME}.*", 'Fetch found without prune')
+    my_check.logContains(".*git fetch.*--prune.*${BRANCH_NAME}.*", 'No prune in the git fetch command')
   }
 }
