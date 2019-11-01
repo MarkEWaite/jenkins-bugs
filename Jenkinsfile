@@ -18,7 +18,7 @@ node {
             [$class: 'PruneStaleBranch']],
         gitTool: scm.gitTool,
         userRemoteConfigs: [[refspec: "+refs/heads/${BRANCH_NAME}:refs/remotes/origin/${BRANCH_NAME}",
-                             url: 'git://github.com/MarkEWaite/jenkins-bugs.git']]])
+                             url: scm.userRemoteConfigs[0].url]]])
   }
 
   stage('Build') {
