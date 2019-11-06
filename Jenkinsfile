@@ -32,10 +32,12 @@ node('linux && !cloud') { // Needs curl installed, needs local access to Jenkins
         def entry = entries[j]
         echo "OUT: ${entry.commitId} by ${entry.author} on ${new Date(entry.timestamp)}: ${entry.msg}"
         def files = new ArrayList(entry.affectedFiles)
+        echo "OUT: beginning of ${files.size()} affected files "
         for (int k = 0; k < files.size(); k++) {
           def file = files[k]
-          echo " ${file.editType.name} ${file.path}"
+          echo "OUT: ${file.editType.name} ${file.path}"
         }
+        echo "OUT: end of ${files.size()} affected files "
       }
     }
   }
