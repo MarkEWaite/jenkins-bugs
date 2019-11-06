@@ -38,6 +38,7 @@ node('linux && !cloud') { // Needs curl installed, needs local access to Jenkins
         }
       }
     }
+  }
 
   stage('Build') {
     /* Call the ant build. */
