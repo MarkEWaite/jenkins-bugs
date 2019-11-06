@@ -25,6 +25,7 @@ node('linux && !cloud') { // Needs curl installed, needs local access to Jenkins
               userRemoteConfigs: myRemoteConfigs
             ])
 
+    // Report contents of changeset
     def changeLogSets = currentBuild.changeSets
     for (int i = 0; i < changeLogSets.size(); i++) {
       def entries = changeLogSets[i].items
