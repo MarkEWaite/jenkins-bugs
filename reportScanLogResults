@@ -55,7 +55,15 @@ SCAN_LOG_URL=$(echo $JENKINS_JOB_URL | sed 's,job/JENKINS-[[:digit:]]*/$,indexin
 
 cookie_file=$(mktemp /tmp/reportScanLogResults-script.XXXXXX)
 
-crumb=$(curl --cookie-jar $cookie_file -s $SERVER/crumbIssuer/api/xml?xpath=concat\(//crumbRequestField,%22:%22,//crumb\))
+USER_ARG=""
+args_file=""
+if [ "$JENKINS_59106_USERNAME_PASSWORD" != "" ]; then
+    args_file=$(mktemp /tmp/reportScanLogResults-args.XXXXXX)
+    echo "-u $JENKINS_59106_USERNAME_PASSWORD" > $args_file
+    USER_ARG="-K $args_file"
+fi 
+
+crumb=$(curl --cookie-jar $cookie_file $USER_ARG -s $SERVER/crumbIssuer/api/xml?xpath=concat\(//crumbRequestField,%22:%22,//crumb\))
 # echo ==== Cookie file contents
 # cat $cookie_file
 # echo ==== End of cookie file contents
@@ -86,8 +94,8 @@ prefix=$RANDOM
 
 query_output=${prefix}-crumbfull
 echo "Querying GitHub branch scan log with crumb $crumb"
-curl -s -H "$crumb" --cookie $cookie_file -X POST $SCAN_LOG_URL -o $query_output
-rm $cookie_file
+curl -s -H "$crumb" --cookie $cookie_file $USER_ARG -X POST $SCAN_LOG_URL -o $query_output
+rm $cookie_file $args_file
 
 # echo === output from query with crumb
 # cat $query_output
