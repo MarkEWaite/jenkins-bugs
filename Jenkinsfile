@@ -24,6 +24,8 @@ node('linux && !cloud') { // Needs curl installed, needs local access to Jenkins
               gitTool: scm.gitTool,
               userRemoteConfigs: myRemoteConfigs
             ])
+    println("Change sets is ${currentBuild.changeSets}")
+    println("Change set[0] is ${currentBuild.changeSets[0]}")
   }
 
   stage('Build') {
