@@ -26,6 +26,7 @@ node('linux && !cloud') { // Needs curl installed, needs local access to Jenkins
             ])
     println("Change sets is ${currentBuild.changeSets}")
     println("Change set[0] is ${currentBuild.changeSets[0]}")
+    println("Change set[0] items are ${currentBuild.changeSets[0].items}")
   }
 
   stage('Build') {
