@@ -24,10 +24,20 @@ node('linux && !cloud') { // Needs curl installed, needs local access to Jenkins
               gitTool: scm.gitTool,
               userRemoteConfigs: myRemoteConfigs
             ])
-    println("Change sets is ${currentBuild.changeSets}")
-    println("Change set[0] is ${currentBuild.changeSets[0]}")
-    println("Change set[0] items are ${currentBuild.changeSets[0].items}")
-  }
+
+    def changeLogSets = currentBuild.changeSets
+    for (int i = 0; i < changeLogSets.size(); i++) {
+      def entries = changeLogSets[i].items
+      for (int j = 0; j < entries.length; j++) {
+        def entry = entries[j]
+        echo "OUT: ${entry.commitId} by ${entry.author} on ${new Date(entry.timestamp)}: ${entry.msg}"
+        def files = new ArrayList(entry.affectedFiles)
+        for (int k = 0; k < files.size(); k++) {
+          def file = files[k]
+          echo " ${file.editType.name} ${file.path}"
+        }
+      }
+    }
 
   stage('Build') {
     /* Call the ant build. */
