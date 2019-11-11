@@ -47,6 +47,12 @@ fi
 # remove trailing slash from SERVER, fails CSRF exclusion check
 SERVER=${SERVER%/}
 
+if [ -n "$USERNAME" ]; then
+    AUTHORIZATION="-u $USERNAME:$APITOKEN"
+else
+    AUTHORIZATION=
+fi
+
 # Assure URL of git repository is set
 
 if [ -n "$GIT_URL" ]; then
@@ -82,7 +88,7 @@ CHANGES_URL=${BUILD_URL}/changes
 cookie_file=$(mktemp /tmp/reportScanLogResults-script.XXXXXX)
 
 if [ "$NEED_CRUMB" == "true" ]; then
-    crumb=$(curl --cookie-jar $cookie_file -s $SERVER/crumbIssuer/api/xml?xpath=concat\(//crumbRequestField,%22:%22,//crumb\))
+    crumb=$(curl $AUTHORIZATION --cookie-jar $cookie_file -s $SERVER/crumbIssuer/api/xml?xpath=concat\(//crumbRequestField,%22:%22,//crumb\))
     if [ -z "$crumb" ]; then
         echo Exiting: No crumb returned by $SERVER
         exit 4
@@ -108,12 +114,14 @@ prefix=$RANDOM
 if [ "$NEED_CRUMB" == "true" ]; then
     crumb_output=${prefix}-crumbfull
     echo "Reading changes from URL=$CHANGES_URL using crumb: $crumb"
-    curl --cookie $cookie_file -s -H "$crumb" -X POST $CHANGES_URL -o $crumb_output
+    curl $AUTHORIZATION --cookie $cookie_file -s -H "$crumb" -X POST $CHANGES_URL -o $crumb_output
     rm $cookie_file
     echo Crumb output file is $crumb_output
     ls -altr $crumb_output
     # echo Crumb output content is:
-    # cat $crumb_output
+    echo ======= Crumb output start =======
+    cat $crumb_output
+    echo ======= Crumb output end =======
     grep -q '<li>User interface truncates change messages.*</li>' $crumb_output || failed_with_crumb
     grep '<li>User interface truncates change messages.*</li>' $crumb_output | sed 's,.*\(<li>User interface truncates change messages.*</li>\).*,\1,g'
 else
