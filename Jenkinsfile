@@ -31,6 +31,7 @@ node('!windows && !cloud') {
     def my_check = new com.markwaite.Assert()
     my_check.logContains(".*[*] ${branch}.*", 'Wrong branch reported')
     if (currentBuild.number > 1 && currentBuild.changeSets.size() > 0) { // Don't check first build or if build has no changesets
+      my_check.logDoesNotContain('.*First time build.*Skipping changelog.*', 'Later build incorrectly a first time build') // JENKINS-60159
       /* This assertion relies on the Jira plugin replacing the JENKINS-56116 with a hyperlink in the HTML output */
       my_check.logContains(".*<.*issues.jenkins-ci.org.*${branch}.*>.*${branch}.* build.., was .*", 'Changes did not include version number increment message')
     }
