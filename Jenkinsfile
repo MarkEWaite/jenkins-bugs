@@ -40,6 +40,7 @@ node {
      * assertion checks that the commits from the last 15 minutes
      * (reported by 'ant info') are empty */
     if (currentBuild.number > 1 && currentBuild.changeSets.size() > 0) { // Only check builds with changes
+      my_check.logDoesNotContain('.*First time build.*Skipping changelog.*', 'Later build incorrectly a first time build') // JENKINS-60159
       my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
       my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
     }
