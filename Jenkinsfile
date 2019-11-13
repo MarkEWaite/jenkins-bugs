@@ -41,6 +41,7 @@ node {
     def my_check = new com.markwaite.Assert()
     /* JENKINS-43754 reports that polling detects changes when none exist.  */
     if (currentBuild.number > 1) { // Don't check first build
+      my_check.logDoesNotContain('.*First time build.*Skipping changelog.*', 'Later build incorrectly a first time build') // JENKINS-60159
       my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
       my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
     }
