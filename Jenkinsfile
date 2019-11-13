@@ -35,6 +35,7 @@ node {
     def my_check = new com.markwaite.Assert()
     /* JENKINS-29603 reports that notifYCommit with slash in branch name is ignored.  */
     if (currentBuild.number > 1) { // Don't check first build
+      my_check.logDoesNotContain('.*First time build.*Skipping changelog.*', 'Later build incorrectly a first time build') // JENKINS-60159
       my_check.logContains('.*.JENKINS-29603. build[+][+], was [1-9]+[0-9]*.*', 'No recent commit')
     }
     /* JENKINS-37044 reports that wrong working directory is used */
