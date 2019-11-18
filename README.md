@@ -8,3 +8,5 @@ stdout:
 stderr: fatal: Needed a single revision
 Unable to find current origin/development revision in submodule path 'impl/tool_protec'
 ```
+
+I am unable to duplicate the problem.  Refer to the Jenkinsfile in this branch for the settings I used in my attempt.
