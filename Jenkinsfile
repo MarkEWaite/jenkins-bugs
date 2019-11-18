@@ -30,6 +30,6 @@ node('git-1.8+') {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains(".* origin.*https://github.com/MarkEWaite/jenkins-bugs.*", 'Repo missing first origin')
+    my_check.logContains(".*c7dd4596c6f82a99f4e5b8e9a88cc2938f5aa455 modules-JENKINS-60204/jenkins-pipeline-utils.*", 'Missing expected submodule status')
   }
 }
