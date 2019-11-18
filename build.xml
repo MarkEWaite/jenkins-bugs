@@ -26,9 +26,9 @@
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <!-- JENKINS-60204 reports submodule update fails with 'Needed a single revision' -->
-    <git command="remote">
+    <git command="submodule">
       <args>
-        <arg value="-v"/>
+        <arg value="status"/>
       </args>
     </git>
   </target>
