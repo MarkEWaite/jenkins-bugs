@@ -1,0 +1,3 @@
+[submodule "modules-JENKINS-60204/jenkins-pipeline-utils"]
+	path = modules-JENKINS-60204/jenkins-pipeline-utils
+	url = https://github.com/MarkEWaite/jenkins-pipeline-utils
