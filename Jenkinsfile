@@ -30,6 +30,6 @@ node('git-1.8+') {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains(".*c7dd4596c6f82a99f4e5b8e9a88cc2938f5aa455 modules-JENKINS-60204/jenkins-pipeline-utils.*", 'Missing expected submodule status')
+    my_check.logContains(".*9b97cf27488dc3fac489cb1e4e0803ac3e804f7b modules-JENKINS-60204/jenkins-pipeline-utils.*", 'Missing expected submodule status')
   }
 }
