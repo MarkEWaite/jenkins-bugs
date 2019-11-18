@@ -1,4 +1,4 @@
-<project name="JENKINS-56150" default="increment" basedir=".">
+<project name="JENKINS-60204" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
     <git command="pull">
@@ -25,7 +25,7 @@
   <target name="info" description="Report info about this repo">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
-    <!-- JENKINS-56150 reports empty .gitmodules file will NPE during submodule update -->
+    <!-- JENKINS-60204 reports submodule update fails with 'Needed a single revision' -->
     <git command="remote">
       <args>
         <arg value="-v"/>
