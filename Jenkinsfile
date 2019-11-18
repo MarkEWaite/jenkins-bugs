@@ -19,8 +19,9 @@ node('git-1.8+') {
                              [$class: 'SubmoduleOption', recursiveSubmodules: true]
                             ],
                 gitTool: 'Default', // JGit in git client plugin does not provide fully compatible submodule support
-                userRemoteConfigs: 
+                userRemoteConfigs: [
                             [name: scm.userRemoteConfigs[0].name, url: scm.userRemoteConfigs[0].url, refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}"],
+                          ]
                 ])
   }
 
