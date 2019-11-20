@@ -16,7 +16,7 @@ node('git-1.9+') {
     checkout([$class: 'GitSCM',
                 branches: scm.branches,
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: true, depth: 1],
-                             [$class: 'LocalBranch', localBranch: branch],
+                             // [$class: 'LocalBranch', localBranch: branch],
                              [$class: 'SubmoduleOption', recursiveSubmodules: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: true, depth: 1, trackingSubmodules: false]
                             ],
                 gitTool: 'Default', // JGit in git client plugin does not provide fully compatible submodule support
