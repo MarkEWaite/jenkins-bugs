@@ -10,7 +10,7 @@ properties([[$class: 'BuildDiscarderProperty',
 
 def branch = 'JENKINS-60204'
 
-node('git-1.8+') {
+node('git-1.9+') {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
                 branches: scm.branches,
