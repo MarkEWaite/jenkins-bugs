@@ -12,7 +12,7 @@ def branch = 'JENKINS-60204'
 
 node('git-1.9+') {
   stage('Checkout') {
-    // deleteDir() // Uncomment deleteDir to force a fresh clone into workspace
+    deleteDir() // Uncomment deleteDir to force a fresh clone into workspace
     checkout([$class: 'GitSCM',
                 branches: scm.branches,
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: true, depth: 1],
