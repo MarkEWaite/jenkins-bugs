@@ -15,7 +15,7 @@ SERVER=
 GIT_URL=
 NEED_CRUMB=true
 
-while getopts ":s:u:n" o; do
+while getopts "b:s:u:n" o; do
     case "${o}" in
         b)
             BUILD_URL=${OPTARG}
