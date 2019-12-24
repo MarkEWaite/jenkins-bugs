@@ -8,15 +8,20 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
+def changes
+
 node {
   stage('Checkout') {
     checkout scm
+    changes = changelogEntries(changeSets: currentBuild.changeSets)
   }
 
   stage('Build') {
-    /* Call the ant build. */
-    def my_step = new com.markwaite.Build()
-    my_step.ant 'info'
+    withEnv(["CHANGESET_SIZE=${changes.size()}"]) {
+      /* Call the ant build. */
+      def my_step = new com.markwaite.Build()
+      my_step.ant 'info'
+    }
   }
 
   stage('Verify') {
@@ -25,7 +30,7 @@ node {
      * there are no changes detected on the master branch.  This assertion
      * checks that the commits from the last 15 minutes (reported by 'ant
      * info') are empty */
-    if (currentBuild.number > 1 && currentBuild.changeSets.size() > 0) { // Only check builds with changes
+    if (currentBuild.number > 1 && changes.size() > 0) { // Only check builds with changes
       my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
       my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
     } else {
