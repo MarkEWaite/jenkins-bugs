@@ -18,6 +18,8 @@ properties([[$class: 'BuildDiscarderProperty',
 
 def branch='ZD-60678-b#sharpest'
 
+def changes
+
 node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
@@ -26,12 +28,15 @@ node {
                              [$class: 'LocalBranch', localBranch: branch]],
                 gitTool: scm.gitTool,
                 userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
+    changes = changelogEntries(changeSets: currentBuild.changeSets)
   }
 
   stage('Build') {
-    /* Call the ant build. */
-    def my_step = new com.markwaite.Build()
-    my_step.ant 'info'
+    withEnv(["CHANGESET_SIZE=${changes.size()}"]) {
+      /* Call the ant build. */
+      def my_step = new com.markwaite.Build()
+      my_step.ant 'info'
+    }
   }
 
   stage('Verify') {
