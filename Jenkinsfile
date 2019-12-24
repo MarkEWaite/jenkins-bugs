@@ -11,6 +11,8 @@ properties([[$class: 'BuildDiscarderProperty',
 def repo_url=scm.userRemoteConfigs[0].url
 def branch_name='has-slash/JENKINS-29603'
 
+def changes
+
 node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
@@ -23,18 +25,21 @@ node {
                             [$class: 'LocalBranch', localBranch: "origin/${branch_name}"]],
               gitTool: scm.gitTool,
               userRemoteConfigs: [[refspec: "+refs/heads/${branch_name}:refs/remotes/origin/${branch_name}", url: repo_url]]])
+    changes = changelogEntries(changeSets: currentBuild.changeSets)
   }
 
   stage('Build') {
-    /* Call the ant build. */
-    def my_step = new com.markwaite.Build()
-    my_step.ant 'info'
+    withEnv(["CHANGESET_SIZE=${changes.size()}"]) {
+      /* Call the ant build. */
+      def my_step = new com.markwaite.Build()
+      my_step.ant 'info'
+    }
   }
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     /* JENKINS-29603 reports that notifYCommit with slash in branch name is ignored.  */
-    if (currentBuild.number > 1) { // Don't check first build
+    if (currentBuild.number > 1 && changes.size() > 0) { // Don't check first build or if build has no changes
       my_check.logDoesNotContain('.*First time build.*Skipping changelog.*', 'Later build incorrectly a first time build') // JENKINS-60159
       my_check.logContains('.*.JENKINS-29603. build[+][+], was [1-9]+[0-9]*.*', 'No recent commit')
     }
