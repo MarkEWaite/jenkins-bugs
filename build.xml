@@ -73,7 +73,6 @@
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
     <!-- JENKINS-50394 reports that newer changes are found remotely which don't exist in local repo.  -->
-    <echo>Displaying git log messages on this branch from last 15 minutes</echo>
     <echo>Displaying ${changeLogCount} git log messages in changeset for this build - CHANGESET_SIZE=${env.CHANGESET_SIZE}</echo>
     <git command="log">
       <args>
