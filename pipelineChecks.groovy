@@ -24,7 +24,6 @@ def logContains(String regex, String failure_message) {
   }
 }
 
-
 /* Assert build log does not contain string matching regex */
 def logDoesNotContain(String regex, String failure_message) {
   if (manager.logContains(regex)) {
