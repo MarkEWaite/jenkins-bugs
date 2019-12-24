@@ -27,7 +27,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-def changes = changelogEntries(changeSets: currentBuild.changeSets)
+def changes
 
 node {
   stage('Checkout') {
@@ -40,6 +40,7 @@ node {
         userRemoteConfigs: [[refspec: "+refs/heads/${BRANCH_NAME}:refs/remotes/origin/${BRANCH_NAME}", url: 'git://github.com/MarkEWaite/jenkins-bugs.git']]])
     def git_commit = checkoutMap['GIT_COMMIT']
     echo "After: checkoutMap[GIT_COMMIT]=${git_commit}"
+    changes = changelogEntries(changeSets: currentBuild.changeSets)
   }
 
   stage('Build') {
@@ -51,7 +52,7 @@ node {
   }
 
   stage('Verify') {
-    if (currentBuild.number > 1 && currentBuild.changeSets.size() > 0) { // Don't check first build or if build has no changesets
+    if (currentBuild.number > 1 && changes.size() > 0) { // Don't check first build or if build has no changes
       def my_check = new com.markwaite.Assert()
       my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
       my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
