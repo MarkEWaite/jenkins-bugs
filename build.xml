@@ -1,5 +1,10 @@
 <project name="JENKINS-48589" default="increment" basedir=".">
 
+  <property environment="env"/>
+  <condition property="changeLogCount" value="${env.CHANGESET_SIZE}" else="0">
+    <isset property="env.CHANGESET_SIZE"/>
+  </condition>
+
   <target name="increment" description="Increment build number">
     <git command="pull" />
     <buildnumber/>
@@ -39,13 +44,14 @@
     <echo>user dir is ${user.dir}</echo>
     <!-- JENKINS-48589 reports that a commit with empty committer e-mail address
          causes exceptions in changeset calculation.  -->
-    <echo>Displaying git log messages on this branch from last 15 minutes</echo>
+    <echo>Displaying git log messages in changeset for this build</echo>
     <git command="log">
       <args>
-        <arg value="--since='15 minutes ago'"/>
+        <arg value="-n"/>
+        <arg value="${changeLogCount}"/>
       </args>
     </git>
-    <echo>End of git log messages on this branch from last 15 minutes</echo>
+    <echo>End of git log messages in changeset for this build</echo>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->

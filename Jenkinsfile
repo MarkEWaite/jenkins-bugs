@@ -41,9 +41,11 @@ node {
   }
 
   stage('Build') {
-    /* Call the ant build. */
-    def my_step = new com.markwaite.Build()
-    my_step.ant 'info'
+    withEnv(["CHANGESET_SIZE=${currentBuild.changeSets.size()}"]) {
+      /* Call the ant build. */
+      def my_step = new com.markwaite.Build()
+      my_step.ant 'info'
+    }
   }
 
   stage('Verify') {
