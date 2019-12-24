@@ -1,5 +1,10 @@
 <project name="JENKINS-43818" default="increment" basedir=".">
 
+  <property environment="env"/>
+  <condition property="changeLogCount" value="${env.CHANGESET_SIZE}" else="0">
+    <isset property="env.CHANGESET_SIZE"/>
+  </condition>
+
   <target name="increment" description="Increment build number">
     <echo>java is ${java.version}</echo>
     <buildnumber/>
@@ -17,15 +22,15 @@
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
-    <!-- JENKINS-43818 reports parameterized branch specifier is ignored
-         -->
-    <echo>Displaying git log messages on this branch from last 15 minutes</echo>
+    <!-- JENKINS-43818 reports parameterized branch specifier is ignored -->
+    <echo>Displaying ${changeLogCount} messages in this build's changeset - CHANGESET_SIZE=${env.CHANGESET_SIZE}</echo>
     <git command="log">
       <args>
-        <arg value="--since='15 minutes ago'"/>
+        <arg value="-n"/>
+        <arg value="${changeLogCount}"/>
       </args>
     </git>
-    <echo>End of git log messages on this branch from last 15 minutes</echo>
+    <echo>End of ${changeLogCount} messages in this build's changeset</echo>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->

@@ -11,6 +11,8 @@ properties([parameters([string(defaultValue: "${branch}", description: 'Branch t
 
 // properties([parameters([choice(choices: ["${branch}", 'master'], description: 'Branch to build (as a choice parameter)', name: 'BRANCH_SPECIFIER')])])
 
+def changes
+
 node {
   stage('Checkout') {
     branch = "${params.BRANCH_SPECIFIER}"
@@ -30,18 +32,21 @@ node {
                             [$class: 'LocalBranch', localBranch: "**"],
                           ],
             ])
+    changes = changelogEntries(changeSets: currentBuild.changeSets)
   }
 
   stage('Build') {
-    /* Call the ant build. */
-    def my_step = new com.markwaite.Build()
-    my_step.ant 'info'
+    withEnv(["CHANGESET_SIZE=${changes.size()}"]) {
+      /* Call the ant build. */
+      def my_step = new com.markwaite.Build()
+      my_step.ant 'info'
+    }
   }
 
   stage('Verify') {
-    def my_check = new com.markwaite.Assert()
     /* JENKINS-43818 reports that parameters are ignored in branch specifier.  */
-    if (currentBuild.number > 1) { // Don't check first build
+    if (currentBuild.number > 1 && changes.size() > 0) { // Don't check first build or if build has no changes
+      def my_check = new com.markwaite.Assert()
       my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
       my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
     }
