@@ -35,16 +35,17 @@ pipeline {
                                gitTool: scm.gitTool,
                                // gitTool: 'git', // Sparse checkout not implemented in JGit
                                userRemoteConfigs: scm.userRemoteConfigs])
-                changes = changelogEntries(changeSets: currentBuild.changeSets)
+                script {
+                    changes = changelogEntries(changeSets: currentBuild.changeSets)
+                }
             }
         }
         stage('Test and Package') {
             steps {
                 withEnv(["CHANGESET_SIZE=${changes.size()}"]) {
-                   /* Call the ant build. */
-                  def my_step = new com.markwaite.Build()
-                  sh 'ant info'
-                  sh 'env | sort'
+                    /* Call the ant build. */
+                    sh 'ant info'
+                    sh 'env | sort'
                 }
             }
         }
