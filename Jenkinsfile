@@ -8,6 +8,8 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
+def changes
+
 node('git-1.9+') { // shallow clone fails on older git with 'git fetch-pack: expected shallow list'
   stage('Checkout') {
     /* reduce clone data volume with reference repo, shallow clone, no
@@ -25,12 +27,15 @@ node('git-1.9+') { // shallow clone fails on older git with 'git fetch-pack: exp
               userRemoteConfigs: [[name: 'JENKINS-41906-origin',
                                    refspec: '+refs/heads/JENKINS-41906:refs/remotes/JENKINS-41906-origin/JENKINS-41906 ',
                                    url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
+    changes = changelogEntries(changeSets: currentBuild.changeSets)
   }
 
   stage('Build') {
-    /* Call the ant build. */
-    def my_step = new com.markwaite.Build()
-    my_step.ant 'info'
+    withEnv(["CHANGESET_SIZE=${changes.size()}"]) {
+      /* Call the ant build. */
+      def my_step = new com.markwaite.Build()
+      my_step.ant 'info'
+    }
   }
 
   stage('Verify') {

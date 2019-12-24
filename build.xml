@@ -1,20 +1,26 @@
 <project name="JENKINS-41906" default="increment" basedir=".">
 
+  <property environment="env"/>
+  <condition property="changeLogCount" value="${env.CHANGESET_SIZE}" else="0">
+    <isset property="env.CHANGESET_SIZE"/>
+  </condition>
+
   <tstamp>
     <format property="current.date" pattern="EEE, d MMM yyyy HH:mm:ss Z"/>
   </tstamp>
 
-  <!-- Echo commit messages from last 15 minutes -->
-  <target name="info" description="Commit messages from last 15 minutes">
+  <!-- Echo commit messages from changeset -->
+  <target name="info" description="Commit messages from changeset">
     <echo>Date is ${current.date}</echo>
     <git command="branch"/>
-    <echo>Displaying git log messages on this branch from last 15 minutes</echo>
+    <echo>Displaying ${changeLogCount} git log messages in changeset for this build - CHANGESET_SIZE=${env.CHANGESET_SIZE}</echo>
     <git command="log">
       <args>
-        <arg value="--since='15 minutes ago'"/>
+        <arg value="-n"/>
+        <arg value="${changeLogCount}"/>
       </args>
     </git>
-    <echo>End of git log messages on this branch from last 15 minutes</echo>
+    <echo>End of ${changeLogCount} git log messages in changeset for this build</echo>
   </target>
 
   <target name="increment" description="Increment build number">
