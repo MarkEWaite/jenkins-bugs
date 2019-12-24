@@ -1,4 +1,4 @@
-<project name="ZD-60678" default="info" basedir=".">
+<project name="ZD-60678" default="increment" basedir=".">
 
   <property environment="env"/>
   <condition property="changeLogCount" value="${env.CHANGESET_SIZE}" else="0">
