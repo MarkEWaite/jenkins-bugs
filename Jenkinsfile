@@ -27,6 +27,8 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
+def changes = changelogEntries(changeSets: currentBuild.changeSets)
+
 node {
   stage('Checkout') {
     def checkoutMap = checkout([$class: 'GitSCM',
@@ -41,8 +43,7 @@ node {
   }
 
   stage('Build') {
-    def entries = changelogEntries(changeSets: currentBuild.changeSets)
-    withEnv(["CHANGESET_SIZE=${entries.size()}"]) {
+    withEnv(["CHANGESET_SIZE=${changes.size()}"]) {
       /* Call the ant build. */
       def my_step = new com.markwaite.Build()
       my_step.ant 'info'
