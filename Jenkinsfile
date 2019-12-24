@@ -1,3 +1,5 @@
+def changes
+
 pipeline {
     agent {
         label '!windows'
@@ -31,12 +33,17 @@ pipeline {
                                gitTool: scm.gitTool,
                                // gitTool: 'git', // Sparse checkout not implemented in JGit
                                userRemoteConfigs: scm.userRemoteConfigs])
+                changes = changelogEntries(changeSets: currentBuild.changeSets)
             }
         }
         stage('Test and Package') {
             steps {
-                sh 'ant info'
-                sh 'env | sort'
+                withEnv(["CHANGESET_SIZE=${changes.size()}"]) {
+                   /* Call the ant build. */
+                  def my_step = new com.markwaite.Build()
+                  sh 'ant info'
+                  sh 'env | sort'
+                }
             }
         }
     }
