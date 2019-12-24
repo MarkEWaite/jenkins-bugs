@@ -13,6 +13,8 @@ properties([pipelineTriggers([pollSCM('H/29 * * * *')]),
 def use_simple_checkout_scm = true
 def branch = 'JENKINS-43468'
 
+def changes
+
 node {
   stage('Checkout') {
     if (use_simple_checkout_scm) {
@@ -34,18 +36,21 @@ node {
                             ],
               ])
     }
+    changes = changelogEntries(changeSets: currentBuild.changeSets)
   }
 
   stage('Build') {
-    /* Call the ant build. */
-    def my_step = new com.markwaite.Build()
-    my_step.ant 'info'
+    withEnv(["CHANGESET_SIZE=${changes.size()}"]) {
+      /* Call the ant build. */
+      def my_step = new com.markwaite.Build()
+      my_step.ant 'info'
+    }
   }
 
   stage('Verify') {
-    def my_check = new com.markwaite.Assert()
     /* JENKINS-43468 reports that polling detects changes when none exist.  */
-    if (currentBuild.number > 1) { // Don't check first build
+    if (currentBuild.number > 1 && changes.size() > 0) { // Don't check first build or if build has no changes
+      def my_check = new com.markwaite.Assert()
       my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
       my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
     }
