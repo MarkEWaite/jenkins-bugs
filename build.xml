@@ -1,6 +1,9 @@
 <project name="JENKINS-32174" default="increment-and-notify" basedir=".">
 
   <property environment="env"/>
+  <condition property="changeLogCount" value="${env.CHANGESET_SIZE}" else="0">
+    <isset property="env.CHANGESET_SIZE"/>
+  </condition>
 
   <!-- jenkins.url is hostname of Jenkins server to notify -->
   <condition property="jenkins.url" value="${env.JENKINS_URL}" else="http://mark-pc2.markwaite.net:8080/">
@@ -52,12 +55,15 @@
     <git command="branch" />
     <!-- JENKINS-32174 reports that notifyCommit parameter branches is not honored
          if branch name contains slashes.  -->
-    <echo>Displaying git log messages on this branch from last 15 minutes</echo>
+    <echo>Displaying ${changeLogCount} git log messages in changeset for this build - CHANGESET_SIZE=${env.CHANGESET_SIZE}</echo>
     <git command="log">
       <args>
-        <arg value="--since='15 minutes ago'"/>
+        <arg value="-n"/>
+        <arg value="${changeLogCount}"/>
       </args>
     </git>
+    <echo>End of ${changeLogCount} git log messages in changeset for this build</echo>
+    <echo>Start of 3 git log messages from ${env.GIT_COMMIT}</echo>
     <git command="log">
       <args>
         <arg value="-n"/>
@@ -65,7 +71,7 @@
         <arg value="${env.GIT_COMMIT}"/>
       </args>
     </git>
-    <echo>End of git log messages on this branch from last 15 minutes</echo>
+    <echo>End of 3 git log messages from ${env.GIT_COMMIT}</echo>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
