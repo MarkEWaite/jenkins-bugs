@@ -8,20 +8,25 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
+def changes
+
 node {
   stage('Checkout') {
     // JENKINS-50394 reports missing object exception during branch indexing
     checkout scm
+    changes = changelogEntries(changeSets: currentBuild.changeSets)
   }
 
   stage('Build') {
-    /* Call the ant build. */
-    def my_step = new com.markwaite.Build()
-    my_step.ant 'info'
+    withEnv(["CHANGESET_SIZE=${changes.size()}"]) {
+      /* Call the ant build. */
+      def my_step = new com.markwaite.Build()
+      my_step.ant 'info'
+    }
   }
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains('.*End of git log messages on this branch.*', 'Missing concluding message')
+    my_check.logContains('.*End of [0-9]+ git log messages in changeset for this build.*', 'Missing concluding message')
   }
 }
