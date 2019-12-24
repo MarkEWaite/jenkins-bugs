@@ -16,6 +16,8 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
+def changes
+
 node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
@@ -24,12 +26,15 @@ node {
                              [$class: 'LocalBranch', localBranch: 'ZD-60678']],
                 gitTool: scm.gitTool,
                 userRemoteConfigs: [[refspec: '+refs/heads/ZD-60678:refs/remotes/origin/ZD-60678', url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
+    changes = changelogEntries(changeSets: currentBuild.changeSets)
   }
 
   stage('Build') {
-    /* Call the ant build. */
-    def my_step = new com.markwaite.Build()
-    my_step.ant 'info'
+    withEnv(["CHANGESET_SIZE=${changes.size()}"]) {
+      /* Call the ant build. */
+      def my_step = new com.markwaite.Build()
+      my_step.ant 'info'
+    }
   }
 
   stage('Verify') {
