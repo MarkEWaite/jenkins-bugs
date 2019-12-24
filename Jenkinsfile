@@ -47,7 +47,7 @@ node {
       def entries = changeLogSets[i].items
       for (int j = 0; j < entries.length; j++) {
         def entry = entries[j]
-        echo "${entry.commitId} by ${entry.author} on ${new Date(entry.timestamp)}: ${entry.msg}"
+        // echo "${entry.commitId} by ${entry.author} on ${new Date(entry.timestamp)}: ${entry.msg}"
         changelogEntryCount++
       }
     }
