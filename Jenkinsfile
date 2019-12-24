@@ -9,6 +9,8 @@ properties([pipelineTriggers([pollSCM('H/29 * * * *')])])
 
 def use_simple_checkout_scm = false
 
+def changes
+
 node {
   stage('Checkout') {
     if (use_simple_checkout_scm) {
@@ -29,12 +31,15 @@ node {
                                      url: 'https://github.com/MarkEWaite/jenkins-bugs']],
               ])
     }
+    changes = changelogEntries(changeSets: currentBuild.changeSets)
   }
 
   stage('Build') {
-    /* Call the ant build. */
-    def my_step = new com.markwaite.Build()
-    my_step.ant 'info'
+    withEnv(["CHANGESET_SIZE=${changes.size()}"]) {
+      /* Call the ant build. */
+      def my_step = new com.markwaite.Build()
+      my_step.ant 'info'
+    }
   }
 
   stage('Verify') {
