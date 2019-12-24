@@ -27,17 +27,6 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-def changelogEntries(changeLogSets) {
-  def entriesList = []
-  for (int i = 0; i < changeLogSets.size(); i++) {
-    def entries = changeLogSets[i].items
-    for (int j = 0; j < entries.length; j++) {
-      entriesList.add(entries[j])
-    }
-  }
-  return entriesList
-}
-
 node {
   stage('Checkout') {
     def checkoutMap = checkout([$class: 'GitSCM',
@@ -52,7 +41,7 @@ node {
   }
 
   stage('Build') {
-    def entries = changelogEntries(currentBuild.changeSets)
+    def entries = changelogEntries(changeSets: currentBuild.changeSets)
     withEnv(["CHANGESET_SIZE=${entries.size()}"]) {
       /* Call the ant build. */
       def my_step = new com.markwaite.Build()
