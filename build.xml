@@ -1,4 +1,4 @@
-<project name="JENKINS-56326" default="increment" basedir=".">
+<project name="JENKINS-60591" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
     <git command="pull">
@@ -15,7 +15,7 @@
     <git command="commit">
       <args>
         <arg value="-m"/>
-        <arg value="[${ant.project.name}] ${user.name} build++, was ${build.number}"/>
+        <arg value="First build++, [${ant.project.name}] ${user.name} was ${build.number}"/>
       </args>
     </git>
     <git command="push"/>
@@ -24,34 +24,41 @@
         <arg value="cache"/>
       </args>
     </git>
-    <echo>sleeping 53 seconds</echo>
-    <sleep seconds="53"/> <!-- Wait long enough for job to start but not finish -->
-    <echo>slept 53 seconds, awake and continuing</echo>
-    <!-- Commit a change to master branch -->
-    <ant antfile="../master/build.xml" dir="../master" target="increment"/>
+    <echo>sleeping 71 seconds</echo>
+    <sleep seconds="71"/> <!-- Wait long enough for job to start but not finish -->
+    <echo>slept 71 seconds, awake and continuing</echo>
+    <ant antfile="build.xml" dir="." target="increment-two"/>
   </target>
 
-  <!-- Info about this repository and a sleep -->
-  <target name="info" description="Report info about this repo">
+  <!-- Increment without sleep - called from first build script -->
+  <target name="increment-two" description="Increment build number">
+    <buildnumber/>
+    <git command="add">
+      <args>
+        <arg value="build.number"/>
+      </args>
+    </git>
+    <git command="commit">
+      <args>
+        <arg value="-m"/>
+        <arg value="Second build++, [${ant.project.name}] ${user.name} was ${build.number}"/>
+      </args>
+    </git>
+    <git command="push"/>
+    <git command="push">
+      <args>
+        <arg value="cache"/>
+      </args>
+    </git>
+  </target>
+
+  <!-- Info about this repository -->
+  <target name="info" description="Report info about this repo without sleeping">
     <exec executable="git" outputproperty="git.HEAD">
       <arg value="rev-parse"/>
       <arg value="HEAD"/>
     </exec>
-    <echo>Sleeping git HEAD is ${git.HEAD}</echo>
-    <echo>user dir is ${user.dir}</echo>
-    <!-- JENKINS-56326 reports that later clones don't use same SHA1 as original -->
-    <echo>sleeping 90 seconds</echo>
-    <sleep seconds="90"/> <!-- Wait long enough for job to start but not finish -->
-    <echo>slept 90 seconds, awake and continuing</echo>
-  </target>
-
-  <!-- Info about this repository without sleep -->
-  <target name="info-sleepless" description="Report info about this repo without sleeping">
-    <exec executable="git" outputproperty="git.HEAD">
-      <arg value="rev-parse"/>
-      <arg value="HEAD"/>
-    </exec>
-    <echo>Sleepless git HEAD is ${git.HEAD}</echo>
+    <echo>Checkout has git HEAD ${git.HEAD}</echo>
     <echo>user dir is ${user.dir}</echo>
   </target>
 
