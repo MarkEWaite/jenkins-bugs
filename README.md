@@ -1,16 +1,13 @@
-# [JENKINS-56326](https://issues.jenkins-ci.org/browse/JENKINS-56326) Later checkout fails if new commit to master branch
+# [JENKINS-60591](https://issues.jenkins-ci.org/browse/JENKINS-60591) Delayed checkout pulls latest, not originating commit
 
 Bug is described as:
 
-1. Commit to master branch
-2. Commit to non-master branch
-3. Start long running build on non-master branch
-4. During long running build on non-master branch, commit to master branch
-5. During long running build on non-master branch, perform a new checkout
+1. Commit to branch and push to central repository (first SHA-1)
+2. Confirm that job is started by push to central repository and is waiting for input
+3. Commit to branch again (second SHA-1)
+4. Answer job's request for input
+5. Confirm checkout inside the job used the first SHA-1 and not the second SHA-1
 
-Expected result: New checkout inside the build should use the same SHA1 as 
-the original checkout that started the build.
+Expected result: Checkout should use first SHA-1, not second SHA-1 
 
-Reported result: Command line git error performing a fetch, cannot lock ref 'refs/remotes/origin/master'
-
-I was unable to duplicate the bug.
+Reported result: Checkout used second SHA-1
