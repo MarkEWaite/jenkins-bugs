@@ -14,7 +14,7 @@ node {
   def scmVars
   stage('Await Input Before Checkout') {
     timeout(time: 90, unit: 'SECONDS') {
-      input(message: "Ready to go with ${GIT_COMMIT}?")
+      input(message: "Ready to go (timeout in 90 seconds)?")
     }
   }
 
