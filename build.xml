@@ -24,10 +24,10 @@
         <arg value="cache"/>
       </args>
     </git>
-    <echo>sleeping 71 seconds</echo>
-    <sleep seconds="71"/> <!-- Wait long enough for job to start but not finish -->
-    <echo>slept 71 seconds, awake and continuing</echo>
-    <ant antfile="build.xml" dir="." target="increment-two"/>
+    <echo>sleeping 31 seconds</echo>
+    <sleep seconds="31"/> <!-- Wait long enough for job to start but not finish -->
+    <echo>slept 31 seconds, awake and continuing</echo>
+    <ant antfile="build.xml" dir="." target="increment-two" inheritAll="false"/>
   </target>
 
   <!-- Increment without sleep - called from first build script -->
