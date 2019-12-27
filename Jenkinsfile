@@ -8,7 +8,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-def branch = 'JENKINS-56326'
+def branch = 'JENKINS-60591'
 
 node {
   def scmVars
@@ -16,7 +16,7 @@ node {
     scmVars = checkout([$class: 'GitSCM',
                 branches: scm.branches,
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                             [$class: 'LocalBranch', localBranch: branch]
+                             // [$class: 'LocalBranch', localBranch: branch]
                             ],
                 gitTool: scm.gitTool,
                 userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
@@ -29,28 +29,8 @@ node {
     my_step.ant 'info' /* Will intentionally delay the build */
   }
 
-  def wsVars
-  stage('Delayed checkout') {
-    /* Use a separate workspace */
-    ws() {
-      wsVars = checkout([$class: 'GitSCM',
-		  branches: scm.branches,
-		  extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-			       [$class: 'LocalBranch', localBranch: branch]
-			      ],
-		  gitTool: scm.gitTool,
-		  userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
-				      refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}"]]])
-      def my_step = new com.markwaite.Build()
-      my_step.ant 'info-sleepless'
-    }
-  }
-
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains(".*Sleeping git HEAD is ${scmVars.GIT_COMMIT}.*", "Missing scmVars GIT_COMMIT in sleeping log, expected SHA1 ${scmVars.GIT_COMMIT}")
-    my_check.logContains(".*Sleeping git HEAD is ${wsVars.GIT_COMMIT}.*", "Missing wsVars GIT_COMMIT in sleeping log, expected SHA1 ${wsVars.GIT_COMMIT}")
-    my_check.logContains(".*Sleepless git HEAD is ${scmVars.GIT_COMMIT}.*", "Missing scmVars GIT_COMMIT in sleepless log, expected SHA1 ${scmVars.GIT_COMMIT}")
-    my_check.logContains(".*Sleepless git HEAD is ${wsVars.GIT_COMMIT}.*", "Missing wsVars GIT_COMMIT in sleepless log, expected SHA1 ${wsVars.GIT_COMMIT}")
+    my_check.logContains(".*Checkout has git HEAD ${scmVars.GIT_COMMIT}.*", "Missing scmVars GIT_COMMIT in log, expected SHA1 ${scmVars.GIT_COMMIT}")
   }
 }
