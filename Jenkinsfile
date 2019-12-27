@@ -11,13 +11,20 @@ properties([[$class: 'BuildDiscarderProperty',
 def branch = 'JENKINS-60591'
 
 node {
-  def answer
+  def answer = 'Unanswered'
   def scmVars
   stage('Await Input Before Checkout') {
-    timeout(time: 90, unit: 'SECONDS') {
-      answer = input(id: 'Check-JENKINS-60591', message: "Ready to go (timeout in 90 seconds)?")
+    try {
+      timeout(time: 90, unit: 'SECONDS') {
+        answer = input(id: 'Check-JENKINS-60591', message: "Ready to go (timeout in 90 seconds)?")
+      }
+      echo "Answer from input with timeout was: ${answer}"
+    } catch(err) {
+      echo "Exception ${err} from input with timeout was ${answer}"
+      def user = err.getCauses()[0].getUser()
+      answer = "Answered by user ${user}"
     }
-    echo "Answer from input with timeout was: ${answer}"
+    echo "Final answer was: ${answer}"
   }
 
   stage('Checkout') {
