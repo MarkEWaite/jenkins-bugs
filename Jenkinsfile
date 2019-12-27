@@ -11,8 +11,10 @@ properties([[$class: 'BuildDiscarderProperty',
 def branch = 'JENKINS-60591'
 
 node {
+
   def answer = 'Unanswered'
   def scmVars
+
   stage('Await Input Before Checkout') {
     try {
       timeout(time: 90, unit: 'SECONDS') {
@@ -28,20 +30,24 @@ node {
   }
 
   stage('Checkout') {
-    scmVars = checkout([$class: 'GitSCM',
-                branches: scm.branches,
-                extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                             // [$class: 'LocalBranch', localBranch: branch]
-                            ],
-                gitTool: scm.gitTool,
-                userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
-                                    refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}"]]])
+    node() {
+      scmVars = checkout([$class: 'GitSCM',
+                  branches: scm.branches,
+                  extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+                               // [$class: 'LocalBranch', localBranch: branch]
+                              ],
+                  gitTool: scm.gitTool,
+                  userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
+                                      refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}"]]])
+    }
   }
 
   stage('Build') {
-    /* Call the ant build. */
-    def my_step = new com.markwaite.Build()
-    my_step.ant 'info' /* Will intentionally delay the build */
+    node() {
+      /* Call the ant build. */
+      def my_step = new com.markwaite.Build()
+      my_step.ant 'info' /* Will intentionally delay the build */
+    }
   }
 
   stage('Verify') {
