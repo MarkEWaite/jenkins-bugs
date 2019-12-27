@@ -22,9 +22,7 @@ node {
       }
       echo "Answer from input with timeout was: ${answer}"
     } catch(err) {
-      echo "Exception ${err} from input with timeout was ${answer}"
-      def user = err.getCauses()[0].getUser()
-      answer = "Answered by user ${user}"
+      echo "Exception ${err} ignored from input with timeout, answer was ${answer}"
     }
     echo "Final answer was: ${answer}"
   }
