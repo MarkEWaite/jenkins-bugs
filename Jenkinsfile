@@ -10,25 +10,23 @@ properties([[$class: 'BuildDiscarderProperty',
 
 def branch = 'JENKINS-60591'
 
-node {
+def answer = 'Unanswered'
+def scmVars
 
-  def answer = 'Unanswered'
-  def scmVars
-
-  stage('Await Input Before Checkout') {
-    try {
-      timeout(time: 90, unit: 'SECONDS') {
-        answer = input(id: 'Check-JENKINS-60591', message: "Ready to go (timeout in 90 seconds)?")
-      }
-      echo "Answer from input with timeout was: ${answer}"
-    } catch(err) {
-      echo "Exception ${err} ignored from input with timeout, answer was ${answer}"
+stage('Await Input Before Checkout') {
+  try {
+    timeout(time: 90, unit: 'SECONDS') {
+      answer = input(id: 'Check-JENKINS-60591', message: "Ready to go (timeout in 90 seconds)?")
     }
-    echo "Final answer was: ${answer}"
+    echo "Answer from input with timeout was: ${answer}"
+  } catch(err) {
+    echo "Exception ${err} ignored from input with timeout, answer was ${answer}"
   }
+  echo "Final answer was: ${answer}"
+}
 
+node() {
   stage('Checkout') {
-    node() {
       scmVars = checkout([$class: 'GitSCM',
                   branches: scm.branches,
                   extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
@@ -44,14 +42,14 @@ node {
     node() {
       /* Call the ant build. */
       def my_step = new com.markwaite.Build()
-      my_step.ant 'info' /* Will intentionally delay the build */
+      my_step.ant 'info'
     }
   }
+}
 
-  stage('Verify') {
-    def my_check = new com.markwaite.Assert()
-    my_check.logContains(".*Obtained Jenkinsfile from .*", "Missing diagnostic that reports SHA-1 of Jenkinsfile") // Confirm diagnostic message is available
-    my_check.logContains(".*Obtained Jenkinsfile from ${scmVars.GIT_COMMIT}.*", "Jenkinsfile checkout using unexpected SHA-1") // Correct SHA-1 in diagnostic message
-    my_check.logContains(".*Checkout has git HEAD ${scmVars.GIT_COMMIT}.*", "Missing scmVars GIT_COMMIT in log, expected SHA1 ${scmVars.GIT_COMMIT}") // Correct SHA-1 in ant command output
-  }
+stage('Verify') {
+  def my_check = new com.markwaite.Assert()
+  my_check.logContains(".*Obtained Jenkinsfile from .*", "Missing diagnostic that reports SHA-1 of Jenkinsfile") // Confirm diagnostic message is available
+  my_check.logContains(".*Obtained Jenkinsfile from ${scmVars.GIT_COMMIT}.*", "Jenkinsfile checkout using unexpected SHA-1") // Correct SHA-1 in diagnostic message
+  my_check.logContains(".*Checkout has git HEAD ${scmVars.GIT_COMMIT}.*", "Missing scmVars GIT_COMMIT in log, expected SHA1 ${scmVars.GIT_COMMIT}") // Correct SHA-1 in ant command output
 }
