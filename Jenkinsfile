@@ -4,9 +4,16 @@
 import com.markwaite.Assert
 import com.markwaite.Build
 
+def branch = 'JENKINS-60591'
+
 /* Only keep the 10 most recent builds. */
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
+
+// Wait up to 90 seconds for input
+// Assumes the infrastructure will push a new commit during that 90 seconds
+// Assertions then check that the 'Obtained Jenkinsfile from <SHA-1>' matches the SHA-1 in the workspace
+// Multibranch pipeline fails that assertion
 
 stage('Await Input Before Checkout') {
   def answer = 'Not answered due to exception'
@@ -20,8 +27,6 @@ stage('Await Input Before Checkout') {
   }
   echo "Final answer was: ${answer}"
 }
-
-def branch = 'JENKINS-60591'
 
 def scmVars
 
