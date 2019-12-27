@@ -8,12 +8,8 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-def branch = 'JENKINS-60591'
-
-def answer = 'Unanswered'
-def scmVars
-
 stage('Await Input Before Checkout') {
+  def answer = 'Not answered due to exception'
   try {
     timeout(time: 90, unit: 'SECONDS') {
       answer = input(id: 'Check-JENKINS-60591', message: "Ready to go (timeout in 90 seconds)?")
@@ -25,17 +21,20 @@ stage('Await Input Before Checkout') {
   echo "Final answer was: ${answer}"
 }
 
+def branch = 'JENKINS-60591'
+
+def scmVars
+
 node() {
   stage('Checkout') {
-      scmVars = checkout([$class: 'GitSCM',
-                  branches: scm.branches,
-                  extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                               // [$class: 'LocalBranch', localBranch: branch]
-                              ],
-                  gitTool: scm.gitTool,
-                  userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
-                                      refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}"]]])
-    }
+    scmVars = checkout([$class: 'GitSCM',
+                branches: scm.branches,
+                extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+                             // [$class: 'LocalBranch', localBranch: branch]
+                            ],
+                gitTool: scm.gitTool,
+                userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
+                                    refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}"]]])
   }
 
   stage('Build') {
