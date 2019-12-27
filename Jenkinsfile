@@ -10,6 +10,12 @@ def branch = 'JENKINS-60591'
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
+@NonCPS
+def printEnv() {
+  env.getEnvironment().each { name, value -> println "Name: $name -> Value $value" }
+}
+printEnv()
+
 // Wait up to 90 seconds for input
 // Assumes the infrastructure will push a new commit during that 90 seconds
 // Assertions then check that the 'Obtained Jenkinsfile from <SHA-1>' matches the SHA-1 in the workspace
