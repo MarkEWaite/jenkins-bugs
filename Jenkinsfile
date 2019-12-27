@@ -11,11 +11,13 @@ properties([[$class: 'BuildDiscarderProperty',
 def branch = 'JENKINS-60591'
 
 node {
+  def answer
   def scmVars
   stage('Await Input Before Checkout') {
     timeout(time: 90, unit: 'SECONDS') {
-      input(message: "Ready to go (timeout in 90 seconds)?")
+      answer = input(id: 'Check-JENKINS-60591', message: "Ready to go (timeout in 90 seconds)?")
     }
+    echo "Answer from input with timeout was: ${answer}"
   }
 
   stage('Checkout') {
