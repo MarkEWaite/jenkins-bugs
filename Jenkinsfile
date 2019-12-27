@@ -16,8 +16,16 @@ def printSCM() {
   echo "scm is ${scm}"
   echo "scm.branches is ${scm.branches}"
   echo "scm.branches[0] is ${scm.branches[0]}"
-  echo "scm.size() is ${scm.size()}"
-  scm.each { name, value -> echo "scmName: $name -> scmValue $value" }
+  echo "scm.GIT_BRANCH is ${scm.GIT_BRANCH}"
+  echo "scm.GIT_CHECKOUT_DIR is ${scm.GIT_CHECKOUT_DIR}"
+  echo "scm.GIT_COMMIT is ${scm.GIT_COMMIT}"
+  echo "scm.GIT_PREVIOUS_COMMIT is ${scm.GIT_PREVIOUS_COMMIT}"
+  echo "scm.GIT_LOCAL_BRANCH is ${scm.GIT_LOCAL_BRANCH}"
+  echo "scm.gitTool is ${scm.gitTool}"
+  echo "scm.MAX_CHANGELOG is ${scm.MAX_CHANGELOG}"
+  echo "scm.VERBOSE is ${scm.VERBOSE}"
+  echo "scm.TAG is ${scm.TAG}"
+  echo "scm.PERMISSIONS is ${scm.PERMISSIONS}"
 }
 printSCM()
 
