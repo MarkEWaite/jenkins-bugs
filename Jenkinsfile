@@ -12,8 +12,8 @@ properties([[$class: 'BuildDiscarderProperty',
 
 @NonCPS
 def printSCM() {
-  env.getEnvironment().each { name, value -> println "envName: $name -> envValue $value" }
-  scm.each { name, value -> println "scmName: $name -> scmValue $value" }
+  env.getEnvironment().each { name, value -> echo "envName: $name -> envValue $value" }
+  scm.each { name, value -> echo "scmName: $name -> scmValue $value" }
 }
 printSCM()
 
