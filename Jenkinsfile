@@ -12,6 +12,12 @@ def branch = 'JENKINS-60591'
 
 node {
   def scmVars
+  stage('Await Input Before Checkout') {
+    timeout(time: 90, unit: 'SECONDS') {
+      input(message: "Ready to go with ${GIT_COMMIT}?")
+    }
+  }
+
   stage('Checkout') {
     scmVars = checkout([$class: 'GitSCM',
                 branches: scm.branches,
