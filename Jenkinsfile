@@ -38,11 +38,9 @@ node() {
   }
 
   stage('Build') {
-    node() {
-      /* Call the ant build. */
-      def my_step = new com.markwaite.Build()
-      my_step.ant 'info'
-    }
+    /* Call the ant build. */
+    def my_step = new com.markwaite.Build()
+    my_step.ant 'info'
   }
 }
 
