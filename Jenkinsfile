@@ -11,10 +11,11 @@ properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
 @NonCPS
-def printEnv() {
-  env.getEnvironment().each { name, value -> println "Name: $name -> Value $value" }
+def printSCM() {
+  env.getEnvironment().each { name, value -> println "envName: $name -> envValue $value" }
+  scm.each { name, value -> println "scmName: $name -> scmValue $value" }
 }
-printEnv()
+printSCM()
 
 // Wait up to 90 seconds for input
 // Assumes the infrastructure will push a new commit during that 90 seconds
