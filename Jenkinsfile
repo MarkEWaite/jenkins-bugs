@@ -10,40 +10,6 @@ def branch = 'JENKINS-60591'
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-@NonCPS
-def printSCM() {
-  env.getEnvironment().each { name, value -> echo "envName: $name -> envValue $value" }
-  echo "scm is ${scm}"
-  echo "scm.GIT_BRANCH is ${scm.GIT_BRANCH}"
-  echo "scm.GIT_CHECKOUT_DIR is ${scm.GIT_CHECKOUT_DIR}"
-  echo "scm.GIT_COMMIT is ${scm.GIT_COMMIT}"
-  echo "scm.GIT_PREVIOUS_COMMIT is ${scm.GIT_PREVIOUS_COMMIT}"
-  echo "scm.GIT_LOCAL_BRANCH is ${scm.GIT_LOCAL_BRANCH}"
-  echo "scm.gitTool is ${scm.gitTool}"
-  echo "scm.branches is ${scm.branches}"
-  echo "scm.branches[0] is ${scm.branches[0]}"
-  echo "scm.browser is ${scm.browser}"
-  echo "scm.extensions is ${scm.extensions}"
-  echo "scm.key is ${scm.key}"
-  echo "scm.mergeOptions is ${scm.mergeOptions}"
-  echo "scm.repositories is ${scm.repositories}"
-  echo "scm.submoduleCfg is ${scm.submoduleCfg}"
-  echo "scm.userRemoteConfigs is ${scm.userRemoteConfigs}"
-  echo "scm.createAccountBasedOnEmail is ${scm.createAccountBasedOnEmail}"
-  echo "scm.doGenerateSubmoduleConfigurations is ${scm.doGenerateSubmoduleConfigurations}"
-  echo "scm.useExistingAccountWithSameEmail is ${scm.useExistingAccountWithSameEmail}"
-  // echo "scm.MAX_CHANGELOG is ${scm.MAX_CHANGELOG}"
-  // echo "scm.VERBOSE is ${scm.VERBOSE}"
-  // echo "scm.TAG is ${scm.TAG}"
-  // echo "scm.PERMISSIONS is ${scm.PERMISSIONS}"
-}
-printSCM()
-
-// Wait up to 90 seconds for input
-// Assumes the infrastructure will push a new commit during that 90 seconds
-// Assertions then check that the 'Obtained Jenkinsfile from <SHA-1>' matches the SHA-1 in the workspace
-// Multibranch pipeline fails that assertion
-
 stage('Await Input Before Checkout') {
   def answer = 'Not answered due to exception'
   try {
@@ -69,7 +35,6 @@ node() {
                 gitTool: scm.gitTool,
                 userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
                                     refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}"]]])
-    printSCM()
   }
 
   stage('Build') {
