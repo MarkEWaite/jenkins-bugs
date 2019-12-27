@@ -13,10 +13,10 @@ properties([[$class: 'BuildDiscarderProperty',
 @NonCPS
 def printSCM() {
   env.getEnvironment().each { name, value -> echo "envName: $name -> envValue $value" }
-  echo "scm.size() is ${scm.size()}"
+  echo "scm is ${scm}"
   echo "scm.branches is ${scm.branches}"
   echo "scm.branches[0] is ${scm.branches[0]}"
-  echo "scm is ${scm}"
+  echo "scm.size() is ${scm.size()}"
   scm.each { name, value -> echo "scmName: $name -> scmValue $value" }
 }
 printSCM()
