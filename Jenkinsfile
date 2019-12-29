@@ -34,10 +34,15 @@ node('git-2.11+') { // Needs 'git -C' argument support, intentionally searching 
 
   stage('Verify default depth') { // Confirm depth is 1 in submodule history
     def my_check = new com.markwaite.Assert()
+
     /* JENKINS-21248 requests shallow clone support for submodules.  */
     my_check.logContains('.*Reduce title length.*', 'Default distinctive 1st commit message not found')
     my_check.logDoesNotContain('.*Link from README to bug report.*', 'Distinctive 2nd commit message found')
     my_check.logDoesNotContain('.*Add more text to README.*', '2 - Distinctive 3rd commit message found')
+
+    /* Check submodule exists */
+    my_check.logContains('.*check-dir property module.git.dir.exists is true.*', 'Ant did not find modules .git')
+    my_check.logDoesNotContain('.*check-dir property module.git.dir.exists is .*module.git.dir.exists.*', 'Ant check-dir did not set submodule detected property')
   }
 
   /* depth 2 should clone 2 commits */
@@ -66,10 +71,15 @@ node('git-2.11+') { // Needs 'git -C' argument support, intentionally searching 
 
   stage('Verify depth 2') { // Confirm depth is 2 instead of 1 in submodule history
     def my_check = new com.markwaite.Assert()
+
     /* JENKINS-21248 requests shallow clone support for submodules.  */
     my_check.logContains('.*Reduce title length.*', '2 - Distinctive 1st commit message not found')
     my_check.logContains('.*Add distinctive message in submodule README.*', '2 - Distinctive 2nd commit message not found')
     my_check.logDoesNotContain('.*Add more text to README.*', '2 - Distinctive 3rd commit message found')
+
+    /* Check submodule exists */
+    my_check.logContains('.*check-dir property module.git.dir.exists is true.*', '2 - Ant did not find modules .git')
+    my_check.logDoesNotContain('.*check-dir property module.git.dir.exists is .*module.git.dir.exists.*', '2 - Ant check-dir did not set submodule detected property')
   }
 
 }
