@@ -35,8 +35,9 @@ node('git-1.9+ && cb-pc') { // Needs 'git -C' argument support, avoid agent with
   stage('Verify default depth') { // Confirm depth is 1 in submodule history
     def my_check = new com.markwaite.Assert()
     /* JENKINS-21248 requests shallow clone support for submodules.  */
-    my_check.logDoesNotContain('.*Reduce title length.*', 'Default distinctive 2nd commit message found')
-    my_check.logDoesNotContain('.*Link from README to bug report.*', '2 - Distinctive 3rd commit message found')
+    my_check.logContains('.*Reduce title length.*', 'Default distinctive 1st commit message not found')
+    my_check.logDoesNotContain('.*Link from README to bug report.*', 'Distinctive 2nd commit message found')
+    my_check.logDoesNotContain('.*Add more text to README.*', '2 - Distinctive 3rd commit message found')
   }
 
   /* depth 2 should clone 2 commits */
@@ -63,12 +64,12 @@ node('git-1.9+ && cb-pc') { // Needs 'git -C' argument support, avoid agent with
     my_step.ant 'info'
   }
 
-  stage('Verify depth 2') {
+  stage('Verify depth 2') { // Confirm depth is 2 instead of 1 in submodule history
     def my_check = new com.markwaite.Assert()
     /* JENKINS-21248 requests shallow clone support for submodules.  */
-    my_check.logContains('.*Add distinctive message in submodule README.*', '2 - Distinctive 1st commit message not found')
-    my_check.logContains('.*Reduce title length.*', '2 - Distinctive 2nd commit message not found')
-    my_check.logDoesNotContain('.*Link from README to bug report.*', '2 - Distinctive 3rd commit message found')
+    my_check.logContains('.*Reduce title length.*', '2 - Distinctive 1st commit message not found')
+    my_check.logContains('.*Link from README to bug report.*', '2 - Distinctive 2nd commit message not found')
+    my_check.logDoesNotContain('.*Add more text to README.*', '2 - Distinctive 3rd commit message found')
   }
 
 }
