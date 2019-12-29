@@ -11,11 +11,12 @@ properties([[$class: 'BuildDiscarderProperty',
 def branch='JENKINS-21248-a'
 def repo_url=scm.userRemoteConfigs[0].url
 
-node('git-1.9+') { // Needs 'git -C' argument support, avoid agent with issue
+node('git-1.9+ && cb-pc') { // Needs 'git -C' argument support, avoid agent with issue
 
   /* default depth should clone 1 commit */
   stage('Checkout') {
     deleteDir() // Really scrub the workspace
+    // Shallow checkout parent and submodule - default depth 1
     checkout([$class: 'GitSCM',
               branches: [[name: branch]],
               extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, shallow: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
