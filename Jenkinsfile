@@ -14,7 +14,7 @@ def repo_url=scm.userRemoteConfigs[0].url
 node('git-1.9+ && cb-pc') { // Needs 'git -C' argument support, avoid agent with issue
 
   /* default depth should clone 1 commit */
-  stage('Checkout') {
+  stage('Checkout default depth') {
     deleteDir() // Really scrub the workspace
     // Shallow checkout parent and submodule - default depth 1
     checkout([$class: 'GitSCM',
@@ -26,13 +26,13 @@ node('git-1.9+ && cb-pc') { // Needs 'git -C' argument support, avoid agent with
               userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: repo_url]]])
   }
 
-  stage('Build') {
+  stage('Build default depth') {
     /* Call the ant build. */
     def my_step = new com.markwaite.Build()
     my_step.ant 'info'
   }
 
-  stage('Verify') {
+  stage('Verify default depth') { // Confirm depth is 1 in submodule history
     def my_check = new com.markwaite.Assert()
     /* JENKINS-21248 requests shallow clone support for submodules.  */
     my_check.logDoesNotContain('.*Reduce title length.*', 'Default distinctive 2nd commit message found')
