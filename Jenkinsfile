@@ -68,7 +68,7 @@ node('git-1.9+ && cb-pc') { // Needs 'git -C' argument support, avoid agent with
     def my_check = new com.markwaite.Assert()
     /* JENKINS-21248 requests shallow clone support for submodules.  */
     my_check.logContains('.*Reduce title length.*', '2 - Distinctive 1st commit message not found')
-    my_check.logContains('.*Link from README to bug report.*', '2 - Distinctive 2nd commit message not found')
+    my_check.logContains('.*Add distinctive message in submodule README.*', '2 - Distinctive 2nd commit message not found')
     my_check.logDoesNotContain('.*Add more text to README.*', '2 - Distinctive 3rd commit message found')
   }
 
