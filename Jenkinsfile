@@ -42,6 +42,12 @@ node('git-1.9+ && !aws-ope') { // Needs 'git -C' argument support, avoid agent w
   /* depth 2 should clone 2 commits */
   stage('Checkout depth 2') {
     deleteDir() // Really scrub the workspace
+    /* May fail if new commits have been added to the underlying branch of the submodule */
+    /* If the submodule reference does not refer to a branch, then the remote github server refuses to respond to the request.
+     * Newer versions of command line git then report the message:
+     *
+     * error: Server does not allow request for unadvertised object 0736ba35a0d8c05236e3b71584bc4e149aa5f10a
+     */
     checkout([$class: 'GitSCM',
               branches: [[name: branch]],
               extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
