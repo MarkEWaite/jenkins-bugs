@@ -11,7 +11,7 @@ properties([[$class: 'BuildDiscarderProperty',
 def branch='JENKINS-21248-a'
 def repo_url=scm.userRemoteConfigs[0].url
 
-node('git-1.9+') { // Needs 'git -C' argument support
+node('git-1.9+ && !aws-ope') { // Needs 'git -C' argument support, avoid agent with issue
 
   /* default depth should clone 1 commit */
   stage('Checkout') {
