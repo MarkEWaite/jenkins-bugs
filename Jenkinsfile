@@ -56,7 +56,7 @@ node('git-2.11+') { // Needs 'git -C' argument support, intentionally searching 
      */
     checkout([$class: 'GitSCM',
               branches: [[name: branch]],
-              extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+              extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, shallow: true, depth: 2, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                            [$class: 'SubmoduleOption', disableSubmodules: false, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: true, depth: 2, trackingSubmodules: false],
                            [$class: 'LocalBranch', localBranch: branch]],
               gitTool: 'Default',
