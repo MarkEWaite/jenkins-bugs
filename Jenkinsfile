@@ -8,7 +8,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-def branch='JENKINS-21248'
+def branch='JENKINS-21248-a'
 def repo_url=scm.userRemoteConfigs[0].url
 
 node('git-1.9+') { // Needs 'git -C' argument support
@@ -19,9 +19,9 @@ node('git-1.9+') { // Needs 'git -C' argument support
     checkout([$class: 'GitSCM',
               branches: [[name: branch]],
               extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                           [$class: 'SubmoduleOption', disableSubmodules: false, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: true, trackingSubmodules: false],
+                           [$class: 'SubmoduleOption', disableSubmodules: false, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: true, depth: 2, trackingSubmodules: false],
                            [$class: 'LocalBranch', localBranch: branch]],
-              gitTool: 'Default',
+              gitTool: 'Default', // JGit does not support shallow clone for submodules
               userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: repo_url]]])
   }
 
