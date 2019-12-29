@@ -11,41 +11,55 @@ properties([[$class: 'BuildDiscarderProperty',
 def branch='JENKINS-21248'
 def repo_url=scm.userRemoteConfigs[0].url
 
-node('git-1.9+') { // Needs 'git -C' argument support
+node('git-1.9+ && !git-2.7') { // Needs 'git -C' argument support, sporadically fails on git 2.7
 
   /* default depth should clone 1 commit */
-  stage('Checkout') {
+  stage('Checkout default depth') {
     deleteDir() // Really scrub the workspace
+    // Shallow checkout parent and submodule - default depth 1
     checkout([$class: 'GitSCM',
               branches: [[name: branch]],
-              extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                           [$class: 'SubmoduleOption', disableSubmodules: false, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: true, trackingSubmodules: false],
+              extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, shallow: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+                           [$class: 'SubmoduleOption', disableSubmodules: false, shallow: true, trackingSubmodules: false],
                            [$class: 'LocalBranch', localBranch: branch]],
-              gitTool: 'Default',
+              gitTool: 'Default', // JGit does not support shallow clone for submodules
               userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: repo_url]]])
   }
 
-  stage('Build') {
+  stage('Build default depth') {
     /* Call the ant build. */
     def my_step = new com.markwaite.Build()
     my_step.ant 'info'
   }
 
-  stage('Verify') {
+  stage('Verify default depth') { // Confirm depth is 1 in submodule history
     def my_check = new com.markwaite.Assert()
+
     /* JENKINS-21248 requests shallow clone support for submodules.  */
-    my_check.logContains('.*Add distinctive message in submodule README.*', 'Default distinctive 1st commit message not found')
-    my_check.logDoesNotContain('.*Reduce title length.*', 'Default distinctive 2nd commit message found')
-    my_check.logDoesNotContain('.*Link from README to bug report.*', '2 - Distinctive 3rd commit message found')
+    my_check.logContains('.*Using shallow fetch with depth 1.*', 'Missing depth 1 log message')
+    my_check.logContains('.*Using shallow submodule update with depth 1.*', 'Missing depth 1 submodule log message')
+    my_check.logContains('.*Reduce title length.*', 'Default distinctive 1st commit message not found')
+    my_check.logDoesNotContain('.*Link from README to bug report.*', 'Distinctive 2nd commit message found')
+    my_check.logDoesNotContain('.*Add more text to README.*', '2 - Distinctive 3rd commit message found')
+
+    /* Check submodule exists */
+    my_check.logContains('.*check-dir property module.git.dir.exists is true.*', 'Ant did not find modules .git')
+    my_check.logDoesNotContain('.*check-dir property module.git.dir.exists is .*module.git.dir.exists.*', 'Ant check-dir did not set submodule detected property')
   }
 
   /* depth 2 should clone 2 commits */
   stage('Checkout depth 2') {
     deleteDir() // Really scrub the workspace
+    /* May fail if new commits have been added to the underlying branch of the submodule */
+    /* If the submodule reference does not refer to a branch, then the remote github server refuses to respond to the request.
+     * Newer versions of command line git then report the message:
+     *
+     * error: Server does not allow request for unadvertised object 0736ba35a0d8c05236e3b71584bc4e149aa5f10a
+     */
     checkout([$class: 'GitSCM',
               branches: [[name: branch]],
-              extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                           [$class: 'SubmoduleOption', disableSubmodules: false, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: true, depth: 3, trackingSubmodules: false],
+              extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, shallow: true, depth: 2, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+                           [$class: 'SubmoduleOption', disableSubmodules: false, shallow: true, depth: 2, trackingSubmodules: false],
                            [$class: 'LocalBranch', localBranch: branch]],
               gitTool: 'Default',
               userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: repo_url]]])
@@ -57,12 +71,19 @@ node('git-1.9+') { // Needs 'git -C' argument support
     my_step.ant 'info'
   }
 
-  stage('Verify depth 2') {
+  stage('Verify depth 2') { // Confirm depth is 2 instead of 1 in submodule history
     def my_check = new com.markwaite.Assert()
+
     /* JENKINS-21248 requests shallow clone support for submodules.  */
-    my_check.logContains('.*Add distinctive message in submodule README.*', '2 - Distinctive 1st commit message not found')
-    my_check.logContains('.*Reduce title length.*', '2 - Distinctive 2nd commit message not found')
-    my_check.logDoesNotContain('.*Link from README to bug report.*', '2 - Distinctive 3rd commit message found')
+    my_check.logContains('.*Using shallow fetch with depth 2.*', 'Missing depth 2 log message')
+    my_check.logContains('.*Using shallow submodule update with depth 2.*', 'Missing depth 2 submodule log message')
+    my_check.logContains('.*Reduce title length.*', '2 - Distinctive 1st commit message not found')
+    my_check.logContains('.*Add distinctive message in submodule README.*', '2 - Distinctive 2nd commit message not found')
+    my_check.logDoesNotContain('.*Add more text to README.*', '2 - Distinctive 3rd commit message found')
+
+    /* Check submodule exists */
+    my_check.logContains('.*check-dir property module.git.dir.exists is true.*', '2 - Ant did not find modules .git')
+    my_check.logDoesNotContain('.*check-dir property module.git.dir.exists is .*module.git.dir.exists.*', '2 - Ant check-dir did not set submodule detected property')
   }
 
 }
