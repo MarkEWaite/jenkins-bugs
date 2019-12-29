@@ -11,7 +11,7 @@ properties([[$class: 'BuildDiscarderProperty',
 def branch='JENKINS-21248-a'
 def repo_url=scm.userRemoteConfigs[0].url
 
-node('git-2.7+') { // Needs 'git -C' argument support, intentionally searching to find CLI git issue
+node('git-2.10+') { // Needs 'git -C' argument support, sporadically fails on git 2.7
 
   /* default depth should clone 1 commit */
   stage('Checkout default depth') {
