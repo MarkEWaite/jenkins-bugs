@@ -16,12 +16,29 @@
     </git>
   </target>
 
-  <!-- Info about this repository -->
-  <target name="info" description="Report info about this repo">
-    <echo>java is ${java.version}</echo>
-    <echo>user dir is ${user.dir}</echo>
+  <target name="check-dir">
+    <condition property="module.git.dir.exists">
+      <available file="modules/JENKINS-46504.url/.git"/> <!-- not necessarily a directory -->
+    </condition>
+    <echo>check-dir property module.git.dir.exists is ${module.git.dir.exists}</echo>
+  </target>
+
+  <target name="git-log" unless="module.git.dir.exists" depends="check-dir"
+          description="Run git log in the workspace if submodule not yet populated">
     <!-- JENKINS-21248 requests shallow clone support for submodules -->
-    <!-- Log should contain only 1 entry -->
+    <!-- Log should contain only 1 entry when submodule not yet updated -->
+    <exec executable="git">
+      <arg value="log" />
+      <arg value="-n" />
+      <arg value="5" />
+      <arg value="--numstat" />
+    </exec>
+  </target>
+
+  <target name="git-submodule-log" if="module.git.dir.exists" depends="check-dir"
+          description="Run git log in the submodule if submodule is populated">
+    <!-- JENKINS-21248 requests shallow clone support for submodules -->
+    <!-- Log should contain only 2 entries when submodule exists -->
     <exec executable="git">
       <arg value="-C" />
       <arg value="modules/JENKINS-46504.url" />
@@ -30,6 +47,12 @@
       <arg value="5" />
       <arg value="--numstat" />
     </exec>
+  </target>
+
+  <!-- Info about this repository -->
+  <target name="info" description="Report info about this repo" depends="git-log,git-submodule-log">
+    <echo>java is ${java.version}</echo>
+    <echo>user dir is ${user.dir}</echo>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
