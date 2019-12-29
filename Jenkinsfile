@@ -20,7 +20,7 @@ node('git-2.11+') { // Needs 'git -C' argument support, intentionally searching 
     checkout([$class: 'GitSCM',
               branches: [[name: branch]],
               extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, shallow: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                           [$class: 'SubmoduleOption', disableSubmodules: false, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: true, trackingSubmodules: false],
+                           [$class: 'SubmoduleOption', disableSubmodules: false, shallow: true, trackingSubmodules: false],
                            [$class: 'LocalBranch', localBranch: branch]],
               gitTool: 'Default', // JGit does not support shallow clone for submodules
               userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: repo_url]]])
@@ -59,7 +59,7 @@ node('git-2.11+') { // Needs 'git -C' argument support, intentionally searching 
     checkout([$class: 'GitSCM',
               branches: [[name: branch]],
               extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, shallow: true, depth: 2, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                           [$class: 'SubmoduleOption', disableSubmodules: false, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: true, depth: 2, trackingSubmodules: false],
+                           [$class: 'SubmoduleOption', disableSubmodules: false, shallow: true, depth: 2, trackingSubmodules: false],
                            [$class: 'LocalBranch', localBranch: branch]],
               gitTool: 'Default',
               userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: repo_url]]])
