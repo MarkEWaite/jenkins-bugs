@@ -18,7 +18,7 @@ node('git-1.9+') { // Needs 'git -C' argument support, avoid agent with issue
     deleteDir() // Really scrub the workspace
     checkout([$class: 'GitSCM',
               branches: [[name: branch]],
-              extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+              extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, shallow: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                            [$class: 'SubmoduleOption', disableSubmodules: false, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: true, trackingSubmodules: false],
                            [$class: 'LocalBranch', localBranch: branch]],
               gitTool: 'Default', // JGit does not support shallow clone for submodules
