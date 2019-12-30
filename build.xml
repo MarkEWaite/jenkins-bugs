@@ -140,6 +140,11 @@
   </target>
 
   <target name="publish" description="Publish latest commits to origin">
+    <exec executable="git">
+      <arg value="remote"/>
+      <arg value="set-url"/>
+      <arg value="git@github.com:MarkEWaite/jenkins.bugs.git"/>
+    </exec>
     <chmod file="${GIT_SSH_PRIVATE_KEY_FILE}" perm="0400"/>
     <echo>GIT_SSH_COMMAND=ssh -i ${GIT_SSH_PRIVATE_KEY_FILE}</echo>
     <exec executable="git">

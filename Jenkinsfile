@@ -27,6 +27,7 @@ node('git-2.7+ && !windows') { // Would be enough to be git 2.3+, but that is no
   }
 
   stage('Build') {
+    // Pipeline does not have a git publish step, publish the hard way
     withCredentials([sshUserPrivateKey(credentialsId: 'MarkEWaite-centos7x64-github-rsa-private-key',
                                         keyFileVariable: 'GIT_SSH_PRIVATE_KEY_FILE',
                                         passphraseVariable: 'GIT_SSH_PRIVATE_KEY_PASSPHRASE',
