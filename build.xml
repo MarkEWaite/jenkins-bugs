@@ -104,7 +104,7 @@
     <exec executable="git">
       <env key="GIT_SSH_COMMAND" value="ssh -i ${GIT_SSH_PRIVATE_KEY_FILE}"/>
       <arg value="push"/>
-      <arg value="-- set-upstream"/>
+      <arg value="--set-upstream"/>
       <arg value="origin"/>
       <arg value="JENKINS-60564"/>
     </exec>
