@@ -78,7 +78,6 @@
       <arg value="refs/heads/JENKINS-60564"/>
     </exec>
 
-    <!-- <sleep seconds="23"/> Wait long enough for job to start but not finish -->
     <buildnumber file="rebase-build.number"/>
     <git command="add">
       <args>
@@ -92,6 +91,9 @@
       </args>
     </git>
 
+    <!-- Wait long enough for ant increment to submit second change -->
+    <!-- 
+    <sleep seconds="23"/>
     <chmod file="${GIT_SSH_PRIVATE_KEY_FILE}" perm="0400"/>
     <echo>GIT_SSH_COMMAND=ssh -i ${GIT_SSH_PRIVATE_KEY_FILE}</echo>
     <exec executable="git">
@@ -101,6 +103,7 @@
       <arg value="origin"/>
       <arg value="JENKINS-60564"/>
     </exec>
+    -->
 
     <echo>user dir is ${user.dir}</echo>
   </target>
