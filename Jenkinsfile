@@ -25,7 +25,8 @@ stage('Await Input Before Checkout') {
 
 def scmVars
 
-node() {
+// Need git-2.7 to understand GIT_SSH_COMMAND variable
+node('git-2.7+ && !windows') { // Would be enough to be git 2.3+, but that is not defined
   stage('Checkout') {
     scmVars = checkout([$class: 'GitSCM',
                 branches: scm.branches,
