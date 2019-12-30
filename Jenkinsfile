@@ -28,6 +28,7 @@ def scmVars
 // Need git-2.7 to understand GIT_SSH_COMMAND variable
 node('git-2.7+ && !windows') { // Would be enough to be git 2.3+, but that is not defined
   stage('Checkout') {
+    deleteDir() // Remove prior checkout
     scmVars = checkout([$class: 'GitSCM',
                 branches: scm.branches,
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
