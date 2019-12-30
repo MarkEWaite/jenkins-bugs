@@ -141,14 +141,11 @@
 
   <target name="publish" description="Publish latest commits to origin">
     <!-- Remember the origin URL -->
-    <exec executable="git" outputproperty="git.origin.url">
-      <arg value="get-url"/>
-      <arg value="origin"/>
-    </exec>
     <!-- Set the origin URL to ssh -->
     <exec executable="git">
       <arg value="remote"/>
       <arg value="set-url"/>
+      <arg value="--push"/>
       <arg value="origin"/>
       <arg value="git@github.com:MarkEWaite/jenkins.bugs.git"/>
       <arg value="${git.origin.url}"/>
@@ -163,14 +160,6 @@
       <arg value="JENKINS-60564"/>
     </exec>
     <echo>Publishing command complete</echo>
-    <!-- Reset the origin URL -->
-    <exec executable="git">
-      <arg value="remote"/>
-      <arg value="set-url"/>
-      <arg value="origin"/>
-      <arg value="${git.origin.url}"/>
-      <arg value="git@github.com:MarkEWaite/jenkins.bugs.git"/>
-    </exec>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
