@@ -1,5 +1,4 @@
 <project name="JENKINS-60564" default="increment" basedir=".">
-    <sleep seconds="33"/>
 
   <property environment="env"/>
   <condition property="changeLogCount" value="${env.CHANGESET_SIZE}" else="0">
