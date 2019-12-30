@@ -10,19 +10,6 @@ def branch = 'JENKINS-60564'
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-stage('Await Input Before Checkout') {
-  def answer = 'Not answered due to exception'
-  try {
-    timeout(time: 90, unit: 'SECONDS') {
-      answer = input(id: 'Check-JENKINS-60564', message: "Ready to go (timeout in 90 seconds)?")
-    }
-    echo "Answer from input with timeout was: ${answer}"
-  } catch(err) {
-    echo "Exception ${err} ignored from input with timeout, answer was ${answer}"
-  }
-  echo "Final answer was: ${answer}"
-}
-
 def scmVars
 
 // Need git-2.7 to understand GIT_SSH_COMMAND variable
@@ -48,6 +35,7 @@ node('git-2.7+ && !windows') { // Would be enough to be git 2.3+, but that is no
         /* Call the ant build. */
         def my_step = new com.markwaite.Build()
         my_step.ant 'info'
+        my_step.ant 'publish'
       }
     }
   }
