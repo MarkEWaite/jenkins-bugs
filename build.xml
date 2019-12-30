@@ -67,7 +67,6 @@
       <arg value="HEAD"/>
     </exec>
     <echo>Checkout has git HEAD ${git.HEAD}</echo>
-    <echo>user dir is ${user.dir}</echo>
     <!-- <sleep seconds="23"/> Wait long enough for job to start but not finish -->
     <buildnumber file="rebase-build.number"/>
     <git command="add">
@@ -82,11 +81,13 @@
       </args>
     </git>
     <chmod file="${GIT_SSH_PRIVATE_KEY_FILE}" perm="0400"/>
-    <exec executable="git" outputproperty="git.">
+    <echo>GIT_SSH_COMMAND="ssh -i ${GIT_SSH_PRIVATE_KEY_FILE}"</echo>
+    <exec executable="git">
       <env key="GIT_SSH_COMMAND" value="ssh -i ${GIT_SSH_PRIVATE_KEY_FILE}"/>
       <arg value="ls-remote"/>
       <arg value="origin"/>
     </exec>
+    <echo>user dir is ${user.dir}</echo>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
