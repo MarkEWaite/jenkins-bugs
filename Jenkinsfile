@@ -34,7 +34,7 @@ node('git-2.7+ && !windows') { // Would be enough to be git 2.3+, but that is no
       withEnv(['GIT_SSH_PRIVATE_KEY_FILE=' + GIT_SSH_PRIVATE_KEY_FILE]) {
         /* Call the ant build. */
         def my_step = new com.markwaite.Build()
-        my_step.ant 'info'
+        my_step.ant 'pipeline-info'
         my_step.ant 'publish'
       }
     }
