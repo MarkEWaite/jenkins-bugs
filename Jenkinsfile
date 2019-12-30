@@ -4,7 +4,7 @@
 import com.markwaite.Assert
 import com.markwaite.Build
 
-def branch = 'JENKINS-60591'
+def branch = 'JENKINS-60564'
 
 /* Only keep the 10 most recent builds. */
 properties([[$class: 'BuildDiscarderProperty',
@@ -14,7 +14,7 @@ stage('Await Input Before Checkout') {
   def answer = 'Not answered due to exception'
   try {
     timeout(time: 90, unit: 'SECONDS') {
-      answer = input(id: 'Check-JENKINS-60591', message: "Ready to go (timeout in 90 seconds)?")
+      answer = input(id: 'Check-JENKINS-60564', message: "Ready to go (timeout in 90 seconds)?")
     }
     echo "Answer from input with timeout was: ${answer}"
   } catch(err) {
@@ -30,7 +30,7 @@ node() {
     scmVars = checkout([$class: 'GitSCM',
                 branches: scm.branches,
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                             // [$class: 'LocalBranch', localBranch: branch]
+                             [$class: 'LocalBranch', localBranch: branch]
                             ],
                 gitTool: scm.gitTool,
                 userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
@@ -46,7 +46,8 @@ node() {
 
 stage('Verify') {
   def my_check = new com.markwaite.Assert()
-  my_check.logContains(".*Obtained Jenkinsfile from .*", "Missing diagnostic that reports SHA-1 of Jenkinsfile") // Confirm diagnostic message is available
-  my_check.logContains(".*Obtained Jenkinsfile from ${scmVars.GIT_COMMIT}.*", "Jenkinsfile checkout using unexpected SHA-1") // Correct SHA-1 in diagnostic message
-  my_check.logContains(".*Checkout has git HEAD ${scmVars.GIT_COMMIT}.*", "Missing scmVars GIT_COMMIT in log, expected SHA1 ${scmVars.GIT_COMMIT}") // Correct SHA-1 in ant command output
+  my_check.logContains(".*GIT_SSH_PRIVATE_KEY_FILE is .*[*][*]", "Missing private key file in log") // Confirm diagnostic message is available
+  my_check.logDoesNotContain(".*GIT_SSH_PRIVATE_KEY_FILE is .*env.GIT_SSH_PRIVATE_KEY_FILE", "Found unexpected private key unexpanded") // Confirm diagnostic message is available
+  my_check.logContains(".*GIT_SSH_USERNAME is .*[*][*]", "Missing username in log") // Confirm diagnostic message is available
+  my_check.logDoesNotContain(".*GIT_SSH_USERNAME is .*env.GIT_SSH_USERNAME", "Found unexpected username unexpanded") // Confirm diagnostic message is available
 }
