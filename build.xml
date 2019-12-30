@@ -119,6 +119,21 @@
       <arg value="refs/heads/JENKINS-60564"/>
     </exec>
 
+    <!-- Remove debris from previous pushes -->
+    <git command="rm">
+      <args>
+        <arg value="-f"/>
+        <arg value="rebase-pipeline-build.*.number"/>
+      </args>
+    </git>
+    <git command="commit">
+      <args>
+        <arg value="-m"/>
+        <arg value="Remove prior debris"/>
+      </args>
+    </git>
+
+    <!-- create a new file -->
     <tempfile property="temp.build.number" destdir="." prefix="rebase-pipeline-build." suffix=".number" createfile="true"/>
     <buildnumber file="${temp.build.number}"/>
     <git command="add">
