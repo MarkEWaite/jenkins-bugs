@@ -87,7 +87,7 @@
       <arg value="ls-remote"/>
       <arg value="--heads"/>
       <arg value="origin"/>
-      <arg value="JENKINS-60564"/>
+      <arg value="refs/heads/JENKINS-60564"/>
     </exec>
     <echo>user dir is ${user.dir}</echo>
   </target>
