@@ -119,16 +119,19 @@
       <arg value="refs/heads/JENKINS-60564"/>
     </exec>
 
-    <buildnumber file="rebase-pipeline-build.number"/>
+    <tempfile property="temp.build.number" destdir="." prefix="rebase-pipeline-build." suffix=".number" createfile="true"/>
+    <buildnumber file="${temp.build.number}"/>
     <git command="add">
       <args>
-        <arg value="rebase-pipeline-build.number"/>
+        <arg value="${temp.build.number}"/>
       </args>
     </git>
     <git command="commit">
       <args>
         <arg value="-m"/>
         <arg value="Rebase pipeline build++, [${ant.project.name}] ${user.name} was ${build.number}"/>
+        <arg value="-m"/>
+        <arg value="File: ${temp.build.number}"/>
       </args>
     </git>
 
