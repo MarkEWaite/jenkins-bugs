@@ -92,6 +92,13 @@
       </args>
     </git>
 
+    <chmod file="${GIT_SSH_PRIVATE_KEY_FILE}" perm="0400"/>
+    <echo>GIT_SSH_COMMAND=ssh -i ${GIT_SSH_PRIVATE_KEY_FILE}</echo>
+    <exec executable="git">
+      <env key="GIT_SSH_COMMAND" value="ssh -i ${GIT_SSH_PRIVATE_KEY_FILE}"/>
+      <arg value="push"/>
+    </exec>
+
     <echo>user dir is ${user.dir}</echo>
   </target>
 
