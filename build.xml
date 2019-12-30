@@ -94,19 +94,21 @@
     <!-- Wait long enough for ant increment to submit second change -->
     <sleep seconds="33"/>
 
-    <!-- 
+    <echo>user dir is ${user.dir}</echo>
+
+  </target>
+
+  <target name="publish" description="Publish latest commits to origin">
     <chmod file="${GIT_SSH_PRIVATE_KEY_FILE}" perm="0400"/>
     <echo>GIT_SSH_COMMAND=ssh -i ${GIT_SSH_PRIVATE_KEY_FILE}</echo>
     <exec executable="git">
       <env key="GIT_SSH_COMMAND" value="ssh -i ${GIT_SSH_PRIVATE_KEY_FILE}"/>
       <arg value="push"/>
-      <arg value="- - set-upstream"/>
+      <arg value="-- set-upstream"/>
       <arg value="origin"/>
       <arg value="JENKINS-60564"/>
     </exec>
-    -->
-
-    <echo>user dir is ${user.dir}</echo>
+    <echo>Publishing command complete</echo>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
