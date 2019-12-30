@@ -70,6 +70,17 @@
     <echo>user dir is ${user.dir}</echo>
     <!-- <sleep seconds="23"/> Wait long enough for job to start but not finish -->
     <buildnumber file="rebase-build.number"/>
+    <git command="add">
+      <args>
+        <arg value="rebase-build.number"/>
+      </args>
+    </git>
+    <git command="commit">
+      <args>
+        <arg value="-m"/>
+        <arg value="Rebase build++, [${ant.project.name}] ${user.name} was ${build.number}"/>
+      </args>
+    </git>
     <chmod file="${GIT_SSH_PRIVATE_KEY_FILE}" perm="0400"/>
     <exec executable="git" outputproperty="git.">
       <env key="GIT_SSH_COMMAND" value="ssh -i ${GIT_SSH_PRIVATE_KEY_FILE}"/>
