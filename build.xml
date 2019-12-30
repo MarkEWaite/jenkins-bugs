@@ -149,7 +149,9 @@
     <exec executable="git">
       <arg value="remote"/>
       <arg value="set-url"/>
+      <arg value="origin"/>
       <arg value="git@github.com:MarkEWaite/jenkins.bugs.git"/>
+      <arg value="${git.origin.url}"/>
     </exec>
     <chmod file="${GIT_SSH_PRIVATE_KEY_FILE}" perm="0400"/>
     <echo>GIT_SSH_COMMAND=ssh -i ${GIT_SSH_PRIVATE_KEY_FILE}</echo>
@@ -165,7 +167,9 @@
     <exec executable="git">
       <arg value="remote"/>
       <arg value="set-url"/>
+      <arg value="origin"/>
       <arg value="${git.origin.url}"/>
+      <arg value="git@github.com:MarkEWaite/jenkins.bugs.git"/>
     </exec>
   </target>
 
