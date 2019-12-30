@@ -40,9 +40,16 @@ node('git-2.7+ && !windows') { // Would be enough to be git 2.3+, but that is no
   }
 
   stage('Build') {
-    /* Call the ant build. */
-    def my_step = new com.markwaite.Build()
-    my_step.ant 'info'
+    withCredentials([sshUserPrivateKey(credentialsId: 'MarkEWaite-centos7x64-github-rsa-private-key',
+                                        keyFileVariable: 'GIT_SSH_PRIVATE_KEY_FILE',
+                                        passphraseVariable: 'GIT_SSH_PRIVATE_KEY_PASSPHRASE',
+                                        usernameVariable: 'GIT_SSH_USERNAME')]) {
+      withEnv(['GIT_SSH_PRIVATE_KEY_FILE=' + GIT_SSH_PRIVATE_KEY_FILE]) {
+        /* Call the ant build. */
+        def my_step = new com.markwaite.Build()
+        my_step.ant 'info'
+      }
+    }
   }
 }
 
