@@ -148,7 +148,6 @@
       <arg value="--push"/>
       <arg value="origin"/>
       <arg value="git@github.com:MarkEWaite/jenkins.bugs.git"/>
-      <arg value="${git.origin.url}"/>
     </exec>
     <chmod file="${GIT_SSH_PRIVATE_KEY_FILE}" perm="0400"/>
     <echo>GIT_SSH_COMMAND=ssh -i ${GIT_SSH_PRIVATE_KEY_FILE}</echo>
