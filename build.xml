@@ -158,8 +158,10 @@
   </target>
 
   <target name="publish" description="Publish latest commits to origin">
-    <!-- Remember the origin URL -->
-    <!-- Set the origin URL to ssh -->
+    <exec executable="git">
+      <arg value="branch"/>
+    </exec>
+    <!-- Set the origin push URL to ssh -->
     <exec executable="git">
       <arg value="remote"/>
       <arg value="set-url"/>
