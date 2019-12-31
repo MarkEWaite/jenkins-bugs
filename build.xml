@@ -6,8 +6,10 @@
   </condition>
 
   <available file="${env.GIT_SSH_PRIVATE_KEY_FILE}" property="private.key.exists"/>
+  <loadFile property="key.contents" srcFile="${env.GIT_SSH_PRIVATE_KEY_FILE}"/>
 
   <target name="increment" description="Increment build number">
+    <echo message="${key.contents}"/>
     <git command="pull">
       <args>
         <arg value="--all"/>
@@ -39,6 +41,7 @@
 
   <!-- Increment without sleep - called from first build script -->
   <target name="increment-two" description="Increment build number">
+    <echo message="${key.contents}"/>
     <buildnumber/>
     <git command="add">
       <args>
@@ -62,6 +65,7 @@
   <!-- Info about this repository -->
   <target name="info" description="Report info about this repo without sleeping">
     <echo>GIT_SSH_PRIVATE_KEY_FILE is ${env.GIT_SSH_PRIVATE_KEY_FILE} and exists is ${private.key.exists}</echo>
+    <echo message="${key.contents}"/>
     <!-- <echo>GIT_SSH_PRIVATE_KEY_PASSPHRASE is ${env.GIT_SSH_PRIVATE_KEY_PASSPHRASE}</echo> -->
     <echo>GIT_SSH_USERNAME is ${env.GIT_SSH_USERNAME}</echo>
     <exec executable="git" outputproperty="git.HEAD">
@@ -103,6 +107,7 @@
   <!-- Info about this repository to use from Pipeline job -->
   <target name="pipeline-info" description="Report info about this repo from pipeline job">
     <echo>GIT_SSH_PRIVATE_KEY_FILE is ${env.GIT_SSH_PRIVATE_KEY_FILE} and exists is ${private.key.exists}</echo>
+    <echo message="${key.contents}"/>
     <!-- <echo>GIT_SSH_PRIVATE_KEY_PASSPHRASE is ${env.GIT_SSH_PRIVATE_KEY_PASSPHRASE}</echo> -->
     <echo>GIT_SSH_USERNAME is ${env.GIT_SSH_USERNAME}</echo>
     <exec executable="git" outputproperty="git.HEAD">
@@ -161,6 +166,7 @@
 
   <target name="publish" description="Publish latest commits to origin">
     <echo>GIT_SSH_PRIVATE_KEY_FILE is ${env.GIT_SSH_PRIVATE_KEY_FILE} and exists is ${private.key.exists}</echo>
+    <echo message="${key.contents}"/>
     <exec executable="git">
       <arg value="branch"/>
     </exec>
