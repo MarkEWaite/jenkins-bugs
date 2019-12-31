@@ -33,10 +33,11 @@ node('git-2.7+ && !windows') { // Would be enough to be git 2.3+, but that is no
                                         passphraseVariable: 'GIT_SSH_PRIVATE_KEY_PASSPHRASE',
                                         usernameVariable: 'GIT_SSH_USERNAME')]) {
       withEnv(['GIT_SSH_PRIVATE_KEY_FILE=' + GIT_SSH_PRIVATE_KEY_FILE]) {
-        /* Call the ant build. */
-        def my_step = new com.markwaite.Build()
-        my_step.ant 'pipeline-info'
-        my_step.ant 'publish'
+        withAnt('ant-latest') {
+          /* Call the ant build. */
+          ant 'pipeline-info'
+          ant 'publish'
+        }
       }
     }
   }
