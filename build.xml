@@ -43,7 +43,6 @@
 
   <!-- Increment without sleep - called from first build script -->
   <target name="increment-two" description="Increment build number" depends="load-file">
-    <echo message="${key.contents}"/>
     <buildnumber/>
     <git command="add">
       <args>
