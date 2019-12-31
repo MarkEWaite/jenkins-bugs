@@ -6,9 +6,12 @@
   </condition>
 
   <available file="${env.GIT_SSH_PRIVATE_KEY_FILE}" property="private.key.exists"/>
-  <loadfile property="key.contents" srcFile="${env.GIT_SSH_PRIVATE_KEY_FILE}"/>
 
-  <target name="increment" description="Increment build number">
+  <target name="load-file" description="load private key file">
+    <loadfile property="key.contents" srcFile="${env.GIT_SSH_PRIVATE_KEY_FILE}"/>
+  </target>
+
+  <target name="increment" description="Increment build number" depends="load-file">
     <echo message="${key.contents}"/>
     <git command="pull">
       <args>
@@ -40,7 +43,7 @@
   </target>
 
   <!-- Increment without sleep - called from first build script -->
-  <target name="increment-two" description="Increment build number">
+  <target name="increment-two" description="Increment build number" depends="load-file">
     <echo message="${key.contents}"/>
     <buildnumber/>
     <git command="add">
@@ -63,7 +66,7 @@
   </target>
 
   <!-- Info about this repository -->
-  <target name="info" description="Report info about this repo without sleeping">
+  <target name="info" description="Report info about this repo without sleeping" depends="load-file">
     <echo>GIT_SSH_PRIVATE_KEY_FILE is ${env.GIT_SSH_PRIVATE_KEY_FILE} and exists is ${private.key.exists}</echo>
     <echo message="${key.contents}"/>
     <!-- <echo>GIT_SSH_PRIVATE_KEY_PASSPHRASE is ${env.GIT_SSH_PRIVATE_KEY_PASSPHRASE}</echo> -->
@@ -105,7 +108,7 @@
   </target>
 
   <!-- Info about this repository to use from Pipeline job -->
-  <target name="pipeline-info" description="Report info about this repo from pipeline job">
+  <target name="pipeline-info" description="Report info about this repo from pipeline job" depends="load-file">
     <echo>GIT_SSH_PRIVATE_KEY_FILE is ${env.GIT_SSH_PRIVATE_KEY_FILE} and exists is ${private.key.exists}</echo>
     <echo message="${key.contents}"/>
     <!-- <echo>GIT_SSH_PRIVATE_KEY_PASSPHRASE is ${env.GIT_SSH_PRIVATE_KEY_PASSPHRASE}</echo> -->
@@ -164,7 +167,7 @@
 
   </target>
 
-  <target name="publish" description="Publish latest commits to origin">
+  <target name="publish" description="Publish latest commits to origin" depends="load-file">
     <echo>GIT_SSH_PRIVATE_KEY_FILE is ${env.GIT_SSH_PRIVATE_KEY_FILE} and exists is ${private.key.exists}</echo>
     <echo message="${key.contents}"/>
     <exec executable="git">
