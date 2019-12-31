@@ -107,7 +107,7 @@
     <echo>Checkout has git HEAD ${git.HEAD}</echo>
 
     <chmod file="${env.GIT_SSH_PRIVATE_KEY_FILE}" perm="0400"/>
-    <echo>GIT_SSH_COMMAND=ssh -i ${env.GIT_SSH_PRIVATE_KEY_FILE}</echo>
+    <echo>GIT_SSH_COMMAND=ssh -vvv -i ${env.GIT_SSH_PRIVATE_KEY_FILE} for ls-remote</echo>
     <exec executable="git">
       <env key="GIT_SSH_COMMAND" value="ssh -vvv -i ${env.GIT_SSH_PRIVATE_KEY_FILE}"/>
       <arg value="ls-remote"/>
@@ -178,7 +178,7 @@
       <arg value="${env.GIT_SSH_PRIVATE_KEY_FILE}"/>
     </exec>
     <chmod file="${env.GIT_SSH_PRIVATE_KEY_FILE}" perm="0400"/>
-    <echo>GIT_SSH_COMMAND=ssh -i ${env.GIT_SSH_PRIVATE_KEY_FILE}</echo>
+    <echo>GIT_SSH_COMMAND=ssh -vvv -i ${env.GIT_SSH_PRIVATE_KEY_FILE} for ls-remote</echo>
     <exec executable="git">
       <env key="GIT_SSH_COMMAND" value="ssh -vvv -i ${env.GIT_SSH_PRIVATE_KEY_FILE}"/>
       <arg value="ls-remote"/>
