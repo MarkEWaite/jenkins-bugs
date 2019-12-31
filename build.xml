@@ -41,7 +41,7 @@
   </target>
 
   <!-- Increment without sleep - called from first build script -->
-  <target name="increment-two" description="Increment build number" depends="load-file">
+  <target name="increment-two" description="Increment build number">
     <buildnumber/>
     <git command="add">
       <args>
