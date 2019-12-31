@@ -35,8 +35,8 @@
         <arg value="cache"/>
       </args>
     </git>
-    <echo>sleeping 13 seconds</echo>
-    <sleep seconds="13"/> <!-- Wait long enough for job to start but not finish -->
+    <!-- <echo>sleeping 13 seconds</echo> -->
+    <!-- <sleep seconds="13"/> --> <!-- Wait long enough for job to start but not finish -->
     <echo>slept 13 seconds, awake and continuing</echo>
     <ant antfile="build.xml" dir="." target="increment-two" inheritAll="false"/>
   </target>
