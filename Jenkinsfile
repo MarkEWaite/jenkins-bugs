@@ -36,7 +36,7 @@ node('git-2.11+ && !windows') { // Would be enough to be git 2.3+, but that is n
         withAnt(installation: 'ant-latest') {
           /* Call the ant build. */
           sh 'ant pipeline-info'
-          sh 'ant publish'
+          // sh 'ant publish'
         }
       }
     }
