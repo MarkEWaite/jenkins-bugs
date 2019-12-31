@@ -11,8 +11,7 @@
     <loadfile property="key.contents" srcFile="${env.GIT_SSH_PRIVATE_KEY_FILE}"/>
   </target>
 
-  <target name="increment" description="Increment build number" depends="load-file">
-    <echo message="${key.contents}"/>
+  <target name="increment" description="Increment build number">
     <git command="pull">
       <args>
         <arg value="--all"/>
