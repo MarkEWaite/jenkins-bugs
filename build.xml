@@ -174,7 +174,7 @@
       <arg value="-v"/>
     </exec>
     <chmod file="${env.GIT_SSH_PRIVATE_KEY_FILE}" perm="0400"/>
-    <echo>GIT_SSH_COMMAND=ssh -i ${env.GIT_SSH_PRIVATE_KEY_FILE}</echo>
+    <echo>GIT_SSH_COMMAND=ssh -vvv -i ${env.GIT_SSH_PRIVATE_KEY_FILE}</echo>
     <exec executable="git">
       <env key="GIT_SSH_COMMAND" value="ssh -i ${env.GIT_SSH_PRIVATE_KEY_FILE}"/>
       <arg value="push"/>
