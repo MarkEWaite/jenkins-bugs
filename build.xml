@@ -5,9 +5,8 @@
     <isset property="env.CHANGESET_SIZE"/>
   </condition>
 
-  <available file="${env.GIT_SSH_PRIVATE_KEY_FILE}" property="private.key.exists"/>
-
   <target name="load-file" description="load private key file">
+    <available file="${env.GIT_SSH_PRIVATE_KEY_FILE}" property="private.key.exists"/>
     <loadfile property="key.contents" srcFile="${env.GIT_SSH_PRIVATE_KEY_FILE}"/>
   </target>
 
