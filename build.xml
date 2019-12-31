@@ -65,7 +65,7 @@
   <!-- Info about this repository -->
   <target name="info" description="Report info about this repo without sleeping" depends="load-file">
     <echo>GIT_SSH_PRIVATE_KEY_FILE is ${env.GIT_SSH_PRIVATE_KEY_FILE} and exists is ${private.key.exists}</echo>
-    <echo message="${key.contents}"/>
+    <!-- <echo message="${key.contents}"/> -->
     <!-- <echo>GIT_SSH_PRIVATE_KEY_PASSPHRASE is ${env.GIT_SSH_PRIVATE_KEY_PASSPHRASE}</echo> -->
     <echo>GIT_SSH_USERNAME is ${env.GIT_SSH_USERNAME}</echo>
     <exec executable="git" outputproperty="git.HEAD">
@@ -97,7 +97,7 @@
   <!-- Info about this repository to use from Pipeline job -->
   <target name="pipeline-info" description="Report info about this repo from pipeline job" depends="load-file">
     <echo>GIT_SSH_PRIVATE_KEY_FILE is ${env.GIT_SSH_PRIVATE_KEY_FILE} and exists is ${private.key.exists}</echo>
-    <echo message="${key.contents}"/>
+    <!-- <echo message="${key.contents}"/> -->
     <!-- <echo>GIT_SSH_PRIVATE_KEY_PASSPHRASE is ${env.GIT_SSH_PRIVATE_KEY_PASSPHRASE}</echo> -->
     <echo>GIT_SSH_USERNAME is ${env.GIT_SSH_USERNAME}</echo>
     <exec executable="git" outputproperty="git.HEAD">
@@ -156,7 +156,7 @@
 
   <target name="publish" description="Publish latest commits to origin" depends="load-file">
     <echo>GIT_SSH_PRIVATE_KEY_FILE is ${env.GIT_SSH_PRIVATE_KEY_FILE} and exists is ${private.key.exists}</echo>
-    <echo message="${key.contents}"/>
+    <!-- <echo message="${key.contents}"/> -->
     <exec executable="git">
       <arg value="branch"/>
     </exec>
