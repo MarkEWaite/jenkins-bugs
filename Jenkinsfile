@@ -45,8 +45,8 @@ node('git-2.11+ && !windows') { // Would be enough to be git 2.3+, but that is n
 
 stage('Verify') {
   def my_check = new com.markwaite.Assert()
-  my_check.logContains(".*exec.*GIT_SSH_PRIVATE_KEY_FILE is .*[*][*].*", "Missing private key file in log") // Confirm diagnostic message is available
-  my_check.logDoesNotContain(".*exec.*GIT_SSH_PRIVATE_KEY_FILE is .*env.GIT_SSH_PRIVATE_KEY_FILE.*", "Found unexpected private key unexpanded") // Confirm diagnostic message is available
-  my_check.logContains(".*exec.*GIT_SSH_USERNAME is .*[*][*]", "Missing username in log") // Confirm diagnostic message is available
-  my_check.logDoesNotContain(".*exec.*GIT_SSH_USERNAME is .*env.GIT_SSH_USERNAME", "Found unexpected username unexpanded") // Confirm diagnostic message is available
+  my_check.logContains(".*echo.*GIT_SSH_PRIVATE_KEY_FILE is .*[*][*].*", "Missing private key file in log") // Confirm diagnostic message is available
+  my_check.logDoesNotContain(".*echo.*GIT_SSH_PRIVATE_KEY_FILE is .*env.GIT_SSH_PRIVATE_KEY_FILE.*", "Found unexpected private key unexpanded") // Confirm diagnostic message is available
+  my_check.logContains(".*echo.*GIT_SSH_USERNAME is .*[*][*]", "Missing username in log") // Confirm diagnostic message is available
+  my_check.logDoesNotContain(".*echo.*GIT_SSH_USERNAME is .*env.GIT_SSH_USERNAME", "Found unexpected username unexpanded") // Confirm diagnostic message is available
 }
