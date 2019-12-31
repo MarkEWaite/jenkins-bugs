@@ -88,7 +88,7 @@
     </git>
 
     <!-- Wait long enough for ant increment to submit second change -->
-    <sleep seconds="33"/>
+    <!-- <sleep seconds="33"/> -->
 
     <echo>user dir is ${user.dir}</echo>
 
