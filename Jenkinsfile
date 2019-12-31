@@ -35,8 +35,8 @@ node('git-2.7+ && !windows') { // Would be enough to be git 2.3+, but that is no
       withEnv(['GIT_SSH_PRIVATE_KEY_FILE=' + GIT_SSH_PRIVATE_KEY_FILE]) {
         withAnt('ant-latest') {
           /* Call the ant build. */
-          ant 'pipeline-info'
-          ant 'publish'
+          sh 'ant pipeline-info'
+          sh 'ant publish'
         }
       }
     }
