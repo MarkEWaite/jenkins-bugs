@@ -1,27 +1,6 @@
-# [JENKINS-57587](https://issues.jenkins-ci.org/browse/JENKINS-57587) NPE on lightweight checkout
+# [JENKINS-60617](https://issues.jenkins-ci.org/browse/JENKINS-60617) Add examples of `git` pipeline step
 
-With the most basic Pipeline job from SCM with "Lightweight checkout" checked, the following NPE trace is the total job output.
-
-Unchecking "Lightweight checkout" solves the immediate NPE issue and the job completes.
-
-```
-Started by user <redacted>java.lang.NullPointerException
- at jenkins.plugins.git.GitSCMFileSystem$1.invoke(GitSCMFileSystem.java:117)
- at jenkins.plugins.git.GitSCMFileSystem$1.invoke(GitSCMFileSystem.java:114)
- at jenkins.plugins.git.GitSCMFileSystem$3.invoke(GitSCMFileSystem.java:193)
- at org.jenkinsci.plugins.gitclient.AbstractGitAPIImpl.withRepository(AbstractGitAPIImpl.java:29)
- at org.jenkinsci.plugins.gitclient.CliGitAPIImpl.withRepository(CliGitAPIImpl.java:72)
- at jenkins.plugins.git.GitSCMFileSystem.invoke(GitSCMFileSystem.java:189)
- at jenkins.plugins.git.GitSCMFileSystem.<init>(GitSCMFileSystem.java:114)
- at jenkins.plugins.git.GitSCMFileSystem$BuilderImpl.build(GitSCMFileSystem.java:353)
- at jenkins.scm.api.SCMFileSystem.of(SCMFileSystem.java:198)
- at jenkins.scm.api.SCMFileSystem.of(SCMFileSystem.java:174)
- at org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition.create(CpsScmFlowDefinition.java:108)
- at org.jenkinsci.plugins.workflow.cps.CpsScmFlowDefinition.create(CpsScmFlowDefinition.java:67)
- at org.jenkinsci.plugins.workflow.job.WorkflowRun.run(WorkflowRun.java:293)
- at hudson.model.ResourceController.execute(ResourceController.java:97)
- at hudson.model.Executor.run(Executor.java:429)
-Finished: FAILURE
-```
-
-I was unable to duplicate the problem as described in the initial bug report.
+The online documentation and the jenkins.io documentation are extracted from the git plugin.
+The most frequently requested documentation improvement is "more examples".
+The [GitStep/help.html](https://github.com/jenkinsci/git-plugin/blob/master/src/main/resources/jenkins/plugins/git/GitStep/help.html) file in the git plugin now includes multiple examples.
+This branch verifies those examples work as expected.
