@@ -42,7 +42,7 @@ pipeline {
                     }
                     logContains([expectedRegEx: '.*echo.*user dir is.*git-step-with-ssh-and-credential.*',
                                  failureMessage: 'Missing expected subdirectory git-step-with-ssh-and-credential'])
-                    logContains([expectedRegEx: '.*echo.*git origin url .*git-step-with-ssh-and-credential.* is https://github.com/jenkinsci/git-client-plugin.git',
+                    logContains([expectedRegEx: '.*echo.*git origin url .*git-step-with-ssh-and-credential.* is git@github.com:jenkinsci/git-client-plugin.git',
                                  failureMessage: 'Missing expected origin url git-client-plugin.git for git-step-with-ssh-and-credential'])
                 }
 
