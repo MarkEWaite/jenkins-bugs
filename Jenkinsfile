@@ -11,7 +11,7 @@ pipeline {
         stage("Build") {
             steps {
                 dir('git-step-with-defaults') {
-                    deleteDir
+                    deleteDir()
                     git 'https://github.com/jenkinsci/git-plugin'
                     withAnt(installation: 'ant-latest', jdk: 'jdk8') {
                         sh 'ant -f ../build.xml info'
