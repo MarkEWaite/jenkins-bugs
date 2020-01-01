@@ -33,6 +33,18 @@ pipeline {
                     logContains([expectedRegEx: '.*echo.*git origin url .*git-step-with-https-and-branch.* is https://github.com/jenkinsci/jenkins.git',
                                  failureMessage: 'Missing expected origin url jenkins.git for git-step-with-https-and-branch'])
                 }
+                dir('git-step-with-ssh-and-credential') {
+                    deleteDir()
+                    git credentialsId: 'MarkEWaite-github-rsa-private-key',
+                        url: 'git@github.com:jenkinsci/git-client-plugin.git'
+                    withAnt(installation: 'ant-latest', jdk: 'jdk8') {
+                        sh 'ant -f ../build.xml info'
+                    }
+                    logContains([expectedRegEx: '.*echo.*user dir is.*git-step-with-ssh-and-credential.*',
+                                 failureMessage: 'Missing expected subdirectory git-step-with-ssh-and-credential'])
+                    logContains([expectedRegEx: '.*echo.*git origin url .*git-step-with-ssh-and-credential.* is https://github.com/jenkinsci/git-client-plugin.git',
+                                 failureMessage: 'Missing expected origin url git-client-plugin.git for git-step-with-ssh-and-credential'])
+                }
 
             }
         }
