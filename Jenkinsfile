@@ -58,7 +58,18 @@ pipeline {
                     logContains([expectedRegEx: '.*echo.*git origin url .*git-step-with-https-and-changelog.* is https://github.com/jenkinsci/credentials-plugin.git',
                                  failureMessage: 'Missing expected origin url credentials-plugin.git for git-step-with-https-and-changelog'])
                 }
-
+                dir('git-step-with-git-and-polling') {
+                    deleteDir()
+                    git poll: false,
+                        url: 'git://github.com/jenkinsci/platformlabeler-plugin.git'
+                    withAnt(installation: 'ant-latest', jdk: 'jdk8') {
+                        sh 'ant -f ../build.xml info'
+                    }
+                    logContains([expectedRegEx: '.*echo.*user dir is.*git-step-with-git-and-polling.*',
+                                 failureMessage: 'Missing expected subdirectory git-step-with-git-and-polling'])
+                    logContains([expectedRegEx: '.*echo.*git origin url .*git-step-with-git-and-polling.* is git://github.com/jenkinsci/platformlabeler-plugin.git',
+                                 failureMessage: 'Missing expected origin url platformlabeler-plugin.git for git-step-with-git-and-polling'])
+                }
             }
         }
     }
