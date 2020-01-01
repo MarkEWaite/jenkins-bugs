@@ -25,6 +25,12 @@
     <echo>java is ${java.version}</echo>
     <!-- JENKINS-60617 provides examples of the git pipeline step. -->
     <echo>user dir is ${user.dir}</echo>
+    <!-- Report remote.origin.url for working directory - different for each example -->
+    <exec executable="git" outputproperty="git.config.origin.url" dir="${user.dir}" failifexecutionfails="true">
+      <arg value="config"/>
+      <arg value="remote.origin.url"/>
+    </exec>
+    <echo>git origin url for ${user.dir} is ${git.config.origin.url}</echo>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
