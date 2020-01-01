@@ -23,15 +23,15 @@ pipeline {
                 }
                 dir('git-step-with-https-and-branch') {
                     deleteDir()
-                    git branch: 'stable-2.204',
-                        url: 'https://github.com/jenkinsci/jenkins.git'
+                    git branch: 'stable-2.x',
+                        url: 'https://github.com/jenkinsci/git-client-plugin.git'
                     withAnt(installation: 'ant-latest', jdk: 'jdk8') {
                         sh 'ant -f ../build.xml info'
                     }
                     logContains([expectedRegEx: '.*echo.*user dir is.*git-step-with-https-and-branch.*',
                                  failureMessage: 'Missing expected subdirectory git-step-with-https-and-branch'])
-                    logContains([expectedRegEx: '.*echo.*git origin url .*git-step-with-https-and-branch.* is https://github.com/jenkinsci/jenkins.git',
-                                 failureMessage: 'Missing expected origin url jenkins.git for git-step-with-https-and-branch'])
+                    logContains([expectedRegEx: '.*echo.*git origin url .*git-step-with-https-and-branch.* is https://github.com/jenkinsci/git-client-plugin.git',
+                                 failureMessage: 'Missing expected origin url git-client-plugin.git for git-step-with-https-and-branch'])
                 }
                 dir('git-step-with-ssh-and-credential') {
                     deleteDir()
