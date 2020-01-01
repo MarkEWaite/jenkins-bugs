@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage("Build") {
             steps {
-                // Each example uses a separate subdirectory named based on the example
+                // Each check uses a separate subdirectory named based on the example
                 dir('git-step-with-defaults') {
                     deleteDir()
                     git 'https://github.com/jenkinsci/git-plugin'
