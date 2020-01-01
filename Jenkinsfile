@@ -18,6 +18,8 @@ pipeline {
                     }
                     logContains([expectedRegEx: '.*echo.*user dir is.*git-step-with-defaults.*',
                                  failureMessage: 'Missing expected subdirectory git-step-with-defaults'])
+                    logContains([expectedRegEx: '.*echo.*git origin url .*git-step-with-defaults.* is https://github.com/jenkinsci/git-plugin',
+                                 failureMessage: 'Missing expected origin url git-plugin for git-step-with-defaults'])
                 }
             }
         }
