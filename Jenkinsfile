@@ -9,6 +9,13 @@ properties([[$class: 'BuildDiscarderProperty', strategy: [$class: 'LogRotator', 
 
 def branch = 'JENKINS-42860'
 
+def userRemoteConfigsIn = scm.userRemoteConfigs
+
+def userRemoteConfigsIn_url           = scm.userRemoteConfigs[0].url
+def userRemoteConfigsIn_name          = scm.userRemoteConfigs[0].name
+def userRemoteConfigsIn_refspec       = scm.userRemoteConfigs[0].refspec
+def userRemoteConfigsIn_credentialsId = scm.userRemoteConfigs[0].credentialsId
+
 node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
@@ -17,7 +24,7 @@ node {
                              [$class: 'LocalBranch', localBranch: branch]
                             ],
                 gitTool: scm.gitTool,
-                userRemoteConfigs: scm.userRemoteConfigs])
+                userRemoteConfigs: userRemoteConfigsIn])
   }
 
   stage('Build') {
