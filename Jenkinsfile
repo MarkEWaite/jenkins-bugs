@@ -20,6 +20,13 @@ def branchesIn = scm.branches
 
 def branchesIn_name = scm.branches[0].name
 
+def doGenerateSubmoduleConfigurationsIn = scm.doGenerateSubmoduleConfigurations
+
+def submoduleCfgIn = scm.submoduleCfg
+
+def submoduleCfgIn_submoduleName = scm.submoduleCfg[0].submoduleName
+def submoduleCfgIn_branches0     = scm.submoduleCfg[0].branches[0]
+
 node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
