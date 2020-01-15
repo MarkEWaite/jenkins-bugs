@@ -31,7 +31,15 @@ if (submoduleCfgIn) {
     echo 'No scm.submoduleCfg, did not read properties'
 }
 
+// Needs more work to read nested choice of objects assigned to browser
 def browserIn = scm.browser
+
+def gitToolIn = scm.gitTool
+
+def extensionsIn = scm.extensions
+
+echo "extensionsIn is $extensionsIn"
+echo "extensionsIn[0] is $extensionsIn[0]"
 
 node {
   stage('Checkout') {
