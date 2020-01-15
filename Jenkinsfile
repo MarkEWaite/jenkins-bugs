@@ -16,15 +16,21 @@ def userRemoteConfigsIn_name          = scm.userRemoteConfigs[0].name
 def userRemoteConfigsIn_refspec       = scm.userRemoteConfigs[0].refspec
 def userRemoteConfigsIn_credentialsId = scm.userRemoteConfigs[0].credentialsId
 
+def branchesIn = scm.branches
+
+def branchesIn_name = scm.branches[0].name
+
 node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
-                branches: scm.branches,
-                extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                             [$class: 'LocalBranch', localBranch: branch]
-                            ],
-                gitTool: scm.gitTool,
-                userRemoteConfigs: userRemoteConfigsIn])
+              userRemoteConfigs: userRemoteConfigsIn,
+              branches: branchesIn,
+              extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+                           [$class: 'LocalBranch', localBranch: branch]
+                          ],
+              gitTool: scm.gitTool,
+            ]
+        )
   }
 
   stage('Build') {
