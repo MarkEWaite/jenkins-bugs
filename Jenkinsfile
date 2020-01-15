@@ -20,7 +20,7 @@ def branchesIn = scm.branches
 
 def branchesIn_name = scm.branches[0].name
 
-def doGenerateSubmoduleConfigurationsIn = scm.doGenerateSubmoduleConfigurations
+def doGenerateSubmoduleConfigurationsIn = scm.doGenerateSubmoduleConfigurations // untested with 'true' value, no known uses
 
 def submoduleCfgIn = scm.submoduleCfg
 
@@ -31,17 +31,18 @@ if (submoduleCfgIn) {
     echo 'No scm.submoduleCfg, did not read properties'
 }
 
-// Needs more work to read nested choice of objects assigned to browser
-def browserIn = scm.browser
-
 def gitToolIn = scm.gitTool
 
 def extensionsIn = scm.extensions
 
+// Needs more work to confirm extension properties are correctly whitelisted
 echo "extensionsIn is $extensionsIn"
 for (extension in extensionsIn) {
     echo "extension is ${extension}"
 }
+
+// Needs more work to read nested choice of objects assigned to browser
+def browserIn = scm.browser
 
 node {
   stage('Checkout') {
