@@ -39,7 +39,9 @@ def gitToolIn = scm.gitTool
 def extensionsIn = scm.extensions
 
 echo "extensionsIn is $extensionsIn"
-echo "extensionsIn[0] is ${extensionsIn[0]}"
+for (extension in extensionsIn) {
+    echo "extension is ${extension}"
+}
 
 node {
   stage('Checkout') {
