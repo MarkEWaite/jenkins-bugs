@@ -31,6 +31,8 @@ if (submoduleCfgIn) {
     echo 'No scm.submoduleCfg, did not read properties'
 }
 
+def browserIn = scm.browser
+
 node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
