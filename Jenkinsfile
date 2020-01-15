@@ -27,6 +27,8 @@ def submoduleCfgIn = scm.submoduleCfg
 if (submoduleCfgIn) {
     def submoduleCfgIn_submoduleName = scm.submoduleCfg[0]?.submoduleName
     def submoduleCfgIn_branches0     = scm.submoduleCfg[0]?.branches[0]
+} else {
+    echo 'No scm.submoduleCfg, did not read properties'
 }
 
 node {
