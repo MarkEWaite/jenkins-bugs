@@ -42,7 +42,8 @@ for (extension in extensionsIn) {
 }
 
 // Needs more work to read nested choice of objects assigned to browser
-def browserIn = scm.browser
+// Needs to be whitelisted on the hudson.scm.SCM object, not the git plugin
+// def browserIn = scm.browser
 
 node {
   stage('Checkout') {
