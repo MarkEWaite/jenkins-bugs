@@ -16,6 +16,8 @@ def userRemoteConfigsIn_name          = scm.userRemoteConfigs[0].name
 def userRemoteConfigsIn_refspec       = scm.userRemoteConfigs[0].refspec
 def userRemoteConfigsIn_credentialsId = scm.userRemoteConfigs[0].credentialsId
 
+echo "Read userRemoteConfig[ url: $userRemoteConfigsIn_url, name: $userRemoteConfigsIn_name, refspec: $userRemoteConfigsIn_refspec, credentialsId: $userRemoteConfigsIn_credentialsId ]"
+
 def branchesIn = scm.branches
 
 def branchesIn_name = scm.branches[0].name
