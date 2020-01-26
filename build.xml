@@ -25,7 +25,8 @@
     <echo>java is ${java.version}</echo>
     <!-- JENKINS-44277 confirmation check - declarative checkout to subdirectory. -->
     <echo>user dir is ${user.dir}</echo>
-    <fileset id="dir.contents" dir="test-subdirectory" includes="**"/> 
+    <echo>base dir is ${basedir}</echo>
+    <fileset id="dir.contents" dir="." includes="**"/> 
     <property name="prop.dir.contents" refid="dir.contents"/>
     <echo>test-subdirectory contains ${prop.dir.contents}</echo>
   </target>
