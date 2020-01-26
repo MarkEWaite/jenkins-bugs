@@ -3,7 +3,9 @@
 @Library('globalPipelineLibraryMarkEWaite') _
 
 pipeline {
-    agent any
+    agent {
+        label '!windows'
+    }
     options {
         checkoutToSubdirectory('test-subdirectory')
         quietPeriod(29)
