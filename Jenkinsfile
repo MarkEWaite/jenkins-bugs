@@ -3,18 +3,24 @@
 @Library('globalPipelineLibraryMarkEWaite') _
 
 pipeline {
-    agent {
-        label '!windows'
+    agent any
+    options {
+        checkoutToSubdirectory('test-subdirectory')
+        quietPeriod(29)
     }
 
     stages {
         stage("Build") {
+            options {
+                timeout(time: 7, unit: 'MINUTES')
+                timestamps()
+            }
             steps {
                 withAnt(installation: 'ant-latest', jdk: 'jdk8') {
                     sh 'ant info'
                 }
-                logContains([expectedRegEx: '.*java is.*',
-                             failureMessage: 'Missing expected java version report'])
+                logContains([expectedRegEx: '.*echo. user dir is .*test-subdirectory.*',
+                             failureMessage: 'Missing expected subdirectory'])
             }
         }
     }
