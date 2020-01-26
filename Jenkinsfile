@@ -19,8 +19,8 @@ pipeline {
                 withAnt(installation: 'ant-latest', jdk: 'jdk8') {
                     sh 'ant -f test-subdirectory/build.xml info'
                 }
-                logContains([expectedRegEx: '.*echo. user dir is .*test-subdirectory.*',
-                             failureMessage: 'Missing expected subdirectory'])
+                logContains([expectedRegEx: '.*echo. test-subdirectory contains .*build.xml.*',
+                             failureMessage: 'Missing expected test-subdirectory contents'])
             }
         }
     }

@@ -25,6 +25,8 @@
     <echo>java is ${java.version}</echo>
     <!-- JENKINS-44277 confirmation check - declarative checkout to subdirectory. -->
     <echo>user dir is ${user.dir}</echo>
+    <dirset id="subdir.contents" dir="test-subdirectory" includes="*"/>
+    <echo>test-subdirectory contains ${subdir.contents}</echo>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
