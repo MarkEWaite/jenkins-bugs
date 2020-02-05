@@ -14,6 +14,7 @@ pipeline {
     stages {
         stage("Build") {
             steps {
+                deleteDir() // One time wipe entire workspace
                 // Initial checkout to provide build.xml at root of workspace
                 checkout([$class: 'GitSCM',
                           branches: [
