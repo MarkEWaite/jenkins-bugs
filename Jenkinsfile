@@ -7,6 +7,10 @@ pipeline {
         label '!windows'
     }
 
+    options {
+        skipDefaultCheckout()
+    }
+
     stages {
         stage("Build") {
             steps {
