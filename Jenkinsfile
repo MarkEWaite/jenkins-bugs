@@ -14,6 +14,15 @@ pipeline {
     stages {
         stage("Build") {
             steps {
+                // Initial checkout to provide build.xml
+                checkout([$class: 'GitSCM',
+                          branches: [[name: 'JENKINS-60617']],
+                          extensions: [
+                              [$class: 'CloneOption', depth: 1, honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: true],
+                          ],
+                          userRemoteConfigs: [
+                              [refspec: '+refs/heads/JENKINS-60617:refs/remotes/origin/JENKINS-60617', url: 'https://github.com/MarkEWaite/jenkins-bugs']]
+                         ])
                 // Each check uses a separate subdirectory named based on the example
                 dir('git-step-with-defaults') {
                     deleteDir()
