@@ -32,10 +32,9 @@ pipeline {
         }
         stage("Parallel Subdirs") {
             parallel {
-                stage('Defaults') {
+                stage('Defaults: git plugin') {
                     steps {
                         dir('git-step-with-defaults') {
-                            deleteDir()
                             git 'https://github.com/jenkinsci/git-plugin'
                             withAnt(installation: 'ant-latest', jdk: 'jdk8') {
                                 sh 'ant -f ../build.xml info'
@@ -47,10 +46,9 @@ pipeline {
                         }
                     }
                 }
-                stage('Branch') {
+                stage('Branch: git client plugin') {
                     steps {
                         dir('git-step-with-https-and-branch') {
-                            deleteDir()
                             git branch: 'stable-2.x',
                                 url: 'https://github.com/jenkinsci/git-client-plugin.git'
                             withAnt(installation: 'ant-latest', jdk: 'jdk8') {
@@ -63,10 +61,9 @@ pipeline {
                         }
                     }
                 }
-                stage('Credentials') {
+                stage('Credentials: git client plugin') {
                     steps {
                         dir('git-step-with-ssh-and-credential') {
-                            deleteDir()
                             git credentialsId: 'MarkEWaite-github-rsa-private-key',
                                 url: 'git@github.com:jenkinsci/git-client-plugin.git'
                             withAnt(installation: 'ant-latest', jdk: 'jdk8') {
@@ -79,10 +76,9 @@ pipeline {
                         }
                     }
                 }
-                stage('No changelog') {
+                stage('No changelog: credentials plugin') {
                     steps {
                         dir('git-step-with-https-and-changelog') {
-                            deleteDir()
                             git changelog: false,
                                 url: 'https://github.com/jenkinsci/credentials-plugin.git'
                             withAnt(installation: 'ant-latest', jdk: 'jdk8') {
@@ -95,10 +91,9 @@ pipeline {
                         }
                     }
                 }
-                stage('No poll') {
+                stage('No poll:platform labeler plugin') {
                     steps {
                         dir('git-step-with-git-and-polling') {
-                            deleteDir()
                             git poll: false,
                                 url: 'git://github.com/jenkinsci/platformlabeler-plugin.git'
                             withAnt(installation: 'ant-latest', jdk: 'jdk8') {
