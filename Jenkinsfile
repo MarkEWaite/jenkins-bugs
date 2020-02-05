@@ -14,14 +14,18 @@ pipeline {
     stages {
         stage("Build") {
             steps {
-                // Initial checkout to provide build.xml
+                // Initial checkout to provide build.xml at root of workspace
                 checkout([$class: 'GitSCM',
-                          branches: [[name: 'JENKINS-60617']],
+                          branches: [
+                              [name: 'JENKINS-60617']
+                          ],
                           extensions: [
                               [$class: 'CloneOption', depth: 1, honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: true],
+                              [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [[path: 'build.xml']]], // exactly one file we need, nothing else
                           ],
                           userRemoteConfigs: [
-                              [refspec: '+refs/heads/JENKINS-60617:refs/remotes/origin/JENKINS-60617', url: 'https://github.com/MarkEWaite/jenkins-bugs']]
+                              [refspec: '+refs/heads/JENKINS-60617:refs/remotes/origin/JENKINS-60617', url: 'https://github.com/MarkEWaite/jenkins-bugs']
+                          ]
                          ])
                 // Each check uses a separate subdirectory named based on the example
                 dir('git-step-with-defaults') {
