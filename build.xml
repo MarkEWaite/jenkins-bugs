@@ -25,6 +25,8 @@
   <!-- Info about this repository -->
   <target name="info" description="Report info about this repo">
     <echo>env.BRANCH is ${env.BRANCH}</echo>
+    <echo>env.GIT_BRANCH is ${env.GIT_BRANCH}</echo>
+    <echo>env.GIT_COMMIT is ${env.GIT_COMMIT}</echo>
     <echo>java is ${java.version}</echo>
     <!-- JENKINS-60617 provides examples of the git pipeline step. -->
     <echo>user dir is ${user.dir}</echo>
