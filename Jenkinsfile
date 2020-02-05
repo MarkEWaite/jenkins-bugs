@@ -14,7 +14,6 @@ pipeline {
     stages {
         stage("Build") {
             steps {
-                deleteDir() // One time wipe entire workspace
                 // Initial checkout to provide build.xml at root of workspace
                 checkout([$class: 'GitSCM',
                           branches: [
@@ -27,7 +26,8 @@ pipeline {
                           userRemoteConfigs: [
                               [refspec: '+refs/heads/JENKINS-60617:refs/remotes/origin/JENKINS-60617', url: 'https://github.com/MarkEWaite/jenkins-bugs']
                           ]
-                         ])
+                         ]
+                )
                 // Each check uses a separate subdirectory named based on the example
                 dir('git-step-with-defaults') {
                     deleteDir()
