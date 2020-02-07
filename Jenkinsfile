@@ -16,7 +16,7 @@ pipeline {
     stages {
         stage("Build") {
             steps {
-                checkout(poll: true,
+                env = checkout(poll: true,
                          scm: [$class: 'GitSCM',
                                branches: [[name: 'JENKINS-26100-declarative-skipDefaultCheckout']],
                                extensions: [
