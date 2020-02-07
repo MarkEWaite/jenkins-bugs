@@ -16,8 +16,7 @@ pipeline {
         stage("Build") {
             steps {
                 script {
-                    results = checkout(poll: true,
-                                       scm: [$class: 'GitSCM',
+                    results = checkout(scm: [$class: 'GitSCM',
                                              branches: [[name: 'JENKINS-26100-declarative-skipDefaultCheckout']],
                                              extensions: [
                                                           [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
