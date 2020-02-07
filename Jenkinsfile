@@ -17,18 +17,19 @@ pipeline {
         stage("Build") {
             steps {
                 script {
-                    env = checkout(poll: true,
-                             scm: [$class: 'GitSCM',
-                                   branches: [[name: 'JENKINS-26100-declarative-skipDefaultCheckout']],
-                                   extensions: [
-                                                [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                                                [$class: 'LocalBranch', localBranch: '**'],
-                                               ],
-                                   gitTool: scm.gitTool,
-                                   userRemoteConfigs: scm.userRemoteConfigs])
-                    echo "echo reports GIT_COMMIT after checkout is ${GIT_COMMIT}"     // groovy string interpolation
-                    sh "sh reports gstring GIT_COMMIT after checkout is ${GIT_COMMIT}" // groovy string interpolation, no shell expansion required
-                    sh 'sh reports shell GIT_COMMIT after checkout is ${GIT_COMMIT}'   // no groovy string interpolation, rely on shell to expand GIT_COMMIT reference
+                    results = checkout(poll: true,
+                                       scm: [$class: 'GitSCM',
+                                             branches: [[name: 'JENKINS-26100-declarative-skipDefaultCheckout']],
+                                             extensions: [
+                                                          [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+                                                          [$class: 'LocalBranch', localBranch: '**'],
+                                                         ],
+                                             gitTool: scm.gitTool,
+                                             userRemoteConfigs: scm.userRemoteConfigs])
+
+                    echo "echo reports GIT_COMMIT after checkout is ${results.GIT_COMMIT}"     // groovy string interpolation
+                    sh "sh reports gstring GIT_COMMIT after checkout is ${results.GIT_COMMIT}" // groovy string interpolation, no shell expansion required
+                    sh 'sh reports shell GIT_COMMIT after checkout is ${results.GIT_COMMIT}'   // no groovy string interpolation, rely on shell to expand GIT_COMMIT reference
                 }
                 sh 'ant info'
                 logContains([expectedRegEx: '.*java is.*',
