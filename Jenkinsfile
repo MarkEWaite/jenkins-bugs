@@ -12,7 +12,6 @@ pipeline {
     options {
         skipDefaultCheckout(true)
     }
-
     stages {
         stage("Build") {
             steps {
@@ -26,7 +25,6 @@ pipeline {
                                                          ],
                                              gitTool: scm.gitTool,
                                              userRemoteConfigs: scm.userRemoteConfigs])
-
                     echo "echo reports GIT_COMMIT after checkout is ${results.GIT_COMMIT}"     // groovy string interpolation
                     sh "sh reports gstring GIT_COMMIT after checkout is ${results.GIT_COMMIT}" // groovy string interpolation, no shell expansion required
                     sh 'sh reports shell GIT_COMMIT after checkout is ${results.GIT_COMMIT}'   // no groovy string interpolation, rely on shell to expand GIT_COMMIT reference
