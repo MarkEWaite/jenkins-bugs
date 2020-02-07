@@ -18,7 +18,7 @@ pipeline {
             steps {
                 checkout(poll: true,
                          scm: [$class: 'GitSCM',
-                               branches: [[name: 'JENKINS-33202']],
+                               branches: [[name: 'JENKINS-26100-declarative-skipDefaultCheckout']],
                                extensions: [
                                             [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                                             [$class: 'LocalBranch', localBranch: '**'],
