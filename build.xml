@@ -52,6 +52,7 @@
   </target>
 
   <target name="increment" description="Increment build number">
+    <exec executable="hostname" outputproperty="increment.hostname"/>
     <git command="pull">
       <args>
         <arg value="--all"/>
@@ -61,7 +62,7 @@
     <git command="commit">
       <args>
         <arg value="-m"/>
-        <arg value="[${ant.project.name}] ${user.name} build++, was ${build.number}"/>
+        <arg value="[${ant.project.name}] ${user.name} on ${increment.hostname} build++, was ${build.number}"/>
         <arg value="build.number"/>
       </args>
     </git>
