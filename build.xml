@@ -65,6 +65,9 @@
         <arg value="build.number"/>
       </args>
     </git>
+  </target>
+
+  <target name="increment-and-push" depends="increment" description="Increment build number and push to remote repository">
     <git command="push"/>
   </target>
 
