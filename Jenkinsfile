@@ -1,7 +1,7 @@
 pipeline {
   agent none
   options {
-    durabilityHint('MAX_SURVIVABILITY')
+    durabilityHint('MAX_SURVIVABILITY') // Should be most disc intensive
   }
   stages {
     stage('JENKINS-59785') {
@@ -12,11 +12,11 @@ pipeline {
           }
           when {
             anyOf {
-              changeset "build*r"
               changeset "LICENSE"
               changeset "README*"
               changeset "build*l"
               changeset "*.xml"
+              changeset "build*r"
               changeset "build.*"
               changeset "*.number"
               changeset "*num*r"
