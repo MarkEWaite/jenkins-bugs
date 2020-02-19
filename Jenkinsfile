@@ -26,7 +26,7 @@ pipeline {
             ws(dir: WORKSPACE + '/windows-dir') {
               echo 'Workspace inside windows ws is ' + WORKSPACE
             }
-            bat 'echo hello windows from %COMPUTERNAME%'
+            bat 'echo hello windows from %COMPUTERNAME% && dir build.xml'
             bat 'if not exist build.xml exit 1'
           }
         }
