@@ -1,5 +1,5 @@
 pipeline {
-  agent none
+  agent any
   options {
     durabilityHint('MAX_SURVIVABILITY')
   }
