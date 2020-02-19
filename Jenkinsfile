@@ -1,7 +1,7 @@
 pipeline {
   agent none
   options {
-    durabilityHint('SURVIVABLE_NONATOMIC')
+    durabilityHint('PERFORMANCE_OPTIMIZED')
   }
   stages {
     stage('JENKINS-59785') {
