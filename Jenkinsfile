@@ -4,7 +4,7 @@ pipeline {
     durabilityHint('MAX_SURVIVABILITY')
   }
   stages {
-    stage('parallel') {
+    stage('JENKINS-59785') {
       parallel {
         stage('windows') {
           agent { 
@@ -30,7 +30,7 @@ pipeline {
             bat 'if not exist build.xml exit 1'
           }
         }
-        stage('linux') {
+        stage('unix') {
           agent {
             label '!windows'
           }
@@ -50,10 +50,10 @@ pipeline {
             }
           }
           steps {
-            ws(dir: WORKSPACE + '/linux-dir') {
-              echo 'Workspace inside linux ws is ' + WORKSPACE
+            ws(dir: WORKSPACE + '/unix-dir') {
+              echo 'Workspace inside unix ws is ' + WORKSPACE
             }
-            sh 'echo hello linux from `hostname`'
+            sh 'echo hello unix from `hostname`; ls build.xml'
             sh '[ -f build.xml ] || exit 1'
           }
         }
