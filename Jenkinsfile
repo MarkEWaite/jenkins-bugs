@@ -32,7 +32,7 @@ pipeline {
         }
         stage('linux') {
           agent {
-            label 'linux'
+            label '!windows'
           }
           when {
             anyOf {
