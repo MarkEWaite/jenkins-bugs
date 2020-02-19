@@ -2,6 +2,7 @@ pipeline {
   agent none
   options {
     durabilityHint('MAX_SURVIVABILITY') // Should be most disc intensive
+    buildDiscarder logRotator(numToKeepStr: '60')
   }
   stages {
     stage('JENKINS-59785') {
