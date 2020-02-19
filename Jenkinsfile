@@ -12,13 +12,14 @@ pipeline {
           }
           when {
             anyOf {
-              changeset "build.*"
               changeset "build*r"
               changeset "LICENSE"
+              changeset "README*"
+              changeset "build*l"
+              changeset "*.xml"
+              changeset "build.*"
               changeset "*.number"
               changeset "*num*r"
-              changeset "README*"
-              changeset "*.xml"
             }
           }
           steps {
@@ -38,8 +39,6 @@ pipeline {
           when {
             anyOf {
               changeset "LICENSE"
-              changeset "*.number"
-              changeset "*.n*r"
               changeset "README*"
               changeset "R*md"
               changeset "RE*md"
@@ -48,6 +47,8 @@ pipeline {
               changeset "READM*md"
               changeset "README.md"
               changeset "*.xml"
+              changeset "*.number"
+              changeset "*.n*r"
             }
           }
           steps {
