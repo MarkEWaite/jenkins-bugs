@@ -11,4 +11,5 @@ bug verification. It is an imperfect attempt to accelerate interactive
 testing of Jenkins bug reports while allowing some reuse of the work to
 test those bug reports.
 
-The master branch is also used in several freestyle jobs.
+The master branch is used in several freestyle jobs and is branched to JENKINS-61120.
+Pull requests may be submitted against the master branch from JENKINS-61120.
