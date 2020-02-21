@@ -20,22 +20,30 @@ pipeline {
                 echo "scm.userRemoteConfigs is ${scm.userRemoteConfigs}"
                 echo "scm.userRemoteConfigs[0].url is ${scm.userRemoteConfigs[0].url}"
                 sh "env | sort"
-                checkout(
-                  [ $class: 'GitSCM',
-                    branches: [[name: "refs/heads/${env.BRANCH_NAME}"]],
-                    extensions: [
-                      [ $class: 'CloneOption', depth: 1, honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: true],
-                      [ $class: 'LocalBranch', localBranch: "${env.BRANCH_NAME}"],
-                      [ $class: 'PruneStaleBranch']
-                    ],
-                    gitTool: scm.gitTool,
-                    userRemoteConfigs: [
-                      [ refspec: "+refs/heads/*:refs/remotes/origin/* +refs/heads/pr/*:refs/remotes/origin/pr/*",
-                        url: scm.userRemoteConfigs[0].url
+                script {
+                    def adapted_branch_name
+                    if (env.BRANCH_NAME.startsWith('PR-') {
+                        adapted_branch_name = "pr/${env.BRANCH_NAME}"
+                    } else {
+                        adapted_branch_name = env.BRANCH_NAME
+                    }
+                    checkout(
+                      [ $class: 'GitSCM',
+                        branches: [[name: "refs/heads/${adapted_branch_name}"]],
+                        extensions: [
+                          [ $class: 'CloneOption', depth: 1, honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: true],
+                          [ $class: 'LocalBranch', localBranch: "${adapted_branch_name}"],
+                          [ $class: 'PruneStaleBranch']
+                        ],
+                        gitTool: scm.gitTool,
+                        userRemoteConfigs: [
+                          [ refspec: "+refs/heads/*:refs/remotes/origin/* +refs/heads/pr/*:refs/remotes/origin/pr/*",
+                            url: scm.userRemoteConfigs[0].url
+                          ]
+                        ]
                       ]
-                    ]
-                  ]
-                )
+                    )
+                }
                 sh "ant info"
             }
         }
