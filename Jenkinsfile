@@ -22,7 +22,7 @@ pipeline {
                 sh "env | sort"
                 script {
                     def adapted_branch_name
-                    if (env.BRANCH_NAME.startsWith('PR-') {
+                    if (env.BRANCH_NAME.startsWith('PR-')) {
                         adapted_branch_name = "pr/${env.BRANCH_NAME}"
                     } else {
                         adapted_branch_name = env.BRANCH_NAME
