@@ -36,7 +36,7 @@ pipeline {
                     ]
                   ]
                 )
-                sh "ls -alt"
+                sh "ant info"
             }
         }
     }
