@@ -15,11 +15,11 @@ pipeline {
     stages {
         stage("Checkout") {
             steps {
-                // echo "Branch is ${env.BRANCH_NAME}"
-                // echo "scm is ${scm}"
-                // echo "scm.userRemoteConfigs is ${scm.userRemoteConfigs}"
-                // echo "scm.userRemoteConfigs[0].url is ${scm.userRemoteConfigs[0].url}"
-                // sh "env | sort"
+                echo "Branch is ${env.BRANCH_NAME}"
+                echo "scm is ${scm}"
+                echo "scm.userRemoteConfigs is ${scm.userRemoteConfigs}"
+                echo "scm.userRemoteConfigs[0].url is ${scm.userRemoteConfigs[0].url}"
+                sh "env | sort"
                 checkout(
                   [ $class: 'GitSCM',
                     branches: [[name: "refs/heads/${env.BRANCH_NAME}"]],
@@ -30,7 +30,7 @@ pipeline {
                     ],
                     gitTool: scm.gitTool,
                     userRemoteConfigs: [
-                      [ refspec: "+refs/heads/${env.BRANCH_NAME}:refs/remotes/origin/${env.BRANCH_NAME} +refs/heads/pr/*:refs/remotes/origin/pr/*",
+                      [ refspec: "+refs/heads/*:refs/remotes/origin/* +refs/heads/pr/*:refs/remotes/origin/pr/*",
                         url: scm.userRemoteConfigs[0].url
                       ]
                     ]
