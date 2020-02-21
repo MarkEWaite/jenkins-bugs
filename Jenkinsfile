@@ -17,8 +17,9 @@ pipeline {
             steps {
                 echo "Branch is ${env.BRANCH_NAME}"
                 echo "scm is ${scm}"
-                echo "scm is ${scm.userRemoteConfigs}"
-                echo "scm is ${scm.userRemoteConfigs[0].url}"
+                echo "scm.userRemoteConfigs is ${scm.userRemoteConfigs}"
+                echo "scm.userRemoteConfigs[0].url is ${scm.userRemoteConfigs[0].url}"
+                sh "ls -alt"
                 sh "env | sort"
             }
         }
