@@ -29,11 +29,7 @@ pipeline {
                       [ $class: 'PruneStaleBranch' ]
                     ],
                     gitTool: scm.gitTool,
-                    userRemoteConfigs: [
-                      [ refspec: scm.userRemoteConfigs[0].refspec,
-                        url: scm.userRemoteConfigs[0].url
-                      ]
-                    ]
+                    userRemoteConfigs: scm.userRemoteConfigs
                   ]
                 )
                 sh "ant info"
