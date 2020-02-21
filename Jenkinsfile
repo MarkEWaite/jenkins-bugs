@@ -16,6 +16,9 @@ pipeline {
         stage("Checkout") {
             steps {
                 echo "Branch is ${env.BRANCH_NAME}"
+                echo "scm is ${scm}"
+                echo "scm is ${scm.userRemoteConfigs}"
+                echo "scm is ${scm.userRemoteConfigs[0].url}"
                 sh "env | sort"
             }
         }
