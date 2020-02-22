@@ -32,7 +32,7 @@ node {
         ])
       }
     } catch(err) {
-      echo "Exception ${err} ignored from checkout"
+      echo "Exception ${err}"
     }
   }
 
