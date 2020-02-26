@@ -1,5 +1,7 @@
 #!groovy
 
+@Library('globalPipelineLibraryMarkEWaite') _
+
 pipeline {
     agent {
         label '!windows' // allow sh step
