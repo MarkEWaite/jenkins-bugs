@@ -15,10 +15,6 @@ pipeline {
     stages {
         stage("Checkout") {
             steps {
-                // echo "scm is ${scm}"
-                // echo "scm.userRemoteConfigs is ${scm.userRemoteConfigs}"
-                // echo "scm.userRemoteConfigs[0].url is ${scm.userRemoteConfigs[0].url}"
-                // sh "env | sort"
                 echo "**** Branch is ${env.BRANCH_NAME} ****"
                 checkout(
                   [ $class: 'GitSCM',
@@ -32,7 +28,7 @@ pipeline {
                     userRemoteConfigs: scm.userRemoteConfigs // Assumes the multibranch pipeline checkout remoteconfig is good enough
                   ]
                 )
-                sh "ant info"
+                sh 'ant info'
             }
         }
     }
