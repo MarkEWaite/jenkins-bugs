@@ -95,5 +95,5 @@ rm $cookie_file $args_file
 # cat $query_output
 # echo === End of output from query with crumb
 
-# Check for message that should always be in every scan log
-echo -n "**** Count of git fetch: " ; grep -c 'git fetch' $query_output
+# Count calls to git fetch made on the agent (after 'Running on ...')
+echo -n "**** Count of git fetch: " ; grep -A 999 'Running on' $query_output | grep -c 'git fetch'
