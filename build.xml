@@ -20,14 +20,13 @@
     </git>
   </target>
 
-  <!-- Info about this repository with 'First' message -->
+  <!-- Info about this repository -->
   <target name="info" description="Report info about this repo">
-    <exec executable="git" outputproperty="git.HEAD">
-      <arg value="rev-parse"/>
-      <arg value="HEAD"/>
-    </exec>
-    <echo>Git HEAD is ${git.HEAD}</echo>
+    <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
+    <!-- JENKINS-49757 duplicate git fetch commands -->
+    <exec executable="./countGitFetchCalls" failonerror="true"/>
+    <echo>countGitFetchCalls script exited normally</echo>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
