@@ -22,7 +22,7 @@ pipeline {
                             extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git']],
                             gitTool: scm.gitTool,
                             userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
-                                                refspec: '+refs/heads/JENKINS-52059-declarative:refs/remotes/origin/JENKINS-52059-declarative']]])
+                                                refspec: '+refs/heads/JENKINS-49757-declarative:refs/remotes/origin/JENKINS-49757-declarative']]])
           sh 'ant info'
           logContains(expectedRegEx: ".*Git HEAD is ${scmVars.GIT_COMMIT}.*",
                       failureMessage: "Missing checkout return of GIT_COMMIT value '${scmVars.GIT_COMMIT}'")
