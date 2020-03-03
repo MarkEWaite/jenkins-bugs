@@ -19,8 +19,8 @@ node {
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                             ],
                 gitTool: scm.gitTool,
-                userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
-                                    refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}"]]])
+                userRemoteConfigs: scm.userRemoteConfigs
+                ])
     /* Call the ant build. */
     def my_step = new com.markwaite.Build()
     my_step.ant 'info' /* Message from first checkout */	  
