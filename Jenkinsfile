@@ -17,7 +17,7 @@ node('!cloud && !windows') { // Must have http access to master and must have sh
                 branches: scm.branches,
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                             ],
-                gitTool: scm.gitTool, // Test only applies to command line git
+                gitTool: 'git', // Test only applies to command line git
                 userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: scm.userRemoteConfigs[0].url]]
             ])
     /* Call the ant build. */
