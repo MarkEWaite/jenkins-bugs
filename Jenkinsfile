@@ -10,7 +10,7 @@ properties([[$class: 'BuildDiscarderProperty',
 
 def branch = 'JENKINS-49757'
 
-node('!cloud && !windows') {
+node('!cloud && !windows') { // Must have http access to master and must have sh step available
   stage('Checkout') {
     deleteDir() // Must wipe directory to see duplicate fetch
     checkout([$class: 'GitSCM',
