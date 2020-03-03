@@ -12,6 +12,7 @@ def branch = 'JENKINS-49757'
 
 node('!cloud && !windows') {
   stage('Checkout') {
+    deleteDir()
     checkout([$class: 'GitSCM',
                 branches: scm.branches,
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
