@@ -86,8 +86,9 @@ prefix=$RANDOM
 
 # Use the crumb to query the log
 
+# echo "Querying console log with crumb $crumb"
+
 query_output=${prefix}-crumbfull
-echo "Querying console log with crumb $crumb"
 curl -s -H "$crumb" --cookie $cookie_file $USER_ARG -X POST $JENKINS_BUILD_URL/consoleText -o $query_output
 rm $cookie_file $args_file
 
