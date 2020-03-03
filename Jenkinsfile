@@ -10,7 +10,7 @@ properties([[$class: 'BuildDiscarderProperty',
 
 def branch = 'JENKINS-49757'
 
-node {
+node('!cloud && !windows') {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
                 branches: scm.branches,
