@@ -23,6 +23,6 @@ node('!cloud && !windows') {
     def my_step = new com.markwaite.Build()
     my_step.ant 'info' /* Message from first checkout */	  
     def my_check = new com.markwaite.Assert()
-    my_check.logContains(".*Count of git fetch: 2.*", "Wrong git fetch count")
+    my_check.logContains(".*Count of git fetch on agent: 1.*", "Wrong git fetch count")
   }
 }

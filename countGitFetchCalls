@@ -97,4 +97,4 @@ rm $cookie_file $args_file
 # echo === End of output from query with crumb
 
 # Count calls to git fetch made on the agent (after 'Running on ...')
-echo -n "**** Count of git fetch: " ; grep -A 999 'Running on' $query_output | grep -c 'git fetch'
+echo -n "**** Count of git fetch on agent: " ; grep -A 999 'Running on' $query_output | grep -c 'git fetch'
