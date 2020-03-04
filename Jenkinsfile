@@ -15,7 +15,7 @@ pipeline {
         checkout([$class: 'GitSCM',
                   branches: scm.branches,
                   extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git']],
-                  gitTool: 'git', // Command line git only
+                  gitTool: 'Default', // Command line git only
                   userRemoteConfigs: scm.userRemoteConfigs
                 ])
         sh 'ant info'
