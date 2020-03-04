@@ -18,9 +18,9 @@ pipeline {
                   gitTool: 'git', // Command line git only
                   userRemoteConfigs: scm.userRemoteConfigs
                 ])
-          sh 'ant info'
-          logContains(expectedRegEx: ".*Count of git fetch on agent: 1.*",
-                      failureMessage: "Wrong git fetch count in declarative pipeline")
+        sh 'ant info'
+        logContains(expectedRegEx: ".*Count of git fetch on agent: 1.*",
+                    failureMessage: "Wrong git fetch count in declarative pipeline")
       }
     }
   }
