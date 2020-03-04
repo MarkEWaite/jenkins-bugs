@@ -4,7 +4,7 @@
 
 pipeline {
   agent {
-    label '!windows && !cloud' // Need http access to Jenkins server
+    label '!windows && !cloud && linux' // Need http access to Jenkins server and a /bin/bash program
   }
   tools {
     ant 'ant-latest'
