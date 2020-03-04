@@ -1,4 +1,3 @@
-# [JENKINS-52059](https://issues.jenkins-ci.org/browse/JENKINS-52059) pipeline checkout scm populates environment
+# [JENKINS-49757](https://issues.jenkins-ci.org/browse/JENKINS-49757) Duplicate fetch in declarative pipeline checkout
 
-The declarative pipeline checkout step does populates the environment
-with GIT_* values like GIT_COMMIT.
+The fetch is duplicated in checkout.  That is especially bad with large repositories.
