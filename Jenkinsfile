@@ -24,6 +24,6 @@ node('!cloud && !windows') { // Must have http access to master and must have sh
     def my_step = new com.markwaite.Build()
     my_step.ant 'info'
     def my_check = new com.markwaite.Assert()
-    my_check.logContains(".*Count of git fetch on agent: 1.*", "Wrong git fetch count")
+    my_check.logContains(".*Count of git fetch on agent: 1.*", "Wrong git fetch count in scripted pipeline")
   }
 }
