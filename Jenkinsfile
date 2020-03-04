@@ -15,6 +15,7 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
+        deleteDir()
         checkout([$class: 'GitSCM',
                   branches: scm.branches,
                   extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git']],
