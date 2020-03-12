@@ -1,7 +1,7 @@
 <project name="JENKINS-42020" default="increment" basedir=".">
 
   <property environment="env"/>
-  <condition property="changeLogCount" value="${env.CHANGESET_SIZE}" else="0">
+  <condition property="changeLogCount" value="${env.CHANGESET_SIZE}" else="1">
     <isset property="env.CHANGESET_SIZE"/>
   </condition>
 
