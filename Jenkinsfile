@@ -28,8 +28,6 @@ pipeline {
                     echo "echo reports GIT_COMMIT after checkout is ${results.GIT_COMMIT}"
                     sh "echo sh reports groovy string GIT_COMMIT after checkout is ${results.GIT_COMMIT}"
                 }
-                // Shell variable interpolation in this example
-                sh 'env | sort'
                 sh 'ant info'
                 logContains([expectedRegEx: '.*java is.*',
                              failureMessage: 'Missing expected java version report'])
