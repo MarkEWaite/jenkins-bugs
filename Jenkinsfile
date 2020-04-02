@@ -27,6 +27,8 @@ pipeline {
                     // groovy string interpolation in both examples
                     echo "echo reports GIT_COMMIT after checkout is ${results.GIT_COMMIT}"
                     sh "echo sh reports groovy string GIT_COMMIT after checkout is ${results.GIT_COMMIT}"
+                    // Shell variable interpolation in this example
+                    sh 'echo shell expands GIT_COMMIT to ${GIT_COMMIT}'
                 }
                 sh 'ant info'
                 logContains([expectedRegEx: '.*java is.*',
