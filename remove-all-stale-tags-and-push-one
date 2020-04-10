@@ -19,6 +19,10 @@ for remote in origin cache bare; do
     echo Setting remote.$remote.pruneTags true
     git config remote.$remote.pruneTags true
   fi
+  if ! git config --list | grep -q -i alias.pull-a.*true; then
+    echo Setting alias.pull-a true to hide the pull-a command in this repo
+    git config alias.pull-a '!true'
+  fi
 done
 
 echo
