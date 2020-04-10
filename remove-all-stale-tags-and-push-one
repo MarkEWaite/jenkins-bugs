@@ -21,8 +21,8 @@ for remote in origin cache bare; do
   fi
 done
 
-# Remove local tags
-for tag in $(git tag); do
+# Remove local tags except the one allowed to remain
+for tag in $(git tag | grep -v $tag_name); do
   git tag -d $tag
 done
 
@@ -37,6 +37,6 @@ done
 # Create and push one allowed tag
 git tag -a -m "Tag $tag_name created by $0" $tag_name
 for remote in origin cache bare; do
-  git pull --prune --prune-tags $remote
+  git fetch --prune --prune-tags --no-tags $remote
   git push $remote $tag_name
 done
