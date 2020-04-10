@@ -21,22 +21,27 @@ for remote in origin cache bare; do
   fi
 done
 
-# Remove local tags except the one allowed to remain
+echo
+echo Remove local tags except the one allowed to remain
+echo 
 for tag in $(git tag | grep -v $tag_name); do
   git tag -d $tag
 done
 
-# Remove stale remote tags except the one allowed to remain
+echo
+echo Remove stale remote tags except the one allowed to remain
+echo
 for remote in origin cache bare; do
-  for tag in $(git ls-remote $remote --tags | grep stale/ | grep -v $tag_name); do
-    echo deleting $remote tag $tag
+  for tag in $(git ls-remote --tags $remote | grep stale/ | grep -v $tag_name | grep -F -v '^{}' | sed 's!^.*refs/tags/!!g'); do
+    echo deleting tag $tag on remote $remote
     git push $remote --delete $tag
   done
 done
 
-# Create and push one allowed tag
+echo
+echo Create and push one allowed tag
+echo
 git tag -a -m "Tag $tag_name created by $0" $tag_name
 for remote in origin cache bare; do
-  git fetch --prune --prune-tags --no-tags $remote
   git push $remote $tag_name
 done
