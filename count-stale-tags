@@ -1,4 +1,7 @@
 #!/bin/bash
 
+git tag -l | grep stale/
+
+echo
 echo -n "Count of stale git tags is "
 git tag -l | grep stale/ | wc -l
