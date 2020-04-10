@@ -8,7 +8,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-node('!windows && aws-ope') {
+node('!windows') {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
                 branches: scm.branches,
