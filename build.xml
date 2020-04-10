@@ -45,7 +45,7 @@
     <echo>user dir is ${user.dir}</echo>
     <!-- JENKINS-40529 adds stale tag removal on fetch -->
     <exec executable="./count-stale-tags"/>
-    <echo file="workspace-use-history" append="true" message="Workspace used by build ID ${env.BUILD_NUMBER}"/>
+    <echo file="workspace-use-history" append="true" message="Workspace used by build number ${env.BUILD_NUMBER}"/>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
