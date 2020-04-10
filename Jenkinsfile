@@ -8,6 +8,8 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
+def workspace_reused = false
+
 node('!windows') {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
@@ -17,6 +19,9 @@ node('!windows') {
                             ],
                 gitTool: scm.gitTool,
                 userRemoteConfigs: scm.userRemoteConfigs])
+    if (fileExists('workspace-use-history')) {
+      workspace_reused = true
+    }
   }
 
   stage('Build') {
@@ -26,7 +31,11 @@ node('!windows') {
   }
 
   stage('Verify') {
-    def my_check = new com.markwaite.Assert()
-    my_check.logContains(".*Count of stale git tags is 1.*", "Expected 1 stale git tag. Wrong count of stale git tags")
+    // Assertion only relevant when a workspace is reused
+    // Relies on build.xml info target writing workspace-use-history file
+    if (workspace_reused) {
+      def my_check = new com.markwaite.Assert()
+      my_check.logContains(".*Count of stale git tags is 1.*", "Expected 1 stale git tag. Wrong count of stale git tags")
+    }
   }
 }

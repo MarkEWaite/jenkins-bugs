@@ -1,7 +1,17 @@
 #!/bin/bash
 
+echo
+echo "List of 'stale' tags in current workspace"
+echo
+
 git tag -l | grep stale/
 
-echo
-echo -n "Count of stale git tags is "
-git tag -l | grep stale/ | wc -l
+if [ -f workspace-use-history ]; then
+  echo
+  echo -n "Count of stale git tags is "
+  git tag -l | grep stale/ | wc -l
+else
+  echo
+  echo "Intentionally not reporting count of stale tags in this new workspace"
+  echo "Count of stale git tags is not relevant in a workspace that has only been used once"
+fi
