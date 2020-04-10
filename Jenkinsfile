@@ -15,7 +15,7 @@ node('!windows') {
     checkout([$class: 'GitSCM',
                 branches: scm.branches,
                 extensions: [[$class: 'CloneOption', honorRefspec: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                             [$class: 'PruneStaleTag'], // Expected to fail due to JENKINS-61869
+                             [pruneTags(true)],
                             ],
                 gitTool: scm.gitTool,
                 userRemoteConfigs: scm.userRemoteConfigs])
