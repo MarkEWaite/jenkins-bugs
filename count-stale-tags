@@ -6,7 +6,9 @@ echo
 
 git tag -l | grep stale/
 
-if [ -f workspace-use-history ]; then
+tagCount=$( git tag -l | grep -c stale/ )
+
+if [ -f workspace-use-history -o $tagCount -gt 1 ]; then
   echo
   echo -n "Count of stale git tags is "
   git tag -l | grep stale/ | wc -l
