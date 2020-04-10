@@ -8,7 +8,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-node('!windows && testing-a') {
+node('!windows && ibm-s390-agent') {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
                 branches: scm.branches,
