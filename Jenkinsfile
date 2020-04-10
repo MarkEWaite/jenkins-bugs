@@ -35,7 +35,7 @@ node('!windows') {
     // Relies on build.xml info target writing workspace-use-history file
     if (workspace_reused) {
       def my_check = new com.markwaite.Assert()
-      my_check.logContains(".*Count of stale git tags is 1.*", "Expected 1 stale git tag. Wrong count of stale git tags")
+      my_check.logContains(".*Count of stale git tags is 1$", "Expected 1 stale git tag. Wrong count of stale git tags")
     }
   }
 }
