@@ -8,7 +8,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-node('!windows') {
+node('!windows && testing-a') {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
                 branches: scm.branches,
