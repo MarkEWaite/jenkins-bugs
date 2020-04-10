@@ -3,13 +3,6 @@
   <property name="tag.base" value="stale/JENKINS-40529"/>
 
   <target name="increment" description="Increment build number">
-    <git command="pull">
-      <args>
-        <arg value="--all"/>
-        <arg value="--prune"/>
-        <arg value="--force"/>
-      </args>
-    </git>
     <buildnumber/>
     <git command="add">
       <args>
@@ -22,30 +15,27 @@
         <arg value="[${ant.project.name}] build++, was ${build.number}"/>
       </args>
     </git>
-    <!-- Delete existing tag -->
-    <git command="tag">
+    <exec executable="./remove-all-stale-tags-and-push-one">
+      <arg value="${tag.base}-${build.number}"/>
+    </exec>
+    <git command="push">
       <args>
-        <arg value="-d"/>
-        <arg value="${tag.base}"/>
-      </args>
-    </git>
-    <!-- Create new tag -->
-    <git command="tag">
-      <args>
-        <arg value="-a"/>
-        <arg value="-m"/>
-        <arg value="Tag [${ant.project.name}] build++, was ${build.number}"/>
-        <arg value="${tag.base}-${build.number}"/>
+        <arg value="origin"/>
+        <arg value="--tags"/>
       </args>
     </git>
     <git command="push">
       <args>
-        <arg value="origin"/>
+        <arg value="cache"/>
+        <arg value="--tags"/>
       </args>
     </git>
-    <exec executable="./remove-all-stale-tags-and-push-one">
-      <arg value="${tag.base}-${build.number}"/>
-    </exec>
+    <git command="push">
+      <args>
+        <arg value="bare"/>
+        <arg value="--tags"/>
+      </args>
+    </git>
   </target>
 
   <!-- Info about this repository -->
