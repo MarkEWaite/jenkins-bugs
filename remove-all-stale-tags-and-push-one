@@ -43,5 +43,6 @@ echo Create and push one allowed tag
 echo
 git tag -a -m "Tag $tag_name created by $0" $tag_name
 for remote in origin cache bare; do
+  git push $remote
   git push $remote $tag_name
 done
