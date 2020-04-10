@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# Remove all but one tag from the stale/* tags
+
+[ "$1" == "" ] && { echo Must provide a tag name to create; exit 1; }
+tag_name=$1
+
+# Set local configuration
+for remote in origin cache bare; do
+  if ! git config --list | grep -q -i remote.$remote.fetch.*tags/stale; then
+    echo Adding remote.$remote.fetch
+    git config --add remote.$remote.fetch '+refs/tags/stale/*:refs/tags/stale/*'
+  fi
+  if ! git config --list | grep -q -i remote.$remote.tagOpt.*no-tags; then
+    echo Setting remote.$remote.tagOpt --no-tags
+    git config remote.$remote.tagOpt --no-tags
+  fi
+  if ! git config --list | grep -q -i remote.$remote.pruneTags.*true; then
+    echo Setting remote.$remote.pruneTags true
+    git config remote.$remote.pruneTags true
+  fi
+done
+
+# Remove local tags
+for tag in $(git tag); do
+  git tag -d $tag
+done
+
+# Remove stale remote tags except the one allowed to remain
+for remote in origin cache bare; do
+  for tag in $(git ls-remote $remote --tags | grep stale/ | grep -v $tag_name); do
+    echo deleting $remote tag $tag
+    git push $remote --delete $tag
+  done
+done
+
+# Create and push one allowed tag
+git tag -a -m "Tag $tag_name created by $0" $tag_name
+for remote in origin cache bare; do
+  git pull --prune --prune-tags $remote
+  git push $remote $tag_name
+done
