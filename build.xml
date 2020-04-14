@@ -1,4 +1,4 @@
-<project name="JENKINS-60617" default="increment" basedir=".">
+<project name="JENKINS-58503" default="increment" basedir=".">
 
   <property environment="env"/>
 
@@ -28,7 +28,7 @@
     <echo>env.GIT_BRANCH is ${env.GIT_BRANCH}</echo>
     <echo>env.GIT_COMMIT is ${env.GIT_COMMIT}</echo>
     <echo>java is ${java.version}</echo>
-    <!-- JENKINS-60617 provides examples of the git pipeline step. -->
+    <!-- JENKINS-58503 provides examples of the git checkout step using symbols. -->
     <echo>user dir is ${user.dir}</echo>
     <!-- Report remote.origin.url for working directory - different for each example -->
     <exec executable="git" outputproperty="git.config.origin.url" dir="${user.dir}" failifexecutionfails="true">
