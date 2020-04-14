@@ -1,6 +1,3 @@
-# [JENKINS-60617](https://issues.jenkins-ci.org/browse/JENKINS-60617) Add examples of `git` pipeline step
+# [JENKINS-58503](https://issues.jenkins-ci.org/browse/JENKINS-58503) Add examples of `checkout` step with symbols
 
-The online documentation and the jenkins.io documentation are extracted from the git plugin.
-The most frequently requested documentation improvement is "more examples".
-The [GitStep/help.html](https://github.com/jenkinsci/git-plugin/blob/master/src/main/resources/jenkins/plugins/git/GitStep/help.html) file in the git plugin now includes multiple examples.
-This branch verifies those examples work as expected.
+Simplify checkout step descriptions by adding symbols for steps.
