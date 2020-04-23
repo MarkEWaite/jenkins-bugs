@@ -28,7 +28,7 @@ pipeline {
                     userRemoteConfigs: scm.userRemoteConfigs // Assumes the multibranch pipeline checkout remoteconfig is good enough
                   ]
                 )
-                sh 'ant info'
+                sh( script: 'ant info', label: 'Info target from Apache ant' )
             }
         }
     }
