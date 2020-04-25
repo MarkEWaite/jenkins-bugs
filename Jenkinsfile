@@ -17,7 +17,6 @@ node {
     checkout([$class: 'GitSCM',
         branches: [[name: branch]],
         browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
-        doGenerateSubmoduleConfigurations: false,
         extensions: [
             [$class: 'CloneOption', honorRefspec: true, noTags: false, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
             [$class: 'LocalBranch', localBranch: branch]],
