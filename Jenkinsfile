@@ -18,7 +18,6 @@ node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
                 branches: [[name: branch]],
-                doGenerateSubmoduleConfigurations: false,
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                              [$class: 'DisableRemotePoll'],
                             ],
