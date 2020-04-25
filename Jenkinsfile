@@ -13,7 +13,6 @@ node {
     checkout([$class: 'GitSCM',
                 branches: [[name: 'JENKINS-48818']],
                 browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
-                doGenerateSubmoduleConfigurations: false,
                 extensions: [
                     [$class: 'CleanBeforeCheckout'],
                     [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/bugs/jenkins-bugs.git'],
@@ -23,7 +22,6 @@ node {
                     // [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [[path: 'build.xml'], [path: 'Jenkinsfile'], [path: 'build.number'], [path: 'modules']]],
                 ],
                 gitTool: 'Default', // JGitAPIImpl doesn't fully support submodules or sparse checkout
-                submoduleCfg: [],
                 userRemoteConfigs: [[name: 'origin', refspec: '+refs/heads/JENKINS-48818:refs/remotes/origin/JENKINS-48818', url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
   }
 
