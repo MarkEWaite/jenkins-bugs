@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Remove extra remotes from this repository
+# Adjust git configuration to not reference those remotes
+
+git remote remove bare  > /dev/null 2>&1
+git remote remove cache > /dev/null 2>&1
+
+git config --local alias.pull-a "pull --prune"
+git config --local alias.push-a "push --prune"
+git config --local alias.fetch-a "fetch --prune"
+
+exit 0
