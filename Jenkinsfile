@@ -27,7 +27,6 @@ node('!windows && git-1.8+') {
                 userRemoteConfigs: [ scm.userRemoteConfigs[0], httpsRemoteConfig ]])
 
     checkout([$class: 'GitSCM', branches: [[name: '*/master']], 
-	      doGenerateSubmoduleConfigurations: false, 
 	      extensions: [], gitTool: 'Default', submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs']]])
 
     sh 'touch .gitmodules'
