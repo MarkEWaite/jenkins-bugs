@@ -1,7 +1,5 @@
 <project name="JENKINS-47496" default="increment" basedir=".">
 
-  <property name="tags.arg" value="--tags"/>
-
   <target name="increment" description="Increment build number">
     <git command="pull" />
     <buildnumber/>
@@ -10,6 +8,7 @@
         <arg value="build.number"/>
       </args>
     </git>
+    <property name="tag.name" value="${ant.project.name}-1.0.${build.number}"/>
     <git command="commit">
       <args>
         <arg value="-m"/>
@@ -34,7 +33,7 @@
     <git command="push">
       <args>
         <arg value="origin"/>
-        <arg value="${tags.arg}"/>
+        <arg value="${tag.name}"/>
       </args>
     </git>
     <git command="push">
@@ -45,7 +44,7 @@
     <git command="push">
       <args>
         <arg value="cache"/>
-        <arg value="${tags.arg}"/>
+        <arg value="${tag.name}"/>
       </args>
     </git>
     <git command="push">
@@ -56,7 +55,7 @@
     <git command="push">
       <args>
         <arg value="bare"/>
-        <arg value="${tags.arg}"/>
+        <arg value="${tag.name}"/>
       </args>
     </git>
   </target>
