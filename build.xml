@@ -20,8 +20,8 @@
       <args>
         <arg value="-a"/>
         <arg value="-m"/>
-        <arg value="Annotated tag for ${ant.project.name} build 1.0.${build.number}"/>
-        <arg value="${ant.project.name}-1.0.${build.number}"/>
+        <arg value="Annotated tag comment for ${tag.name}"/>
+        <arg value="${tag.name}"/>
         <arg value="HEAD^"/>
       </args>
     </git>
