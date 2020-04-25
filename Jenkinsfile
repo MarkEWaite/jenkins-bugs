@@ -19,7 +19,6 @@ node {
     echo "Branch specifier is ${branch}"
     checkout([$class: 'GitSCM',
               branches: [[name: "${branch}"]],
-              doGenerateSubmoduleConfigurations: false,
               submoduleCfg: [],
               userRemoteConfigs: [[name: 'origin',
                                   refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}",
