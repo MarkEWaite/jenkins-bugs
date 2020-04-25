@@ -2,7 +2,7 @@
 
   <!-- This depends on not having cache or bare as remotes in the repo -->
   <target name="remove-extra-remotes">
-    <exec command="./remove-extra-remotes"/>
+    <exec executable="./remove-extra-remotes"/>
   </target>
 
   <target name="increment" description="Increment build number" depends="remove-extra-remotes">
