@@ -5,9 +5,9 @@ pipeline {
     buildDiscarder logRotator(numToKeepStr: '60')
   }
   stages {
-    stage('JENKINS-59785') {
+    stage("JENKINS-59785 ${GIT_COMMIT}") {
       parallel {
-        stage('windows') {
+        stage("windows ${BUILD_NUMBER}") {
           agent { 
             label 'windows'
           }
@@ -32,7 +32,7 @@ pipeline {
             bat 'if not exist build.xml exit 1'
           }
         }
-        stage('unix') {
+        stage("unix ${BUILD_ID}") {
           agent {
             label '!windows'
           }
