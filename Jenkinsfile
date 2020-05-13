@@ -10,7 +10,7 @@ properties([[$class: 'BuildDiscarderProperty',
 
 def workspace_reused = false
 
-node('!windows') {
+node('(freebsd || openbsd) && !windows') {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
                 branches: scm.branches,
