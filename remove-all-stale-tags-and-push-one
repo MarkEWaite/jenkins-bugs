@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Remove all but one tag from the stale/* tags
 
