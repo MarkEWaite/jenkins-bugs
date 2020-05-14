@@ -9,7 +9,7 @@
         <arg value="build.number"/>
       </args>
     </git>
-    <exec executable="/bin/bash">
+    <exec executable="/bin/sh">
       <arg value="toggle-Jenkinsfile-symlink"/>
     </exec>
   </target>
