@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Call the Jenkins /git/notifyCommit URL with git repo url
 #
