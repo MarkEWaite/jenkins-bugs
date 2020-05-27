@@ -12,6 +12,9 @@ properties([
 
 node {
   stage('Checkout') {
+
+    def res0nanceExtensionsB = scm.extensions
+
     def res0nanceExtensionsA = [
                 [$class: 'AuthorInChangelog'],
                 [$class: 'CheckoutOption', timeout: 10],
