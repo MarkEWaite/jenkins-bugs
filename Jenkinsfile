@@ -37,6 +37,7 @@ node {
                 gitTool: scm.gitTool,
                 extensions: scm.extensions + [
                   [$class: 'AuthorInChangelog'],
+                  [$class: 'CheckoutOption', timeout: 10],
                   [$class: 'CleanBeforeCheckout'],
                   [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '../.git', shallow: true],
                   [$class: 'LocalBranch', localBranch: 'JENKINS-43931'],
