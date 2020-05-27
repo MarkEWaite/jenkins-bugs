@@ -7,15 +7,10 @@ import com.markwaite.Build
 /* Only keep the 10 most recent builds. */
 properties([
             [$class: 'BuildDiscarderProperty', strategy: [$class: 'LogRotator', numToKeepStr: '10']],
-            durabilityHint('MAX_SURVIVABILITY'),
            ])
 
 node {
   stage('Checkout') {
-
-    // res0nanceExtensionsC = scm.extensions
-
-    // def res0nanceExtensionsB = scm.extensions
 
     checkout([$class: 'GitSCM',
               userRemoteConfigs: [[name: 'bugs-origin',
@@ -26,11 +21,9 @@ node {
               gitTool: scm.gitTool,
               extensions: scm.extensions + [
                 [$class: 'AuthorInChangelog'],
-                [$class: 'CheckoutOption', timeout: 10],
                 [$class: 'CleanBeforeCheckout'],
                 [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                 [$class: 'LocalBranch', localBranch: 'JENKINS-43931'],
-                [$class: 'SubmoduleOption', recursiveSubmodules: true, parentCredentials: true, timeout: 10],
               ],
              ])
 
@@ -46,11 +39,9 @@ node {
                 gitTool: scm.gitTool,
                 extensions: scm.extensions + [
                   [$class: 'AuthorInChangelog'],
-                  [$class: 'CheckoutOption', timeout: 10],
                   [$class: 'CleanBeforeCheckout'],
                   [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '../.git', shallow: true],
                   [$class: 'LocalBranch', localBranch: 'JENKINS-43931'],
-                  [$class: 'SubmoduleOption', recursiveSubmodules: true, parentCredentials: true, timeout: 10],
                 ],
                ])
     }
