@@ -15,24 +15,6 @@ node {
 
     def res0nanceExtensionsB = scm.extensions
 
-    def res0nanceExtensionsA = [
-                [$class: 'AuthorInChangelog'],
-                [$class: 'CheckoutOption', timeout: 10],
-                [$class: 'CleanBeforeCheckout'],
-                [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                [$class: 'LocalBranch', localBranch: 'JENKINS-43931'],
-                [$class: 'SubmoduleOption', recursiveSubmodules: true, parentCredentials: true, timeout: 10],
-              ]
-
-    def res0nanceExtensions = scm.extensions + [
-                [$class: 'AuthorInChangelog'],
-                [$class: 'CheckoutOption', timeout: 10],
-                [$class: 'CleanBeforeCheckout'],
-                [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                [$class: 'LocalBranch', localBranch: 'JENKINS-43931'],
-                [$class: 'SubmoduleOption', recursiveSubmodules: true, parentCredentials: true, timeout: 10],
-              ]
-
     checkout([$class: 'GitSCM',
               userRemoteConfigs: [[name: 'bugs-origin',
                                    refspec: '+refs/heads/JENKINS-43931:refs/remotes/bugs-origin/JENKINS-43931',
