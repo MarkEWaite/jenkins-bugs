@@ -13,6 +13,8 @@ properties([
 node {
   stage('Checkout') {
 
+    res0nanceExtensionsC = scm.extensions
+
     // def res0nanceExtensionsB = scm.extensions
 
     checkout([$class: 'GitSCM',
