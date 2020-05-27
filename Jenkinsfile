@@ -19,9 +19,11 @@ node {
               gitTool: scm.gitTool,
               extensions: scm.extensions + [
                 [$class: 'AuthorInChangelog'],
+                [$class: 'CheckoutOption', timeout: 10],
                 [$class: 'CleanBeforeCheckout'],
                 [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                 [$class: 'LocalBranch', localBranch: 'JENKINS-43931'],
+                [$class: 'SubmoduleOption', recursiveSubmodules: true, parentCredentials: true, timeout: 10],
               ],
              ])
 
@@ -41,6 +43,7 @@ node {
                   [$class: 'CleanBeforeCheckout'],
                   [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '../.git', shallow: true],
                   [$class: 'LocalBranch', localBranch: 'JENKINS-43931'],
+                  [$class: 'SubmoduleOption', recursiveSubmodules: true, parentCredentials: true, timeout: 10],
                 ],
                ])
     }
