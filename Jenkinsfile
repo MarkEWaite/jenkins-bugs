@@ -13,7 +13,7 @@ properties([
 node {
   stage('Checkout') {
 
-    res0nanceExtensionsC = scm.extensions
+    // res0nanceExtensionsC = scm.extensions
 
     // def res0nanceExtensionsB = scm.extensions
 
