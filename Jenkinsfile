@@ -13,7 +13,7 @@ properties([
 node {
   stage('Checkout') {
 
-    def res0nanceExtensionsB = scm.extensions
+    // def res0nanceExtensionsB = scm.extensions
 
     checkout([$class: 'GitSCM',
               userRemoteConfigs: [[name: 'bugs-origin',
