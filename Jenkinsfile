@@ -24,7 +24,7 @@ pipeline {
                             userRemoteConfigs: [[url: 'ssh://git@github.com/MarkEWaite/jenkins-bugs.git',
                                                  credentialsId: 'MarkEWaite-github-rsa-private-key-has-passphrase',
                                                  refspec: '+refs/heads/JENKINS-62579-Владислав-Ненашев:refs/remotes/origin/JENKINS-62579-Владислав-Ненашев']]])
-          sh 'ant info'
+          bat 'ant info'
           logContains(expectedRegEx: ".*Git HEAD is ${scmVars.GIT_COMMIT}.*",
                       failureMessage: "Missing checkout return of GIT_COMMIT value '${scmVars.GIT_COMMIT}'")
         }
