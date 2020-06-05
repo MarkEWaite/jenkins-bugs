@@ -4,7 +4,8 @@
 
 pipeline {
   agent {
-    label 'git-1.8 || git-1.7'
+    // label 'git-1.8 || git-1.7' // Shows the problem
+    label 'git-1.9+' // Does not show the problem
   }
   tools {
     ant 'ant-latest'
@@ -21,8 +22,7 @@ pipeline {
                             branches: scm.branches,
                             extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git']],
                             gitTool: scm.gitTool,
-                            // userRemoteConfigs: [[url: 'ssh://git@github.com/MarkEWaite/jenkins-bugs.git',
-                            userRemoteConfigs: [[url: 'git@github.com:MarkEWaite/jenkins-bugs.git',
+                            userRemoteConfigs: [[url: 'ssh://git@github.com/MarkEWaite/jenkins-bugs.git',
                                                  credentialsId: 'MarkEWaite-github-rsa-private-key-has-passphrase',
                                                  refspec: '+refs/heads/JENKINS-62534-plink:refs/remotes/origin/JENKINS-62534-plink']]])
           sh 'ant info'
