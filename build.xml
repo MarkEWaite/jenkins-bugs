@@ -1,4 +1,4 @@
-<project name="JENKINS-62579" default="increment" basedir=".">
+<project name="JENKINS-62579-Владислав-Ненашев" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
     <git command="pull">
