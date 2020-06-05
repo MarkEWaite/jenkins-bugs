@@ -3,7 +3,9 @@
 @Library('globalPipelineLibraryMarkEWaite') _
 
 pipeline {
-  agent any
+  agent {
+    label 'git-1.8 || git-1.7'
+  }
   tools {
     ant 'ant-latest'
   }
