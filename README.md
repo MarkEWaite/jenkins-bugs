@@ -1,29 +1,19 @@
-# [JENKINS-62534](https://issues.jenkins-ci.org/browse/JENKINS-62534) job with plink in name fails to clone
+# [JENKINS-62579](https://issues.jenkins-ci.org/browse/JENKINS-62579) job with cyrillic in name fails to clone on windows
 
- Any job containing the word "plink" fails to clone with command line git 1.7 (CentOS 6) and command line git 1.8 (CentOS 7).
- Since we are using a multi-branch pipeline, this causes any branch with the word "plink" to mysteriously fail.
-
-The logs show this strange error message.
+When starting the freestyle job on the Windows agent it is not possible to clone the git repository (doesn't matter ssh or https) if the folder name in Jenkins is written in Cyrillic.
 
 ```
-stderr: getaddrinfo: atch: Name or service not known
+ERROR: Error cloning remote repo 'origin'
+hudson.plugins.git.GitException: Command "git fetch --tags --progress – https://repo_url/repo.git +refs/heads/:refs/remotes/origin/" returned status code 128:
+stdout:
+stderr: The system cannot find the path specified.
+The system cannot find the path specified.
+error: unable to read askpass response from 'D:\jenkins_slave\workspace\Тест\windows_https_clone@tmp\jenkins-gitclient-pass0123456789123456789.bat'
+fatal: could not read Password for 'https://repo_url/repo.git': terminal prompts disabled
 ```
-
-Then it tries to use the port from the URL as if were a hostname.
-
-```
-ssh: connect to host 7999 port 22: Success
-```
-
-I don't know how that connection could have succeeded.
-Then we get another error.
-
-```
-fatal: Could not read from remote repository.
-```
-
-Alternatives include:
-
-* Use JGit instead of those very old command line git versions
-* Install a newer version of command line git
-* Clone with http or https protocol instead of ssh protocol
+ 
+With English folder names everything goes fine.
+ 
+On Linux agents, there are no problems with cloning repositories using Cyrillic names
+ 
+Java arguments on windows and linux agents are same: 'Dfile.encoding = "UTF-8" -Dsun.jnu.encoding = "UTF-8"'
