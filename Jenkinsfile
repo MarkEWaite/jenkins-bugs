@@ -4,8 +4,7 @@
 
 pipeline {
   agent {
-    // label 'git-1.8 || git-1.7' // Shows the problem
-    label '!windows && git-1.9+' // Does not show the problem
+    label 'windows'
   }
   tools {
     ant 'ant-latest'
@@ -24,7 +23,7 @@ pipeline {
                             gitTool: scm.gitTool,
                             userRemoteConfigs: [[url: 'ssh://git@github.com/MarkEWaite/jenkins-bugs.git',
                                                  credentialsId: 'MarkEWaite-github-rsa-private-key-has-passphrase',
-                                                 refspec: '+refs/heads/JENKINS-62534-plink:refs/remotes/origin/JENKINS-62534-plink']]])
+                                                 refspec: '+refs/heads/JENKINS-62579-Владислав-Ненашев:refs/remotes/origin/JENKINS-62579-Владислав-Ненашев']]])
           sh 'ant info'
           logContains(expectedRegEx: ".*Git HEAD is ${scmVars.GIT_COMMIT}.*",
                       failureMessage: "Missing checkout return of GIT_COMMIT value '${scmVars.GIT_COMMIT}'")
