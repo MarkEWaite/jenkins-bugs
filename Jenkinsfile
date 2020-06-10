@@ -5,7 +5,10 @@ import com.markwaite.Assert
 import com.markwaite.Build
 
 /* Poll every 13 minutes. */
-properties([pipelineTriggers([pollSCM('H/13 * * * *')])])
+properties([
+            pipelineTriggers([pollSCM('H/13 * * * *')]),
+            [$class: 'BuildDiscarderProperty', strategy: [$class: 'LogRotator', numToKeepStr: '10']]
+           ])
 
 def changes
 
