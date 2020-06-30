@@ -39,6 +39,7 @@
     <fail message="GIT_COMMITTER_NAME not set" unless="env.GIT_COMMITTER_NAME"/>
     <fail message="GIT_LOCAL_BRANCH not set" unless="env.GIT_LOCAL_BRANCH"/>
     <fail message="GIT_URL not set" unless="env.GIT_URL"/>
+    <echo>env.WORKSPACE is ${env.WORKSPACE}</echo>
   </target>
 
   <!-- Synchronize repositories -->
