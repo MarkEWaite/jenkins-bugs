@@ -36,10 +36,12 @@ node {
   }
 
   stage('Verify') {
-    if (isUnix()) {
-      sh 'env | sort'
-    } else {
-      bat 'set'
+    ws() {
+      if (isUnix()) {
+        sh 'pwd; env | sort'
+      } else {
+        bat 'set'
+      }
     }
     /* Check the return value from the checkout */
     /* Multi-branch scripted pipeline defines return value from checkout with GIT_ values */
