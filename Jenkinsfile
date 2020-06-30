@@ -36,9 +36,21 @@ node {
   }
 
   stage('Verify') {
+    if (isUnix()) {
+      sh 'pwd; echo "WORKSPACE=$WORKSPACE"'
+    } else {
+      bat 'set'
+    }
     ws() {
       if (isUnix()) {
-        sh 'pwd; env | sort'
+        sh 'pwd; echo "WORKSPACE=$WORKSPACE"'
+      } else {
+        bat 'set'
+      }
+    }
+    dir('my-special-dir') {
+      if (isUnix()) {
+        sh 'pwd; echo "WORKSPACE=$WORKSPACE"'
       } else {
         bat 'set'
       }
