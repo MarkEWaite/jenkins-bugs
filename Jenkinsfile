@@ -36,25 +36,6 @@ node {
   }
 
   stage('Verify') {
-    if (isUnix()) {
-      sh 'pwd; echo "WORKSPACE=$WORKSPACE"'
-    } else {
-      bat 'set'
-    }
-    ws() {
-      if (isUnix()) {
-        sh 'pwd; echo "WORKSPACE=$WORKSPACE"'
-      } else {
-        bat 'set'
-      }
-    }
-    dir('my-special-dir') {
-      if (isUnix()) {
-        sh 'pwd; echo "WORKSPACE=$WORKSPACE"'
-      } else {
-        bat 'set'
-      }
-    }
     /* Check the return value from the checkout */
     /* Multi-branch scripted pipeline defines return value from checkout with GIT_ values */
     /* Single scripted pipeline does NOT define return value from checkout with GIT_ values */
