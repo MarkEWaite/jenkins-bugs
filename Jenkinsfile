@@ -36,7 +36,7 @@ node('git-1.9+ && !git-2.7') { // Needs 'git -C' argument support, sporadically 
     def my_check = new com.markwaite.Assert()
 
     /* JENKINS-21248 requests shallow clone support for submodules.  */
-    my_check.logContains('.*Using shallow fetch with depth 1.*', 'Missing depth 1 log message')
+    my_check.logContains('.*Using shallow .* with depth 1.*', 'Missing depth 1 log message')
     my_check.logContains('.*Using shallow submodule update with depth 1.*', 'Missing depth 1 submodule log message')
     my_check.logContains('.*Reduce title length.*', 'Default distinctive 1st commit message not found')
     my_check.logDoesNotContain('.*Link from README to bug report.*', 'Distinctive 2nd commit message found')
@@ -77,7 +77,7 @@ node('git-1.9+ && !git-2.7') { // Needs 'git -C' argument support, sporadically 
     def my_check = new com.markwaite.Assert()
 
     /* JENKINS-21248 requests shallow clone support for submodules.  */
-    my_check.logContains('.*Using shallow fetch with depth 2.*', 'Missing depth 2 log message')
+    my_check.logContains('.*Using shallow .* with depth 2.*', 'Missing depth 2 log message')
     my_check.logContains('.*Using shallow submodule update with depth 2.*', 'Missing depth 2 submodule log message')
     my_check.logContains('.*Reduce title length.*', '2 - Distinctive 1st commit message not found')
     my_check.logContains('.*Add distinctive message in submodule README.*', '2 - Distinctive 2nd commit message not found')
