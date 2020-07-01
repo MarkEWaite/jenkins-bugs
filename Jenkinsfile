@@ -45,10 +45,12 @@ node('git-1.9+ && !git-2.7') { // Needs 'git -C' argument support, sporadically 
     /* Check submodule exists */
     my_check.logContains('.*check-dir property module.git.dir.exists is true.*', 'Ant did not find modules .git')
     my_check.logDoesNotContain('.*check-dir property module.git.dir.exists is .*module.git.dir.exists.*', 'Ant check-dir did not set submodule detected property')
+    echo "================= End of Verify Depth 1 ================="
   }
 
   /* depth 2 should clone 2 commits */
   stage('Checkout depth 2') {
+    echo "================= Begin Checkout Depth 2 ================="
     deleteDir() // Really scrub the workspace
     /* May fail if new commits have been added to the underlying branch of the submodule */
     /* If the submodule reference does not refer to a branch, then the remote github server refuses to respond to the request.
@@ -84,6 +86,7 @@ node('git-1.9+ && !git-2.7') { // Needs 'git -C' argument support, sporadically 
     /* Check submodule exists */
     my_check.logContains('.*check-dir property module.git.dir.exists is true.*', '2 - Ant did not find modules .git')
     my_check.logDoesNotContain('.*check-dir property module.git.dir.exists is .*module.git.dir.exists.*', '2 - Ant check-dir did not set submodule detected property')
+    echo "================= End of Verify Depth 2 ================="
   }
 
 }
