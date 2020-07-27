@@ -4,7 +4,7 @@
 import com.markwaite.Assert
 import com.markwaite.Build
 
-def branch = 'JENKINS-60591'
+def branch = 'JENKINS-63179'
 
 /* Only keep the 10 most recent builds. */
 properties([[$class: 'BuildDiscarderProperty',
@@ -14,7 +14,7 @@ stage('Await Input Before Checkout') {
   def answer = 'Not answered due to exception'
   try {
     timeout(time: 90, unit: 'SECONDS') {
-      answer = input(id: 'Check-JENKINS-60591', message: "Ready to go (timeout in 90 seconds)?")
+      answer = input(id: 'Check-JENKINS-63179', message: "Ready to go (timeout in 90 seconds)?")
     }
     echo "Answer from input with timeout was: ${answer}"
   } catch(err) {
