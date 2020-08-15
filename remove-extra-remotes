@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Remove extra remotes from this repository
 # Adjust git configuration to not reference those remotes
