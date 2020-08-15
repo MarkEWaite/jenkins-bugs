@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Read the Jenkins log for this job, count and report number of git fetch calls
 #
