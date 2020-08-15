@@ -47,6 +47,11 @@ if [ -z "$JENKINS_BUILD_URL" ]; then
     usage
 fi
 
+if [[ $BUILD_URL == *jgit* ]]; then
+    echo "Using jgit - cannot count redundant fetch operations"
+    exit 0
+fi
+
 cookie_file=$(mktemp /tmp/reportScanLogResults-script.XXXXXX)
 
 USER_ARG=""
