@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Read the Jenkins scan log for multibranch pipeline that defined this job
 #
