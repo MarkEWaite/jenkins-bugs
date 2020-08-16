@@ -52,7 +52,7 @@ node {
     if (currentBuild.number > 1 && changes.size() > 0) { // Don't check first build or if build has no changes
       def my_check = new com.markwaite.Assert()
       my_check.logContains('.*Author:.*', 'Built without commit - no author')
-      my_check.logContains('.*Date:.*', 'Built without a commit - no date')
+      my_check.logContains('.*Date:.*', 'Built without commit - no date')
     }
   }
 }
