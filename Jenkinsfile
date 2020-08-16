@@ -49,7 +49,7 @@ node {
 
   stage('Verify') {
     /* JENKINS-43468 reports that polling detects changes when none exist.  */
-    if (currentBuild.number > 1 && changes.size() > 0) { // Don't check first build or if build has no changes
+    if (currentBuild.number > 1 && changes.size() > 0) { // Skip check on first build or if build has no changes
       def my_check = new com.markwaite.Assert()
       my_check.logContains('.*Author:.*', 'Built without commit - no author')
       my_check.logContains('.*Date:.*', 'Built without commit - no date')
