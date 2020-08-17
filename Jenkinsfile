@@ -19,7 +19,10 @@ pipeline {
         script {
           scmVars = checkout([$class: 'GitSCM',
                             branches: scm.branches,
-                            extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git']],
+                            extensions: [[$class: 'CloneOption',
+                                          honorRefspec: true,
+                                          noTags: true,
+                                          reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git']],
                             gitTool: scm.gitTool,
                             userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
                                                 refspec: '+refs/heads/JENKINS-52059-declarative:refs/remotes/origin/JENKINS-52059-declarative']]])
