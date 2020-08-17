@@ -43,8 +43,8 @@ node {
 
   stage('Verify') {
     /* JENKINS-43818 reports that parameters are ignored in branch specifier.  */
+    def my_check = new com.markwaite.Assert()
     if (currentBuild.number > 1 && changes.size() > 0) { // Don't check first build or if build has no changes
-      def my_check = new com.markwaite.Assert()
       my_check.logContains('.*Author:.*', 'Build started without a commit - no author line')
       my_check.logContains('.*Date:.*', 'Build started without a commit - no date line')
     }
