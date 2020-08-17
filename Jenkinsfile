@@ -10,7 +10,8 @@ properties([pipelineTriggers([pollSCM('H/29 * * * *')]),
            [$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '19']]])
 
-def use_simple_checkout_scm = false
+// Confirmed with git plugin 4.3.0 and Jenkins 2.235.5 that still an issue
+def use_simple_checkout_scm = true
 def branch = 'JENKINS-43468'
 
 def changes
