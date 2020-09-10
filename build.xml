@@ -1,6 +1,7 @@
 <project name="JENKINS-32174" default="increment-and-notify" basedir=".">
 
   <property environment="env"/>
+
   <condition property="changeLogCount" value="${env.CHANGESET_SIZE}" else="0">
     <isset property="env.CHANGESET_SIZE"/>
   </condition>
