@@ -1,7 +1,7 @@
 <project name="jenkins-bugs-master-branch" default="sync" basedir=".">
 
   <property environment="env"/>
-  <condition property="changeLogCount" value="${env.CHANGESET_SIZE}" else="0">
+  <condition property="changeLogCount" value="${env.CHANGESET_SIZE}" else="1">
     <isset property="env.CHANGESET_SIZE"/>
   </condition>
 
@@ -22,6 +22,7 @@
 
   <!-- Check environment variables in all builds -->
   <target name="check-git-env-vars" description="Check all git env vars" depends="check-non-initial-build" if="env.JENKINS_URL">
+    <echo>env.WORKSPACE is ${env.WORKSPACE}</echo>
     <echo>env.GIT_AUTHOR_EMAIL is ${env.GIT_AUTHOR_EMAIL}</echo>
     <echo>env.GIT_AUTHOR_NAME is ${env.GIT_AUTHOR_NAME}</echo>
     <echo>env.GIT_BRANCH is ${env.GIT_BRANCH}</echo>
