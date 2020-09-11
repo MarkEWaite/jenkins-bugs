@@ -1,4 +1,4 @@
-<project name="jenkins-bugs-master-branch" default="increment" basedir=".">
+<project name="JENKINS-62563" default="increment" basedir=".">
 
   <property environment="env"/>
 
