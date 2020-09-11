@@ -20,6 +20,7 @@ pipeline {
                 checkout(
                   [ $class: 'GitSCM',
                     branches: scm.branches, // Assumes the multibranch pipeline checkout branch definition is sufficient
+                    // JENKINS-63563 says that checkout will fail without this extensions section
                     // extensions: [
                     //   [ $class: 'CloneOption', shallow: true, depth: 1, honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                     //   [ $class: 'LocalBranch', localBranch: env.BRANCH_NAME ],
