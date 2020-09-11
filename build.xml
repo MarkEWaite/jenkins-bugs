@@ -2,7 +2,7 @@
 
   <property environment="env"/>
 
-  <condition property="build.number.file" value="build.${env.BRANCH_NAME}.number" else="build.number1">
+  <condition property="build.number.file" value="build.${env.BRANCH_NAME}.number" else="build.number">
     <isset property="env.BRANCH_NAME"/>
   </condition>
 
