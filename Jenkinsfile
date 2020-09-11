@@ -16,6 +16,7 @@ pipeline {
         stage("Checkout") {
             steps {
                 echo "**** Branch is ${env.BRANCH_NAME} ****"
+                echo "**** scm.branches is ${scm.branches} ****"
                 checkout(
                   [ $class: 'GitSCM',
                     branches: scm.branches, // Assumes the multibranch pipeline checkout branch definition is good enough
