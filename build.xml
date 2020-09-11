@@ -1,6 +1,11 @@
-<project name="jenkins-bugs-master-branch" default="sync" basedir=".">
+<project name="jenkins-bugs-master-branch" default="increment" basedir=".">
 
   <property environment="env"/>
+
+  <condition property="build.number.file" value="build.${env.BRANCH_NAME}.number" else="build.number1">
+    <isset property="env.BRANCH_NAME"/>
+  </condition>
+
   <condition property="changeLogCount" value="${env.CHANGESET_SIZE}" else="1">
     <isset property="env.CHANGESET_SIZE"/>
   </condition>
@@ -59,7 +64,7 @@
         <arg value="--all"/>
       </args>
     </git>
-    <buildnumber/>
+    <buildnumber file="${build.number.file}"/>
     <git command="commit">
       <args>
         <arg value="-m"/>
