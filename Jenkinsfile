@@ -5,8 +5,7 @@ import com.markwaite.Assert
 import com.markwaite.Build
 
 /* Only keep the 7 most recent builds. */
-properties([[$class: 'BuildDiscarderProperty',
-                strategy: [$class: 'LogRotator', numToKeepStr: '7']]])
+properties([[$class: 'BuildDiscarderProperty', strategy: [$class: 'LogRotator', numToKeepStr: '7']]])
 
 def branch='features/JENKINS-37263'
 def origin='jenkins-bugs-origin'
