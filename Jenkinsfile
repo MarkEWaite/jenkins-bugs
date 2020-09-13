@@ -26,7 +26,7 @@ node {
                             timeout: 3],
                            [$class: 'LocalBranch', localBranch: '**'],
                            // Wipe workspace will hide the bug
-                           [$class: 'WipeWorkspace'],
+                           // [$class: 'WipeWorkspace'],
                           ],
               gitTool: scm.gitTool,
              ])
