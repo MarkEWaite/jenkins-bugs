@@ -25,8 +25,6 @@ node {
                             reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
                             timeout: 3],
                            [$class: 'LocalBranch', localBranch: '**'],
-                           // Wipe workspace will hide the bug
-                           // [$class: 'WipeWorkspace'],
                           ],
               gitTool: scm.gitTool,
              ])
