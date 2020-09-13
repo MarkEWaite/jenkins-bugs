@@ -29,7 +29,7 @@ node {
                            // Wipe workspace will hide the bug
                            // [$class: 'WipeWorkspace'],
                           ],
-              gitTool: 'jgit',
+              gitTool: scm.gitTool,
              ])
   }
 
