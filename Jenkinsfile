@@ -18,9 +18,9 @@ node("master") {
 
   stage('Verify') {
     def check = new com.markwaite.Assert()
-    check.logContains(".*Working directory is ${env.JENKINS_HOME}.*", "Working dir report 1 missing")
-    check.logContains("Working directory is ${env.JENKINS_HOME}.*", "Working dir report 2 missing")
-    check.logContains("${env.JENKINS_HOME}.*", "Working dir report 3 missing")
-    check.logContains("JENKINS_HOME is ${env.JENKINS_HOME}.*", "Working dir report 4 missing")
+    check.logContains(".*Working directory is ${env.JENKINS_HOME}.*", "Working dir report 1 missing - did not find ${env.JENKINS_HOME}")
+    check.logContains("Working directory is ${env.JENKINS_HOME}.*", "Working dir report 2 missing - did not find ${env.JENKINS_HOME}")
+    check.logContains("${env.JENKINS_HOME}.*", "Working dir report 3 missing, did not find ${env.JENKINS_HOME}")
+    check.logContains("JENKINS_HOME is ${env.JENKINS_HOME}.*", "Working dir report 4 missing, did not find ${env.JENKINS_HOME}")
   }
 }
