@@ -24,7 +24,7 @@ def assertSubmoduleCount(manager, String type) {
   checkStep.logContains(".*submodule." + type + ".count=1", message)
 }
 
-node('!CentOS-6') { // CentOS 6 git version too old for submodule support
+node('git-2.26') { // Explicitly test git 2.26 for JENKINS-63909
   stage('Checkout') {
     checkout([$class: 'GitSCM',
               userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
