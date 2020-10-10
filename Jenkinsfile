@@ -24,7 +24,7 @@ def assertSubmoduleCount(manager, String type) {
   checkStep.logContains(".*submodule." + type + ".count=1", message)
 }
 
-node('git-2.26') { // Explicitly test git 2.26 for JENKINS-63909
+node('git-1.9+') { // Submodule support requires git 1.9 or newer
   stage('Checkout') {
     checkout([$class: 'GitSCM',
               userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
