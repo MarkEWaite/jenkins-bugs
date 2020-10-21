@@ -20,7 +20,7 @@ node {
             [$class: 'CloneOption', honorRefspec: true, noTags: false, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
         ],
         gitTool: scm.gitTool,
-        userRemoteConfigs: scm.userRemoteConfigsuserRemoteConfigs
+        userRemoteConfigs: scm.userRemoteConfigs
     ])
   }
 
