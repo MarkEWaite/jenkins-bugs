@@ -16,7 +16,7 @@ node {
     // Need explicit clone of tags (noTags: false) for assertion
     checkout([$class: 'GitSCM',
         branches: scm.branches,
-        extensions: [
+        extensions: scm.extensions + [
             [$class: 'CloneOption', honorRefspec: true, noTags: false, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
         ],
         gitTool: scm.gitTool,
