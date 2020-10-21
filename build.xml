@@ -64,19 +64,8 @@
   <target name="info" description="Report info about this repo">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
-    <echo>SHA1 of HEAD^ is:</echo>
-    <git command="rev-parse">
-      <args>
-        <arg value="HEAD^"/>
-      </args>
-    </git>
-    <echo>tags which contain HEAD^ are:</echo>
-    <git command="tag">
-      <args>
-        <arg value="--contains"/>
-        <arg value="HEAD^"/>
-      </args>
-    </git>
+    <echo>git tags in the workspace include:</echo>
+    <git command="tag" />
     <!-- JENKINS-64000 reports that tag settings are ignored in pipeline definition. -->
   </target>
 

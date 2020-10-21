@@ -33,6 +33,7 @@ node {
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     /* JENKINS-64000 reports that --no-tags is used even when tags are requested in the pipeline definition.  */
+    my_check.logContains(".*${branch}-[1-9][0-9]*", 'The expected tags were not reported')
     my_check.logDoesNotContain('.*--no-tags.*', 'The --notags argument was detected')
   }
 }
