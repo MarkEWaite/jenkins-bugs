@@ -64,9 +64,14 @@
   <target name="info" description="Report info about this repo">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
-    <echo>git tags in the workspace include:</echo>
-    <git command="tag" />
+    <echo>git tags for ${ant.project.name} in the workspace include:</echo>
     <!-- JENKINS-64000 reports that tag settings are ignored in pipeline definition. -->
+    <git command="tag">
+      <args>
+        <arg value="--list"/>
+        <arg value="${ant.project.name}-*"/>
+      </args>
+    </git>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
