@@ -9,19 +9,18 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-def branch='JENKINS-47496'
+def branch='JENKINS-64000'
 
 node {
   stage('Checkout') {
     // Need explicit clone of tags for assertion
     checkout([$class: 'GitSCM',
-        branches: [[name: branch]],
-        browser: [$class: 'GithubWeb', repoUrl: 'https://github.com/MarkEWaite/jenkins-bugs'],
+        branches: scm.branches,
         extensions: [
             [$class: 'CloneOption', honorRefspec: true, noTags: false, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-            [$class: 'LocalBranch', localBranch: branch]],
+        ],
         gitTool: scm.gitTool,
-        userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs']]]
+        userRemoteConfigs: scm.userRemoteConfigsuserRemoteConfigs
     )
   }
 
@@ -33,7 +32,7 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    /* JENKINS-47496 reports that new tags are not built.  */
-    my_check.logContains('.*JENKINS-47496-1[.]0[.][0-9]+.*', 'Missing JENKINS-47496-1.0.xx tag reference')
+    /* JENKINS-64000 reports that --no-tags is used even when tags are requested in the pipeline definition.  */
+    my_check.logDoesNotContain('.*--no-tags.*', 'The --notags argument was detected')
   }
 }
