@@ -21,7 +21,7 @@ node {
         ],
         gitTool: scm.gitTool,
         userRemoteConfigs: scm.userRemoteConfigsuserRemoteConfigs
-    )
+    ])
   }
 
   stage('Build') {
