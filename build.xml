@@ -1,4 +1,4 @@
-<project name="JENKINS-47496" default="increment" basedir=".">
+<project name="JENKINS-64000" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
     <git command="pull" />
@@ -8,7 +8,7 @@
         <arg value="build.number"/>
       </args>
     </git>
-    <property name="tag.name" value="${ant.project.name}-1.0.${build.number}"/>
+    <property name="tag.name" value="${ant.project.name}-${build.number}"/>
     <git command="commit">
       <args>
         <arg value="-m"/>
@@ -77,7 +77,7 @@
         <arg value="HEAD^"/>
       </args>
     </git>
-    <!-- JENKINS-47496 reports that new tags are not built. -->
+    <!-- JENKINS-64000 reports that tag settings are ignored in pipeline definition. -->
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
