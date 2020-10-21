@@ -11,7 +11,7 @@ properties([[$class: 'BuildDiscarderProperty',
 
 def branch='JENKINS-64000'
 
-node {
+node('windows') {
   stage('Checkout') {
     // Need explicit clone of tags (noTags: false) for assertion
     checkout([$class: 'GitSCM',
