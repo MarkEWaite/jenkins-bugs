@@ -13,14 +13,14 @@ def branch='JENKINS-64000'
 
 node {
   stage('Checkout') {
-    // Need explicit clone of tags for assertion
+    // Need explicit clone of tags (noTags: false) for assertion
     checkout([$class: 'GitSCM',
         branches: scm.branches,
         extensions: [
             [$class: 'CloneOption', honorRefspec: true, noTags: false, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
         ],
         gitTool: scm.gitTool,
-        userRemoteConfigs: scm.userRemoteConfigs
+        userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: scm.userRemoteConfigs[0].url]]
     ])
   }
 
