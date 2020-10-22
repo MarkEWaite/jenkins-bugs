@@ -13,6 +13,7 @@ def branch='JENKINS-64000'
 
 node('windows') {
   stage('Checkout') {
+    deleteDir() // Issue only appears on first creation of a workspace
     // Need explicit clone of tags (noTags: false) for assertion
     checkout([$class: 'GitSCM',
         branches: scm.branches,
@@ -34,5 +35,6 @@ node('windows') {
     /* JENKINS-64000 reports that --no-tags is used even when tags are requested in the pipeline definition.  */
     my_check.logContains(".*${branch}-[1-9][0-9]*", 'The expected tags were not reported')
     my_check.logDoesNotContain('.*--no-tags.*jenkins-bugs.*', 'The --notags argument was detected fetching jenkins-bugs repo')
+    deleteDir() // Issue only appears on first creation of a workspace
   }
 }
