@@ -16,6 +16,7 @@
       </args>
     </git>
     <!-- Tag predecessor commit with previous build number -->
+    <!-- Not needed now that we have a few tags in the history
     <git command="tag">
       <args>
         <arg value="-a"/>
@@ -58,6 +59,8 @@
         <arg value="${tag.name}"/>
       </args>
     </git>
+    -->
+    <!-- End of section that is not needed now that we have a few tags in the history -->
   </target>
 
   <!-- Info about this repository -->
