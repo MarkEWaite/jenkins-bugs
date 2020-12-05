@@ -22,6 +22,8 @@ pipeline {
         deleteDir() // Require full clone on next checkout
         logContains(expectedRegEx: '.*.exec. [+]refs/heads/JENKINS-56063-refspec-env-reference-not-expanded:refs/remotes/origin/JENKINS-56063-refspec-env-reference-not-expanded$',
                     failureMessage: 'Expected remote.origin.fetch not found in output')
+        logDoesNotContain(expectedRegEx: '.*[+]refs/heads/.*JOB_BASE_NAME.:refs/remotes/origin/.*JOB_BASE_NAME..*',
+                    failureMessage: 'Unexpected JOB_BASE_NAME found in output')
       }
     }
   }
