@@ -12,7 +12,7 @@ pipeline {
   stages {
     stage('Check refspec in fetch') {
       steps {
-        step {
+        script {
           withAnt(installation: 'ant-latest') {
             if (isUnix()) {
               sh 'ant info'
