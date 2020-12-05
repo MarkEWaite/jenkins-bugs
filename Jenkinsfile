@@ -14,8 +14,8 @@ pipeline {
       steps {
         sh 'ant info'
         deleteDir() // Require full clone on next checkout
-        logContains(expectedRegEx: ".*.exec. [+]refs/heads/JENKINS-56063-refspec-env-reference-not-expanded:refs/remotes/origin/JENKINS-56063-refspec-env-reference-not-expanded$",
-                    failureMessage: "Expected remote.origin.fetch not found in output")
+        logContains(expectedRegEx: '.*.exec. [+]refs/heads/JENKINS-56063-refspec-env-reference-not-expanded:refs/remotes/origin/JENKINS-56063-refspec-env-reference-not-expanded$',
+                    failureMessage: 'Expected remote.origin.fetch not found in output')
       }
     }
   }
