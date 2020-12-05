@@ -23,16 +23,17 @@
   <!-- Info about this repository -->
   <target name="info" description="Report info about this repo">
     <echo>java is ${java.version}</echo>
-    <echo>user dir is ${user.dir}</echo>
     <!-- JENKINS-56063 refspec env reference expanded by shell, not expanded by Jenkins -->
     <!-- Report remote.origin.fetch -->
     <!-- Does not show what expanded it, only that it has correct value -->
+    <echo>Reporting remote.origin.fetch value</echo>
     <git command="config">
       <args>
         <arg value="--get"/>
         <arg value="remote.origin.fetch"/>
       </args>
     </git>
+    <echo>End of reporting remote.origin.fetch value</echo>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
