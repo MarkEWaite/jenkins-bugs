@@ -12,11 +12,13 @@ pipeline {
   stages {
     stage('Check refspec in fetch') {
       steps {
-        withAnt(installation: 'ant-latest') {
-          if (isUnix()) {
-            sh 'ant info'
-          } else {
-            bat 'ant info'
+        step {
+          withAnt(installation: 'ant-latest') {
+            if (isUnix()) {
+              sh 'ant info'
+            } else {
+              bat 'ant info'
+            }
           }
         }
         deleteDir() // Require full clone on next checkout
