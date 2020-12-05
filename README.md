@@ -1,3 +1,3 @@
-# [JENKINS-49757](https://issues.jenkins-ci.org/browse/JENKINS-49757) Duplicate fetch in declarative pipeline default checkout
+# [JENKINS-56063](https://issues.jenkins-ci.org/browse/JENKINS-56063) Env var reference not expanded in refspec
 
-The fetch is duplicated in checkout.  That is especially bad with large repositories.
+A reference to an environment variable in the refspec of a freestyle project is not expanded when honoring refspec on initial clone.
