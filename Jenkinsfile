@@ -10,12 +10,12 @@ pipeline {
     ant 'ant-latest'
   }
   stages {
-    stage('Count fetch statements on agent') {
+    stage('Check refspec in fetch') {
       steps {
         sh 'ant info'
         deleteDir() // Require full clone on next checkout
-        logContains(expectedRegEx: ".*Count of git fetch on agent: 1.*",
-                    failureMessage: "Wrong git fetch count in declarative pipeline")
+        logContains(expectedRegEx: ".*git.*fetch.*JENKINS-56063-refspec-env-reference-not-expanded.*JENKINS-56063-refspec-env-reference-not-expanded.*",
+                    failureMessage: "Expected refspec not found in git fetch")
       }
     }
   }
