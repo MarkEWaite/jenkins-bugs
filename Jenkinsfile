@@ -4,7 +4,7 @@
 
 pipeline {
   agent {
-    label '!windows && !cloud && linux' // Need http access to Jenkins server and a /bin/bash program
+    label '!windows' // Runs sh
   }
   tools {
     ant 'ant-latest'
@@ -14,8 +14,8 @@ pipeline {
       steps {
         sh 'ant info'
         deleteDir() // Require full clone on next checkout
-        logContains(expectedRegEx: ".*git.*fetch.*JENKINS-56063-refspec-env-reference-not-expanded.*JENKINS-56063-refspec-env-reference-not-expanded.*",
-                    failureMessage: "Expected refspec not found in git fetch")
+        logContains(expectedRegEx: ".*.exec. [+]refs/heads/JENKINS-56063-refspec-env-reference-not-expanded:refs/remotes/origin/JENKINS-56063-refspec-env-reference-not-expanded$",
+                    failureMessage: "Expected remote.origin.fetch not found in output")
       }
     }
   }
