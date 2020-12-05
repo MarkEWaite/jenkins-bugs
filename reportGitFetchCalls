@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Read the Jenkins log for this job, count and report number of git fetch calls
+# Read the Jenkins log for this job, count and report git fetch calls
 #
 # Default Jenkins URL from JENKINS_URL environment variable
 # Default Jenkins job repo URL from BUILD_URL environment variable
@@ -53,12 +53,12 @@ if [[ $BUILD_URL == *jgit* ]]; then
     exit 0
 fi
 
-cookie_file=$(mktemp /tmp/reportScanLogResults-script.XXXXXX)
+cookie_file=$(mktemp /tmp/reportGitFetchCalls-script.XXXXXX)
 
 USER_ARG=""
 args_file=""
 if [ "$JENKINS_59106_USERNAME_PASSWORD" != "" ]; then
-    args_file=$(mktemp /tmp/reportScanLogResults-args.XXXXXX)
+    args_file=$(mktemp /tmp/reportGitFetchCalls-args.XXXXXX)
     echo "-u $JENKINS_59106_USERNAME_PASSWORD" > $args_file
     USER_ARG="-K $args_file"
 fi
@@ -103,4 +103,8 @@ rm $cookie_file $args_file
 # echo === End of output from query with crumb
 
 # Count calls to git fetch made on the agent (after 'Running on ...')
-echo -n "**** Count of git fetch on agent: " ; grep -A 999 -E 'Running on |Building .*on ' $query_output | grep -c 'git fetch'
+# echo -n "**** Count of git fetch on agent: " ; grep -A 999 -E 'Running on |Building .*on ' $query_output | grep -c 'git fetch'
+
+echo ===== Start of extracted git fetch commands
+echo $query_output | grep git.*fetch
+echo ===== End of extracted git fetch commands
