@@ -17,7 +17,7 @@ pipeline {
           [ $class: 'GitSCM',
             branches: scm.branches, // Assumes the multibranch pipeline checkout branch definition is sufficient
             gitTool: scm.gitTool,
-            userRemoteConfigs: scm.userRemoteConfigs // Assumes the multibranch pipeline checkout remoteconfig is sufficient
+            userRemoteConfigs: scm.userRemoteConfigs, // Assumes the multibranch pipeline checkout remoteconfig is sufficient
             extensions: [
               [ $class: 'CloneOption', shallow: true, depth: 1, honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
             ],
