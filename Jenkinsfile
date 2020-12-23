@@ -5,6 +5,7 @@ pipeline {
 
     options {
         durabilityHint('PERFORMANCE_OPTIMIZED')
+        skipDefaultCheckout(true)
     }
 
     parameters {
