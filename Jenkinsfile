@@ -18,7 +18,7 @@ pipeline {
           [ $class: 'GitSCM',
             branches: scm.branches, // Assumes the multibranch pipeline checkout branch definition is sufficient
             gitTool: scm.gitTool,
-            userRemoteConfigs: [[scm.userRemoteConfigs[0].url,
+            userRemoteConfigs: [[url: scm.userRemoteConfigs[0].url,
                                 refspec: '+refs/heads/JENKINS-56063-refspec-env-reference-not-expanded:refs/remotes/origin/JENKINS-56063-refspec-env-reference-not-expanded']],
             extensions: [
               [ $class: 'CloneOption', shallow: true, depth: 1, honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
