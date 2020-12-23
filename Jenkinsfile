@@ -4,12 +4,25 @@
 
 pipeline {
   agent any
+  options {
+    skipDefaultCheckout true // Do not rely on default checkout because it uses the default refspec with git multibranch provider
+  }
   tools {
     ant 'ant-latest'
   }
   stages {
     stage('Check refspec in fetch') {
       steps {
+        checkout(
+          [ $class: 'GitSCM',
+            branches: scm.branches, // Assumes the multibranch pipeline checkout branch definition is sufficient
+            gitTool: scm.gitTool,
+            userRemoteConfigs: scm.userRemoteConfigs // Assumes the multibranch pipeline checkout remoteconfig is sufficient
+            extensions: [
+              [ $class: 'CloneOption', shallow: true, depth: 1, honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+            ],
+          ]
+        )
         script {
           withAnt(installation: 'ant-latest') {
             if (isUnix()) {
