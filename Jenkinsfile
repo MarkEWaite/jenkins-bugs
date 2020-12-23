@@ -13,11 +13,13 @@ pipeline {
   stages {
     stage('Check refspec in fetch') {
       steps {
+        echo "scm.branches is ${scm.branches}"
         checkout(
           [ $class: 'GitSCM',
             branches: scm.branches, // Assumes the multibranch pipeline checkout branch definition is sufficient
             gitTool: scm.gitTool,
-            userRemoteConfigs: scm.userRemoteConfigs, // Assumes the multibranch pipeline checkout remoteconfig is sufficient
+            userRemoteConfigs: [[scm.userRemoteConfigs[0].url,
+                                refspec: '+refs/heads/JENKINS-56063-refspec-env-reference-not-expanded:refs/remotes/origin/JENKINS-56063-refspec-env-reference-not-expanded']]])
             extensions: [
               [ $class: 'CloneOption', shallow: true, depth: 1, honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
             ],
