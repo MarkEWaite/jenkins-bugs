@@ -4,6 +4,9 @@
 import com.markwaite.Assert
 import com.markwaite.Build
 
+// Only one build running at a time, stop prior build if new build starts
+def buildNumber = BUILD_NUMBER as int; if (buildNumber > 1) milestone(buildNumber - 1); milestone(buildNumber) // Thanks to jglick
+
 /* Only keep the 7 most recent builds. */
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '7']]])
