@@ -1,4 +1,4 @@
-# [JENKINS-56176](https://issues.jenkins-ci.org/browse/JENKINS-56176) GIT_REVISION not available in git plugin 4.0.0-rc
+# [JENKINS-56176](https://issues.jenkins.io/browse/JENKINS-56176) GIT_REVISION not available in git plugin 4.0.0-rc
 
 The GIT_REVISION variable that was available with git plugin 3
 and earlier is not available with git plugin 4.0.0-rc.
