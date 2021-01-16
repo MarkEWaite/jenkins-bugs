@@ -1,4 +1,4 @@
-# [JENKINS-51638](https://issues.jenkins-ci.org/browse/JENKINS-51638) - Jenkinsfile merge parameter string disallowed
+# [JENKINS-51638](https://issues.jenkins.io/browse/JENKINS-51638) - Jenkinsfile merge parameter string disallowed
 
 The string 'default' was accepted as a merge parameter in git plugin 3.8.0 and prior.  It was not accepted as a value beginning with git plugin 3.9.x releases.
 
