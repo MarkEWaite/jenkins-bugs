@@ -1,4 +1,4 @@
-# [JENKINS-60204](https://issues.jenkins-ci.org/browse/JENKINS-60204) Submodule update fails with 'Needed a single revision'
+# [JENKINS-60204](https://issues.jenkins.io/browse/JENKINS-60204) Submodule update fails with 'Needed a single revision'
 
 A project with a git submodule was working as expected with git plugin 3.12 but fails with git plugin 4.0.0.  The failure message is:
 
