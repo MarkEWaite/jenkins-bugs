@@ -1,4 +1,4 @@
-# [JENKINS-35501](https://issues.jenkins-ci.org/browse/JENKINS-35501) Git attributes file ignored
+# [JENKINS-35501](https://issues.jenkins.io/browse/JENKINS-35501) Git attributes file ignored
 
 The bug report says that the contents of the .gitattributes file are
 ignored.  If I use the eol=lf and eol=crlf values in the gitattributes
