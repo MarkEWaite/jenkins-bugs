@@ -1,4 +1,4 @@
-# [JENKINS-37050](https://issues.jenkins-ci.org/browse/JENKINS-37050) cannot checkout git tag
+# [JENKINS-37050](https://issues.jenkins.io/browse/JENKINS-37050) cannot checkout git tag
 
 The `git` task accepts a `branch` argument.  The user wanted to use the
 `branch` argument to checkout a specific tag.
