@@ -1,4 +1,4 @@
-# [JENKINS-62534](https://issues.jenkins-ci.org/browse/JENKINS-62534) job with plink in name fails to clone
+# [JENKINS-62534](https://issues.jenkins.io/browse/JENKINS-62534) job with plink in name fails to clone
 
  Any job containing the word "plink" fails to clone with command line git 1.7 (CentOS 6) and command line git 1.8 (CentOS 7).
  Since we are using a multi-branch pipeline, this causes any branch with the word "plink" to mysteriously fail.
