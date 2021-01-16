@@ -1,4 +1,4 @@
-# [JENKINS-31826](https://issues.jenkins-ci.org/browse/JENKINS-31826) - Checkout specific SHA1
+# [JENKINS-31826](https://issues.jenkins.io/browse/JENKINS-31826) - Checkout specific SHA1
 
 User reported that they were unable to checkout a specific SHA1
 with Pipeline.  I was unable to duplicate the bug with Freestyle.
