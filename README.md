@@ -1,4 +1,4 @@
-# [JENKINS-58349](https://issues.jenkins-ci.org/browse/JENKINS-58349) Timeout ignored for pipeline checkout
+# [JENKINS-58349](https://issues.jenkins.io/browse/JENKINS-58349) Timeout ignored for pipeline checkout
 
 Bug report says that the Pipeline checkout timeout setting is ignored.
 This repository includes a Jenkinsfile that reads from the Linux kernel
@@ -7,4 +7,4 @@ short timeout.  The checkout step honors the timeout setting.
 
 The issue is likely when a large repository includes a Jenkinsfile.
 The initial checkout to obtain the Jenkinsfile does not honor the timeout.
-That failure was reported as [JENKINS-38973](https://issues.jenkins-ci.org/browse/JENKINS-38973).
+That failure was reported as [JENKINS-38973](https://issues.jenkins.io/browse/JENKINS-38973).
