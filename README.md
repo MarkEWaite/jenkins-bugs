@@ -1,4 +1,4 @@
-[JENKINS-33433](https://issues.jenkins-ci.org/browse/JENKINS-33433) - NPE on merge from master to feature branch
+[JENKINS-33433](https://issues.jenkins.io/browse/JENKINS-33433) - NPE on merge from master to feature branch
 
 A null pointer exception is reported in the google-source-plugin when
 merging out from the master branch to the feature branch. I don't think
