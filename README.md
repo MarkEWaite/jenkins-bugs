@@ -1,4 +1,4 @@
-# [JENKINS-37263](https://issues.jenkins-ci.org/browse/JENKINS-37263) - LocalBranch extension causes silent checkout of wrong SHA1
+# [JENKINS-37263](https://issues.jenkins.io/browse/JENKINS-37263) - LocalBranch extension causes silent checkout of wrong SHA1
 
 When the LocalBranch extension is used, it (correctly) creates a local
 branch.  Unfortunately, the local branch created (correctly) matches
