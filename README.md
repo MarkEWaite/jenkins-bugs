@@ -1,4 +1,4 @@
-# [JENKINS-30515](https://issues.jenkins-ci.org/browse/JENKINS-30515) Missing credentials not clearly reported
+# [JENKINS-30515](https://issues.jenkins.io/browse/JENKINS-30515) Missing credentials not clearly reported
 
 When incorrect credentials are provided to checkout the error message
 is not clear. It reports a stack trace instead of reporting that the
