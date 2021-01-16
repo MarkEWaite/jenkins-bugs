@@ -1,4 +1,4 @@
-# [JENKINS-42882](https://issues.jenkins-ci.org/browse/JENKINS-42882) symoblic link Jenkinsfile does not resolve
+# [JENKINS-42882](https://issues.jenkins.io/browse/JENKINS-42882) symoblic link Jenkinsfile does not resolve
 
 This branch shows that if Jenkinsfile is a symbolic to a file
 elsewhere in the repository, the Jenkins pipeline will not resolve the
