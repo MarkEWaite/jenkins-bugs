@@ -1,4 +1,4 @@
-# [JENKINS-56326](https://issues.jenkins-ci.org/browse/JENKINS-56326) Later checkout fails if new commit to master branch
+# [JENKINS-56326](https://issues.jenkins.io/browse/JENKINS-56326) Later checkout fails if new commit to master branch
 
 Bug is described as:
 
