@@ -1,4 +1,4 @@
-# [JENKINS-55284](https://issues.jenkins-ci.org/browse/JENKINS-55284) - updated tags not pulled by CLI git 2.20 and later
+# [JENKINS-55284](https://issues.jenkins.io/browse/JENKINS-55284) - updated tags not pulled by CLI git 2.20 and later
 
 Updating a tag on a shared repository is specifically advised against
 in the command line git man page for 'tag'.  However, git versions
