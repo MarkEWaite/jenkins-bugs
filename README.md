@@ -1,4 +1,4 @@
-# [JENKINS-36637](https://issues.jenkins-ci.org/browse/JENKINS-36637) change list incomplete with some characters
+# [JENKINS-36637](https://issues.jenkins.io/browse/JENKINS-36637) change list incomplete with some characters
 
 This branch shows that certain characters damage the git plugin changelog
 only from command line git, not from jgit.
