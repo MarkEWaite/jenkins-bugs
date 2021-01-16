@@ -1,4 +1,4 @@
-# [JENKINS-50168](https://issues.jenkins-ci.org/browse/JENKINS-50168) Parameterized Pipeline job polls last built branch instead of default branch
+# [JENKINS-50168](https://issues.jenkins.io/browse/JENKINS-50168) Parameterized Pipeline job polls last built branch instead of default branch
 
 ## Build Trigger: "Poll SCM"
 
