@@ -64,7 +64,7 @@ node('git-1.9+') { // Submodule support requires git 1.9 or newer
     def checkStep = new com.markwaite.Assert()
 
     /* Check that submodule README contains expected bug URL */
-    checkStep.logContains(".*https://issues.jenkins-ci.org/browse/JENKINS-15103.*", "No submodule README output")
+    checkStep.logContains(".*https://issues.jenkins.io/browse/JENKINS-15103.*", "No submodule README output")
 
     /* Check exactly 1 submodule in tests-submodule directory */
     assertSubmoduleCount(manager, "src")

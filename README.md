@@ -1,4 +1,4 @@
-# [JENKINS-38860](https://issues.jenkins-ci.org/browse/JENKINS-38860) submodule config changes not reflected in workspace
+# [JENKINS-38860](https://issues.jenkins.io/browse/JENKINS-38860) submodule config changes not reflected in workspace
 
 When a submodule is deleted from a repository and that delete is
 committed, that deletion is not reflected in the Jenkins workspace.
