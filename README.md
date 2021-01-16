@@ -1,4 +1,4 @@
-# [JENKINS-34309](https://issues.jenkins-ci.org/browse/JENKINS-34309) Exception if message includes Ctrl-M
+# [JENKINS-34309](https://issues.jenkins.io/browse/JENKINS-34309) Exception if message includes Ctrl-M
 
 A commit message formatted on some platforms may contain an embedded
 Ctrl-M character.  That embedded Ctrl-M character was causing an exception
