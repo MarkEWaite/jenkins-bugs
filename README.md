@@ -1,4 +1,4 @@
-# [JENKINS-57587](https://issues.jenkins-ci.org/browse/JENKINS-57587) NPE on lightweight checkout
+# [JENKINS-57587](https://issues.jenkins.io/browse/JENKINS-57587) NPE on lightweight checkout
 
 With the most basic Pipeline job from SCM with "Lightweight checkout" checked, the following NPE trace is the total job output.
 
