@@ -1,4 +1,4 @@
-# [JENKINS-55939](https://issues.jenkins-ci.org/browse/JENKINS-55939) REST API incompatible in 4.0.0-rc
+# [JENKINS-55939](https://issues.jenkins.io/browse/JENKINS-55939) REST API incompatible in 4.0.0-rc
 
 ## REST API incompatible with the JENKINS-19022 fix
 
