@@ -1,4 +1,4 @@
-# [JENKINS-35475](https://issues.jenkins-ci.org/browse/JENKINS-35475) Multi-branch pipieline displays SCM view multiple times
+# [JENKINS-35475](https://issues.jenkins.io/browse/JENKINS-35475) Multi-branch pipieline displays SCM view multiple times
 
 When using extended SCM configuration with multibranch pipeline plugin
 then SCM views, all the links and revision info is shown twice on the
