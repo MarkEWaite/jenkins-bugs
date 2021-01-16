@@ -1,4 +1,4 @@
-# [JENKINS-62579](https://issues.jenkins-ci.org/browse/JENKINS-62579) cyrillic named job fails windows clone
+# [JENKINS-62579](https://issues.jenkins.io/browse/JENKINS-62579) cyrillic named job fails windows clone
 
 When starting the freestyle job on the Windows agent it is not possible to clone the git repository (doesn't matter ssh or https) if the folder name in Jenkins is written in Cyrillic.
 
