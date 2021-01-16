@@ -1,4 +1,4 @@
-# [JENKINS-52855](https://issues.jenkins-ci.org/browse/JENKINS-52855) Add GIT_CHECKOUT_DIR env var
+# [JENKINS-52855](https://issues.jenkins.io/browse/JENKINS-52855) Add GIT_CHECKOUT_DIR env var
 
 When a Freestyle job performs a checkout to a subdirectory the
 containing build script needs to make guesses about the name of
