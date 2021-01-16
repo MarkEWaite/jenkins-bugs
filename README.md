@@ -1,4 +1,4 @@
-# [JENKINS-xxxxx](https://issues.jenkins-ci.org/browse/JENKINS-xxxxx) check public repository
+# [JENKINS-xxxxx](https://issues.jenkins.io/browse/JENKINS-xxxxx) check public repository
 
 Many of the bug reports on the Jenkins git plugin and the Jenkins git
 client plugin need a repository which contains specific configurations
