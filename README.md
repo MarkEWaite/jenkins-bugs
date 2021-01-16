@@ -1,4 +1,4 @@
-# [JENKINS-23476](https://issues.jenkins-ci.org/browse/JENKINS-23476) default timeout not easily configured
+# [JENKINS-23476](https://issues.jenkins.io/browse/JENKINS-23476) default timeout not easily configured
 
 The git plugin global timeout setting is not easily configured.
 
