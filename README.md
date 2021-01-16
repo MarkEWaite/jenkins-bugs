@@ -1,4 +1,4 @@
-# [JENKINS-59051](https://issues.jenkins-ci.org/browse/JENKINS-59051) declarative syntax tools directive wrong for jgit
+# [JENKINS-59051](https://issues.jenkins.io/browse/JENKINS-59051) declarative syntax tools directive wrong for jgit
 
 The declarative syntax generator provides the wrong syntax for jgit and jgitapache.
 It provides the correct syntax for command line git and multiple installers that
