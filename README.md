@@ -1,4 +1,4 @@
-# [JENKINS-60591](https://issues.jenkins-ci.org/browse/JENKINS-60591) Delayed checkout pulls latest, not originating commit
+# [JENKINS-60591](https://issues.jenkins.io/browse/JENKINS-60591) Delayed checkout pulls latest, not originating commit
 
 Bug is described as:
 
