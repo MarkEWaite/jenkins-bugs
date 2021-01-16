@@ -1,0 +1,8 @@
+
+java version is 11.0.6
+java runtime version is 11.0.6+10
+build file is /home/mwaite/git/bugs/public/JENKINS-28529/build.xml
+basedir is /home/mwaite/git/bugs/public/JENKINS-28529
+ant java version is 11
+IPv4 address is 172.16.16.113
+IPv6 address is fe80:0:0:0:3899:79ff:fe93:eab4%vethbf6ebeb

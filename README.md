@@ -1,4 +1,4 @@
-# [JENKINS-28529](https://issues.jenkins-ci.org/browse/JENKINS-28529) polling cleans workspace unexpectedly
+# [JENKINS-28529](https://issues.jenkins.io/browse/JENKINS-28529) polling cleans workspace unexpectedly
 
 If "clean before checkout" is enabled and any of the "ignore" settings
 are enabled (ignore commits in specific paths, ignore commits from
