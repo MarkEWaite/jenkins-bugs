@@ -1,4 +1,4 @@
-# [JENKINS-45894](https://issues.jenkins-ci.org/browse/JENKINS-45894) array index bounds exception in branch list
+# [JENKINS-45894](https://issues.jenkins.io/browse/JENKINS-45894) array index bounds exception in branch list
 
 Special branch names cause an array bounds exception in the git client
 plugin when they encounter unexpected output from the "git branch"
