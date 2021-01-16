@@ -1,4 +1,4 @@
-# [JENKINS-43818](https://issues.jenkins-ci.org/browse/JENKINS-43818) Branch parameter ignored
+# [JENKINS-43818](https://issues.jenkins.io/browse/JENKINS-43818) Branch parameter ignored
 
 In a pipeline job from a git repository where the "Branch Specifier"
 is given as a parameter, I started getting the following failure after
