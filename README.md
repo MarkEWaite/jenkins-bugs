@@ -1,4 +1,4 @@
-# [JENKINS-55536](https://issues.jenkins-ci.org/browse/JENKINS-55536) Use multiple remotes in Jenkinsfile
+# [JENKINS-55536](https://issues.jenkins.io/browse/JENKINS-55536) Use multiple remotes in Jenkinsfile
 
 The bug report says that multiple remotes are not supported by the git
 plugin.  As far as I can tell, multiple remotes are supported in all the
