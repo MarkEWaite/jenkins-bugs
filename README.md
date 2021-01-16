@@ -1,4 +1,4 @@
-# [JENKINS-43687](https://issues.jenkins-ci.org/browse/JENKINS-43687) Multibranch Pipeline Branch Configuration SCM poll: no changes
+# [JENKINS-43687](https://issues.jenkins.io/browse/JENKINS-43687) Multibranch Pipeline Branch Configuration SCM poll: no changes
 
 Defines this Jenkins job should poll every 5 minutes.  Intentionally did
 not define the cache repository so that no notifyCommit will be called
