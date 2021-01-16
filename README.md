@@ -1,4 +1,4 @@
-# [JENKINS-63179](https://issues.jenkins-ci.org/browse/JENKINS-60591) Changing branch to build does not detect changes on updated branch
+# [JENKINS-63179](https://issues.jenkins.io/browse/JENKINS-60591) Changing branch to build does not detect changes on updated branch
 
 Bug is described as:
 
