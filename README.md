@@ -1,4 +1,4 @@
-# [JENKINS-43052](https://issues.jenkins-ci.org/browse/JENKINS-43052) Disallow check out to a sub-directory for Pipeline projects      
+# [JENKINS-43052](https://issues.jenkins.io/browse/JENKINS-43052) Disallow check out to a sub-directory for Pipeline projects      
 
 If the root pipeline project definition (pipeline or multi-branch
 pipeline) uses the "Additional Behaviour" to checkout to a subdirectory,
