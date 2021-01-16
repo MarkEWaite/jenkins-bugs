@@ -1,7 +1,7 @@
-# [JENKINS-50158](https://issues.jenkins-ci.org/browse/JENKINS-50158) checkout from library reported LocalBranch not serializable
+# [JENKINS-50158](https://issues.jenkins.io/browse/JENKINS-50158) checkout from library reported LocalBranch not serializable
 
 An interesting syntactic twist on the checkout command was used in
-[JENKINS-50158](https://issues.jenkins-ci.org/browse/JENKINS-50158) :
+[JENKINS-50158](https://issues.jenkins.io/browse/JENKINS-50158) :
 
 ```
 def gitscm = new GitScm(... , extensions: [new LocalBranch('**')])
