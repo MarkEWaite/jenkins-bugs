@@ -1,4 +1,4 @@
-# [JENKINS-29603](https://issues.jenkins-ci.org/browse/JENKINS-29603) branch names with slashes ignored by notifyCommit
+# [JENKINS-29603](https://issues.jenkins.io/browse/JENKINS-29603) branch names with slashes ignored by notifyCommit
 
 Rather than poll a repository periodically, the repository can notify
 the Jenkins server of commits so that the Jenkins server can poll
