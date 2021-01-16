@@ -1,4 +1,4 @@
-# [JENKINS-58587](https://issues.jenkins-ci.org/browse/JENKINS-58587) Second commit can't compute SHA1
+# [JENKINS-58587](https://issues.jenkins.io/browse/JENKINS-58587) Second commit can't compute SHA1
 
 Bug is described as:
 
