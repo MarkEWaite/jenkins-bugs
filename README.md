@@ -1,4 +1,4 @@
-# [JENKINS-60617](https://issues.jenkins-ci.org/browse/JENKINS-60617) Add examples of `git` pipeline step
+# [JENKINS-60617](https://issues.jenkins.io/browse/JENKINS-60617) Add examples of `git` pipeline step
 
 The online documentation and the jenkins.io documentation are extracted from the git plugin.
 The most frequently requested documentation improvement is "more examples".
