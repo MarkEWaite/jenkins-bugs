@@ -1,4 +1,4 @@
-# [JENKINS-63653](https://issues.jenkins-ci.org/browse/JENKINS-63653) - Check scm.branches has expected value
+# [JENKINS-63653](https://issues.jenkins.io/browse/JENKINS-63653) - Check scm.branches has expected value
 
 The report says that scm.branches is assigned the name of the pull request.
 That is confirmed with git plugin 4.4.1 and expected with others.
