@@ -1,4 +1,4 @@
-<project name="JENKINS-43687" default="increment" basedir=".">
+<project name="JENKINS-64656" default="increment" basedir=".">
 
   <property environment="env"/>
   <condition property="changeLogCount" value="${env.CHANGESET_SIZE}" else="0">
@@ -25,10 +25,8 @@
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
-    <!-- JENKINS-43687 reports that polling configured from inside
-         Jenkinsfile does not detect changes in the branch.
-         This job does not show the bug, but it sometimes shows that the job
-         builds repeatedly even if no changes are made to the repo.
+    <!-- JENKINS-64656 reports that Freestyle jobs do not ignore an
+         excluded polling message.
          -->
     <echo>Displaying ${changeLogCount} git log messages in changeset for this build - CHANGESET_SIZE=${env.CHANGESET_SIZE}</echo>
     <git command="log">
