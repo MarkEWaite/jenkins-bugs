@@ -7,7 +7,7 @@ for dir in $(ls | sort -R; ls | sort -R); do
         echo "============================="
         echo "======== $dir ==============="
         echo "============================="
-        [ -f $dir/build.xml ] && (cd $dir && git pull-a && sleep 3 && ant && sleep 2 && git push && sleep 5 && git push cache && sleep 7 && git push bare)
+        [ -f $dir/build.xml ] && (cd $dir && rm -rf .git/refs/tags/stale && git pull-a && sleep 3 && ant && sleep 2 && git push && sleep 5 && git push cache && sleep 7 && git push bare)
 done
 
 # Run tests again that are harmed by other tests
@@ -15,5 +15,5 @@ for dir in JENKINS-20941 JENKINS-20941-base JENKINS-20941-https-simple JENKINS-2
         echo "============================="
         echo "======== $dir ==============="
         echo "============================="
-        [ -f $dir/build.xml ] && (cd $dir && git pull-a && sleep 3 && ant && sleep 2 && git push && sleep 5 && git push cache && sleep 7 && git push bare)
+        [ -f $dir/build.xml ] && (cd $dir && rm -rf .git/refs/tags/stale && git pull-a && sleep 3 && ant && sleep 2 && git push && sleep 5 && git push cache && sleep 7 && git push bare)
 done
