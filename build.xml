@@ -14,7 +14,7 @@
     <git command="commit">
       <args>
         <arg value="-m"/>
-        <arg value="${ant.project.name} ${user.name} buildnumber++, was ${build.number}"/>
+        <arg value="[maven-release-plugin] faked with ${ant.project.name} ${user.name} buildnumber++, was ${build.number}"/>
         <arg value="build.number"/>
       </args>
     </git>
