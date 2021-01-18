@@ -6,4 +6,15 @@ GitHub webhooks are not currently configured to reach inside my private network,
 Polling by a Freestyle job with the polling message exclusion should ignore the commit messages created by build.xml.
 
 Polling by a Pipeline job is not expected to honor the git plugin setting to ignore messages based on a specific string.
-Pipeline jobs that need to ignore specific messages should use a higher level Pipeline definition, not a git plugin setting.
+Pipeline jobs that need to ignore specific messages should use a higher level Pipeline definition, not a setting in the git plugin.
+
+The exclusion is not honored when the string is:
+
+  .*\[maven-release-plugin\].*
+
+The exclusion is honored when the string is:
+
+  (?s).*\[maven-release-plugin\].*
+
+Sadly, the failing example is the example listed in the online help.
+The failing example should work, but doesn't.
