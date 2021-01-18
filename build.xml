@@ -25,9 +25,6 @@
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
-    <!-- JENKINS-64656 reports that Freestyle jobs do not ignore an
-         excluded polling message.
-         -->
     <echo>Displaying ${changeLogCount} git log messages in changeset for this build - CHANGESET_SIZE=${env.CHANGESET_SIZE}</echo>
     <git command="log">
       <args>
@@ -36,6 +33,14 @@
       </args>
     </git>
     <echo>End of ${changeLogCount} git log messages in changeset for this build</echo>
+    <!-- JENKINS-64656 reports that Freestyle jobs do not ignore an
+         excluded polling message.
+         -->
+    <exec executable="curl" failonerror="true">
+      <arg value="--fail" />
+      <arg value="--silent" />
+      <arg value="${env.JENKINS_URL}/job/Bugs-Individual/job/Bugs-60-000-to-69-999/job/JENKINS-64656-regex-message-exclusion-not-honored/scmPollLog/" />
+    </exec>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
