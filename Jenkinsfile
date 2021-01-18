@@ -12,7 +12,7 @@ properties([
 
 def changes
 
-node {
+node('!cloud') { // Needs access to the Jenkins controller URL for curl
   stage('Checkout') {
     /* More complex checkout command seems to stop continuous false detection of changes */
     checkout([$class: 'GitSCM',
