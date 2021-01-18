@@ -13,4 +13,7 @@
 git remote | grep -q -w cache && git remote rm cache
 git remote | grep -q -w bare && git remote rm bare
 
+# Redefine the `push-a` git alias to only push to origin
+git config alias.push-a push
+
 exit 0
