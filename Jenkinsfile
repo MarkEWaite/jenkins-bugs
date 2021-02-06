@@ -11,7 +11,7 @@ pipeline {
     }
     stage('Report Stage') {
       steps {
-        milestone(ordinal:2, label: 'Report Milestone')
+        milestone(ordinal:20, label: 'Report Milestone')
         withAnt(installation:'ant-latest') {
           sh 'ant info'
         }
