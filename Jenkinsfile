@@ -5,13 +5,13 @@ pipeline {
   stages {
     stage('Checkout Stage') {
       steps {
-        milestone(ordinal:10, label: 'Checkout Milestone')
+        milestone(ordinal:1, label: 'Checkout Milestone')
         checkout scm
       }
     }
     stage('Report Stage') {
       steps {
-        milestone(ordinal:20, label: 'Report Milestone')
+        milestone(ordinal:2, label: 'Report Milestone')
         withAnt(installation:'ant-latest') {
           sh 'ant info'
         }
