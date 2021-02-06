@@ -15,13 +15,13 @@ node('git-1.9+ && git-lfs') { // Required for git LFS
       my_extensions = [
         [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
         [$class: 'LocalBranch', localBranch: 'JENKINS-35687']
-      ],
+      ]
     } else {
       my_extensions = [
         [$class: 'GitLFSPull'],
         [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
         [$class: 'LocalBranch', localBranch: 'JENKINS-35687']
-      ],
+      ]
     }
     checkout([$class: 'GitSCM',
               branches: [[name: '*/JENKINS-35687']],
