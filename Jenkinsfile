@@ -16,7 +16,7 @@ node('git-lfs && git-1.9+') { // Large file support requires a node with git LFS
 
   stage('Checkout') {
     checkout([$class: 'GitSCM',
-              branches: [[name: "*/${branch}"]],
+              branches: [[name: branch]],
               // Don't use the GitLFSPull extension
               // Rely on smudge filter to update content
               // extensions: [[$class: 'GitLFSPull']],
