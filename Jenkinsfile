@@ -54,7 +54,7 @@ node('!windows && git-1.8+') {
       my_check.logContains(".*fetch.*refs/heads/.*:refs/remotes/origin/.*", 'Did not fetch from first origin')
       my_check.logContains(".*fetch.*refs/heads/.*:refs/remotes/https-origin/.*", 'Did not fetch from second origin')
     }
-    my_check.logContains(".* origin.*github.com.*MarkEWaite/jenkins-bugs.*", 'Repo missing first origin')
+    my_check.logContains(".* origin.*aite/jenkins-bugs.*", 'Repo missing first origin')
     my_check.logContains(".* https-origin.*https://github.com/MarkEWaite/jenkins-bugs.*", 'Repo missing second origin')
   }
 }
