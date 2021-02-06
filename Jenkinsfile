@@ -10,9 +10,15 @@ properties([[$class: 'BuildDiscarderProperty',
 
 node('git-1.9+ && git-lfs') { // Required for git LFS
   stage('Checkout') {
+    def my_extensions
+    if (scm.userRemoteConfigs[0].url.contains('github.com')) {
+      my_extensions = [[$class: 'GitLFSPull']]
+    } else {
+      my_extensions = []
+    }
     checkout([$class: 'GitSCM',
               branches: [[name: '*/JENKINS-35687']],
-              extensions: [[$class: 'GitLFSPull']],
+              extensions: my_extensions,
               gitTool: 'Default', // No Git LFS support in JGit
               userRemoteConfigs: scm.userRemoteConfigs,
         ]
@@ -26,8 +32,9 @@ node('git-1.9+ && git-lfs') { // Required for git LFS
 
   stage('Verify') {
     def check = new com.markwaite.Assert()
-    check.logContains(".*Content of this file is tracked by git large file support.*", "Tracked content not found in large file")
+    if (scm.userRemoteConfigs[0].url.contains('github.com')) {
+      check.logContains(".*Content of this file is tracked by git large file support.*", "Tracked content not found in large file")
+    }
   }
-
 
 }
