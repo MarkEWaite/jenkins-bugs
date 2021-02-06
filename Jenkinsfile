@@ -11,6 +11,7 @@ properties([[$class: 'BuildDiscarderProperty',
 node('git-1.9+ && git-lfs') { // Required for git LFS
   stage('Checkout') {
     def my_extensions
+    echo scm.userRemoteConfigs[0].url
     if (scm.userRemoteConfigs[0].url.contains('github.com')) {
       my_extensions = [
         [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
