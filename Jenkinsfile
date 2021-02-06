@@ -34,7 +34,9 @@ node('git-lfs && git-1.9+') { // Large file support requires a node with git LFS
 
   stage('Verify') {
     def check = new com.markwaite.Assert()
-    check.logContains(".*Content of this file is tracked by git large file support.*", "Tracked content not found in large file")
+    if (repo_url.contains('github.com')) {
+      check.logContains(".*Content of this file is tracked by git large file support.*", "Tracked content not found in large file")
+    }
   }
 
 }
