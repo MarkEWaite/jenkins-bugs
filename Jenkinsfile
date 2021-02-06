@@ -12,9 +12,16 @@ node('git-1.9+ && git-lfs') { // Required for git LFS
   stage('Checkout') {
     def my_extensions
     if (scm.userRemoteConfigs[0].url.contains('github.com')) {
-      my_extensions = [[$class: 'GitLFSPull']]
+      my_extensions = [
+        [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+        [$class: 'LocalBranch', localBranch: 'JENKINS-35687']
+      ],
     } else {
-      my_extensions = []
+      my_extensions = [
+        [$class: 'GitLFSPull'],
+        [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+        [$class: 'LocalBranch', localBranch: 'JENKINS-35687']
+      ],
     }
     checkout([$class: 'GitSCM',
               branches: [[name: '*/JENKINS-35687']],
