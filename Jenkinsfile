@@ -23,7 +23,7 @@ def get_commit_sha1() {
 def do_checkout(branch) {
   return checkout([$class: 'GitSCM',
           branches: [[name: branch]],
-          extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: "/var/lib/git/mwaite/bugs/${repoUrlSuffix}"],
+          extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: "/var/lib/git/mwaite/bugs/jenkins-bugs.git"],
                        [$class: 'LocalBranch', localBranch: branch]
                       ],
           gitTool: scm.gitTool,
