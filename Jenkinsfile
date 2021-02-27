@@ -11,7 +11,7 @@ properties([[$class: 'BuildDiscarderProperty',
 def branch = 'JENKINS-53346'
 
 def get_commit_sha1() {
-  def sha1 = "unknown"
+  def sha1 = 'unknown'
   if (isUnix()) {
     sha1 = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim()
   } else {
