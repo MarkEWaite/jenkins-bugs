@@ -8,21 +8,14 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
              strategy: [$class: 'LogRotator', numToKeepStr: '7']]])
 
-echo "Repo URL is ${scm.userRemoteConfigs[0].url}"
-echo "Contains is ${scm.userRemoteConfigs[0].url.contains('github.com')}"
-echo "Repo URL is ${scm.userRemoteConfigs[0].url}"
-echo "SCM is ${scm}"
-echo "SCM git tool is ${scm.gitTool}"
-
 node('git-1.9+ && git-lfs') { // Required for git LFS
   stage('Checkout') {
     def my_extensions
     echo "Repo URL is ${scm.userRemoteConfigs[0].url}"
     echo "Contains is ${scm.userRemoteConfigs[0].url.contains('github.com')}"
-    echo "Repo URL is ${scm.userRemoteConfigs[0].url}"
     echo "SCM is ${scm}"
     echo "SCM git tool is ${scm.gitTool}"
-    if (scm.userRemoteConfigs[0].url.contains('github.com') && !scm.gitTool.startsWith('jgit')) {
+    if (scm.userRemoteConfigs[0].url.contains('github.com') && (scm.gitTool == null || !scm.gitTool.startsWith('jgit'))) {
       my_extensions = [
         [$class: 'GitLFSPull'],
         [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
