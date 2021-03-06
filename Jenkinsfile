@@ -12,14 +12,30 @@ def branch = 'JENKINS-35687-pub'
 
 node('git-1.9+ && git-lfs') { // Required for git LFS
   stage('Checkout') {
+    def my_extensions
+    echo "Repo URL is ${scm.userRemoteConfigs[0].url}"
+    echo "Contains is ${scm.userRemoteConfigs[0].url.contains('github.com')}"
+    echo "SCM is ${scm}"
+    echo "SCM git tool is ${scm.gitTool}"
+    if (scm.userRemoteConfigs[0].url.contains('github.com') && (scm.gitTool == null || !scm.gitTool.startsWith('jgit'))) {
+      my_extensions = [
+        // Don't use the GitLFSPull extension
+        // Rely on smudge filter to update content
+        // extensions: [[$class: 'GitLFSPull']],
+        [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+        [$class: 'LocalBranch', localBranch: branch]
+      ]
+    } else {
+      my_extensions = [
+        [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+        [$class: 'LocalBranch', localBranch: branch]
+      ]
+    }
     checkout([$class: 'GitSCM',
               branches: [[name: branch]],
-              // Don't use the GitLFSPull extension
-              // Rely on smudge filter to update content
-              // extensions: [[$class: 'GitLFSPull']],
-              gitTool: 'Default', // JGit does not support LFS
-              extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git']],
-              userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: scm.userRemoteConfigs[0].url ]],
+              extensions: my_extensions,
+              gitTool: scm.gitTool,
+              userRemoteConfigs: scm.userRemoteConfigs,
         ]
     )
   }
