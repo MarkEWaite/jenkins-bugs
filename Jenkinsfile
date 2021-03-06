@@ -8,6 +8,12 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
              strategy: [$class: 'LogRotator', numToKeepStr: '7']]])
 
+echo "Repo URL is ${scm.userRemoteConfigs[0].url}"
+echo "Contains is ${scm.userRemoteConfigs[0].url.contains('github.com')}"
+echo "Repo URL is ${scm.userRemoteConfigs[0].url}"
+echo "SCM is ${scm}"
+echo "SCM git tool is ${scm.gitTool}"
+
 node('git-1.9+ && git-lfs') { // Required for git LFS
   stage('Checkout') {
     def my_extensions
