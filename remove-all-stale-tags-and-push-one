@@ -6,7 +6,7 @@
 tag_name=$1
 
 # Set local configuration
-for remote in origin cache bare; do
+for remote in $(git remote); do
   if ! git config --list | grep -q -i remote.$remote.fetch.*tags/stale; then
     echo Adding remote.$remote.fetch
     git config --add remote.$remote.fetch '+refs/tags/stale/*:refs/tags/stale/*'
@@ -35,7 +35,7 @@ done
 echo
 echo Remove stale remote tags except the one allowed to remain
 echo
-for remote in origin cache bare; do
+for remote in $(git remote); do
   for tag in $(git ls-remote --tags $remote | grep stale/ | grep -v $tag_name | grep -F -v '^{}' | sed 's!^.*refs/tags/!!g'); do
     echo deleting tag $tag on remote $remote
     git push $remote --delete $tag
@@ -46,7 +46,7 @@ echo
 echo Create and push one allowed tag
 echo
 git tag -a -m "Tag $tag_name created by $0" $tag_name
-for remote in origin cache bare; do
+for remote in $(git remote); do
   git push $remote
   git push $remote $tag_name
 done
