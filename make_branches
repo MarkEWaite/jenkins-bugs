@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
-# This is a work in progress - does most of what needs to be done
+# This is a work in progress - does not yet do all that needs to be done
 
 if [ "$1" != "" ]; then
         filter=$1
@@ -8,29 +8,30 @@ else
         filter=.
 fi
 
-for origin in $(git branch -a | grep $filter | grep origin.*JENKINS | sed 's!remotes/!!g'); do
-        bug=$(echo $origin | sed -e 's!.*JENKINS!JENKINS!g' -e 's!/.*$!!g')
-        branch=$(echo $origin | sed 's!origin/!!g')
-        dir=$(echo $origin | sed -e 's!.*JENKINS!JENKINS!g' -e 's!/!-!g')
-        echo Cloning for bug $bug, branch $branch, dir $dir
-        ( cd .. && \
-          git clone --branch $branch \
-                    --single-branch \
-                    --no-tags \
-                    --reference /var/lib/git/mwaite/bugs/jenkins-bugs.git \
-                    https://github.com/MarkEWaite/jenkins-bugs \
-                    $dir )
-        echo Cloned for bug $bug, branch $branch, dir $dir
-        ( cd ../$dir && \
-          git config remote.origin.pushurl git@github.com:MarkEWaite/jenkins-bugs.git &&
-          git remote add cache mwaite@git.markwaite.net:git/bare/bugs/jenkins-bugs.git && \
-          git config remote.cache.fetch $(git config --get remote.origin.fetch | sed 's/origin/cache/g') && \
-          git remote add bare /var/lib/git/mwaite/bugs/jenkins-bugs.git && \
-          git config remote.bare.fetch $(git config --get remote.origin.fetch | sed 's/origin/bare/g') && \
-          git remote add gitea-server git@gitea-server.markwaite.net:mwaite/jenkins-bugs.git && \
-          git config remote.gitea-server.fetch $(git config --get remote.origin.fetch | sed 's/origin/gitea-server/g') && \
-          git push cache && \
-          git push bare && \
-          git pull --no-tags --all --prune )
-        echo Configured for bug $bug, branch $branch, dir $dir
+for keyword in JENKINS MHA ZD; do
+  for origin in $(git branch -a | grep $filter | grep origin.*${keyword} | sed 's!remotes/!!g'); do
+    bug=$(echo $origin | sed -e "s!.*${keyword}!${keyword}!g" -e 's!/.*$!!g')
+    branch=$(echo $origin | sed 's!origin/!!g')
+    dir=$(echo $origin | sed -e "s!.*${keyword}!${keyword}!g" -e 's!/!-!g')
+    [ -d ../$dir ] && continue
+    echo Cloning for bug $bug, branch $branch, dir $dir
+    ( cd .. && \
+      git clone --branch $branch \
+                --single-branch \
+                --no-tags \
+                --reference /var/lib/git/mwaite/bugs/jenkins-bugs.git \
+                https://github.com/MarkEWaite/jenkins-bugs \
+                $dir )
+    echo Cloned for bug $bug, branch $branch, dir $dir
+    ( cd ../$dir && \
+      git config remote.origin.pushurl git@github.com:MarkEWaite/jenkins-bugs.git &&
+      git remote add cache mwaite@git.markwaite.net:git/bare/bugs/jenkins-bugs.git && \
+      git config remote.cache.fetch $(git config --get remote.origin.fetch | sed 's/origin/cache/g') && \
+      git remote add bare /var/lib/git/mwaite/bugs/jenkins-bugs.git && \
+      git config remote.bare.fetch $(git config --get remote.origin.fetch | sed 's/origin/bare/g') && \
+      git push cache && \
+      git push bare && \
+      git pull --no-tags --all --prune )
+    echo Configured for bug $bug, branch $branch, dir $dir
+  done
 done
