@@ -17,7 +17,7 @@ pipeline {
             steps {
                 echo "**** Branch is ${env.BRANCH_NAME} ****"
                 echo "**** scm.branches is ${scm.branches} ****"
-                checkout(
+                scmResult = checkout(
                   [ $class: 'GitSCM',
                     branches: scm.branches, // Assumes the multibranch pipeline checkout branch definition is sufficient
                     // JENKINS-63563 says that checkout will fail without this extensions section
@@ -32,6 +32,9 @@ pipeline {
                 )
                 sh( script: 'echo GIT_URL is ${GIT_URL}', label: 'Report GIT_URL' ) // JENKINS-65123
                 sh( script: 'ant info', label: 'Info target from Apache ant' )
+                if (scmResult['GIT_URL'] == '') {
+                    currentBuild.result = 'UNSTABLE'
+                }
             }
         }
     }
