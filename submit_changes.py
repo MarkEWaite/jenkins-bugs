@@ -21,7 +21,7 @@ def commit_messages():
 #-----------------------------------------------------------------------
 
 def submit_changes(args = []):
-    help_text = """%prog [options] [host(s)]
+    help_text = """%prog [options]
 Submit problem change log messages to a git repo.   Use -h for help."""
     parser = optparse.OptionParser(usage=help_text)
 
