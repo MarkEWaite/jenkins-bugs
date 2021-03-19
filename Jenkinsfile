@@ -44,8 +44,8 @@ node('master') {
     def check = new com.markwaite.Assert()
     String jobName = env.JOB_NAME
     String jobPath = "job/" + jobName.replace("/", "/job/")
-    String buildNumber = "${currentBuild.number}"
-    String jobURL = "http://localhost:8080/${jobPath}/${buildNumber}/api/xml?wrapper=changes&xpath=//changeSet//comment"
+    String buildNumberString = "${currentBuild.number}"
+    String jobURL = "http://localhost:8080/${jobPath}/${buildNumberString}/api/xml?wrapper=changes&xpath=//changeSet//comment"
     println "job URL is '${jobURL}'"
     String changeDescription =
       new URL(jobURL).getText(connectTimeout: 1000,
