@@ -33,6 +33,8 @@ pipeline {
                     )
                     if (scmResult['GIT_URL'] == '') {
                         currentBuild.result = 'UNSTABLE'
+                    } else {
+                        echo "scmResult['GIT_URL'] = ${scmResult['GIT_URL']}"
                     }
                 }
                 sh( script: 'echo GIT_URL is ${GIT_URL}', label: 'Report GIT_URL' ) // JENKINS-65123
