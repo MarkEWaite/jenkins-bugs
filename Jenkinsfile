@@ -30,6 +30,7 @@ pipeline {
                     userRemoteConfigs: scm.userRemoteConfigs // Assumes the multibranch pipeline checkout remoteconfig is sufficient
                   ]
                 )
+                sh( script: 'echo GIT_URL is ${GIT_URL}', label: 'Report GIT_URL' ) // JENKINS-65123
                 sh( script: 'ant info', label: 'Info target from Apache ant' )
             }
         }
