@@ -14,7 +14,7 @@ properties([[$class: 'BuildDiscarderProperty',
 def branch='JENKINS-36637-jgit'
 def origin='J-36637-origin'
 
-node('master') {
+node('!windows && !cloud') {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
               userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
@@ -42,20 +42,15 @@ node('master') {
 
   stage('Verify') {
     def check = new com.markwaite.Assert()
-    String jobName = env.JOB_NAME
-    String jobPath = "job/" + jobName.replace("/", "/job/")
-    String buildNumberString = "${currentBuild.number}"
-    String jobURL = "http://localhost:8080/${jobPath}/${buildNumberString}/api/xml?wrapper=changes&xpath=//changeSet//comment"
-    println "job URL is '${jobURL}'"
+    String changesApiUrl = "${env.BUILD_URL}api/xml?wrapper=changes&xpath=//changeSet//comment"
+    println "job URL is '${changesApiUrl}'"
     String changeDescription =
-      new URL(jobURL).getText(connectTimeout: 1000,
-			      readTimeout: 5000,
-			      useCaches: false,
-			      allowUserInteraction: false,
-			      requestProperties: ['Connection': 'close'])
+      new URL(changesApiUrl).getText(connectTimeout: 1000,
+			             readTimeout: 5000,
+			             useCaches: false,
+			             allowUserInteraction: false,
+			             requestProperties: ['Connection': 'close'])
     println "Change description is '" + changeDescription + "'"
-    println "Changeset API URL is ${env.BUILD_URL}api/xml?wrapper=changes&xpath=//changeSet//comment"
-    println "Project URL is ${env.PROJECT_URL}"
     if (changeDescription.contains("<changes/>") ||
 	!changeDescription.contains("<changes>") ||
 	countSubstrings(changeDescription, "<comment>") < 2) { // Always expect at least 2 changes
