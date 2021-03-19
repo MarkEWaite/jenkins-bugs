@@ -54,6 +54,8 @@ node('master') {
 			      allowUserInteraction: false,
 			      requestProperties: ['Connection': 'close'])
     println "Change description is '" + changeDescription + "'"
+    println "Build URL is ${env.BUILD_URL}"
+    println "Project URL is ${env.PROJECT_URL}"
     if (changeDescription.contains("<changes/>") ||
 	!changeDescription.contains("<changes>") ||
 	countSubstrings(changeDescription, "<comment>") < 2) { // Always expect at least 2 changes
