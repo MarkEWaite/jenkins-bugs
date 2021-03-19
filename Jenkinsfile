@@ -37,7 +37,7 @@ pipeline {
                         echo "scmResult['GIT_URL'] = ${scmResult['GIT_URL']}" // JENKINS-65123 workaround, use return value from checkout
                     }
                 }
-                sh( script: 'echo shell GIT_URL is ${GIT_URL};env | grep GIT_ | sort', label: 'Report GIT_URL' ) // JENKINS-65123 notes that shell GIT_URL is empty
+                sh( script: 'echo shell GIT_URL is ${GIT_URL};env | sort', label: 'Report GIT_URL' ) // JENKINS-65123 notes that shell GIT_URL is empty
                 sh( script: 'ant info', label: 'Info target from Apache ant' )
             }
         }
