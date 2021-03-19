@@ -32,8 +32,10 @@ pipeline {
                 )
                 sh( script: 'echo GIT_URL is ${GIT_URL}', label: 'Report GIT_URL' ) // JENKINS-65123
                 sh( script: 'ant info', label: 'Info target from Apache ant' )
-                if (scmResult['GIT_URL'] == '') {
-                    currentBuild.result = 'UNSTABLE'
+                script {
+                    if (scmResult['GIT_URL'] == '') {
+                        currentBuild.result = 'UNSTABLE'
+                    }
                 }
             }
         }
