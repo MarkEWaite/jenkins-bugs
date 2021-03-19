@@ -34,7 +34,7 @@ pipeline {
                     if (scmResult['GIT_URL'] == '') {
                         currentBuild.result = 'UNSTABLE'
                     } else {
-                        echo "scmResult['GIT_URL'] = ${scmResult['GIT_URL']}"
+                        echo "scmResult['GIT_URL'] = ${scmResult['GIT_URL']}" // JENKINS-65123 workaround, use return value from checkout
                     }
                 }
                 sh( script: 'echo GIT_URL is ${GIT_URL}', label: 'Report GIT_URL' ) // JENKINS-65123
