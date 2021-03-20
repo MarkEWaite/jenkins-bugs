@@ -8,7 +8,7 @@ else
         filter=.
 fi
 
-for keyword in JENKINS MHA ZD; do
+for keyword in JENKINS MHA SECURITY ZD; do
   for origin in $(git branch -a | grep $filter | grep origin.*${keyword} | sed 's!remotes/!!g'); do
     bug=$(echo $origin | sed -e "s!.*${keyword}!${keyword}!g" -e 's!/.*$!!g')
     branch=$(echo $origin | sed 's!origin/!!g')
