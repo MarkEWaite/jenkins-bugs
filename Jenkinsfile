@@ -3,23 +3,11 @@ pipeline {
         timestamps()
         skipDefaultCheckout()
     }
-    agent {
-        label 'windows'
-    }
+    agent any
     stages {
-        stage('Info') {
+        stage('Git step with defaults') {
             steps {
-                // git 'https://github.com/amuniz/maven-helloworld'
-                // git branch: 'JENKINS-55257', url: 'https://github.com/MarkEWaite/jenkins-bugs'
-                checkout([
-                  $class: 'GitSCM',
-                  branches: scm.branches,
-                  extensions: scm.extensions,
-                  userRemoteConfigs: scm.userRemoteConfigs
-                ])
-                withAnt(installation: 'ant-latest') {
-                    bat 'ant info'
-                }
+                git 'https://github.com/MarkEWaite/peass-ci.git' // Fails because default branch is 'main' rather than 'master'
             }
         }
     }
