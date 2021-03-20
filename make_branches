@@ -29,6 +29,8 @@ for keyword in JENKINS MHA SECURITY ZD; do
       git config remote.cache.fetch $(git config --get remote.origin.fetch | sed 's/origin/cache/g') && \
       git remote add bare /var/lib/git/mwaite/bugs/jenkins-bugs.git && \
       git config remote.bare.fetch $(git config --get remote.origin.fetch | sed 's/origin/bare/g') && \
+      git remote add gitea-server git@gitea-server.markwaite.net:mwaite/jenkins-bugs.git && \
+      git config remote.gitea-server.fetch $(git config --get remote.origin.fetch | sed 's/origin/gitea-server/g') && \
       git push cache && \
       git push bare && \
       git pull --no-tags --all --prune )
