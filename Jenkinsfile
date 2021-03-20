@@ -1,6 +1,5 @@
 pipeline {
     options {
-        timestamps()
         skipDefaultCheckout()
     }
     agent any
