@@ -2,7 +2,11 @@
 
 # Remove all but one tag from the stale/* tags
 
-[ "$1" == "" ] && { echo Must provide a tag name to create; exit 1; }
+if [ "$1" = "" ] ; then
+  echo Must provide a tag name to create
+  exit 1
+fi
+
 tag_name=$1
 
 # Set local configuration
