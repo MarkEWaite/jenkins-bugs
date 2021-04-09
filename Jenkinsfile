@@ -12,8 +12,11 @@ pipeline {
             steps {
                 script {
                     def scmValues = checkout([$class: 'GitSCM', branches: [[name: 'master']], userRemoteConfigs: [[url: 'https://github.com/bonfy/JENKINS-61317']]])
+                    if (scmValues.GIT_COMMIT != '') {
+                        addInfoBadge id: 'bad-sha-1', text: 'Unexpected SHA-1 returned by checkout'scmValues.GIT_COMMIT
+                        currentBuild.result = 'UNSTABLE'
+                    }
                     echo "scmValues.GIT_COMMIT = ${scmValues.GIT_COMMIT}"
-                    sh 'echo GIT_ env vars START; env | sort | grep GIT_ || true; echo GIT_ env vars END'
                 }
             }
         }
