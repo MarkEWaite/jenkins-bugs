@@ -1,8 +1,10 @@
+/*
 library(identifier: 'jenlib@jenkins-lib',
         retriever: modernSCM([
             $class: 'GitSCMSource',
             remote: 'https://github.com/bonfy/JENKINS-61317'])
        )
+       */
 
 pipeline {
     options {
