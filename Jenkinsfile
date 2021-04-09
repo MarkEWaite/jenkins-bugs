@@ -1,13 +1,21 @@
+library(identifier: 'jenlib@jenkins-lib',
+        retriever: modernSCM([
+            $class: 'GitSCMSource',
+            remote: 'https://github.com/bonfy/JENKINS-61317'])
+       )
+
 pipeline {
     options {
         skipDefaultCheckout()
     }
     agent any
     stages {
-        stage('Git step with defaults') {
+        stage('Checkout scm') {
             steps {
-                git 'https://github.com/MarkEWaite/peass-ci.git' // Fails because default remote branch is 'main' rather than 'master'
-                // git branch: 'main', url: 'https://github.com/MarkEWaite/peass-ci.git' // Works because branch is stated explicitly
+                script {
+                    def scmValues = checkout([$class: 'GitSCM', branches: [[name: 'master']], userRemoteConfigs: [[url: 'https://github.com/bonfy/JENKINS-61317']]])
+                    echo "scmValues.GIT_COMMIT = ${scmValues.GIT_COMMIT}"
+                }
             }
         }
     }
