@@ -13,7 +13,7 @@ pipeline {
                 script {
                     def scmValues = checkout([$class: 'GitSCM', branches: [[name: 'master']], userRemoteConfigs: [[url: 'https://github.com/bonfy/JENKINS-61317']]])
                     echo "scmValues.GIT_COMMIT = ${scmValues.GIT_COMMIT}"
-                    sh 'env | sort'
+                    sh 'echo GIT_ env vars START; env | sort | grep GIT_; echo GIT_ env vars END'
                 }
             }
         }
