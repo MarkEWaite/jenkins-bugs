@@ -1,10 +1,4 @@
-/*
-library(identifier: 'jenlib@jenkins-lib',
-        retriever: modernSCM([
-            $class: 'GitSCMSource',
-            remote: 'https://github.com/bonfy/JENKINS-61317'])
-       )
-       */
+library identifier: 'jenlib@jenkins-lib', retriever: modernSCM([$class: 'GitSCMSource', remote: 'https://github.com/bonfy/JENKINS-61317', traits: [gitBranchDiscovery()]])
 
 pipeline {
     options {
