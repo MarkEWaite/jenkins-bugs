@@ -4,13 +4,16 @@ pipeline {
     options {
         skipDefaultCheckout()
     }
-    agent any
+    agent {
+        label '!windows'
+    }
     stages {
         stage('Checkout scm') {
             steps {
                 script {
                     def scmValues = checkout([$class: 'GitSCM', branches: [[name: 'master']], userRemoteConfigs: [[url: 'https://github.com/bonfy/JENKINS-61317']]])
                     echo "scmValues.GIT_COMMIT = ${scmValues.GIT_COMMIT}"
+                    sh 'env | sort'
                 }
             }
         }
