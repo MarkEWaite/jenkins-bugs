@@ -1,3 +1,3 @@
-# [JENKINS-65183](https://issues.jenkins.io/browse/JENKINS-65183) git step ignores default remote branch
+# [JENKINS-61317](https://issues.jenkins.io/browse/JENKINS-61317) Library from same repo hides main checkout values
 
-The Jenkins Pipeline git step assumes the remote default branch is 'master' even though that may not be the remote default branch name.
+A Jenkinsfile that retrieves a library from the same repository that provided the Jenkinsfile will confuse the commit and branch name in the checkout step.
