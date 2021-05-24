@@ -86,7 +86,7 @@ for (int i = 0; i < implementations.size(); ++i) {
                         "GIT_COMMITTER_NAME",
                        ]
         for ( env_var in buggy_env_vars ) {
-          my_check.logContains(".*${env_var}=${latest[env_var]}", "$env_var mismatch")
+          my_check.logContains(".*${env_var}=${latest[env_var]}", "$env_var mismatch for ${env_var}=${latest[env_var]}")
         }
       }
     }
