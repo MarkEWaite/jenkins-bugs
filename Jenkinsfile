@@ -25,6 +25,10 @@ pipeline {
                     //   [ $class: 'LocalBranch', localBranch: env.BRANCH_NAME ],
                     //   [ $class: 'PruneStaleBranch' ]
                     // ],
+                    // Add honor refspec and reference repo for speed and space improvement
+                    extensions: scm.extensions + [
+                      [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+                    ],
                     gitTool: scm.gitTool,
                     userRemoteConfigs: scm.userRemoteConfigs // Assumes the multibranch pipeline checkout remoteconfig is sufficient
                   ]
