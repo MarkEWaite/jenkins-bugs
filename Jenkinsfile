@@ -31,7 +31,9 @@ pipeline {
                       [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                     ],
                     gitTool: scm.gitTool,
-                    userRemoteConfigs: scm.userRemoteConfigs // Assumes the multibranch pipeline checkout remoteconfig is sufficient
+                    // Default is missing narrow refspec
+                    userRemoteConfigs: [ refspec: '+refs/heads/JENKINS-61120:refs/remotes/origin/JENKINS-61120', url: scm.userRemoteConfigs[0].url ]
+                    // userRemoteConfigs: scm.userRemoteConfigs // Assumes the multibranch pipeline checkout remoteconfig is sufficient
                   ]
                 )
                 sh( script: 'ant info', label: 'Info target from Apache ant' )
