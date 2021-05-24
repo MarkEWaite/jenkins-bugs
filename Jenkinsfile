@@ -17,6 +17,7 @@ pipeline {
             steps {
                 echo "**** Branch is ${env.BRANCH_NAME} ****"
                 echo "**** scm.branches is ${scm.branches} ****"
+                echo "**** scm.userRemoteConfigs[0] is ${scm.userRemoteConfigs[0]} ****"
                 checkout(
                   [ $class: 'GitSCM',
                     branches: scm.branches, // Assumes the multibranch pipeline checkout branch definition is sufficient
