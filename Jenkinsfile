@@ -32,7 +32,7 @@ pipeline {
                     ],
                     gitTool: scm.gitTool,
                     // Default is missing narrow refspec
-                    userRemoteConfigs: [ refspec: '+refs/heads/JENKINS-61120:refs/remotes/origin/JENKINS-61120', url: scm.userRemoteConfigs[0].url ]
+                    userRemoteConfigs: [ [ refspec: '+refs/heads/JENKINS-61120:refs/remotes/origin/JENKINS-61120', url: scm.userRemoteConfigs[0].url ] ]
                     // userRemoteConfigs: scm.userRemoteConfigs // Assumes the multibranch pipeline checkout remoteconfig is sufficient
                   ]
                 )
