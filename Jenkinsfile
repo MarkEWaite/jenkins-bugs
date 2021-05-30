@@ -79,6 +79,7 @@ for (int i = 0; i < implementations.size(); ++i) {
         my_step.ant 'info'
         my_check.logContains('.*user dir is .*', 'Ant output missing user dir report')
 
+        /*
         def buggy_env_vars = [
                         "GIT_AUTHOR_EMAIL",
                         "GIT_AUTHOR_NAME",
@@ -88,6 +89,7 @@ for (int i = 0; i < implementations.size(); ++i) {
         for ( env_var in buggy_env_vars ) {
           my_check.logContains(".*${env_var}=${latest[env_var]}", "$env_var mismatch for ${env_var}=${latest[env_var]}")
         }
+        */
       }
     }
   }
