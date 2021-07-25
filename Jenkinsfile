@@ -42,9 +42,9 @@ node('linux && git-1.8+ && !cloud') { // ant command calls shell script that cal
     if (currentBuild.number > 1 && currentBuild.changeSets.size() > 0) { // Don't check first build or builds with no changes
       my_check.logDoesNotContain('.*First time build.*Skipping changelog.*', 'Later build incorrectly a first time build') // JENKINS-60159
       // Check for start of message in HTML output
-      my_check.logContains('.*<li>User interface truncates change messages.*</li>.*', 'Start of commit message missing')
+      my_check.logContains('.*User interface truncates change messages.*', 'Start of commit message missing')
       // Check for middle of message in HTML output
-      my_check.logContains('.*<li>.*with an intentionally long first line of the commit message.*</li>.*', 'Tail of commit message missing')
+      my_check.logContains('.*with an intentionally long first line of the commit message.*', 'Tail of commit message missing')
     }
   }
 }

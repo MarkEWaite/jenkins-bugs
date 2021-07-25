@@ -46,12 +46,14 @@ if [ -z "$SERVER" ]; then
 fi
 # remove trailing slash from SERVER, fails CSRF exclusion check
 SERVER=${SERVER%/}
+echo SERVER is $SERVER
 
 if [ -n "$USERNAME" ]; then
     AUTHORIZATION="-u $USERNAME:$APITOKEN"
 else
     AUTHORIZATION=
 fi
+echo AUTHORIZATION is for user $USERNAME
 
 # Assure URL of git repository is set
 
@@ -74,16 +76,19 @@ fi
 if [ -z "$GIT_URL" ]; then
     usage
 fi
+echo GIT_URL is $GIT_URL
 
 # Assure BUILD_URL is set
 
 if [ -z "$BUILD_URL" ]; then
     usage
 fi
+echo BUILD_URL is $BUILD_URL
 
 # CHANGES_URL is the URL to the changes in $BUILD_URL
 
 CHANGES_URL=${BUILD_URL}/changes
+echo CHANGES_URL is $CHANGES_URL
 
 cookie_file=$(mktemp /tmp/reportScanLogResults-script.XXXXXX)
 
