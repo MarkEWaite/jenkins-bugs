@@ -23,9 +23,12 @@ node {
     checkout([$class: 'GitSCM',
                 branches: [[name: 'JENKINS-66054']],
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+                             [$class: 'ChangelogToBranch', options: [compareRemote: 'origin', compareTarget: 'JENKINS-66054-older']],
                              [$class: 'LocalBranch', localBranch: 'JENKINS-66054']],
                 gitTool: scm.gitTool,
-                userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-66054:refs/remotes/origin/JENKINS-66054', url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
+                userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-66054:refs/remotes/origin/JENKINS-66054' +
+                                              ' +refs/heads/JENKINS-66054-older:refs/remotes/origin/JENKINS-66054-older',
+                                     url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
     changes = changelogEntries(changeSets: currentBuild.changeSets)
   }
 
