@@ -36,5 +36,7 @@ node {
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     my_check.logContains('.*[*] JENKINS-66054.*', 'Wrong branch reported')
+    my_check.logContains('.*Displaying [0-9]+ git log messages in changeset for this build.*', 'Did not report number of git log messages')
+    my_check.assertCondition(changes.size() == 1, "Expected 1 change, but there were ${changes.size()}")
   }
 }
