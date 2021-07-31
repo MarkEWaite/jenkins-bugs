@@ -21,11 +21,11 @@ def changes
 node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
-                branches: [[name: 'ZD-60678']],
+                branches: [[name: 'JENKINS-66054']],
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                             [$class: 'LocalBranch', localBranch: 'ZD-60678']],
+                             [$class: 'LocalBranch', localBranch: 'JENKINS-66054']],
                 gitTool: scm.gitTool,
-                userRemoteConfigs: [[refspec: '+refs/heads/ZD-60678:refs/remotes/origin/ZD-60678', url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
+                userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-66054:refs/remotes/origin/JENKINS-66054', url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
     changes = changelogEntries(changeSets: currentBuild.changeSets)
   }
 
@@ -39,6 +39,6 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains('.*[*] ZD-60678.*', 'Wrong branch reported')
+    my_check.logContains('.*[*] JENKINS-66054.*', 'Wrong branch reported')
   }
 }
