@@ -17,8 +17,10 @@ node {
                 branches: [[name: 'JENKINS-66054']],
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                              [$class: 'ChangelogToBranch', options: [compareRemote: 'origin', compareTarget: 'JENKINS-66054-older']],
-                             [$class: 'LocalBranch', localBranch: 'JENKINS-66054']],
+                             [$class: 'LocalBranch', localBranch: 'JENKINS-66054'],
+                            ],
                 gitTool: scm.gitTool,
+                /* Must include extra refspec so that ChangelogToBranch can refer to origin/JENKINS-66054-older */
                 userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-66054:refs/remotes/origin/JENKINS-66054' +
                                               ' +refs/heads/JENKINS-66054-older:refs/remotes/origin/JENKINS-66054-older',
                                      url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
