@@ -5,7 +5,16 @@
     <isset property="env.CHANGESET_SIZE"/>
   </condition>
 
-  <target name="increment" description="Increment build number">
+  <!-- Set "is.older.git.branch" property if branch name contains "-older" -->
+  <!-- Do not increment when working on the "JENKINS-66054-older" branch -->
+  <exec executable="git" outputproperty="git.branch" failifexecutionfails="false">
+    <arg line="rev-parse --abbrev-ref HEAD"/>
+  </exec>
+  <condition property="is.older.git.branch" value="true" else="false">
+    <matches pattern=".*-older" string="${git.branch}"/>
+  </condition>
+
+  <target name="increment" description="Increment build number" unless="${is.older.git.branch}">
     <git command="pull" />
     <buildnumber/>
     <git command="add">
