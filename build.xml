@@ -19,6 +19,13 @@
         <arg value="[${ant.project.name}] ${user.name} build++, was ${build.number}"/>
       </args>
     </git>
+    <!-- push the previous commit to the "JENKINS-66054-older" branch so that changelog count remains 1 -->
+    <git command="push">
+      <args>
+        <arg value="origin"/>
+        <arg value="HEAD^:JENKINS-66054-older"/>
+      </args>
+    </git>
   </target>
 
   <!-- Info about this repository -->
