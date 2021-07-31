@@ -1,4 +1,4 @@
-<project name="ZD-60678" default="increment" basedir=".">
+<project name="JENKINS-66054" default="increment" basedir=".">
 
   <property environment="env"/>
   <condition property="changeLogCount" value="${env.CHANGESET_SIZE}" else="0">
@@ -26,8 +26,7 @@
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
-    <!-- ZD-60678 reports that checkout of a Pipeline shared library
-         branch name containing a '#' fails.  -->
+    <!-- JENKINS-66054 reports that changelog entries are missing when using ChangelogToBranch extension -->
     <echo>Displaying ${changeLogCount} git log messages in changeset for this build - CHANGESET_SIZE=${env.CHANGESET_SIZE}</echo>
     <git command="log">
       <args>
