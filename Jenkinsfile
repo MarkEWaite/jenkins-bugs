@@ -25,15 +25,12 @@ node {
     changes = changelogEntries(changeSets: currentBuild.changeSets)
   }
 
-  stage('Build') {
+  stage('Build-and-Verify') {
     withEnv(["CHANGESET_SIZE=${changes.size()}"]) {
       /* Call the ant build. */
       def my_step = new com.markwaite.Build()
       my_step.ant 'info'
     }
-  }
-
-  stage('Verify') {
     def my_check = new com.markwaite.Assert()
     my_check.logContains('.*[*] JENKINS-66054.*', 'Wrong branch reported')
     my_check.logContains('.*Displaying [0-9]+ git log messages in changeset for this build.*', 'Did not report number of git log messages')
