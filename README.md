@@ -1,4 +1,3 @@
-# [ZD-60678](https://cloudbees.zendesk.com/agent/tickets/60678) Pipeline shared library branch name disallows '#'
+# [JENKINS-66054](https://issues.jenkins.io/browse/JENKINS-66054) ChangeLogToBranch extension does not report changes
 
-Report arrived that a branch name containing '#' was previously allowed
-in both a Pipeline shared library checkout and in a workspace checkout.
+I'm using the ChangelogToBranch extension to record the change. But its not reflecting on the change tab.
