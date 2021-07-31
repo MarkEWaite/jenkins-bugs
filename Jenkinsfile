@@ -27,7 +27,7 @@ node {
     changes = changelogEntries(changeSets: currentBuild.changeSets)
   }
 
-  stage('Build-and-Verify') {
+  stage('Show Changes') {
     withEnv(["CHANGESET_SIZE=${changes.size()}"]) {
       /* Call the ant build. */
       def my_step = new com.markwaite.Build()
