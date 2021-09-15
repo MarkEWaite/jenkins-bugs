@@ -8,17 +8,22 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-def branch = 'JENKINS-56176'
+def branch = 'JENKINS-25465'
 
 node('!windows') {
   stage('Checkout') {
-    checkout([$class: 'GitSCM',
-                branches: [[name: branch]],
-                extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                             [$class: 'LocalBranch', localBranch: branch]
-                            ],
-                gitTool: scm.gitTool,
-                userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
+      checkout([$class: 'GitSCM',
+                  branches: [[name: branch]],
+                  extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
+                               [$class: 'LocalBranch', localBranch: branch]
+                              ],
+                  gitTool: scm.gitTool,
+                  userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
+      def expansion = tm '${GIT_BRANCH,fullName=false}'
+      def buildnum = tm('${BUILD_NUMBER}')
+      def my_check = new com.markwaite.Assert()
+      my_check.assertCondition(expansion == 'master', "GIT_BRANCH was '${expansion}', expected 'master'")
+      my_check.assertCondition(buildnum ==~ '[0-9]+', "Build # was '${buildnum}', expected a number")
   }
 
   stage('Build') {
@@ -29,8 +34,8 @@ node('!windows') {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    /* JENKINS-56176 must be checked in a freestyle job, not pipeline */
+    /* JENKINS-25465 token macro expansion incorrect when branch name includes '/' */
     my_check.logDoesNotContain('.*GIT_REVISION.*', 'GIT_REVISION env var reported')
-    my_check.logDoesNotContain('.*GIT_COMMIT:.*', 'GIT_COMMIT env var reported')
+    my_check.logDoesNotContain('.*GIT_BRANCH:.*', 'GIT_BRANCH env var reported')
   }
 }
