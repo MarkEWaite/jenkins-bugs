@@ -1,4 +1,4 @@
-<project name="JENKINS-25465" default="increment" basedir=".">
+<project name="JENKINS-66651" default="increment" basedir=".">
 
   <property environment="env"/>
 
@@ -51,7 +51,7 @@
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
-    <!-- JENKINS-25465 reports that GIT_BRANCH has wrong value for branch names containing '/' -->
+    <!-- JENKINS-66651 reports that GIT_BRANCH is not expanded by the `tm` pipeline task -->
     <exec executable="env" />
   </target>
 
