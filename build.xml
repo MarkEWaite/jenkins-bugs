@@ -1,4 +1,4 @@
-<project name="JENKINS-56176" default="increment" basedir=".">
+<project name="JENKINS-25465" default="increment" basedir=".">
 
   <property environment="env"/>
 
@@ -51,7 +51,7 @@
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
-    <!-- JENKINS-56176 reports that GIT_REVISION is no longer available -->
+    <!-- JENKINS-25465 reports that GIT_BRANCH has wrong value for branch names containing '/' -->
     <exec executable="env" />
   </target>
 
