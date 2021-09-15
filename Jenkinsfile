@@ -8,6 +8,8 @@ import com.markwaite.Build
 properties([buildDiscarder(logRotator(numToKeepStr: '10'))])
 
 def branch = 'JENKINS-25465'
+def expansion = ''
+def buildnum = ''
 
 node('!windows') {
   stage('Checkout') {
@@ -18,11 +20,8 @@ node('!windows') {
                               ],
                   gitTool: scm.gitTool,
                   userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
-      def expansion = tm '${GIT_BRANCH,fullName=false}'
-      def buildnum = tm('${BUILD_NUMBER}')
-      def my_check = new com.markwaite.Assert()
-      my_check.assertCondition(expansion == 'master', "GIT_BRANCH was '${expansion}', expected 'master'")
-      my_check.assertCondition(buildnum ==~ '[0-9]+', "Build # was '${buildnum}', expected a number")
+      expansion = tm '${GIT_BRANCH,fullName=false}'
+      buildnum = tm('${BUILD_NUMBER}')
   }
 
   stage('Build') {
@@ -33,8 +32,8 @@ node('!windows') {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    /* JENKINS-25465 token macro expansion incorrect when branch name includes '/' */
-    my_check.logDoesNotContain('.*GIT_REVISION.*', 'GIT_REVISION env var reported')
-    my_check.logDoesNotContain('.*GIT_BRANCH:.*', 'GIT_BRANCH env var reported')
+    /* Expect GIT_BRANCH to expand to master */
+    my_check.assertCondition(expansion == 'master', "GIT_BRANCH was '${expansion}', expected 'master'")
+    my_check.assertCondition(buildnum ==~ '[0-9]+', "Build # was '${buildnum}', expected a number")
   }
 }
