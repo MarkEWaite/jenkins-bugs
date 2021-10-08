@@ -41,7 +41,7 @@ for (int i = 0; i < implementations.size(); ++i) {
                  ]
                 )
         if (gitImplementation == "git") {
-          my_check.logContains('.*git fetch .*git.markwaite.net.*', 'git.markwaite.net not used for fetch')
+          my_check.logContains('.*git([.]exe)? fetch .*git.markwaite.net.*', 'git.markwaite.net not used for fetch')
         }
         my_check.assertCondition(fileExists('.git/objects'), '.git/objects does not exist after checkout')
       }
