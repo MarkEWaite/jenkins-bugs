@@ -7,7 +7,6 @@ import re
 import subprocess
 import shutil
 import sys
-import time
 
 import json
 
@@ -17,7 +16,7 @@ def commit_messages():
     with open("bad/blns.json") as data_file:
         data = json.load(data_file)
     random.shuffle(data)
-    return data[0:10]
+    return data[0:20]
 
 #-----------------------------------------------------------------------
 
@@ -35,13 +34,13 @@ Submit problem change log messages to a git repo.   Use -h for help."""
         if commit_message.strip() == "":
             continue
         if re.match("^[ ./:,A-Za-z0-9_-]+$", commit_message):
+            print("Skipped commit message '" + commit_message + "'")
             continue
         git_command = [ "git", "commit",
                         "--allow-empty",
                         "-m", commit_message
                       ]
         subprocess.check_call(git_command)
-        time.sleep(2.1)
 
 #-----------------------------------------------------------------------
 
