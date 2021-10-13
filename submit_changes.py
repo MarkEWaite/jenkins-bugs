@@ -42,9 +42,7 @@ Submit problem change log messages to a git repo.   Use -h for help."""
             f.write(commit_message)
         subprocess.check_call([ 'git', 'add', temp.name])
         git_command = [ "git", "commit",
-                        "--allow-empty",
-                        "-m", commit_message,
-                        temp.name
+                        "-m", commit_message
                       ]
         subprocess.check_call([ 'git', 'rm', temp.name])
         git_command = [ "git", "commit",
