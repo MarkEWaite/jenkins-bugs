@@ -14,6 +14,11 @@ import json
 #-----------------------------------------------------------------------
 
 def commit_messages():
+    if not os.path.exists("bad/blns.json"):
+        git_command = [ "git", "submodule", "init", "bad" ]
+        subprocess.check_call(git_command)
+        git_command = [ "git", "submodule", "update" ]
+        subprocess.check_call(git_command)
     with open("bad/blns.json") as data_file:
         data = json.load(data_file)
     random.shuffle(data)
