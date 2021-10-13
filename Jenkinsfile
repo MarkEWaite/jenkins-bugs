@@ -7,17 +7,16 @@
 import com.markwaite.Assert
 import com.markwaite.Build
 
-// Only one build running at a time, stop prior build if new build starts
-def buildNumber = BUILD_NUMBER as int; if (buildNumber > 1) milestone(buildNumber - 1); milestone(buildNumber) // Thanks to jglick
-
 /* Only keep the 7 most recent builds. */
-properties([[$class: 'BuildDiscarderProperty',
-             strategy: [$class: 'LogRotator', numToKeepStr: '7']]])
+/* Cancel prior builds if a new build starts. */
+properties([buildDiscarder(logRotator(numToKeepStr: '7')),
+            disableConcurrentBuilds(abortPrevious: true)
+           ])
 
 def branch="JENKINS-33827"
 def repo_url = scm.userRemoteConfigs[0].url
 
-node('master') {
+node('master || built-in') {
 
   stage('Checkout') {
     checkout([$class: 'GitSCM',
