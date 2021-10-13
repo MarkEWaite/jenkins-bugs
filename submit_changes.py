@@ -30,18 +30,15 @@ Submit problem change log messages to a git repo.   Use -h for help."""
 
     options, arg_hosts = parser.parse_args()
 
-    count = 0
     for commit_message in commit_messages():
         if commit_message.strip() == "":
             continue
         if re.match("^[ ./:,A-Za-z0-9_-]+$", commit_message):
             print("Skipped commit message '" + commit_message + "'")
             continue
-        count = count + 1
         git_command = [ "git", "commit",
                         "--allow-empty",
-                        "-m", "Commit count " + str(count),
-                        # "-m", commit_message
+                        "-m", commit_message
                       ]
         subprocess.check_call(git_command)
 
