@@ -10,8 +10,8 @@ properties([buildDiscarder(logRotator(numToKeepStr: '7')),
             disableConcurrentBuilds(abortPrevious: true)
            ])
 
-def branch='JENKINS-36637-jgit'
-def origin='J-36637-origin'
+def branch='JENKINS-66885'
+def origin='J-66885-origin'
 
 node('!windows && !cloud') {
   stage('Checkout') {

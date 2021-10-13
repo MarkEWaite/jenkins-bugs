@@ -1,4 +1,4 @@
-<project name="JENKINS-36637" default="submit-changes" basedir=".">
+<project name="JENKINS-66885" default="submit-changes" basedir=".">
 
   <!-- Check if submodule update is needed -->
   <target name="submodule-updated">
@@ -21,7 +21,7 @@
     <exec executable="python">
       <arg value="submit_changes.py" />
       <!-- empty commits cause changes to not be reported in Jenkins changes page -->
-      <!-- <arg value="- - empty-commits" /> -->
+      <arg value="--empty-commits" />
     </exec>
   </target>
 
