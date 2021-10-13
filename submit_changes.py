@@ -40,14 +40,22 @@ Submit problem change log messages to a git repo.   Use -h for help."""
         temp = tempfile.NamedTemporaryFile(dir='.')
         with open(temp.name, 'w+') as f:
             f.write(commit_message)
+
         subprocess.check_call([ 'git', 'status'])
+
         subprocess.check_call([ 'git', 'add', temp.name])
         subprocess.check_call([ 'git', 'status'])
+
         git_command = [ "git", "commit",
-                        "-m", commit_message
+                        "-m", commit_message,
+                        temp.name
                       ]
+        subprocess.check_call(git_command)
+        subprocess.check_call([ 'git', 'status'])
+
         subprocess.check_call([ 'git', 'rm', temp.name])
         subprocess.check_call([ 'git', 'status'])
+
         git_command = [ "git", "commit",
                         "-m", 'Remove file ' + temp.name,
                       ]
