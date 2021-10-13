@@ -4,17 +4,16 @@
 import com.markwaite.Assert
 import com.markwaite.Build
 
-// Only one build running at a time, stop prior build if new build starts
-def buildNumber = BUILD_NUMBER as int; if (buildNumber > 1) milestone(buildNumber - 1); milestone(buildNumber) // Thanks to jglick
-
 /* Only keep the 7 most recent builds. */
-properties([[$class: 'BuildDiscarderProperty',
-                strategy: [$class: 'LogRotator', numToKeepStr: '7']]])
+/* Cancel prior builds if a new build starts. */
+properties([buildDiscarder(logRotator(numToKeepStr: '7')),
+            disableConcurrentBuilds(abortPrevious: true)
+           ])
 
 def branch='JENKINS-36637'
 def origin='J-36637-origin'
 
-node('master || built-in') {
+node('!windows && !cloud') {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
               userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
@@ -43,24 +42,23 @@ node('master || built-in') {
 
   stage('Verify') {
     def check = new com.markwaite.Assert()
-    String jobName = env.JOB_NAME
-    String jobPath = "job/" + jobName.replace("/", "/job/")
-    String thisBuildNumber = "${currentBuild.number}"
-    String jobURL = "http://localhost:8080/${jobPath}/${thisBuildNumber}/api/xml?wrapper=changes&xpath=//changeSet//comment"
-    println "job URL is '${jobURL}'"
+    String changesApiUrl = "${env.BUILD_URL}api/xml?wrapper=changes&xpath=//changeSet//comment"
+    println "job URL is '${changesApiUrl}'"
     String changeDescription =
-      new URL(jobURL).getText(connectTimeout: 1000,
-			      readTimeout: 5000,
-			      useCaches: false,
-			      allowUserInteraction: false,
-			      requestProperties: ['Connection': 'close'])
+      new URL(changesApiUrl).getText(connectTimeout: 1000,
+			             readTimeout: 5000,
+			             useCaches: false,
+			             allowUserInteraction: false,
+			             requestProperties: ['Connection': 'close'])
     println "Change description is '" + changeDescription + "'"
     if (changeDescription.contains("<changes/>") ||
 	!changeDescription.contains("<changes>") ||
 	countSubstrings(changeDescription, "<comment>") < 2) { // Always expect at least 2 changes
-      manager.addWarningBadge("Missing recent changes output")
-      manager.createSummary("warning.gif").appendText("<h1>Missing recent changes!</h1>", false, false, false, "red")
-      manager.buildUnstable()
+      if (currentBuild.number > 1) { // Don't check first build
+        manager.addWarningBadge("Missing recent changes output")
+        manager.createSummary("warning.gif").appendText("<h1>Missing recent changes!</h1>", false, false, false, "red")
+        manager.buildUnstable()
+      }
     }
   }
 }
