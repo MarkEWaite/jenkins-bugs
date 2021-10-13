@@ -41,7 +41,7 @@ Submit problem change log messages to a git repo.   Use -h for help."""
         git_command = [ "git", "commit",
                         "--allow-empty",
                         "-m", "Commit count " + str(count),
-                        "-m", commit_message
+                        # "-m", commit_message
                       ]
         subprocess.check_call(git_command)
 
