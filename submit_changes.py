@@ -41,26 +41,19 @@ Submit problem change log messages to a git repo.   Use -h for help."""
         with open(filename, 'w+') as f:
             f.write(commit_message)
 
-        subprocess.check_call([ 'git', 'status'])
-
         subprocess.check_call([ 'git', 'add', filename])
-        subprocess.check_call([ 'git', 'status'])
-
         git_command = [ "git", "commit",
                         "-m", commit_message,
                         filename
                       ]
         subprocess.check_call(git_command)
-        subprocess.check_call([ 'git', 'status'])
 
         subprocess.check_call([ 'git', 'rm', filename])
-        subprocess.check_call([ 'git', 'status'])
 
         git_command = [ "git", "commit",
                         "-m", 'Remove file ' + filename,
                       ]
         subprocess.check_call(git_command)
-        subprocess.check_call([ 'git', 'status'])
 
 #-----------------------------------------------------------------------
 
