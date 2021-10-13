@@ -2,7 +2,6 @@
 
   <!-- Submit changes to repository using bad strings -->
   <target name="submit-changes" description="Submit changes">
-    <echo>java is ${java.version}</echo>
     <exec executable="python" output="output">
       <arg value="submit_changes.py" />
       <arg value="${ant.project.name}" />
