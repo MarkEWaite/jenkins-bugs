@@ -7,7 +7,7 @@ import re
 import subprocess
 import shutil
 import sys
-import tempfile
+import uuid
 
 import json
 
@@ -37,27 +37,27 @@ Submit problem change log messages to a git repo.   Use -h for help."""
         if re.match("^[ ./:,A-Za-z0-9_-]+$", commit_message):
             print("Skipped commit message '" + commit_message + "'")
             continue
-        temp = tempfile.NamedTemporaryFile(dir='.')
-        with open(temp.name, 'w+') as f:
+        filename = str(uuid.uuid4())
+        with open(filename, 'w+') as f:
             f.write(commit_message)
 
         subprocess.check_call([ 'git', 'status'])
 
-        subprocess.check_call([ 'git', 'add', temp.name])
+        subprocess.check_call([ 'git', 'add', filename])
         subprocess.check_call([ 'git', 'status'])
 
         git_command = [ "git", "commit",
                         "-m", commit_message,
-                        temp.name
+                        filename
                       ]
         subprocess.check_call(git_command)
         subprocess.check_call([ 'git', 'status'])
 
-        subprocess.check_call([ 'git', 'rm', temp.name])
+        subprocess.check_call([ 'git', 'rm', filename])
         subprocess.check_call([ 'git', 'status'])
 
         git_command = [ "git", "commit",
-                        "-m", 'Remove file ' + temp.name,
+                        "-m", 'Remove file ' + filename,
                       ]
         subprocess.check_call(git_command)
         subprocess.check_call([ 'git', 'status'])
