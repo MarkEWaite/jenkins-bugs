@@ -4,7 +4,6 @@
   <target name="submit-changes" description="Submit changes">
     <exec executable="python" output="output">
       <arg value="submit_changes.py" />
-      <arg value="${ant.project.name}" />
     </exec>
     <delete file="output" quiet="true"/>
   </target>
