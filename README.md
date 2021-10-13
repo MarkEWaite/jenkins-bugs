@@ -27,3 +27,8 @@ JGit version of this job is reporting none of the interesting commits.
 It only reports commits that I run from the git command line.  I don't
 understand how there is any difference between them, yet that is the
 behavior I see in multiple jobs.
+
+Tue Oct 12 06:01:25 PM MDT 2021
+
+Tried submitting a standard commit, a batch of interesting commits,
+and then the commit that includes this change.
