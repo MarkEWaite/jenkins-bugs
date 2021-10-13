@@ -18,7 +18,6 @@ reported, then the job is assumed to have failed.
 
 Moved the assertions into Jenkinsfile so they can be coded in groovy.
 
-Not clear why the job missed the second change I submitted.  More checks
-needed.
+Not clear why the job missed the second change I submitted.  More checks needed.
 
 When the commits are empty, they do not appear in the list of changes with git plugin 4.9.0 and Jenkins 2.303.2.
