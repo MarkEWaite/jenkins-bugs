@@ -7,6 +7,7 @@ import re
 import subprocess
 import shutil
 import sys
+import uuid
 
 import json
 
@@ -26,12 +27,10 @@ def commit_messages():
 #-----------------------------------------------------------------------
 
 def submit_changes(args = []):
-    help_text = """%prog [options] [host(s)]
+    help_text = """%prog [options]
 Submit problem change log messages to a git repo.   Use -h for help."""
     parser = optparse.OptionParser(usage=help_text)
-
-    # keep at optparse for 2.6. compatibility
-    # parser.add_option("-c", "--clean", action="store_true", default=False, help="clean prior file system image")
+    parser.add_option("-e", "--empty-commits", action="store_true", default=False, help="Use empty commits without file content changes")
 
     options, arg_hosts = parser.parse_args()
 
@@ -39,10 +38,26 @@ Submit problem change log messages to a git repo.   Use -h for help."""
         if commit_message.strip() == "":
             continue
         if re.match("^[ ./:,A-Za-z0-9_-]+$", commit_message):
+            print("Skipped commit message '" + commit_message + "'")
             continue
+        if not options.empty_commits:
+            # JENKINS-66885 notes that changes are not reported for empty commits.
+            # An empty commit is a commit that has a commit message but changes no file.
+            filename = str(uuid.uuid4())
+            with open(filename, 'w+') as f:
+                f.write(commit_message)
+            subprocess.check_call([ 'git', 'add', filename])
+
         git_command = [ "git", "commit",
-                        "--allow-empty",
-                        "-m", commit_message
+                        "-m", commit_message,
+                        "--allow-empty"
+                      ]
+        subprocess.check_call(git_command)
+
+    if not options.empty_commits:
+        subprocess.check_call([ 'git', 'rm', '*-*-*-*-*'])
+        git_command = [ "git", "commit",
+                        "-m", 'Remove temporary files',
                       ]
         subprocess.check_call(git_command)
 
