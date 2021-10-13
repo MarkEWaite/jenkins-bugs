@@ -48,12 +48,12 @@ Submit problem change log messages to a git repo.   Use -h for help."""
                       ]
         subprocess.check_call(git_command)
 
-        subprocess.check_call([ 'git', 'rm', filename])
+    subprocess.check_call([ 'git', 'rm', '*-*-*-*-*'])
 
-        git_command = [ "git", "commit",
-                        "-m", 'Remove file ' + filename,
-                      ]
-        subprocess.check_call(git_command)
+    git_command = [ "git", "commit",
+                    "-m", 'Remove temporary files',
+                  ]
+    subprocess.check_call(git_command)
 
 #-----------------------------------------------------------------------
 
