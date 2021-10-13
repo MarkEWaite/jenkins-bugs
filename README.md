@@ -20,3 +20,10 @@ reported, then the job is assumed to have failed.
 Moved the assertions into Jenkinsfile so they can be coded in groovy.
 
 Not clear why the job missed the second change I submitted.
+
+Tue Oct 12 05:59:12 PM MDT 2021
+
+JGit version of this job is reporting none of the interesting commits.
+It only reports commits that I run from the git command line.  I don't
+understand how there is any difference between them, yet that is the
+behavior I see in multiple jobs.
