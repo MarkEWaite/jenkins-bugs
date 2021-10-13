@@ -20,6 +20,7 @@
     <echo>java is ${java.version}</echo>
     <exec executable="python">
       <arg value="submit_changes.py" />
+      <arg value="--empty-commits" /> <!-- empty commits cause changes to not be reported in Jenkins changes page -->
     </exec>
   </target>
 
