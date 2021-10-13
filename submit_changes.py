@@ -37,6 +37,8 @@ Submit problem change log messages to a git repo.   Use -h for help."""
         if re.match("^[ ./:,A-Za-z0-9_-]+$", commit_message):
             print("Skipped commit message '" + commit_message + "'")
             continue
+        # JENKINS-xxxxx notes that changes are not reported for empty commits.
+        # An empty commit is a commit that has a commit message but changes no file.
         filename = str(uuid.uuid4())
         with open(filename, 'w+') as f:
             f.write(commit_message)
