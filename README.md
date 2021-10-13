@@ -12,12 +12,4 @@ so I expect this will still trigger a second build.
 Removing 2 of 3 was the key change.  Now the job runs only once (since
 there is only a single notifyCommit).
 
-More investigation is still required. The bug check pipeline is now
-configured to use groovy to read the last few commits. If no change is
-reported, then the job is assumed to have failed.
-
-Moved the assertions into Jenkinsfile so they can be coded in groovy.
-
-Not clear why the job missed the second change I submitted.  More checks needed.
-
 When the commits are empty, they do not appear in the list of changes with git plugin 4.9.0 and Jenkins 2.303.2.
