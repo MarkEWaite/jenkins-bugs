@@ -16,7 +16,7 @@ def origin='J-36637-origin'
 node('!windows && !cloud') {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
-              userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
+              userRemoteConfigs: [[url: scm.userRemoteConfigs[0].url,
                                    name: origin,
                                    refspec: "+refs/heads/${branch}:refs/remotes/${origin}/${branch}",
                                   ]],
