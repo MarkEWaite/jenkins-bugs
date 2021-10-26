@@ -14,6 +14,7 @@ def buildnum = ''
 
 node('!windows') {
   stage('Checkout') {
+      env.GIT_BRANCH = 'origin/' + branch
       checkout([$class: 'GitSCM',
                   branches: [[name: branch]],
                   extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
