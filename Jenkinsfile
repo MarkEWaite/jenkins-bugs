@@ -1,11 +1,5 @@
 #!groovy
 
-/*
-@Library('globalPipelineLibraryMarkEWaite') _
-import com.markwaite.Assert
-import com.markwaite.Build
-*/
-
 /* Only keep the 10 most recent builds. */
 properties([buildDiscarder(logRotator(numToKeepStr: '10'))])
 
@@ -16,7 +10,6 @@ def buildnum = ''
 
 node('!windows') {
   stage('Checkout') {
-      env.GIT_BRANCH = 'origin/' + branch
       checkout([$class: 'GitSCM',
                   branches: [[name: branch]],
                   extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
