@@ -1,8 +1,10 @@
 #!groovy
 
+/*
 @Library('globalPipelineLibraryMarkEWaite') _
 import com.markwaite.Assert
 import com.markwaite.Build
+*/
 
 /* Only keep the 10 most recent builds. */
 properties([buildDiscarder(logRotator(numToKeepStr: '10'))])
