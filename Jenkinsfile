@@ -41,6 +41,6 @@ node('!windows') {
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
     my_check.assertCondition(buildnum ==~ '[0-9]+', "Build # was '${buildnum}', expected a number")
-    my_check.assertCondition(expansion == 'master', "GIT_BRANCH was '${expansion}', expected 'master'")
+    my_check.assertCondition(expansion == branch, "GIT_BRANCH was '${expansion}', expected '" + branch + "'")
   }
 }
