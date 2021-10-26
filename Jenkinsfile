@@ -23,7 +23,11 @@ node('!windows') {
                   userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
       expansion = tm '${GIT_BRANCH,fullName=false}'
       buildnum = tm('${BUILD_NUMBER}')
+      def expansionTrue = tm '${GIT_BRANCH,fullName=true}'
+      def expansionEmpty  = tm '${GIT_BRANCH}'
       echo('expansion is ' + expansion)
+      echo('expansionTrue is ' + expansionTrue)
+      echo('expansionEmpty is ' + expansionEmpty)
       echo('buildnum is ' + buildnum)
   }
 
