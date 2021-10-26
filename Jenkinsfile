@@ -27,17 +27,12 @@ node('!windows') {
       echo('buildnum is ' + buildnum)
   }
 
-  stage('Build') {
-    /* Call the ant build. */
-    // def my_step = new com.markwaite.Build()
-    // my_step.ant 'info-pipeline'
-    echo 'built'
-  }
-
   stage('Verify') {
-    // def my_check = new com.markwaite.Assert()
-    // my_check.assertCondition(buildnum ==~ '[0-9]+', "Build # was '${buildnum}', expected a number")
-    // my_check.assertCondition(expansion == branch, "GIT_BRANCH was '${expansion}', expected '" + branch + "'")
-    echo 'verified'
+    if (expansion != branch) {
+      failure_message = "GIT_BRANCH was '${expansion}', expected '" + branch + "'"
+      manager.addWarningBadge(failure_message)
+      manager.createSummary("warning.gif").appendText("<h1>" + failure_message + "</h1>", false, false, false, "red")
+      manager.buildUnstable()
+    }
   }
 }
