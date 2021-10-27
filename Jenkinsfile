@@ -9,6 +9,8 @@ def expansion = ''
 def expansionTrue = ''
 def expansionEmpty = ''
 def buildnum = ''
+def sha1 = ''
+def sha1Short = ''
 
 node {
   stage('Checkout') {
@@ -24,6 +26,10 @@ node {
       expansionEmpty  = tm '${GIT_BRANCH}'
       buildnum = tm('${BUILD_NUMBER}')
       echo('buildnum is ' + buildnum)
+      sha1 = tm '${GIT_REVISION}'
+      echo('sha1 is ' + sha1)
+      sha1Short = tm '${GIT_REVISION,length=8}'
+      echo('sha1Short is ' + sha1Short)
   }
 
   stage('Verify') {
