@@ -13,7 +13,7 @@ branch = 'JENKINS-67021'
 node {
   stage('Checkout') {
     git branch: branch,
-        url: env.GIT_URL
+        url: 'https://github.com/MarkEWaite/jenkins-bugs.git'
   }
 
   stage('Build') {
