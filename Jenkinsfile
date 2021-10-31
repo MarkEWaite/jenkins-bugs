@@ -14,6 +14,7 @@ node {
   stage('Checkout') {
     git branch: branch,
         url: 'https://github.com/MarkEWaite/jenkins-bugs'
+    sh 'env | sort'
   }
 
   stage('Build') {
