@@ -1,6 +1,4 @@
-<project name="JENKINS-37050" default="increment" basedir=".">
-
-  <property name="tags.arg" value="--tags"/>
+<project name="JENKINS-67021" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
     <git command="pull" />
@@ -17,51 +15,6 @@
         <arg value="build.number"/>
       </args>
     </git>
-    <!-- Tag predecessor commit with previous build number -->
-    <!--
-    <git command="tag">
-      <args>
-        <arg value="-a"/>
-        <arg value="-m"/>
-        <arg value="Annotated tag for ${ant.project.name} build ${build.number}"/>
-        <arg value="${ant.project.name}-tag-${build.number}"/>
-        <arg value="HEAD^"/>
-      </args>
-    </git>
-    <git command="push">
-      <args>
-        <arg value="origin"/>
-      </args>
-    </git>
-    <git command="push">
-      <args>
-        <arg value="origin"/>
-        <arg value="${tags.arg}"/>
-      </args>
-    </git>
-    <git command="push">
-      <args>
-        <arg value="cache"/>
-      </args>
-    </git>
-    <git command="push">
-      <args>
-        <arg value="cache"/>
-        <arg value="${tags.arg}"/>
-      </args>
-    </git>
-    <git command="push">
-      <args>
-        <arg value="bare"/>
-      </args>
-    </git>
-    <git command="push">
-      <args>
-        <arg value="bare"/>
-        <arg value="${tags.arg}"/>
-      </args>
-    </git>
-    -->
   </target>
 
   <!-- Info about this repository -->
@@ -75,7 +28,7 @@
         <arg value="--decorate"/>
       </args>
     </git>
-    <!-- JENKINS-37050 reports that a tag can't be used in a checkout step. -->
+    <!-- JENKINS-67021 reports that git task fails in groovy. -->
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
