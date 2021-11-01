@@ -19,6 +19,9 @@ node {
                            [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git']],
               gitTool: scm.gitTool,
               userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-67021:refs/remotes/origin/JENKINS-67021', url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
+  }
+
+  stage('Subdir checkout') {
     dir('master-branch') {
       // Wastes disc space by cloning all branches, checkout of one branch
       git branch: 'master',
