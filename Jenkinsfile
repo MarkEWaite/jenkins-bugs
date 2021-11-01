@@ -10,7 +10,7 @@ properties([[$class: 'BuildDiscarderProperty',
 
 branch = 'JENKINS-67021'
 
-node {
+node('!windows') { // Skip Windows so the reference repo is used
   stage('Checkout') {
     // Save disc space with single branch checkout and honor refspec on clone and use a reference repo
     checkout([$class: 'GitSCM',
