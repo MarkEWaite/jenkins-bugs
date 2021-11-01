@@ -23,13 +23,17 @@ node('!windows') { // Skip Windows so the reference repo is used
 
   stage('Subdir checkout') {
     dir('master-branch') {
+      // Not as described in the bug report
+      // Fast version that does not waste disc space, clones a single branch
       checkout([$class: 'GitSCM',
                 branches: [[name: 'master']],
                 extensions: [[$class: 'BuildSingleRevisionOnly'],
                              [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git']],
                 gitTool: scm.gitTool,
                 userRemoteConfigs: [[refspec: '+refs/heads/master:refs/remotes/origin/master', url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
-      // Wastes disc space by cloning all branches, checkout of one branch
+      // As described in the bug report
+      // Does not fail
+      // Slow version that wastes disc space by cloning all branches, checkout of one branch
       // git branch: 'master',
       //     url: 'https://github.com/MarkEWaite/jenkins-bugs.git'
     }
