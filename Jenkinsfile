@@ -9,7 +9,7 @@ import com.markwaite.Assert
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '13']]])
 
-node("master") {
+node("master || built-in") {
   stage('Checkout') {
     sh 'echo Working directory is `pwd`'
     sh 'pwd'
