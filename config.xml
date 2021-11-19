@@ -35,8 +35,8 @@
       <hudson.plugins.git.extensions.impl.AuthorInChangelog/>
     </extensions>
   </scm>
-  <assignedNode>master</assignedNode>
-  <canRoam>false</canRoam>
+  <assignedNode>master || built-in</assignedNode>
+  <canRoam>true</canRoam>
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
