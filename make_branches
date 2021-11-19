@@ -8,6 +8,26 @@ else
         filter=.
 fi
 
+remote=$(git remote -v | grep fetch | awk '{print $2}')
+
+case $remote in
+  *github.com*)
+    remote_ssh=git@github.com:MarkEWaite/jenkins-bugs.git
+    remote_https=https://github.com/MarkEWaite/jenkins-bugs
+    ;;
+  *gitea*)
+    remote_ssh=git@gitea-server.markwaite.net:mwaite/jenkins-bugs.git
+    remote_https=https://home.markwaite.net/gitea/mwaite/jenkins-bugs.git
+    ;;
+  *)
+    echo "Remote not supported by this script"
+    exit 1
+    ;;
+esac
+
+echo remote_ssh is $remote_ssh
+echo remote_https is $remote_https
+
 for keyword in JENKINS MHA SECURITY ZD; do
   for origin in $(git branch -a | grep $filter | grep origin.*${keyword} | sed 's!remotes/!!g'); do
     bug=$(echo $origin | sed -e "s!.*${keyword}!${keyword}!g" -e 's!/.*$!!g')
@@ -20,7 +40,7 @@ for keyword in JENKINS MHA SECURITY ZD; do
                 --single-branch \
                 --no-tags \
                 --reference /var/lib/git/mwaite/bugs/jenkins-bugs.git \
-                https://github.com/MarkEWaite/jenkins-bugs \
+                $remote_https \
                 $dir )
     echo Cloned for bug $bug, branch $branch, dir $dir
     ( cd ../$dir && \
@@ -29,8 +49,10 @@ for keyword in JENKINS MHA SECURITY ZD; do
       git config remote.cache.fetch $(git config --get remote.origin.fetch | sed 's/origin/cache/g') && \
       git remote add bare /var/lib/git/mwaite/bugs/jenkins-bugs.git && \
       git config remote.bare.fetch $(git config --get remote.origin.fetch | sed 's/origin/bare/g') && \
-      git remote add gitea-server git@gitea-server.markwaite.net:mwaite/jenkins-bugs.git && \
-      git config remote.gitea-server.fetch $(git config --get remote.origin.fetch | sed 's/origin/gitea-server/g') && \
+      if [[ $remote =~ "github.com" ]]; then
+        git remote add gitea-server git@gitea-server.markwaite.net:mwaite/jenkins-bugs.git && \
+        git config remote.gitea-server.fetch $(git config --get remote.origin.fetch | sed 's/origin/gitea-server/g') && \
+      fi
       git push cache && \
       git push bare && \
       git pull --no-tags --all --prune )
