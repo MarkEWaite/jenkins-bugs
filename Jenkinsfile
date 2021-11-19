@@ -18,7 +18,7 @@ node('!windows') { // Skip Windows so the reference repo is used
               extensions: [[$class: 'BuildSingleRevisionOnly'],
                            [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git']],
               gitTool: scm.gitTool,
-              userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-67021:refs/remotes/origin/JENKINS-67021', url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
+              userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-67021:refs/remotes/origin/JENKINS-67021', url: scm.userRemoteConfigs[0].url]]])
   }
 
   stage('Subdir checkout') {
@@ -30,7 +30,7 @@ node('!windows') { // Skip Windows so the reference repo is used
                 extensions: [[$class: 'BuildSingleRevisionOnly'],
                              [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git']],
                 gitTool: scm.gitTool,
-                userRemoteConfigs: [[refspec: '+refs/heads/master:refs/remotes/origin/master', url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
+                userRemoteConfigs: [[refspec: '+refs/heads/master:refs/remotes/origin/master', url: scm.userRemoteConfigs[0].url]]])
       // As described in the bug report
       // Does not fail
       // Slow version that wastes disc space by cloning all branches, checkout of one branch
