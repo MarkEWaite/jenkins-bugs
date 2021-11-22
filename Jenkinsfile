@@ -11,7 +11,7 @@ pipeline {
         choice choices: ['Choice 1', 'Choice 2', 'Choice 3'], description: 'A list of choices', name: 'CHOICE_PARAMETER'
     }
     stages {
-        stage('Check parameters') {
+        stage('Show values') {
             steps {
                 sh 'echo parameters are ${BOOLEAN_PARAMETER}, ${STRING_PARAMETER}, and ${CHOICE_PARAMETER}'
             }
