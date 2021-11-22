@@ -1,4 +1,4 @@
-<project name="JENINS-65183" default="increment" basedir=".">
+<project name="JENKINS-64953" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
     <git command="pull">
@@ -26,7 +26,7 @@
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
-    <!-- JENKINS-65183 reports git step ignores remote default branch, assuming 'master'. -->
+    <!-- JENKINS-64953 show use of parameters in declarative Pipeline -->
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
