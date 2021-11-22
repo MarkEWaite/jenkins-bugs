@@ -2,12 +2,18 @@ pipeline {
     options {
         skipDefaultCheckout()
     }
-    agent any
+    agent {
+        label '!windows'
+    }
+    parameters {
+        booleanParam defaultValue: true, description: 'A boolean parameter', name: 'BOOLEAN_PARAMETER'
+        string defaultValue: 'a string value', description: 'A string parameter', name: 'STRING_PARAMETER', trim: true
+        choice choices: ['Choice 1', 'Choice 2', 'Choice 3'], description: 'A list of choices', name: 'CHOICE_PARAMETER'
+    }
     stages {
-        stage('Git step with defaults') {
+        stage('Check parameters') {
             steps {
-                git 'https://github.com/MarkEWaite/peass-ci.git' // Fails because default remote branch is 'main' rather than 'master'
-                // git branch: 'main', url: 'https://github.com/MarkEWaite/peass-ci.git' // Works because branch is stated explicitly
+                sh 'echo parameters are ${BOOLEAN_PARAMETER}, ${STRING_PARAMETER}, and ${CHOICE_PARAMETER}'
             }
         }
     }
