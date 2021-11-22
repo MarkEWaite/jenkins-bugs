@@ -13,7 +13,7 @@ pipeline {
     stages {
         stage('Show values') {
             steps {
-                sh 'echo parameters are ${BOOLEAN_PARAMETER}, ${STRING_PARAMETER}, and ${CHOICE_PARAMETER}'
+                sh 'env | sort ; echo parameters are ${BOOLEAN_PARAMETER}, ${STRING_PARAMETER}, and ${CHOICE_PARAMETER}'
             }
         }
     }
