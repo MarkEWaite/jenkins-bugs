@@ -13,7 +13,19 @@ pipeline {
     stages {
         stage('Show values') {
             steps {
-                sh 'env | sort ; echo parameters are ${BOOLEAN_PARAMETER}, ${STRING_PARAMETER}, and ${CHOICE_PARAMETER}'
+                sh '''#!/bin/bash
+if [[ $BUILD_NUMBER != 1 ]]; then
+  echo BOOLEAN_PARAMETER is ${BOOLEAN_PARAMETER}
+  echo STRING_PARAMETER is ${STRING_PARAMETER}
+  echo CHOICE_PARAMETER is ${CHOICE_PARAMETER}
+fi
+if [[ $CHOICE_PARAMETER =~ "Choice" ]]; then
+  echo CHOICE_PARAMETER has expected value
+else
+  echo Failing because CHOICE_PARAMETER has unexpected value ${CHOICE_PARAMETER}
+  exit 1
+fi
+                '''
             }
         }
     }
