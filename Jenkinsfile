@@ -14,11 +14,14 @@ pipeline {
         stage('Show values') {
             steps {
                 sh '''#!/bin/bash
-if [[ $BUILD_NUMBER != 1 ]]; then
-  echo BOOLEAN_PARAMETER is ${BOOLEAN_PARAMETER}
-  echo STRING_PARAMETER is ${STRING_PARAMETER}
-  echo CHOICE_PARAMETER is ${CHOICE_PARAMETER}
+if [[ $BUILD_NUMBER == 1 ]]; then
+  exit 0 # First build cannot define parameters
 fi
+
+echo BOOLEAN_PARAMETER is ${BOOLEAN_PARAMETER}
+echo STRING_PARAMETER is ${STRING_PARAMETER}
+echo CHOICE_PARAMETER is ${CHOICE_PARAMETER}
+
 if [[ $CHOICE_PARAMETER =~ "Choice" ]]; then
   echo CHOICE_PARAMETER has expected value
 else
