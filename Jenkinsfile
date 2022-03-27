@@ -14,7 +14,8 @@ def httpsRemoteConfig = [ url: 'https://github.com/MarkEWaite/jenkins-bugs',
                           name: 'https-origin',
                           refspec: "+refs/heads/${branch}:refs/remotes/https-origin/${branch}" ]
 
-def gitRemoteConfig = [ url: 'git://github.com/MarkEWaite/jenkins-bugs',
+// The git:// protocol is not supported by GitHub any longer
+def gitRemoteConfig = [ url: 'https://github.com/MarkEWaite/jenkins-bugs.git',
                           name: 'git-origin',
                           refspec: "+refs/heads/${branch}:refs/remotes/git-origin/${branch}" ]
 
