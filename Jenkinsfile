@@ -24,7 +24,7 @@ node {
             extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                          [$class: 'LocalBranch', localBranch: 'JENKINS-48938']],
             gitTool: scm.gitTool,
-            userRemoteConfigs: [[name: 'origin', refspec: '+refs/heads/JENKINS-48938:refs/remotes/origin/JENKINS-48938', url: 'git://github.com/MarkEWaite/jenkins-bugs.git']]])
+            userRemoteConfigs: [[name: 'origin', refspec: '+refs/heads/JENKINS-48938:refs/remotes/origin/JENKINS-48938', url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
     changes = changelogEntries(changeSets: currentBuild.changeSets)
   }
 
