@@ -7,7 +7,7 @@ def lib = library identifier: 'BugCheckerLibrary@master',
                         credentialsId: '',
                         gitTool: 'jgit',
                         id: '0c8e5141-4438-4950-960e-a292f287c035',
-                        remote: 'git://github.com/MarkEWaite/jenkins-pipeline-utils.git',
+                        remote: 'https://github.com/MarkEWaite/jenkins-pipeline-utils.git',
                         traits: [
                             [$class: 'CloneOptionTrait', extension: [depth: 0, honorRefspec: true, noTags: false, reference: '/var/lib/git/mwaite/jenkins/jenkins-pipeline-utils.git', shallow: false]],
                             [$class: 'SubmoduleOptionTrait', extension: [disableSubmodules: true, parentCredentials: false, recursiveSubmodules: false, reference: '', trackingSubmodules: false]],
@@ -37,7 +37,7 @@ node {
             [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
             [$class: 'LocalBranch', localBranch: BRANCH_NAME]],
         gitTool: scm.gitTool,
-        userRemoteConfigs: [[refspec: "+refs/heads/${BRANCH_NAME}:refs/remotes/origin/${BRANCH_NAME}", url: 'git://github.com/MarkEWaite/jenkins-bugs.git']]])
+        userRemoteConfigs: [[refspec: "+refs/heads/${BRANCH_NAME}:refs/remotes/origin/${BRANCH_NAME}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
     def git_commit = checkoutMap['GIT_COMMIT']
     echo "After: checkoutMap[GIT_COMMIT]=${git_commit}"
     changes = changelogEntries(changeSets: currentBuild.changeSets)
