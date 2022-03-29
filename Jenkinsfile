@@ -15,7 +15,7 @@ pipeline {
                   $class: 'GitSCM',
                   branches: scm.branches,
                   extensions: scm.extensions,
-                  userRemoteConfigs: [refspec: '+refs/heads/' + scm.branches[0].name + ':refs/remotes/origin/' + scm.branches[0].name, url: scm.userRemoteConfigs[0].url]
+                  userRemoteConfigs: [refspec: "+refs/heads/${scm.branches[0].name}:refs/remotes/origin/${scm.branches[0].name}", url: scm.userRemoteConfigs[0].url]
                 ])
                 withAnt(installation: 'ant-latest') {
                     bat 'ant info'
