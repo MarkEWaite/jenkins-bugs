@@ -20,7 +20,7 @@ import com.markwaite.Build
 import static groovy.json.JsonOutput.*
 
 def branch = 'JENKINS-45489'
-def repo = 'https://github.com/MarkEWaite/jenkins-bugs'
+def repo = scm.userRemoteConfigs.url # 'https://github.com/MarkEWaite/jenkins-bugs'
 
 import java.util.Random
 def random = new Random()
