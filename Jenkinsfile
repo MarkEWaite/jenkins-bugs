@@ -4,7 +4,7 @@
 
 pipeline {
     agent {
-        label '!windows && git-1.9+' // Shallow checkout fails on git before 1.9
+        label '!windows && git-2.11+' // Shallow checkout fails on git before 1.9
     }
 
     options {
