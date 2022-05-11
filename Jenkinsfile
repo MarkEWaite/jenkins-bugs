@@ -31,7 +31,7 @@ pipeline {
     }
     stage('Windows echo non-English text') {
       agent {
-        label 'windows && git-1.9+'
+        label 'windows && git-2.11+'
       }
       steps {
 	checkout([$class: 'GitSCM',
