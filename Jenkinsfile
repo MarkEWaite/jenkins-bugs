@@ -33,6 +33,7 @@ pipeline {
           def buildResult = build job: '/Bugs-Individual/Bugs-30-000-to-39-999/JENKINS-33756-label-parameter-runs-twice-on-first-selected-agent',
                                   quietPeriod: 0,
                                   parameters: [
+                                               string(name: 'LABEL_PARAM', value: "Debian"),
                                                string(name: 'SLEEP_TIME', value: "${sleepTime}"),
                                                string(name: 'LETTER_PARAM', value: "${letter}")
                                               ]
