@@ -1,4 +1,4 @@
-<project name="JENKINS-49757-declarative" default="increment" basedir=".">
+<project name="JENKINS-33756" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
     <git command="pull">
@@ -24,9 +24,9 @@
   <target name="info" description="Report info about this repo">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
-    <!-- JENKINS-49757 duplicate git fetch commands -->
-    <exec executable="./countGitFetchCalls" failonerror="true"/>
-    <echo>countGitFetchCalls script exited normally</echo>
+    <!-- JENKINS-33756 node label parameter uses one agent multiple times -->
+    <exec executable="./countFreestyleParameterAgentUse" failonerror="true"/>
+    <echo>countFreestyleParameterAgentUse script exited normally</echo>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
