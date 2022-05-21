@@ -15,16 +15,14 @@ pipeline {
   stages {
     stage('Checkout') {
       steps {
-        deleteDir()
         checkout([$class: 'GitSCM',
                   branches: scm.branches,
                   extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git']],
-                  gitTool: 'Default', // Command line git only
                   userRemoteConfigs: scm.userRemoteConfigs
                 ])
         sh 'ant info'
-        logContains(expectedRegEx: ".*Count of git fetch on agent: 1.*",
-                    failureMessage: "Wrong git fetch count in declarative pipeline")
+        logContains(expectedRegEx: ".*Count of duplicate agent use by freestyle job: 0.*",
+                    failureMessage: "Wrong count of duplicate agent use by freestyle job")
       }
     }
   }

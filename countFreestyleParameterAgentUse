@@ -96,5 +96,5 @@ rm $cookie_file $args_file
 # cat $query_output
 # echo === End of output from query with crumb
 
-# Count calls to git fetch made on the agent (after 'Running on ...')
-echo -n "**** Count of git fetch on agent: " ; grep -A 999 -E 'Running on |Building .*on ' $query_output | grep -c 'git fetch'
+# Count number of duplicate runs of the launched job on the same agent
+echo -n "**** Count of duplicate agent use by freestyle job: " ; grep -A 999 -E 'Running on |Building .*on ' $query_output | grep -c 'git fetch'
