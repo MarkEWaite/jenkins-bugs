@@ -23,8 +23,9 @@ pipeline {
                 ])
         script {
           String letters = 'abcdefghijklmnopqrstuvwxyz';
-          int sleepTime = System.currentTimeMillis() % 10;
-          int letterIndex = System.currentTimeMillis() % letters.length();
+          Random random = new Random();
+          int sleepTime = random.nextInt(10);
+          int letterIndex = random.nextInt(letters.length());
           String letter = letters.charAt(letterIndex);
           echo "sleep time is ${sleepTime}, letter index is ${letterIndex}, letter is ${letter}"
           // Launch the freestyle job with parameters
