@@ -46,6 +46,7 @@ pipeline {
         }
         logContains(expectedRegEx: ".*Build result is SUCCESS for build number .*",
                     failureMessage: "Launched job failed")
+        // INCOMPLETE, needs more work to automate the check
         // sh 'ant info'
         // logContains(expectedRegEx: ".*Count of duplicate agent use by freestyle job: 0.*",
         //             failureMessage: "Wrong count of duplicate agent use by freestyle job")

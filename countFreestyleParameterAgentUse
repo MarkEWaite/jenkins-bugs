@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# INCOMPLETE, does not check the conditions needed
+# INCOMPLETE, needs more work to automate the checks
+# INCOMPLETE, interactive testing showed surprising results
+# INCOMPLETE, See the comments on the bug report for more details
+
 # Read the Jenkins logs for invocations of a specific Freestyle job that was launched by this Pipeline, count and report if any agents were used multiple times
 #
 # Default Jenkins URL from JENKINS_URL environment variable
