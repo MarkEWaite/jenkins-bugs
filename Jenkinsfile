@@ -23,7 +23,7 @@ pipeline {
                 ])
         script {
           String letters = 'abcdefghijklmnopqrstuvwxyz';
-          int sleepTime = System.currentTimeMillis() % 4;
+          int sleepTime = System.currentTimeMillis() % 10;
           int letterIndex = System.currentTimeMillis() % letters.length();
           String letter = letters.charAt(letterIndex);
           echo "sleep time is ${sleepTime}, letter index is ${letterIndex}, letter is ${letter}"
