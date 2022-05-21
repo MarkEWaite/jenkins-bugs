@@ -22,12 +22,13 @@ pipeline {
                   userRemoteConfigs: scm.userRemoteConfigs
                 ])
         script {
-          String letters = 'abcdefghijklmnopqrstuvwxyz';
+          // Generate random short parameters to make it easier to group jobs in the UI
           Random random = new Random();
           int sleepTime = random.nextInt(10);
+          String letters = 'abcdefghijklmnopqrstuvwxyz';
           int letterIndex = random.nextInt(letters.length());
           String letter = letters.charAt(letterIndex);
-          echo "sleep time is ${sleepTime}, letter index is ${letterIndex}, letter is ${letter}"
+          echo "sleep time is ${sleepTime}, letter is ${letter}"
           // Launch the freestyle job with parameters
           def buildResult = build job: '/Bugs-Individual/Bugs-30-000-to-39-999/JENKINS-33756-label-parameter-runs-twice-on-first-selected-agent',
                                   quietPeriod: 0,
@@ -35,7 +36,8 @@ pipeline {
                                                string(name: 'SLEEP_TIME', value: "${sleepTime}"),
                                                string(name: 'LETTER_PARAM', value: "${letter}")
                                               ]
-          echo "Build result is ${buildResult.result} for build number ${buildResult.number} with id ${buildResult.id}"
+          echo "Build result is ${buildResult.result} for downstream build number ${buildResult.number}"
+          // Include downstream job in this build name
           buildName "#${BUILD_NUMBER} launched ${buildResult.number}"
         }
         logContains(expectedRegEx: ".*Build result is SUCCESS for build number .*",
