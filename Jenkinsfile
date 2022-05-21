@@ -24,7 +24,7 @@ pipeline {
         script {
           // Generate random short parameters to make it easier to group jobs in the UI
           Random random = new Random();
-          int sleepTime = random.nextInt(10);
+          int sleepTime = random.nextInt(5);
           String letters = 'abcdefghijklmnopqrstuvwxyz';
           int letterIndex = random.nextInt(letters.length());
           String letter = letters.charAt(letterIndex);
