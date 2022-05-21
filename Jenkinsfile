@@ -28,15 +28,11 @@ pipeline {
           String letters = 'abcdefghijklmnopqrstuvwxyz';
           int letterIndex = random.nextInt(letters.length());
           String letter = letters.charAt(letterIndex);
-          String [] labelChoices = [ 'Debian', 'Ubuntu', 'FreeBSD', 'openSUSE' ];
-          int labelIndex = random.nextInt(labelChoices.size());
-          String label = labelChoices[labelIndex]
-          echo "sleep time is ${sleepTime}, letter is ${letter}, label is ${label}"
+          echo "sleep time is ${sleepTime}, letter is ${letter}"
           // Launch the freestyle job with parameters
           def buildResult = build job: '/Bugs-Individual/Bugs-30-000-to-39-999/JENKINS-33756-label-parameter-runs-twice-on-first-selected-agent',
                                   quietPeriod: 0,
                                   parameters: [
-                                               string(name: 'LABEL_PARAM', value: "${label}"),
                                                string(name: 'SLEEP_TIME', value: "${sleepTime}"),
                                                string(name: 'LETTER_PARAM', value: "${letter}")
                                               ]
