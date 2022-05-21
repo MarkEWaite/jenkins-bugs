@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Read the Jenkins log for this job, count and report number of git fetch calls
+# Read the Jenkins logs for invocations of a specific Freestyle job that was launched by this Pipeline, count and report if any agents were used multiple times
 #
 # Default Jenkins URL from JENKINS_URL environment variable
 # Default Jenkins job repo URL from BUILD_URL environment variable
