@@ -10,11 +10,6 @@ pipeline {
     buildDiscarder logRotator(numToKeepStr: '20')
     skipDefaultCheckout(true)
   }
-  parameters {
-    choice name: 'PIPELINE_LETTER_PARAM',
-           description: 'Single letter parameter',
-           choices: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',  'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-  }
   tools {
     ant 'ant-latest'
   }
@@ -27,15 +22,17 @@ pipeline {
                   userRemoteConfigs: scm.userRemoteConfigs
                 ])
         script {
-          Date date = new Date();
-          def sleepTime = date.getAt(Calendar.SECOND) % 4;
-          echo "sleep time is ${sleepTime}"
+          String letters = 'abcdefghijklmnopqrstuvwxyz';
+          int sleepTime = System.currentTimeMillis() % 4;
+          int letterIndex = System.currentTimeMillis() % letters.length();
+          String letter = letters.charAt(letterIndex);
+          echo "sleep time is ${sleepTime}, letter index is ${letterIndex}, letter is ${letter}"
           // Launch the freestyle job with parameters
           def buildResult = build job: '/Bugs-Individual/Bugs-30-000-to-39-999/JENKINS-33756-label-parameter-runs-twice-on-first-selected-agent',
                                   quietPeriod: 0,
                                   parameters: [
                                                string(name: 'SLEEP_TIME', value: "${sleepTime}"),
-                                               string(name: 'LETTER_PARAM', value: "${PIPELINE_LETTER_PARAM}")
+                                               string(name: 'LETTER_PARAM', value: "${letter}")
                                               ]
           echo "Build result is ${buildResult.result} for build number ${buildResult.number} with id ${buildResult.id}"
           buildName "#${BUILD_NUMBER} launched ${buildResult.number}"
