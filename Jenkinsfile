@@ -31,7 +31,7 @@ pipeline {
           def sleepTime = date.getAt(Calendar.SECOND) % 4;
           echo "sleep time is ${sleepTime}"
           // Launch the freestyle job with parameters
-          def buildResult = build job: 'JENKINS-33756-label-parameter-runs-twice-on-first-selected-agent',
+          def buildResult = build job: '/Bugs-Individual/Bugs-30-000-to-39-999/JENKINS-33756-label-parameter-runs-twice-on-first-selected-agent',
                                   quietPeriod: 0,
                                   parameters: [
                                                string(name: 'SLEEP_TIME', value: "${sleepTime}"),
