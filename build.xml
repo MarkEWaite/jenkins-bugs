@@ -1,4 +1,4 @@
-<project name="JENKINS-59016" default="increment" basedir=".">
+<project name="JENKINS-68751" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
     <buildnumber/>
@@ -15,7 +15,7 @@
   <target name="info" description="Report info about this repo">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
-    <!-- JENKINS-59016 reports folder scoped credentials are not used in branch scanning -->
+    <!-- JENKINS-68751 reports non-global ssh key credentials scoped credentials are not used in checkout -->
     <exec executable="./reportScanLogResults" failonerror="true"/>
     <echo>reportScanLogResults script exited normally</echo>
   </target>
