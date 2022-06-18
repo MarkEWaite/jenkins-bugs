@@ -5,7 +5,7 @@ import com.markwaite.Assert
 import com.markwaite.Build
 
 // Narrow the respec to only this branch
-def branch = 'JENKINS-59016'
+def branch = 'JENKINS-68751'
 def myRemoteConfigs = scm.userRemoteConfigs
 myRemoteConfigs[0].refspec = myRemoteConfigs[0].refspec.replace('*', branch)
 
@@ -51,7 +51,7 @@ node('linux && !cloud') { // Needs curl installed, needs local access to Jenkins
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    /* JENKINS-59016 reports branch scan does not use folder scoped credentials.  */
+    /* JENKINS-68751 reports Pipeline checkout cannot use non-global scoped credentials.  */
     my_check.logContains('.*reportScanLogResults script exited normally.*',  'branch scan test script unexpected exit')
     my_check.logContains('.*Branch scan log .* contains expected content.*', 'Branch scan not authenticated')
   }
