@@ -1,3 +1,4 @@
-# [JENKINS-65183](https://issues.jenkins.io/browse/JENKINS-65183) git step ignores default remote branch
+# [JENKINS-69081](https://issues.jenkins.io/browse/JENKINS-69081) http_request now tracks credential use
 
-The Jenkins Pipeline git step assumes the remote default branch is 'master' even though that may not be the remote default branch name.
+The http_request plugin previously did not provide credential use tracking.
+[PR-113](https://github.com/jenkinsci/http-request-plugin/pull/113) adds credential use tracking so that jobs using an http_request credential are identified.
