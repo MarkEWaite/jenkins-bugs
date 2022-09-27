@@ -2,7 +2,7 @@ pipeline {
     options {
         skipDefaultCheckout()
     }
-    environment {
+    ronment {
         HTTP_RESPONSE = httpRequest httpMode: 'GET',
                                     consoleLogResponseBody: false,
                                     validResponseContent: 'https://github.com/MarkEWaite', 
@@ -15,8 +15,8 @@ pipeline {
     stages {
         stage('Track credentials') {
             steps {
-                echo env.HTTP_RESPONSE
-                echo 'Open ' + env.JENKINS_URL + env.URL_SUFFIX + ' to confirm this job is using the credential'
+                echo 'http response is ' + HTTP_RESPONSE
+                echo 'Open ' + JENKINS_URL + URL_SUFFIX + ' to see credential is used by the job'
             }
         }
     }
