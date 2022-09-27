@@ -2,12 +2,21 @@ pipeline {
     options {
         skipDefaultCheckout()
     }
-    agent any
+    environment {
+        HTTP_RESPONSE = httpRequest httpMode: 'GET',
+                                    consoleLogResponseBody: false,
+                                    validResponseContent: 'https://github.com/MarkEWaite', 
+                                    quiet: true,
+                                    authentication: 'invalid-user-and-password',
+                                    url: 'https://api.github.com/users/MarkEWaite'
+        URL_SUFFIX = 'manage/credentials/store/system/domain/_/credential/invalid-user-and-password/'
+    }
+    agent none
     stages {
-        stage('Git step with defaults') {
+        stage('Track credentials') {
             steps {
-                git 'https://github.com/MarkEWaite/peass-ci.git' // Fails because default remote branch is 'main' rather than 'master'
-                // git branch: 'main', url: 'https://github.com/MarkEWaite/peass-ci.git' // Works because branch is stated explicitly
+                echo env.HTTP_RESPONSE
+                echo 'Open ' + env.JENKINS_URL + env.URL_SUFFIX + ' to confirm this job is using the credential'
             }
         }
     }
