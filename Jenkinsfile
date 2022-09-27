@@ -2,7 +2,7 @@ pipeline {
     options {
         skipDefaultCheckout()
     }
-    ronment {
+    environment {
         HTTP_RESPONSE = httpRequest httpMode: 'GET',
                                     consoleLogResponseBody: false,
                                     validResponseContent: 'https://github.com/MarkEWaite', 
