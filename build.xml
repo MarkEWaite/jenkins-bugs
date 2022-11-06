@@ -1,4 +1,4 @@
-<project name="JENINS-69081" default="increment" basedir=".">
+<project name="JENINS-70024" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
     <git command="pull">
@@ -26,7 +26,7 @@
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
-    <!-- JENKINS-69081 tracke credentials use from http_request plugin. -->
+    <!-- JENKINS-70024 cron trigger not retained on target branch -->
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
