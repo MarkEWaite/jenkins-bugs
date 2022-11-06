@@ -1,6 +1,10 @@
+CRON_SETTINGS = BRANCH_NAME == 'JENKINS-70024' ? '0 0 * * 0' : ''
 pipeline {
     options {
         skipDefaultCheckout()
+    }
+    triggers {
+         cron(CRON_SETTINGS)
     }
     environment {
         HTTP_RESPONSE = httpRequest httpMode: 'GET',
