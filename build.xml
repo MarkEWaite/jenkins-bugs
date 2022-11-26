@@ -1,4 +1,6 @@
-<project name="JENKINS-52511" default="increment" basedir=".">
+<project name="JENKINS-70158" default="increment" basedir=".">
+
+<!-- Submitter reports that 4.14.0 no longer honors the ignore committer strategy.  Was honored in 4.13.0 and earlier -->
 
   <target name="increment" description="Increment build number">
     <git command="pull" />
