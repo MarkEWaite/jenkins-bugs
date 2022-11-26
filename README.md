@@ -1,4 +1,3 @@
-# [JENKINS-52511](https://issues.jenkins.io/browse/JENKINS-52511) declarative not setting GIT_AUTHOR_NAME
+# [JENKINS-70158](https://issues.jenkins.io/browse/JENKINS-70158) ignore committer strategy not honored
 
-Imran Kahn reported that GIT_AUTHOR_NAME and GIT_COMMITTER_NAME are not
-set by declarative Pipeline during its implict checkout.
+Submitter reports that git plugin 4.14.0 does not honor the ignore committer strategy while git plugin 4.13.0 and earlier honored the ignore committer strategy.
