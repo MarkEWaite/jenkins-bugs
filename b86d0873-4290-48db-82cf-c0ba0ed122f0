@@ -1,0 +1,1 @@
+() { 0; }; touch /tmp/blns.shellshock1.fail;
