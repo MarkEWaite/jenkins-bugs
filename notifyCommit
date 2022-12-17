@@ -13,7 +13,7 @@ failed_without_crumb() { echo Failed without crumb; exit 3; }
 
 SERVER=
 GIT_URL=
-NEED_CRUMB=true
+NEED_CRUMB=false
 NOTIFY_COMMIT_TOKEN=47f60aef947d83400c05ed9c753db57a
 
 while getopts ":s:u:t:n" o; do
