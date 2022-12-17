@@ -14,8 +14,9 @@ failed_without_crumb() { echo Failed without crumb; exit 3; }
 SERVER=
 GIT_URL=
 NEED_CRUMB=true
+NOTIFY_COMMIT_TOKEN=47f60aef947d83400c05ed9c753db57a
 
-while getopts ":s:u:n" o; do
+while getopts ":s:u:t:n" o; do
     case "${o}" in
         s)
             SERVER=${OPTARG}
@@ -25,6 +26,9 @@ while getopts ":s:u:n" o; do
             ;;
         n)
             NEED_CRUMB=false
+            ;;
+        t)
+            NOTIFY_COMMIT_TOKEN=${OPTARG}
             ;;
         *)
             usage
@@ -89,12 +93,14 @@ fi
 
 prefix=$RANDOM
 
+tokenarg="&token=${NOTIFY_COMMIT_TOKEN}"
+
 # Check that it works with the crumb (if crumb needed)
 
 if [ "$NEED_CRUMB" == "true" ]; then
     crumb_output=${prefix}-crumbfull
     echo "Notifying URL=$SERVER POST using crumb: $crumb"
-    curl -s -H "$crumb" --cookie $cookie_file -X POST $SERVER/git/notifyCommit?url=$GIT_URL\&branches=JENKINS-32174/with/slashes -o $crumb_output
+    curl -s -H "$crumb" --cookie $cookie_file -X POST $SERVER/git/notifyCommit?url=$GIT_URL${tokenarg}\&branches=JENKINS-32174/with/slashes -o $crumb_output
     grep -q -F '<html>' $crumb_output && failed_with_crumb
     rm -f $crumb_output $cookie_file
 fi
@@ -103,7 +109,7 @@ fi
 
 no_crumb_output=${prefix}-crumbless
 echo "Notifying URL=$SERVER POST with no crumb"
-curl -s -X POST $SERVER/git/notifyCommit?url=$GIT_URL\&branches=JENKINS-32174/with/slashes -o $no_crumb_output
+curl -s -X POST $SERVER/git/notifyCommit?url=$GIT_URL${tokenarg}\&branches=JENKINS-32174/with/slashes -o $no_crumb_output
 grep -q -F '<html>' $no_crumb_output && failed_without_crumb
 rm -f $no_crumb_output
 
