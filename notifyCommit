@@ -100,7 +100,7 @@ tokenarg="&token=${NOTIFY_COMMIT_TOKEN}"
 if [ "$NEED_CRUMB" == "true" ]; then
     crumb_output=${prefix}-crumbfull
     echo "Notifying URL=$SERVER POST using crumb: $crumb"
-    curl --cookie $cookie_file -s -H "$crumb" -X POST $SERVER/git/notifyCommit?url=$GIT_URL$tokenarg -o $crumb_output
+    curl --cookie $cookie_file -s -H "$crumb" -X POST $SERVER/git/notifyCommit?url=$GIT_URL${tokenarg} -o $crumb_output
     grep -q -F '<html>' $crumb_output && failed_with_crumb
     rm -f $crumb_output $cookie_file
 fi
@@ -111,5 +111,6 @@ no_crumb_output=${prefix}-crumbless
 echo "Notifying URL=$SERVER POST with no crumb"
 curl -s -X POST $SERVER/git/notifyCommit?url=$GIT_URL$tokenarg -o $no_crumb_output
 grep -q -F '<html>' $no_crumb_output && failed_without_crumb
+rm -f $no_crumb_output
 
 exit 0
