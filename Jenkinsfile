@@ -24,7 +24,7 @@ pipeline {
                               [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [[path: 'build.xml']]], // exactly one file we need, nothing else
                           ],
                           userRemoteConfigs: [
-                              [refspec: '+refs/heads/JENKINS-60617:refs/remotes/origin/JENKINS-60617', url: 'https://github.com/MarkEWaite/jenkins-bugs']
+                              [refspec: '+refs/heads/JENKINS-60617:refs/remotes/origin/JENKINS-60617', url: scm.userRemoteConfigs.url]
                           ]
                          ]
                 )
