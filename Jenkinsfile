@@ -83,9 +83,9 @@ node('home-hasphrase || mark-pc2-beemarkwaite || remote || jagent') {
     /* Call the ant build. */
     def my_step = new com.markwaite.Build()
     my_step.ant 'info'
-//  }
+  }
 
-//  stage('Verify') {
+  stage('Verify') {
     def my_check = new com.markwaite.Assert()
     for (credential_id in credential_ids) {
       my_check.logContains(".*(using credential|Warning: CredentialId).*${credential_id}.*", "credential ${credential_id} not reported")
