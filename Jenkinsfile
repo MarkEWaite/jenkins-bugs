@@ -91,5 +91,6 @@ node('home-hasphrase || mark-pc2-beemarkwaite || remote || jagent') {
       my_check.logContains(".*(using credential|Warning: CredentialId).*${credential_id}.*", "credential ${credential_id} not reported")
     }
     my_check.logContains(".*user dir is .*", 'Missing user dir report')
+    echo "End of the line"
   }
 }
