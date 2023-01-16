@@ -21,7 +21,6 @@ node('git-2.11+') { // Shallow clone requires git 1.9 or newer
                            cleanBeforeCheckout(),
                            cloneOption(
                             depth: 3,
-                            depth: 3,
                             honorRefspec: true,
                             noTags: true,
                             reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
