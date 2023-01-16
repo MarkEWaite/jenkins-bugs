@@ -36,7 +36,7 @@ node('git-2.11+') { // Shallow clone requires git 1.9 or newer
                             threads: 2),
                            ],
               gitTool: 'Default',
-             ])
+             )
   }
 
   stage('Build') {
