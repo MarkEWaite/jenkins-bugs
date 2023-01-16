@@ -17,13 +17,13 @@ node('git-2.11+') { // Needs 'git -C' argument support, sporadically fails on gi
   stage('Checkout default depth') {
     deleteDir() // Really scrub the workspace
     // Shallow checkout parent and submodule - default depth 1
-    checkout([$class: 'GitSCM',
+    checkout scmGit(
               branches: [[name: branch]],
-              extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, shallow: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                           [$class: 'SubmoduleOption', disableSubmodules: false, shallow: true, trackingSubmodules: false],
-                           [$class: 'LocalBranch', localBranch: branch]],
+              extensions: [cloneOption(honorRefspec: true, noTags: true, shallow: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'),
+                           submodule(shallow: true),
+                           localBranch(branch)],
               gitTool: 'Default', // JGit does not support shallow clone for submodules
-              userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: repo_url]]])
+              userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: repo_url]])
   }
 
   stage('Build default depth') {
@@ -56,13 +56,13 @@ node('git-2.11+') { // Needs 'git -C' argument support, sporadically fails on gi
      *
      * error: Server does not allow request for unadvertised object 0736ba35a0d8c05236e3b71584bc4e149aa5f10a
      */
-    checkout([$class: 'GitSCM',
+    checkout scmGit(
               branches: [[name: branch]],
-              extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, shallow: true, depth: 2, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                           [$class: 'SubmoduleOption', disableSubmodules: false, shallow: true, depth: 2, trackingSubmodules: false],
-                           [$class: 'LocalBranch', localBranch: branch]],
+              extensions: [cloneOption(honorRefspec: true, noTags: true, shallow: true, depth: 2, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'),
+                           submodule(shallow: true, depth: 2);
+                           localBranch(branch)],
               gitTool: 'Default',
-              userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: repo_url]]])
+              userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: repo_url]])
   }
 
   stage('Build depth 2') {
