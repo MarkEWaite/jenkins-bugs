@@ -9,32 +9,33 @@ def repoUrl = scm.userRemoteConfigs[0].url
 
 node('git-2.11+') { // Shallow clone requires git 1.9 or newer
   stage('Checkout') {
-    checkout([$class: 'GitSCM',
+    deleteDir()
+    checkout scmGit(
               userRemoteConfigs: [[url: repoUrl,
                                    name: 'jenkins-bugs-origin',
                                    refspec: "+refs/heads/${branch}:refs/remotes/jenkins-bugs-origin/${branch}",
                                   ]],
-              branches: [[name: "*/${branch}"]],
-              extensions: [[$class: 'AuthorInChangelog'],
-                           [$class: 'CheckoutOption', timeout: 1],
-                           [$class: 'CleanCheckout'],
-                           [$class: 'CloneOption',
+              branches: [[name: branch]],
+              extensions: [authorInChangelog(),
+                           checkoutOption(1),
+                           cleanBeforeCheckout(),
+                           cloneOption(
+                            depth: 3,
                             depth: 3,
                             honorRefspec: true,
                             noTags: true,
                             reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
                             shallow: true,
-                            timeout: 3],
-                           [$class: 'LocalBranch', localBranch: '**'],
-                           [$class: 'PruneStaleBranch'],
-                           [$class: 'SubmoduleOption',
-                            disableSubmodules: false,
+                            timeout: 3),
+                           localBranch(),
+                           pruneStaleBranch(),
+                           pruneTags(true),
+                           submodule(
                             recursiveSubmodules: true,
                             reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git',
-                            threads: 2,
-                            trackingSubmodules: false],
-                           [$class: 'WipeWorkspace'],
+                            threads: 2),
                            ],
+              gitTool: 'Default',
              ])
   }
 
