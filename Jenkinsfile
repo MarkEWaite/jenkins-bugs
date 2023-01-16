@@ -17,6 +17,7 @@ pipeline {
             steps {
                 echo "**** Branch is ${env.BRANCH_NAME} ****"
                 echo "**** scm.branches is ${scm.branches} ****"
+                echo "**** scm.gitTool is ${scm.gitTool} ****"
                 script {
                     def scmResult = checkout(
                       scmGit(
