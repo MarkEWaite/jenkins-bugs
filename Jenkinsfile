@@ -18,7 +18,7 @@ pipeline {
                 echo "**** Branch is ${env.BRANCH_NAME} ****"
                 echo "**** scm.branches is ${scm.branches} ****"
                 script {
-                    def scmResult = checkout
+                    def scmResult = checkout(
                       scmGit(
                         branches: scm.branches, // Assumes the multibranch pipeline checkout branch definition is sufficient
                         // JENKINS-63563 says that checkout will fail without this extensions section
@@ -33,6 +33,7 @@ pipeline {
                         ],
                         gitTool: scm.gitTool,
                         userRemoteConfigs: scm.userRemoteConfigs // Assumes the multibranch pipeline checkout remoteconfig is sufficient
+                      )
                     )
                     if (scmResult['GIT_URL'] == '') {
                         currentBuild.result = 'UNSTABLE'
