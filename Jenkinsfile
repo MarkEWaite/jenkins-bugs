@@ -61,7 +61,7 @@ node('git-2.11+') { // Needs 'git -C' argument support, sporadically fails on gi
     checkout scmGit(
               branches: [[name: branch]],
               extensions: [cloneOption(honorRefspec: true, noTags: true, shallow: true, depth: 2, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'),
-                           submoduleOption(shallow: true, depth: 2),
+                           submodule(shallow: true, depth: 2),
                            localBranch(branch)],
               gitTool: 'Default',
               userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: repo_url]])
