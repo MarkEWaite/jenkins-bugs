@@ -13,6 +13,6 @@ def changes
 node {
   stage('Checkout') {
     // JENKINS-70540 reports 'Not a git directory' and checkout fails
-    git poll: true, changelog: true, branch: 'master' url: 'https://github.com/jenkinsci/elastic-axis-plugin.git'
+    git poll: true, changelog: true, branch: 'master', url: 'https://github.com/jenkinsci/elastic-axis-plugin.git'
   }
 }
