@@ -1,4 +1,4 @@
-<project name="JENKINS-50394" default="increment" basedir=".">
+<project name="JENKINS-70540" default="increment" basedir=".">
 
   <property environment="env"/>
   <condition property="changeLogCount" value="${env.CHANGESET_SIZE}" else="0">
@@ -25,46 +25,6 @@
         <arg value="cache"/>
       </args>
     </git>
-
-    <sleep seconds="3"/>
-    <buildnumber/>
-    <git command="add">
-      <args>
-        <arg value="build.number"/>
-      </args>
-    </git>
-    <git command="commit">
-      <args>
-        <arg value="-m"/>
-        <arg value="[${ant.project.name}] fast build++, was ${build.number}"/>
-      </args>
-    </git>
-    <git command="push" />
-    <git command="push">
-      <args>
-        <arg value="origin"/>
-      </args>
-    </git>
-
-    <sleep seconds="5"/>
-    <buildnumber/>
-    <git command="add">
-      <args>
-        <arg value="build.number"/>
-      </args>
-    </git>
-    <git command="commit">
-      <args>
-        <arg value="-m"/>
-        <arg value="[${ant.project.name}] faster build++, was ${build.number}"/>
-      </args>
-    </git>
-    <git command="push" />
-    <git command="push">
-      <args>
-        <arg value="origin"/>
-      </args>
-    </git>
   </target>
 
   <!-- Info about this repository -->
@@ -72,15 +32,13 @@
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
-    <!-- JENKINS-50394 reports that newer changes are found remotely which don't exist in local repo.  -->
-    <echo>Displaying ${changeLogCount} git log messages in changeset for this build - CHANGESET_SIZE=${env.CHANGESET_SIZE}</echo>
+    <!-- JENKINS-70540 reports checkout failures with 'Not a git directory' messages.  -->
     <git command="log">
       <args>
         <arg value="-n"/>
-        <arg value="${changeLogCount}"/>
+        <arg value="3"/>
       </args>
     </git>
-    <echo>End of ${changeLogCount} git log messages in changeset for this build</echo>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
