@@ -8,9 +8,8 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-def changes
-
 node {
+  git poll: true, changelog: true, branch: 'master', url: 'https://github.com/jenkinsci/elastic-axis-plugin.git'
   stage('Checkout') {
     // JENKINS-70540 reports 'Not a git directory' and checkout fails
     git poll: true, changelog: true, branch: 'master', url: 'https://github.com/jenkinsci/elastic-axis-plugin.git'
