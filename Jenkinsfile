@@ -10,8 +10,11 @@ properties([[$class: 'BuildDiscarderProperty',
 
 node {
   git poll: true, changelog: true, branch: 'master', url: 'https://github.com/jenkinsci/elastic-axis-plugin.git'
-  stage('Checkout') {
-    // JENKINS-70540 reports 'Not a git directory' and checkout fails
-    git poll: true, changelog: true, branch: 'master', url: 'https://github.com/jenkinsci/elastic-axis-plugin.git'
+  try {
+    stage('Checkout') {
+      // JENKINS-70540 reports 'Not a git directory' and checkout fails
+      checkout changelog: false, poll: false,
+        scm: scmGit(branches: [[name: 'master']], userRemoteConfigs: [[url: 'https://github.com/jenkinsci/xshell-plugin.git']])
+    }
   }
 }
