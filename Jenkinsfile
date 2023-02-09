@@ -16,7 +16,7 @@ node {
       checkout changelog: false, poll: false,
         scm: scmGit(branches: [[name: 'master']], userRemoteConfigs: [[url: 'https://github.com/jenkinsci/xshell-plugin.git']])
     }
-  } catch {
-    echo 'Checkout scm step failed'
+  } catch (Exception e) {
+    echo 'Checkout scm step failed with exception ' + e.toString()
   }
 }
