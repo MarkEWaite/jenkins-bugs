@@ -12,21 +12,7 @@ def changes
 
 node {
   stage('Checkout') {
-    // JENKINS-50394 reports missing object exception during branch indexing
-    checkout scm
-    changes = changelogEntries(changeSets: currentBuild.changeSets)
-  }
-
-  stage('Build') {
-    withEnv(["CHANGESET_SIZE=${changes.size()}"]) {
-      /* Call the ant build. */
-      def my_step = new com.markwaite.Build()
-      my_step.ant 'info'
-    }
-  }
-
-  stage('Verify') {
-    def my_check = new com.markwaite.Assert()
-    my_check.logContains('.*End of [0-9]+ git log messages in changeset for this build.*', 'Missing concluding message')
+    // JENKINS-70540 reports 'Not a git directory' and checkout fails
+    git poll: true changelog: true branch: 'master' url: 'https://github.com/jenkinsci/elastic-axis-plugin.git'
   }
 }
