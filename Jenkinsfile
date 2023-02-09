@@ -9,10 +9,13 @@ properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
 node {
-  git poll: true, changelog: true, branch: 'master', url: 'https://github.com/jenkinsci/elastic-axis-plugin.git'
+  // Checkout the elastic axis plugin into workspace
+  // git poll: true, changelog: true, branch: 'master', url: 'https://github.com/jenkinsci/elastic-axis-plugin.git'
+  git url: 'https://github.com/jenkinsci/elastic-axis-plugin.git'
   try {
     stage('Checkout') {
       // JENKINS-70540 reports 'Not a git directory' and checkout fails
+      // Does not duplicate the issue.  Replaces the workspace contents with the xshell plugin
       checkout changelog: false, poll: false,
         scm: scmGit(branches: [[name: 'master']], userRemoteConfigs: [[url: 'https://github.com/jenkinsci/xshell-plugin.git']])
     }
