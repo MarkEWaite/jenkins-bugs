@@ -1,4 +1,3 @@
-# [JENKINS-50394](https://issues.jenkins.io/browse/JENKINS-50394) missing object ID exception
+# [JENKINS-70540](https://issues.jenkins.io/browse/JENKINS-70540) not a git directory
 
-Commits that arrive in the remote repository during branch indexing can be detected by the indexing REST API call.
-If they arrived in the remote repo after local clone started, they may not be included in the clone.
+Users reported that their Pipelines were failing to checkout with the message "not a git directory" in git plugin 5.0.0 and git client plugin 4.1.0.
