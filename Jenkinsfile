@@ -3,6 +3,10 @@ pipeline {
   options {
     durabilityHint('PERFORMANCE_OPTIMIZED')
   }
+  tools {
+    jdk 'jdk11'
+    ant 'ant-latest'
+  }
   stages {
     stage('parallel') {
       parallel {
@@ -30,9 +34,7 @@ pipeline {
             echo "pipeline GIT_COMMIT after windows ws is ${env.GIT_COMMIT}"
             bat "echo bat GIT_COMMIT after windows ws is %GIT_COMMIT%"
             bat 'echo hello windows from %COMPUTERNAME%'
-            withAnt(installation: 'ant-latest') {
-              bat 'ant info'
-            }
+            bat 'ant info'
             // Archive artifacts from windows-dir
             dir(WORKSPACE + '/windows-dir') {
               archiveArtifacts artifacts: '*', followSymlinks: false
@@ -64,9 +66,7 @@ pipeline {
             sh "echo sh GIT_COMMIT after linux ws is $GIT_COMMIT"
             echo 'Workspace after linux ws is ' + WORKSPACE
             sh 'echo hello linux from `hostname`'
-            withAnt(installation: 'ant-latest') {
-              sh 'ant info'
-            }
+            sh 'ant info'
           }
         }
       }
