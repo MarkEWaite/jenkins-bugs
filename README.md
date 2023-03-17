@@ -1,3 +1,3 @@
-# [JENKINS-70158](https://issues.jenkins.io/browse/JENKINS-70158) ignore committer strategy not honored
+# [JENKINS-70810](https://issues.jenkins.io/browse/JENKINS-70810) archiveArtifacts fails on long-running Windows jobs
 
-Submitter reports that git plugin 4.14.0 does not honor the ignore committer strategy while git plugin 4.13.0 and earlier honored the ignore committer strategy.
+Submitter reports that archiveArtifacts fails on long-running Windows jobs
