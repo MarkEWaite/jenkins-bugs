@@ -33,6 +33,10 @@ pipeline {
             withAnt(installation: 'ant-latest') {
               bat 'ant info'
             }
+            // Archive artifacts from windows-dir
+            dir(WORKSPACE + '/windows-dir') {
+              archiveArtifacts artifacts: '*', followSymlinks: false
+            }
           }
         }
         stage('linux') {
