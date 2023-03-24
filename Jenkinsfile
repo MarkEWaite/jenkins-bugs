@@ -12,7 +12,7 @@ def branch = 'JENKINS-70858'
 
 node('git-1.8+') { // Git versions older than 1.8 don't support sparse checkout
   stage('Checkout') {
-    checkout(scmGit(
+    checkout scmGit(
               branches: [[name: branch]],
               extensions: [
                   [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
