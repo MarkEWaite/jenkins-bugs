@@ -15,7 +15,7 @@ pipeline {
       }
       steps {
         checkout scm
-        sh 'ls'
+        sh 'ls; cat README.md'
       }
     }
     stage('Windows') {
