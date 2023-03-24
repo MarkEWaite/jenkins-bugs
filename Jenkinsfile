@@ -15,7 +15,7 @@ pipeline {
       }
       steps {
         checkout scmGit(branches: [[name: 'JENKINS-70858']],
-                        extensions: [cloneOption(honorRefspec: true, noTags: true, shallow: true, depth: 1),
+                        extensions: [cloneOption(honorRefspec: true, noTags: true, shallow: true, depth: 1)],
                         gitTool: 'Default',
                         userRemoteConfigs: [[refspec: '+refs/heads/JENKINS-70858:refs/remotes/origin/JENKINS-70858',
                                              url: 'https://github.com/MarkEWaite/jenkins-bugs.git']])
