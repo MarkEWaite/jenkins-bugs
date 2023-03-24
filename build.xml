@@ -1,4 +1,4 @@
-<project name="JENKINS-58049" default="increment" basedir=".">
+<project name="JENKINS-70858" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
     <git command="pull">
@@ -25,7 +25,7 @@
   <target name="info" description="Report info about this repo">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
-    <!-- JENKINS-58049 reports sparse checkout does not support multiple paths -->
+    <!-- JENKINS-70858 reports sparse checkout does not work -->
     <fileset id="files.list" dir="." includes="C*"/>
     <property name="prop.files.list" refid="files.list"/>
     <echo>Files list for 'C*' are ${prop.files.list}</echo>
