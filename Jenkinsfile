@@ -5,7 +5,7 @@ pipeline {
     buildDiscarder logRotator(numToKeepStr: '10')
     disableConcurrentBuilds abortPrevious: true
     parallelsAlwaysFailFast()
-    skipDefaultCheckout true
+    skipDefaultCheckout()
   }
   agent none
   stages {
