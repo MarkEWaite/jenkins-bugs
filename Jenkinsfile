@@ -8,22 +8,22 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-def branch = 'JENKINS-58049'
+def branch = 'JENKINS-70858'
 
 node('git-1.8+') { // Git versions older than 1.8 don't support sparse checkout
   stage('Checkout') {
-    checkout([$class: 'GitSCM',
+    checkout(scmGit(
               branches: [[name: branch]],
               extensions: [
                   [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                   [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [[path: 'build.number'], [path: 'build.xml'], [path: 'Jenkinsfile'], [path: 'TIA-Profiles']]],
-                  [$class: 'CleanBeforeCheckout']
+                  cleanBeforeCheckout()
               ],
               gitTool: "Default",  // JGit does not support sparse checkout, can't use scm.gitTool
               userRemoteConfigs: [
                   [refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs']
               ]
-        ])
+        )
   }
 
   stage('Build') {
