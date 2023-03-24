@@ -30,6 +30,11 @@ node('git-1.8+') { // Git versions older than 1.8 don't support sparse checkout
     /* Call the ant build. */
     def my_step = new com.markwaite.Build()
     my_step.ant 'info'
+    if (isUnix()) {
+      sh 'ls -altr'
+    } else {
+      bat 'dir'
+    }
   }
 
   stage('Verify') {
