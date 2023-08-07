@@ -39,7 +39,7 @@ for keyword in JENKINS MHA SECURITY ZD; do
       git clone --branch $branch \
                 --single-branch \
                 --no-tags \
-                --reference /var/lib/git/mwaite/bugs/jenkins-bugs.git \
+                --reference /var/cache/git/mwaite/bugs/jenkins-bugs.git \
                 $remote_https \
                 $dir )
     echo Cloned for bug $bug, branch $branch, dir $dir
@@ -55,7 +55,7 @@ for keyword in JENKINS MHA SECURITY ZD; do
       git config remote.origin.pushurl $remote_ssh &&
       git remote add cache mwaite@git.markwaite.net:git/bare/bugs/jenkins-bugs.git && \
       git config remote.cache.fetch $(git config --get remote.origin.fetch | sed 's/origin/cache/g') && \
-      git remote add bare /var/lib/git/mwaite/bugs/jenkins-bugs.git && \
+      git remote add bare /var/cache/git/mwaite/bugs/jenkins-bugs.git && \
       git config remote.bare.fetch $(git config --get remote.origin.fetch | sed 's/origin/bare/g') && \
       git push cache && \
       git push bare && \
