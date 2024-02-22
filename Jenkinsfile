@@ -30,6 +30,6 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains('.*+refs/heads/JENKINS-72731:refs/remotes/origin/JENKINS-72731.*', 'Empty e-mail address not found in commit messages') // Check JENKINS-72731 set refspec in multibranch
+    my_check.logContains('.*[+]refs/heads/JENKINS-72731:refs/remotes/origin/JENKINS-72731.*', 'Refspec not found in output') // Check JENKINS-72731 set refspec in multibranch
   }
 }
