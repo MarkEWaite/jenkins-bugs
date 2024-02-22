@@ -9,17 +9,17 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-def changes
-
 node {
   stage('Checkout') {
-    checkout([$class: 'GitSCM',
+    checkout scmGit(
         branches: [[name: BRANCH_NAME]],
         extensions: [
-            [$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-            [$class: 'LocalBranch', localBranch: BRANCH_NAME]],
+            cloneOption(honorRefspec: true, noTags: true, shallow: true, depth: 1),
+            localBranch(BRANCH_NAME)],
         gitTool: scm.gitTool,
-        userRemoteConfigs: [[refspec: "+refs/heads/${BRANCH_NAME}:refs/remotes/origin/${BRANCH_NAME}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
+        userRemoteConfigs: [
+            [refspec: '+refs/heads/${BRANCH_NAME}:refs/remotes/origin/${BRANCH_NAME}',
+             url: 'https://github.com/MarkEWaite/jenkins-bugs.git']])
   }
 
   stage('Build') {
