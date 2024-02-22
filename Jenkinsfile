@@ -1,5 +1,7 @@
 #!groovy
 
+@Library('globalPipelineLibraryMarkEWaite') _
+
 import com.markwaite.Assert
 import com.markwaite.Build
 
