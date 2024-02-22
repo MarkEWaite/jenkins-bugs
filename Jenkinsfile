@@ -18,7 +18,8 @@ node {
             localBranch(BRANCH_NAME)],
         gitTool: scm.gitTool,
         userRemoteConfigs: [
-            [refspec: '+refs/heads/${BRANCH_NAME}:refs/remotes/origin/${BRANCH_NAME}',
+            [refspec: '+refs/heads/${BRANCH_NAME}:refs/remotes/origin/${BRANCH_NAME}' +
+                      ' refs/heads/master:refs/remotes/origin/master',
              url: 'https://github.com/MarkEWaite/jenkins-bugs.git']])
   }
 

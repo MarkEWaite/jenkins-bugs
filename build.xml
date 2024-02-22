@@ -57,6 +57,14 @@
         <arg value="3"/>
       </args>
     </git>
+    <!-- Master branch should also be included in cloned repository -->
+    <git command="diff">
+      <args>
+        <arg value="origin/master"/>
+        <arg value="--"/>
+        <arg value="README.md"/>
+      </args>
+    </git>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
