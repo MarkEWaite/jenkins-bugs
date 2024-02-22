@@ -48,7 +48,9 @@
         <arg value="remote.origin.fetch"/>
       </args>
     </git>
+    <!-- Git branch should report only one branch -->
     <git command="branch"/>
+    <!-- Shallow clone should only show 1 log entry -->
     <git command="log">
       <args>
         <arg value="-n"/>
