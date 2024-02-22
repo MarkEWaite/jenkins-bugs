@@ -48,6 +48,13 @@
         <arg value="remote.origin.fetch"/>
       </args>
     </git>
+    <git command="branch"/>
+    <git command="log">
+      <args>
+        <arg value="-n"/>
+        <arg value="3"/>
+      </args>
+    </git>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
