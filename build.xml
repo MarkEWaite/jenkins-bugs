@@ -42,16 +42,12 @@
   <target name="info" description="Report info about this repo">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
-    <!-- JENKINS-48589 reports that a commit with empty committer e-mail address
-         causes exceptions in changeset calculation.  -->
-    <echo>Displaying ${changeLogCount} git log messages in changeset for this build - CHANGESET_SIZE=${env.CHANGESET_SIZE}</echo>
-    <git command="log">
+    <!-- JENKINS-72731 reports that a refspec is not honored in multibranch Pipeline.  -->
+    <git command="config">
       <args>
-        <arg value="-n"/>
-        <arg value="${changeLogCount}"/>
+        <arg value="remote.origin.fetch"/>
       </args>
     </git>
-    <echo>End of ${changeLogCount} git log messages in changeset for this build</echo>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
