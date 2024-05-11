@@ -46,7 +46,7 @@ node {
 
     if (latest_sha1 != current_sha1) {
       addWarningBadge("Missed latest: ${latest_sha1}, was ${current_sha1}.")
-      manager.createSummary('warning.gif').appendText("<h1>Missed latest commit ${latest_sha1}, was ${current_sha1}!</h1>", false, false, false, 'red')
+      createSummary('warning.gif').appendText("<h1>Missed latest commit ${latest_sha1}, was ${current_sha1}!</h1>", false, false, false, 'red')
       manager.buildUnstable()
     }
   }
