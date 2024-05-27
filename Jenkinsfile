@@ -14,7 +14,7 @@ def tagTargetName = "${branch}-project-1-tag-a" // Merge target as a tag will no
 
 def mergeTargetName = branchTargetName
 
-node('git-1.8+') {
+node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
               branches: [[name: branch]],
