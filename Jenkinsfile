@@ -11,7 +11,7 @@ pipeline {
   stages {
     stage('Non-Windows') {
       agent {
-        label '!windows && !git-1.8' // git 1.8 does not support shallow clone
+        label '!windows'
       }
       steps {
         checkout scmGit(branches: [[name: 'JENKINS-70858']],
