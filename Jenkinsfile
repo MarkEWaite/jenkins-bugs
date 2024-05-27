@@ -14,7 +14,7 @@ def httpsRemoteConfig = [ url: 'https://github.com/MarkEWaite/jenkins-bugs',
                           name: 'https-origin',
                           refspec: "+refs/heads/${branch}:refs/remotes/https-origin/${branch}" ]
 
-node('!windows && git-1.8+') {
+node('!windows') {
   stage('Checkout') {
     sh 'rm -f .gitmodules'
     checkout([$class: 'GitSCM',
