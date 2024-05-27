@@ -7,7 +7,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-node("git-1.8+") {
+node {
   stage('Checkout') {
     checkout scm
   }
