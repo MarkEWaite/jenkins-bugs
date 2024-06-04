@@ -15,7 +15,7 @@ node {
   stage('Checkout') {
     deleteDir() // Start from a clean workspace
     checkout scmGit(branches: scm.branches,
-                    extensions: [localBranch('**')],
+                    extensions: scm.extensions + [localBranch('**')],
 		    gitTool: 'Default',
 		    userRemoteConfigs: [[refspec: '+refs/heads/${branch}:refs/remotes/origin/${branch}',
 		                         url: scm.userRemoteConfigs[0].url ]]
