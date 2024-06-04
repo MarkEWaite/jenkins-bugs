@@ -17,7 +17,7 @@ node {
     checkout scmGit(branches: scm.branches,
                     extensions: scm.extensions + [localBranch('**')],
 		    gitTool: 'Default',
-		    userRemoteConfigs: [[refspec: '+refs/heads/${branch}:refs/remotes/origin/${branch}',
+		    userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}",
 		                         url: scm.userRemoteConfigs[0].url ]]
 		   )
   }
