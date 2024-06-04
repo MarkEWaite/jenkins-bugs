@@ -11,7 +11,7 @@ properties([[$class: 'BuildDiscarderProperty',
 
 def branch=scm.branches[0]
 
-node('windows') {
+node {
   stage('Checkout') {
     deleteDir() // Start from a clean workspace
     checkout scmGit(branches: scm.branches,
