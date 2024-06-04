@@ -9,7 +9,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
                 strategy: [$class: 'LogRotator', numToKeepStr: '7']]])
 
-def branch='JENKINS-64000'
+def branch=scm.branches[0]
 
 node('windows') {
   stage('Checkout') {
