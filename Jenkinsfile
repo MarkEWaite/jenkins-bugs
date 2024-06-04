@@ -20,7 +20,6 @@ node('windows') {
 		    userRemoteConfigs: [[refspec: '+refs/heads/${branch}:refs/remotes/origin/${branch}',
 		                         url: scm.userRemoteConfigs[0].url ]]
 		   )
-    ])
   }
 
   stage('Build') {
