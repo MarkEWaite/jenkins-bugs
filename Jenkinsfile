@@ -30,8 +30,8 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    /* JENKINS-73229 reports that --no-tags is used even when tags are requested in the pipeline definition.  */
-    my_check.logContains(".*${branch}*", "The expected branch ${branch} was not found")
+    /* JENKINS-73229 reports that local branch is not honored in a multibranch Pipeline.  */
+    my_check.logContains(".*[*] ${branch}.*", "The expected branch ${branch} was not found")
     deleteDir() // End by cleaning workspace
   }
 }
