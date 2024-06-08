@@ -1,0 +1,1 @@
+@{[system "touch /tmp/blns.fail"]}
