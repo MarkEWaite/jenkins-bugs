@@ -4,8 +4,9 @@
 #
 # Default Jenkins URL from JENKINS_URL environment variable
 # Default git repo URL from current repository
+# Default Jenkins notifyCommit token from JENKINS_NOTIFYCOMMIT_TOKEN environment variable
 
-usage() { echo "Usage: $0 [-s jenkins_server_url] [-u git_repo_url] [-n]" 1>&2; exit 1; }
+usage() { echo "Usage: $0 [-s jenkins_server_url] [-u git_repo_url] [-n] [-t jenkins_notifyCommit_token]" 1>&2; exit 1; }
 
 failed_with_crumb() { echo Failed with crumb; exit 2; }
 
@@ -14,7 +15,7 @@ failed_without_crumb() { echo Failed without crumb; exit 3; }
 SERVER=
 GIT_URL=
 NEED_CRUMB=false
-NOTIFY_COMMIT_TOKEN=47f60aef947d83400c05ed9c753db57a
+SERVER_TOKEN=
 
 while getopts ":s:u:t:n" o; do
     case "${o}" in
@@ -28,7 +29,7 @@ while getopts ":s:u:t:n" o; do
             NEED_CRUMB=false
             ;;
         t)
-            NOTIFY_COMMIT_TOKEN=${OPTARG}
+            SERVER_TOKEN=\&token=${OPTARG}
             ;;
         *)
             usage
@@ -44,6 +45,8 @@ if [ -z "$SERVER" ]; then
 fi
 if [ -z "$SERVER" ]; then
     usage
+else
+    echo Using SERVER=$SERVER
 fi
 # remove trailing slash from SERVER, fails CSRF exclusion check
 SERVER=${SERVER%/}
@@ -53,11 +56,11 @@ SERVER=${SERVER%/}
 if [ -n "$GIT_URL" ]; then
     echo Using GIT_URL: $GIT_URL
 else
-    GIT_URL=$(git remote -v | grep fetch | awk 'NR==1{print $2}')
+    GIT_URL=$(git remote -v | grep fetch | grep origin | awk 'NR==1{print $2}')
     if [ -n "$GIT_URL" ]; then
         echo Using GIT_URL from fetch remote: $GIT_URL
     else
-        GIT_URL=$(git remote -v | awk 'NR==1{print $2}')
+        GIT_URL=$(git remote -v | grep origin | awk 'NR==1{print $2}')
         if [ -n "$GIT_URL" ]; then
             echo Using GIT_URL from first remote: $GIT_URL
         else
@@ -91,16 +94,23 @@ if [ "$NEED_CRUMB" == "true" ]; then
     fi
 fi
 
-prefix=$RANDOM
+# Assure SERVER_TOKEN is set
 
-tokenarg="&token=${NOTIFY_COMMIT_TOKEN}"
+if [ -z "$SERVER_TOKEN" ]; then
+    SERVER_TOKEN=\&token=${JENKINS_NOTIFYCOMMIT_TOKEN}
+fi
+if [ -z "$SERVER_TOKEN" ]; then
+    usage
+fi
+
+prefix=$RANDOM
 
 # Check that it works with the crumb (if crumb needed)
 
 if [ "$NEED_CRUMB" == "true" ]; then
     crumb_output=${prefix}-crumbfull
     echo "Notifying URL=$SERVER POST using crumb: $crumb"
-    curl --cookie $cookie_file -s -H "$crumb" -X POST $SERVER/git/notifyCommit?url=$GIT_URL${tokenarg} -o $crumb_output
+    curl --cookie $cookie_file -s -H "$crumb" -X POST $SERVER/git/notifyCommit?url=$GIT_URL${SERVER_TOKEN} -o $crumb_output
     grep -q -F '<html>' $crumb_output && failed_with_crumb
     rm -f $crumb_output $cookie_file
 fi
@@ -109,7 +119,7 @@ fi
 
 no_crumb_output=${prefix}-crumbless
 echo "Notifying URL=$SERVER POST with no crumb"
-curl -s -X POST $SERVER/git/notifyCommit?url=$GIT_URL$tokenarg -o $no_crumb_output
+curl -s -X POST $SERVER/git/notifyCommit?url=$GIT_URL${SERVER_TOKEN} -o $no_crumb_output
 grep -q -F '<html>' $no_crumb_output && failed_without_crumb
 rm -f $no_crumb_output
 
