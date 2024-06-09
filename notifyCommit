@@ -13,11 +13,11 @@ failed_with_crumb() { echo Failed with crumb; exit 2; }
 failed_without_crumb() { echo Failed without crumb; exit 3; }
 
 SERVER=
-SERVER_TOKEN=
 GIT_URL=
 NEED_CRUMB=true
+SERVER_TOKEN=
 
-while getopts ":s:u:n" o; do
+while getopts ":s:u:t:n" o; do
     case "${o}" in
         s)
             SERVER=${OPTARG}
@@ -101,8 +101,6 @@ if [ -z "$SERVER_TOKEN" ]; then
 fi
 if [ -z "$SERVER_TOKEN" ]; then
     usage
-else
-    echo Using SERVER=$SERVER
 fi
 
 prefix=$RANDOM
