@@ -4,14 +4,16 @@
 #
 # Default Jenkins URL from JENKINS_URL environment variable
 # Default git repo URL from current repository
+# Default Jenkins notifyCommit token from JENKINS_NOTIFYCOMMIT_TOKEN environment variable
 
-usage() { echo "Usage: $0 [-s jenkins_server_url] [-u git_repo_url] [-n]" 1>&2; exit 1; }
+usage() { echo "Usage: $0 [-s jenkins_server_url] [-u git_repo_url] [-n] [-t jenkins_notifyCommit_token]" 1>&2; exit 1; }
 
 failed_with_crumb() { echo Failed with crumb; exit 2; }
 
 failed_without_crumb() { echo Failed without crumb; exit 3; }
 
 SERVER=
+SERVER_TOKEN=
 GIT_URL=
 NEED_CRUMB=true
 
@@ -25,6 +27,9 @@ while getopts ":s:u:n" o; do
             ;;
         n)
             NEED_CRUMB=false
+            ;;
+        t)
+            SERVER_TOKEN=\&token=${OPTARG}
             ;;
         *)
             usage
@@ -89,6 +94,17 @@ if [ "$NEED_CRUMB" == "true" ]; then
     fi
 fi
 
+# Assure SERVER_TOKEN is set
+
+if [ -z "$SERVER_TOKEN" ]; then
+    SERVER_TOKEN=\&token=${JENKINS_NOTIFYCOMMIT_TOKEN}
+fi
+if [ -z "$SERVER_TOKEN" ]; then
+    usage
+else
+    echo Using SERVER=$SERVER
+fi
+
 prefix=$RANDOM
 
 # Check that it works with the crumb (if crumb needed)
@@ -96,7 +112,7 @@ prefix=$RANDOM
 if [ "$NEED_CRUMB" == "true" ]; then
     crumb_output=${prefix}-crumbfull
     echo "Notifying URL=$SERVER POST using crumb: $crumb"
-    curl --cookie $cookie_file -s -H "$crumb" -X POST $SERVER/git/notifyCommit?url=$GIT_URL\&branches=JENKINS-32174-without-slashes -o $crumb_output
+    curl --cookie $cookie_file -s -H "$crumb" -X POST $SERVER/git/notifyCommit?url=$GIT_URL\&branches=JENKINS-32174-without-slashes${SERVER_TOKEN} -o $crumb_output
     grep -q -F '<html>' $crumb_output && failed_with_crumb
     rm -f $crumb_output $cookie_file
 fi
@@ -105,7 +121,7 @@ fi
 
 no_crumb_output=${prefix}-crumbless
 echo "Notifying URL=$SERVER POST with no crumb"
-curl -s -X POST $SERVER/git/notifyCommit?url=$GIT_URL\&branches=JENKINS-32174-without-slashes -o $no_crumb_output
+curl -s -X POST $SERVER/git/notifyCommit?url=$GIT_URL\&branches=JENKINS-32174-without-slashes${SERVER_TOKEN} -o $no_crumb_output
 grep -q -F '<html>' $no_crumb_output && failed_without_crumb
 rm -f $no_crumb_output
 
