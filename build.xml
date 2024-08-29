@@ -1,6 +1,11 @@
-<project name="jenkins-bugs-master-branch" default="sync" basedir=".">
+<project name="JENKINS-63563" default="increment" basedir=".">
 
   <property environment="env"/>
+
+  <condition property="build.number.file" value="build.${env.BRANCH_NAME}.number" else="build.number">
+    <isset property="env.BRANCH_NAME"/>
+  </condition>
+
   <condition property="changeLogCount" value="${env.CHANGESET_SIZE}" else="1">
     <isset property="env.CHANGESET_SIZE"/>
   </condition>
@@ -59,7 +64,7 @@
         <arg value="--all"/>
       </args>
     </git>
-    <buildnumber/>
+    <buildnumber file="${build.number.file}"/>
     <git command="commit">
       <args>
         <arg value="-m"/>
@@ -78,9 +83,9 @@
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
-    <!-- JENKINS-41906 reports that master branch built without any commits.
-         This reports commits in the changeset for this build -->
+    <!-- JENKINS-63653 reports that checkout fails if branches is used as scm.branches. -->
     <echo>Displaying ${changeLogCount} git log messages in changeset for this build - CHANGESET_SIZE=${env.CHANGESET_SIZE}</echo>
+    <echo>When incrementing, will record ine ${build.number.file} based on BRANCH_NAME=${env.BRANCH_NAME}</echo>
     <git command="log">
       <args>
         <arg value="-n"/>
