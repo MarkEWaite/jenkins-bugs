@@ -15,7 +15,7 @@ def origin='J-36637-origin'
 
 node('!windows && !cloud') {
   stage('Checkout') {
-    checkout([$class: 'GitSCM',
+    checkout scmGit(
               userRemoteConfigs: [[url: scm.userRemoteConfigs[0].url,
                                    name: origin,
                                    refspec: "+refs/heads/${branch}:refs/remotes/${origin}/${branch}",
@@ -31,7 +31,7 @@ node('!windows && !cloud') {
                            [$class: 'SparseCheckoutPaths', sparseCheckoutPaths: [[path: 'build.xml'], [path: 'Jenkinsfile'], [path: 'jobs']]],
                           ],
               gitTool: 'Default', // Default shows the bug, jgit does not
-             ])
+             )
   }
 
   stage('Build') {
