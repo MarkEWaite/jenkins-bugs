@@ -1,8 +1,8 @@
 package com.markwaite;
 
-/* Run ant from tool "ant-latest" using tool "jdk8" */
+/* Run ant from tool "ant-latest" using tool "jdk21" */
 void ant(def args) {
-  withAnt(installation: 'ant-latest', jdk: 'jdk8') {
+  withAnt(installation: 'ant-latest', jdk: 'jdk21') {
     if (isUnix()) {
       sh "ant ${args}"
     } else {
@@ -14,7 +14,7 @@ void ant(def args) {
 /* Run maven from tool "mvn" */
 void mvn(def args) {
   /* Get jdk tool. */
-  String jdktool = tool name: "jdk7", type: 'hudson.model.JDK'
+  String jdktool = tool name: 'jdk21', type: 'hudson.model.JDK'
 
   /* Get the maven tool. */
   def mvnHome = tool name: 'mvn'
@@ -41,14 +41,14 @@ def getSHA1(def commit) {
     sha1 = sh(script: "git rev-parse ${commit}", returnStdout: true)
   } else {
     // Windows treats caret as special character, must escape it
-    if (commit.contains("^")) {
-      commit = commit.replace("^", "^^")
+    if (commit.contains('^')) {
+      commit = commit.replace('^', '^^')
     }
     // Windows returns command line before sha1 unless we ECHO OFF prior
     sha1 = bat(script: "@ECHO OFF && git rev-parse ${commit}", returnStdout: true)
   }
   // Remove white space
-  sha1 = sha1.replaceAll("\\s", "")
+  sha1 = sha1.replaceAll('\\s', '')
   if (sha1.length() > 40) {
     sha1 = sha1.substring(sha1.length() - 40)
   }
