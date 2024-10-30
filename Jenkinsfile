@@ -45,8 +45,8 @@ node('git-2.11+') { // Shallow clone requires git 1.9 or newer
 
   stage('Verify') {
     if (!manager.logContains(".* JENKINS-20941 base branch")) {
-      addWarningBadge("No base branch comment.")
-      createSummary("warning.gif").appendText("<h1>No base branch comment!</h1>", false, false, false, "red")
+      manager.addWarningBadge("No base branch comment.")
+      createSummary('symbol-rocket plugin-ionicons-api').appendText("### No base branch comment!", false)
       manager.buildUnstable()
     }
   }
