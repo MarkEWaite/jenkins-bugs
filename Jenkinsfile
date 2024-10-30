@@ -30,6 +30,7 @@ node {
       echo('sha1 is ' + sha1)
       sha1Short = tm '${GIT_REVISION,length=8}'
       echo('sha1Short is ' + sha1Short)
+      expansion = 'x' + expansion
   }
 
   stage('Verify') {
