@@ -45,7 +45,7 @@ node {
       echo("expansionEmpty is ${expansionEmpty}")
       failure_message = "GIT_BRANCH was '${expansionEmpty}' with no fullName value, expected '" + branch + "'"
       manager.addWarningBadge(failure_message)
-      createSummary('symbol-bug plugin-ionicons-api').appendText("### " + failure_message, false, false, false, "red")
+      createSummary('symbol-bug plugin-ionicons-api').appendText("### " + failure_message, false, false, false, "")
       manager.buildUnstable()
     }
     if (expansionTrue != ('origin/'+branch)) {
