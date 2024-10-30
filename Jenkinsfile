@@ -36,21 +36,21 @@ node {
     if (expansion != branch) {
       echo("expansion is ${expansion}")
       failure_message = "GIT_BRANCH was '${expansion}' with fullName=false, expected '" + branch + "'"
-      addWarningBadge(failure_message)
+      manager.addWarningBadge(failure_message)
       createSummary("warning.gif").appendText("<h1>" + failure_message + "</h1>", false, false, false, "red")
       manager.buildUnstable()
     }
     if (expansionEmpty != branch) {
       echo("expansionEmpty is ${expansionEmpty}")
       failure_message = "GIT_BRANCH was '${expansionEmpty}' with no fullName value, expected '" + branch + "'"
-      addWarningBadge(failure_message)
+      manager.addWarningBadge(failure_message)
       createSummary("warning.gif").appendText("<h1>" + failure_message + "</h1>", false, false, false, "red")
       manager.buildUnstable()
     }
     if (expansionTrue != ('origin/'+branch)) {
       echo("expansionTrue is ${expansionTrue}")
       failure_message = "GIT_BRANCH was '${expansionTrue}' with fullName=true, expected 'origin/" + branch + "'"
-      addWarningBadge(failure_message)
+      manager.addWarningBadge(failure_message)
       createSummary("warning.gif").appendText("<h1>" + failure_message + "</h1>", false, false, false, "red")
       manager.buildUnstable()
     }
