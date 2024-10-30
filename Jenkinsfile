@@ -54,7 +54,7 @@ node('!windows && !cloud') {
 	!changeDescription.contains("<changes>") ||
 	countSubstrings(changeDescription, "<comment>") < 2) { // Always expect at least 2 changes
       if (currentBuild.number > 1) { // Don't check first build
-        addWarningBadge("Missing recent changes output")
+        manager.addWarningBadge('Missing recent changes output')
         createSummary("warning.gif").appendText("<h1>Missing recent changes!</h1>", false, false, false, "red")
         manager.buildUnstable()
       }
