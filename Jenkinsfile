@@ -23,14 +23,14 @@ node {
                   userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
       expansion = tm '${GIT_BRANCH,fullName=false}'
       expansionTrue = tm '${GIT_BRANCH,fullName=true}'
-      expansionEmpty  = tm '${GIT_BRANCH}'
+      expansionEmpty = tm '${GIT_BRANCH}'
       buildnum = tm('${BUILD_NUMBER}')
       echo('buildnum is ' + buildnum)
       sha1 = tm '${GIT_REVISION}'
       echo('sha1 is ' + sha1)
       sha1Short = tm '${GIT_REVISION,length=8}'
       echo('sha1Short is ' + sha1Short)
-      expansion = 'x' + expansion
+      expansionEmpty = 'z' + expansionEmpty
   }
 
   stage('Verify') {
@@ -38,21 +38,21 @@ node {
       echo("expansion is ${expansion}")
       failure_message = "GIT_BRANCH was '${expansion}' with fullName=false, expected '" + branch + "'"
       manager.addWarningBadge(failure_message)
-      createSummary("warning.gif").appendText("<h1>" + failure_message + "</h1>", false, false, false, "red")
+      createSummary('symbol-bug plugin-ionicons-api').appendText("### " + failure_message, false, false, false, "red")
       manager.buildUnstable()
     }
     if (expansionEmpty != branch) {
       echo("expansionEmpty is ${expansionEmpty}")
       failure_message = "GIT_BRANCH was '${expansionEmpty}' with no fullName value, expected '" + branch + "'"
       manager.addWarningBadge(failure_message)
-      createSummary("warning.gif").appendText("<h1>" + failure_message + "</h1>", false, false, false, "red")
+      createSummary('symbol-bug plugin-ionicons-api').appendText("### " + failure_message, false, false, false, "red")
       manager.buildUnstable()
     }
     if (expansionTrue != ('origin/'+branch)) {
       echo("expansionTrue is ${expansionTrue}")
       failure_message = "GIT_BRANCH was '${expansionTrue}' with fullName=true, expected 'origin/" + branch + "'"
       manager.addWarningBadge(failure_message)
-      createSummary("warning.gif").appendText("<h1>" + failure_message + "</h1>", false, false, false, "red")
+      createSummary('symbol-bug plugin-ionicons-api').appendText("### " + failure_message, false, false, false, "red")
       manager.buildUnstable()
     }
   }
