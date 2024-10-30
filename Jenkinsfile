@@ -55,7 +55,7 @@ node('!windows && !cloud') {
 	countSubstrings(changeDescription, "<comment>") < 2) { // Always expect at least 2 changes
       if (currentBuild.number > 1) { // Don't check first build
         manager.addWarningBadge('Missing recent changes output')
-        manager.createSummary('symbol-rocket plugin-ionicons-api').appendText('### Missing recent changes!", false)
+        manager.createSummary('symbol-rocket plugin-ionicons-api').appendText('### Missing recent changes!', false)
         manager.buildUnstable()
       }
     }
