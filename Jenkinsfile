@@ -37,7 +37,7 @@ node('!windows && !cloud') {
   stage('Build') {
     /* Call the ant build. */
     def step = new com.markwaite.Build()
-    step.ant "info"
+    step.ant 'info'
   }
 
   stage('Verify') {
