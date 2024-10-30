@@ -38,7 +38,7 @@ node {
 
   stage('Verify') {
     def build = new com.markwaite.Build()
-    def latest_sha1 = 'x' + build.getSHA1("refs/remotes/${origin}/${branch}^{commit}")
+    def latest_sha1 = build.getSHA1("refs/remotes/${origin}/${branch}^{commit}")
     def current_sha1 = build.getSHA1('HEAD')
 
     echo "Latest sha1 is ${latest_sha1}"
