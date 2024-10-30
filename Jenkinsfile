@@ -30,7 +30,6 @@ node {
       echo('sha1 is ' + sha1)
       sha1Short = tm '${GIT_REVISION,length=8}'
       echo('sha1Short is ' + sha1Short)
-      expansionEmpty = 'z' + expansionEmpty
   }
 
   stage('Verify') {
@@ -45,7 +44,7 @@ node {
       echo("expansionEmpty is ${expansionEmpty}")
       failure_message = "GIT_BRANCH was '${expansionEmpty}' with no fullName value, expected '" + branch + "'"
       manager.addWarningBadge(failure_message)
-      createSummary('symbol-bug plugin-ionicons-api').appendText("### " + failure_message, false, false, false, "")
+      createSummary('symbol-bug plugin-ionicons-api').appendText("### " + failure_message, false, false, false, "red")
       manager.buildUnstable()
     }
     if (expansionTrue != ('origin/'+branch)) {
