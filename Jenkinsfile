@@ -15,7 +15,7 @@ def origin='J-36637-origin'
 
 node('!windows && !cloud') {
   stage('Checkout') {
-    checkout([$class: 'GitSCM',
+    checkout scmGit(
               userRemoteConfigs: [[url: 'https://github.com/MarkEWaite/jenkins-bugs',
                                    name: origin,
                                    refspec: "+refs/heads/${branch}:refs/remotes/${origin}/${branch}",
@@ -30,7 +30,7 @@ node('!windows && !cloud') {
                            [$class: 'PruneStaleBranch'],
                           ],
               gitTool: 'jgit',
-             ])
+             )
   }
 
   stage('Build') {
@@ -54,8 +54,8 @@ node('!windows && !cloud') {
 	!changeDescription.contains("<changes>") ||
 	countSubstrings(changeDescription, "<comment>") < 2) { // Always expect at least 2 changes
       if (currentBuild.number > 1) { // Don't check first build
-        addWarningBadge("Missing recent changes output")
-        createSummary("warning.gif").appendText("<h1>Missing recent changes!</h1>", false, false, false, "red")
+        manager.addWarningBadge("Missing recent changes output")
+        createSummary("symbol-rocket plugin-ionicons-api").appendText("### Missing recent changes!", false)
         manager.buildUnstable()
       }
     }
