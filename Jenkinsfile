@@ -4,7 +4,7 @@ pipeline {
     durabilityHint('PERFORMANCE_OPTIMIZED')
   }
   tools {
-    jdk 'jdk11'
+    jdk 'jdk21'
     ant 'ant-latest'
   }
   stages {
