@@ -18,7 +18,7 @@ pipeline {
                 timestamps()
             }
             steps {
-                withAnt(installation: 'ant-latest', jdk: 'jdk8') {
+                withAnt(installation: 'ant-latest', jdk: 'jdk21') {
                     sh 'ant -f test-subdirectory/build.xml info'
                 }
                 logContains([expectedRegEx: '.*echo. base dir is .*test-subdirectory.*',
