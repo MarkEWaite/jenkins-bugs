@@ -7,7 +7,7 @@
 // @Library('globalPipelineLibraryMarkEWaite@0c30065c158df07e55eeda283a7db3ff19bbfe01') _ // Checkout JENKINS-48061 SHA1 reference with legacy SCM
 
 // Works
-@Library('globalPipelineLibraryMarkEWaiteModernGitHub@v1.1.1') _ // A work around
+@Library('globalPipelineLibraryMarkEWaiteModernGitHub@v1.1.2') _ // A work around
 
 // Works
 // @Library('globalPipelineLibraryMarkEWaiteModern@0c30065c158df07e55eeda283a7db3ff19bbfe01') _ // Checkout JENKINS-48061 SHA1 reference with modern git SCM
