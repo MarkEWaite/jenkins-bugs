@@ -24,7 +24,7 @@ pipeline {
 		  userRemoteConfigs: scm.userRemoteConfigs,
                  ])
         echo "Environment name is ${env.name}"
-        withAnt(installation: 'ant-latest') {
+        withAnt(installation: 'ant-latest', jdk: 'jdk21') {
           sh 'ant info'
         }
       }
@@ -44,7 +44,7 @@ pipeline {
 		  userRemoteConfigs: scm.userRemoteConfigs,
                  ])
         echo "Environment name is ${env.name}"
-        withAnt(installation: 'ant-latest') {
+        withAnt(installation: 'ant-latest', jdk: 'jdk21') {
           bat 'ant info'
         }
       }
