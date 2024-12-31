@@ -33,6 +33,6 @@ node('git-2.25+') {
 
   stage('Verify git 2.25') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains(".*${sha1}.*JENKINS-55284-moving 2.25-and-later .*", "Git 2.25 wrong tag or sha1 reported, expected '${sha1}'")
+    my_check.logContains(".*${sha1}.*JENKINS-55284-moving 2.20-and-later .*", "Wrong tag or sha1 reported, expected '${sha1}'")
   }
 }
