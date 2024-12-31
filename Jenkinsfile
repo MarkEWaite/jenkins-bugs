@@ -33,7 +33,7 @@ node('git-2.11+ && !windows') { // Would be enough to be git 2.3+, but that is n
                                         passphraseVariable: 'GIT_SSH_PRIVATE_KEY_PASSPHRASE',
                                         usernameVariable: 'GIT_SSH_USERNAME')]) {
       withEnv(['GIT_SSH_PRIVATE_KEY_FILE=' + GIT_SSH_PRIVATE_KEY_FILE]) {
-        withAnt(installation: 'ant-latest') {
+        withAnt(installation: 'ant-latest', jdk: 'jdk21') {
           /* Call the ant build. */
           sh 'ant pipeline-info'
           // Fails to publish for unknown reason
