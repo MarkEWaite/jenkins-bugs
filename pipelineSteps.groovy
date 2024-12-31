@@ -18,7 +18,7 @@ def dumpEnvVars() {
 /* Run ant from tool "ant-latest" */
 void ant(def args) {
   /* Get jdk tool. */
-  String jdktool = tool name: "jdk8", type: 'hudson.model.JDK'
+  String jdktool = tool name: 'jdk21', type: 'hudson.model.JDK'
 
   /* Get the ant tool. */
   def antHome = tool name: 'ant-latest', type: 'hudson.tasks.Ant$AntInstallation'
