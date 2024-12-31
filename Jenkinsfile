@@ -28,7 +28,7 @@ node('git-2.25+') {
     /* Call the ant build. */
     def my_step = new com.markwaite.Build()
     my_step.ant 'info'
-    sha1 = my_step.getSHA1('HEAD')
+    sha1 = my_step.getSHA1('JENKINS-55284-moving')
   }
 
   stage('Verify git 2.25') {
