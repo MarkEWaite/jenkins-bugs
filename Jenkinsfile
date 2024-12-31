@@ -36,7 +36,7 @@ pipeline {
                     steps {
                         dir('git-step-with-defaults') {
                             git 'https://github.com/jenkinsci/git-plugin'
-                            withAnt(installation: 'ant-latest', jdk: 'jdk8') {
+                            withAnt(installation: 'ant-latest', jdk: 'jdk21') {
                                 sh 'ant -f ../build.xml info'
                             }
                             logContains([expectedRegEx: '.*echo.*user dir is.*git-step-with-defaults.*',
