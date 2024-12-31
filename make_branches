@@ -16,7 +16,7 @@ case $remote in
     remote_https=https://github.com/MarkEWaite/jenkins-bugs
     ;;
   *gitea*)
-    remote_ssh=git@gitea-server.markwaite.net:mwaite/jenkins-bugs.git
+    remote_ssh=ssh://git@gitea-server.markwaite.net:3022/mwaite/jenkins-bugs.git
     remote_https=https://home.markwaite.net/gitea/mwaite/jenkins-bugs.git
     ;;
   *)
@@ -45,7 +45,7 @@ for keyword in JENKINS MHA SECURITY ZD; do
     echo Cloned for bug $bug, branch $branch, dir $dir
     ( cd ../$dir && \
       if [[ $remote =~ "github.com" ]]; then
-        git remote add gitea-server git@gitea-server.markwaite.net:mwaite/jenkins-bugs.git && \
+        git remote add gitea-server ssh://git@gitea-server.markwaite.net:3022/mwaite/jenkins-bugs.git && \
         git config remote.gitea-server.fetch $(git config --get remote.origin.fetch | sed 's/origin/gitea-server/g')
       fi
       if [[ $remote =~ "gitea-server" ]]; then
