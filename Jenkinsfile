@@ -7,7 +7,7 @@
 // @Library('globalPipelineLibraryMarkEWaite@0c30065c158df07e55eeda283a7db3ff19bbfe01') _ // Checkout JENKINS-48061 SHA1 reference with legacy SCM
 
 // Works
-@Library('globalPipelineLibraryMarkEWaiteModern@0c30065c158df07e55eeda283a7db3ff19bbfe01') _ // Checkout JENKINS-48061 SHA1 reference with modern git SCM
+@Library('globalPipelineLibraryMarkEWaiteModern@fb962c98d8eacc4e70a3b209db259e5c8a4294d8') _ // Checkout JENKINS-48061 SHA1 reference with modern git SCM
 // @Library('globalPipelineLibraryMarkEWaiteModern@branch-for-tag-v1.1') _ // A work around
 
 import com.markwaite.Assert
