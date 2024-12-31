@@ -37,9 +37,7 @@ pipeline {
             bat 'ant info'
             // Archive artifacts from windows-dir
             dir(WORKSPACE + '/windows-dir') {
-              echo 'start of dir of windows-dir is'
-              bat 'dir'
-              echo 'end of dir of windows-dir is'
+              bat 'echo start of dir && dir && echo end of dir'
               archiveArtifacts artifacts: '*', followSymlinks: false
             }
           }
