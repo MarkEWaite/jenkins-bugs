@@ -36,7 +36,7 @@ pipeline {
                     steps {
                         dir('git-step-with-defaults') {
                             git 'https://github.com/jenkinsci/git-plugin'
-                            withAnt(installation: 'ant-latest', jdk: 'jdk8') {
+                            withAnt(installation: 'ant-latest', jdk: 'jdk21') {
                                 sh 'ant -f ../build.xml info'
                             }
                             logContains([expectedRegEx: '.*echo.*user dir is.*git-step-with-defaults.*',
@@ -51,7 +51,7 @@ pipeline {
                         dir('git-step-with-https-and-branch') {
                             git branch: 'stable-2.x',
                                 url: 'https://github.com/jenkinsci/git-client-plugin.git'
-                            withAnt(installation: 'ant-latest', jdk: 'jdk8') {
+                            withAnt(installation: 'ant-latest', jdk: 'jdk21') {
                                 sh 'ant -f ../build.xml info'
                             }
                             logContains([expectedRegEx: '.*echo.*user dir is.*git-step-with-https-and-branch.*',
@@ -66,7 +66,7 @@ pipeline {
                         dir('git-step-with-ssh-and-credential') {
                             git credentialsId: 'MarkEWaite-github-rsa-private-key',
                                 url: 'git@github.com:jenkinsci/git-client-plugin.git'
-                            withAnt(installation: 'ant-latest', jdk: 'jdk8') {
+                            withAnt(installation: 'ant-latest', jdk: 'jdk21') {
                                 sh 'ant -f ../build.xml info'
                             }
                             logContains([expectedRegEx: '.*echo.*user dir is.*git-step-with-ssh-and-credential.*',
@@ -81,7 +81,7 @@ pipeline {
                         dir('git-step-with-https-and-changelog') {
                             git changelog: false,
                                 url: 'https://github.com/jenkinsci/credentials-plugin.git'
-                            withAnt(installation: 'ant-latest', jdk: 'jdk8') {
+                            withAnt(installation: 'ant-latest', jdk: 'jdk21') {
                                 sh 'ant -f ../build.xml info'
                             }
                             logContains([expectedRegEx: '.*echo.*user dir is.*git-step-with-https-and-changelog.*',
@@ -96,7 +96,7 @@ pipeline {
                         dir('git-step-with-git-and-polling') {
                             git poll: false,
                                 url: 'https://github.com/jenkinsci/platformlabeler-plugin.git'
-                            withAnt(installation: 'ant-latest', jdk: 'jdk8') {
+                            withAnt(installation: 'ant-latest', jdk: 'jdk21') {
                                 sh 'ant -f ../build.xml info'
                             }
                             logContains([expectedRegEx: '.*echo.*user dir is.*git-step-with-git-and-polling.*',
