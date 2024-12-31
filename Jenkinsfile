@@ -12,7 +12,7 @@ pipeline {
     stage('Report Stage') {
       steps {
         milestone(ordinal:20, label: 'Report Milestone')
-        withAnt(installation:'ant-latest') {
+        withAnt(installation:'ant-latest', jdk: 'jdk21') {
           sh 'ant info'
         }
       }
