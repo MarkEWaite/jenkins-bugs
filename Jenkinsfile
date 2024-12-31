@@ -1,16 +1,17 @@
 #!groovy
 
 // Fails
-// @Library('globalPipelineLibraryMarkEWaiteModernGitHub@0c30065c158df07e55eeda283a7db3ff19bbfe01') _ // Checkout JENKINS-48061 SHA1 reference with modern GitHub SCM
-@Library('globalPipelineLibraryMarkEWaiteModernGitHub@9f52be42b165a42b20be4fcd03081af28bde3b93') _ // Checkout JENKINS-48061 older SHA1 reference with modern GitHub SCM
+// @Library('globalPipelineLibraryMarkEWaiteModernGitHub@fb962c98d8eacc4e70a3b209db259e5c8a4294d8') _ // Checkout JENKINS-48061 SHA1 reference with modern GitHub SCM
+// @Library('globalPipelineLibraryMarkEWaiteModernGitHub@9f52be42b165a42b20be4fcd03081af28bde3b93') _ // Checkout JENKINS-48061 older SHA1 reference with modern GitHub SCM
 // @Library('globalPipelineLibraryMarkEWaiteModernGitHub@5093f89ac0057a471081ff5a5bf94c20f9acae97') _ // Checkout JENKINS-48061 older SHA1 reference with modern GitHub SCM
-// @Library('globalPipelineLibraryMarkEWaiteModernGitHub@branch-for-tag-v1.1') _ // A work around
 
 // Fails
 // @Library('globalPipelineLibraryMarkEWaite@0c30065c158df07e55eeda283a7db3ff19bbfe01') _ // Checkout JENKINS-48061 SHA1 reference with legacy SCM
 // @Library('globalPipelineLibraryMarkEWaite@5093f89ac0057a471081ff5a5bf94c20f9acae97') _ // Checkout JENKINS-48061 older SHA1 reference with legacy SCM
 
 // Works
+@Library('globalPipelineLibraryMarkEWaiteModernGitHub@v1.1.1') _ // A work around
+// @Library('globalPipelineLibraryMarkEWaiteModernGitHub@branch-for-tag-v1.1') _ // A work around
 // @Library('globalPipelineLibraryMarkEWaiteModern@0c30065c158df07e55eeda283a7db3ff19bbfe01') _ // Checkout JENKINS-48061 SHA1 reference with modern git SCM
 // @Library('globalPipelineLibraryMarkEWaiteModern@5093f89ac0057a471081ff5a5bf94c20f9acae97') _ // Checkout JENKINS-48061 older SHA1 reference with modern git SCM
 
