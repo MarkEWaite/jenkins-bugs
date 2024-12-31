@@ -23,7 +23,7 @@ node('!windows') { // sh step to call ant
                               ],
                   gitTool: scm.gitTool,
                   userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: repoUrl]]])
-      withAnt(installation: 'ant-latest') {
+      withAnt(installation: 'ant-latest', jdk: 'jdk21') {
         sh 'ant info'
       }
       /* Call checkout again, add a git containing subdirectory, count total - should only be one */
@@ -35,7 +35,7 @@ node('!windows') { // sh step to call ant
                               ],
                   gitTool: scm.gitTool,
                   userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: repoUrl]]])
-      withAnt(installation: 'ant-latest') {
+      withAnt(installation: 'ant-latest', jdk: 'jdk21') {
         sh 'ant info'
       }
     }
@@ -51,7 +51,7 @@ node('!windows') { // sh step to call ant
                               ],
                   gitTool: scm.gitTool,
                   userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: repoUrl]]])
-      withAnt(installation: 'ant-latest') {
+      withAnt(installation: 'ant-latest', jdk: 'jdk21') {
         sh 'ant info'
       }
       checkout([$class: 'GitSCM',
@@ -62,7 +62,7 @@ node('!windows') { // sh step to call ant
                               ],
                   gitTool: scm.gitTool,
                   userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: repoUrl]]])
-      withAnt(installation: 'ant-latest') {
+      withAnt(installation: 'ant-latest', jdk: 'jdk21') {
         sh 'ant info'
       }
     }
