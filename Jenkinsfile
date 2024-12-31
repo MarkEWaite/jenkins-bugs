@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage("Build") {
             steps {
-                withAnt(installation: 'ant-latest', jdk: 'jdk8') {
+                withAnt(installation: 'ant-latest', jdk: 'jdk21') {
                     sh 'ant info'
                 }
                 logContains([expectedRegEx: '.*java is.*',
