@@ -26,7 +26,7 @@ pipeline {
           ]
         )
         script {
-          withAnt(installation: 'ant-latest') {
+          withAnt(installation: 'ant-latest', jdk: 'jdk21') {
             if (isUnix()) {
               sh 'ant info'
             } else {
