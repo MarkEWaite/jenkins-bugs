@@ -30,7 +30,7 @@ pipeline {
             echo "pipeline GIT_COMMIT after windows ws is ${env.GIT_COMMIT}"
             bat "echo bat GIT_COMMIT after windows ws is %GIT_COMMIT%"
             bat 'echo hello windows from %COMPUTERNAME%'
-            withAnt(installation: 'ant-latest') {
+            withAnt(installation: 'ant-latest', jdk: 'jdk21') {
               bat 'ant info'
             }
           }
@@ -60,7 +60,7 @@ pipeline {
             sh "echo sh GIT_COMMIT after linux ws is $GIT_COMMIT"
             echo 'Workspace after linux ws is ' + WORKSPACE
             sh 'echo hello linux from `hostname`'
-            withAnt(installation: 'ant-latest') {
+            withAnt(installation: 'ant-latest', jdk: 'jdk21') {
               sh 'ant info'
             }
           }
