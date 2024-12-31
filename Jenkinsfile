@@ -28,7 +28,7 @@ pipeline {
             }
 
             ws(dir: WORKSPACE + '/windows-dir') {
-              echo "pipeline GIT_AUTHOR_NAME in windows ws is ${env.GIT_AUTHOR_NAME}"
+              echo "pipeline GIT_AUTHOR_NAME in windows ws is ${env.GIT_AUTHOR_NAME} > author-name.txt"
               bat "echo bat GIT_COMMITTER_NAME in windows ws is %GIT_COMMITTER_NAME%"
             }
             echo "pipeline GIT_COMMIT after windows ws is ${env.GIT_COMMIT}"
