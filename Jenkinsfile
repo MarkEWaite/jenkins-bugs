@@ -7,7 +7,7 @@ import com.markwaite.Build
 /* Only keep the 10 most recent builds. */
 properties([[$class: 'BuildDiscarderProperty', strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-def branch = 'JENKINS-42860'
+def branch = 'JENKINS-75288'
 
 def userRemoteConfigsIn = scm.userRemoteConfigs
 
@@ -43,15 +43,17 @@ for (extension in extensionsIn) {
     echo "extension is ${extension}"
 }
 
+// JENKINS-75288 - RejectedAccessException despite method being whitelisted
 // Needs more work to read nested choice of objects assigned to browser
 // Needs to be whitelisted on the hudson.scm.SCM object, not the git plugin
-// def browserIn = scm.browser
+def browserIn = scm.browser
 
 node {
   stage('Checkout') {
     checkout([$class: 'GitSCM',
               userRemoteConfigs: userRemoteConfigsIn,
               branches: branchesIn,
+              browser: browserIn,
               extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
                            [$class: 'LocalBranch', localBranch: branch]
                           ],
