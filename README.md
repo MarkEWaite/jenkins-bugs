@@ -1,5 +1,3 @@
-# [JENKINS-42860](https://issues.jenkins.io/browse/JENKINS-42860) getBranches method should be whitelisted for Pipeline use
+# [JENKINS-75288](https://issues.jenkins.io/browse/JENKINS-42860) getBrowser method should be whitelisted for Pipeline use
 
-Users would like to access the GitSCM getBranches method to read the
-branches in the current workspace.  Andrew Bayer indicates that is
-allowed if the method is annotated with "@Whitelisted".
+Users would like to access the GitSCM getBrowser method to read the defined browser URL in the current workspace.

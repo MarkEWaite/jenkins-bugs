@@ -1,4 +1,4 @@
-<project name="JENKINS-42860" default="increment" basedir=".">
+<project name="JENKINS-75288" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
     <buildnumber/>
@@ -16,7 +16,7 @@
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
     <git command="branch" />
-    <!-- JENKINS-42860 reports that methods which would be nice to use in
+    <!-- JENKINS-75288 reports that methods which would be nice to use in
          Pipeline need to be whitelisted.  -->
   </target>
 
