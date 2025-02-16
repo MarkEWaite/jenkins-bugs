@@ -17,7 +17,7 @@ case $remote in
     ;;
   *gitea*)
     remote_ssh=ssh://git@gitea-server.markwaite.net:3022/mwaite/jenkins-bugs.git
-    remote_https=https://home.markwaite.net/gitea/mwaite/jenkins-bugs.git
+    remote_https=http://gitea-server.markwaite.net:3000/mwaite/jenkins-bugs.git
     ;;
   *)
     echo "Remote not supported by this script"
