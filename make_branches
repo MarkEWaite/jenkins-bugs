@@ -53,11 +53,8 @@ for keyword in JENKINS MHA SECURITY ZD; do
         git config remote.github.fetch $(git config --get remote.origin.fetch | sed 's/origin/github/g')
       fi
       git config remote.origin.pushurl $remote_ssh &&
-      git remote add cache mwaite@git.markwaite.net:git/bare/bugs/jenkins-bugs.git && \
-      git config remote.cache.fetch $(git config --get remote.origin.fetch | sed 's/origin/cache/g') && \
       git remote add bare /var/cache/git/mwaite/bugs/jenkins-bugs.git && \
       git config remote.bare.fetch $(git config --get remote.origin.fetch | sed 's/origin/bare/g') && \
-      git push cache && \
       git push bare && \
       git pull --no-tags --all --prune )
     echo Configured for bug $bug, branch $branch, dir $dir
