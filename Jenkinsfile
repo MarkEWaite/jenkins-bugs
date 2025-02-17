@@ -50,6 +50,7 @@ def browserIn = scm.browser
 
 node {
   stage('Checkout') {
+    buildDescription "[$branch](https://issues.jenkins.io/browse/$branch) RejectedAccessException despite method being whitelisted"
     checkout scmGit(
               // userRemoteConfigs: userRemoteConfigsIn,
               // Use branch name in refspec for speed
