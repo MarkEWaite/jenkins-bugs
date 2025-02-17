@@ -51,12 +51,15 @@ def browserIn = scm.browser
 node {
   stage('Checkout') {
     checkout scmGit(
-              userRemoteConfigs: userRemoteConfigsIn,
+              // userRemoteConfigs: userRemoteConfigsIn,
+              // Use branch name in refspec for speed
+              userRemoteConfigs: [[ url: $userRemoteConfigsIn_url,
+                                    refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}"
+                                 ]]
               branches: branchesIn,
               browser: browserIn,
-              extensions: extensionsIn,
-              // extensions: [cloneOption(honorRefspec: true, noTags: true, shallow: true, depth: 1),
-              //              localBranch()],
+              // Use shallow clone and honor refspec for speed, this branch does not need full depth clone
+              extensions: extensionsIn + [cloneOption(honorRefspec: true, noTags: true, shallow: true, depth: 1), localBranch()],
               gitTool: scm.gitTool
     )
   }
