@@ -55,7 +55,8 @@ node {
               branches: branchesIn,
               browser: browserIn,
               extensions: extensionsIn,
-              // extensions: [cloneOption(honorRefspec: true, noTags: true, shallow: true, depth: 1)],
+              // extensions: [cloneOption(honorRefspec: true, noTags: true, shallow: true, depth: 1),
+              //              localBranch()],
               gitTool: scm.gitTool
     )
   }
