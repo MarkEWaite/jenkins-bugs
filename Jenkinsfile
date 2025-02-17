@@ -50,16 +50,15 @@ def browserIn = scm.browser
 
 node {
   stage('Checkout') {
-    checkout([$class: 'GitSCM',
+    checkout scmGit(
               userRemoteConfigs: userRemoteConfigsIn,
               branches: branchesIn,
               browser: browserIn,
-              extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
-                           [$class: 'LocalBranch', localBranch: branch]
+              extensions: [cloneOption(honorRefspec: true, noTags: true, shallow: true, depth: 1),
+                           localBranch(branch)
                           ],
-              gitTool: scm.gitTool,
-            ]
-        )
+              gitTool: scm.gitTool
+    )
   }
 
   stage('Build') {
