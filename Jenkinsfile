@@ -55,7 +55,7 @@ node {
               // Use branch name in refspec for speed
               userRemoteConfigs: [[ url: $userRemoteConfigsIn_url,
                                     refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}"
-                                 ]]
+                                 ]],
               branches: branchesIn,
               browser: browserIn,
               // Use shallow clone and honor refspec for speed, this branch does not need full depth clone
