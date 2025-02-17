@@ -59,6 +59,7 @@ node {
               branches: branchesIn,
               browser: browserIn,
               // Use shallow clone and honor refspec for speed, this branch does not need full depth clone
+              // Use local branch because later assertion requires it
               extensions: extensionsIn + [cloneOption(honorRefspec: true, noTags: true, shallow: true, depth: 1), localBranch()],
               gitTool: scm.gitTool
     )
