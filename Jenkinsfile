@@ -53,7 +53,7 @@ node {
     checkout scmGit(
               // userRemoteConfigs: userRemoteConfigsIn,
               // Use branch name in refspec for speed
-              userRemoteConfigs: [[ url: $userRemoteConfigsIn_url,
+              userRemoteConfigs: [[ url: userRemoteConfigsIn_url,
                                     refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}"
                                  ]],
               branches: branchesIn,
