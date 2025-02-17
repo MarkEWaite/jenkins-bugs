@@ -54,7 +54,7 @@ node {
               userRemoteConfigs: userRemoteConfigsIn,
               branches: branchesIn,
               browser: browserIn,
-              extensions: extensionsIn
+              extensions: extensionsIn,
               // extensions: [cloneOption(honorRefspec: true, noTags: true, shallow: true, depth: 1)],
               gitTool: scm.gitTool
     )
