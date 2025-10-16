@@ -30,8 +30,8 @@ def delete_tags(tags):
         subprocess.check_call(["git", "tag", "--delete", tag])
     print("Deleting tags in bare repo: " + ' '.join(tags))
     subprocess.call(["git", "push", "--delete", "bare"] + tags)
-    print("Deleting tags in cache repo: " + ' '.join(tags))
-    subprocess.call(["git", "push", "--delete", "cache"] + tags)
+    print("Deleting tags in gitea-server repo: " + ' '.join(tags))
+    subprocess.call(["git", "push", "--delete", "gitea-server"] + tags)
     print("Deleting remote tags: " + ' '.join(tags))
     subprocess.call(["git", "push", "--delete", "origin"] + tags)
 
