@@ -14,6 +14,7 @@ def repoUrl = 'git@github.com:MarkEWaite/jenkins-bugs.git'
 
 node('!windows') { // Windows reports 'Cannot find a suitable ssh-agent provider' on my machines
   stage('Checkout') {
+    cleanWs()
     checkout([$class: 'GitSCM',
                 branches: [[name: branch]],
                 extensions: [[$class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git'],
