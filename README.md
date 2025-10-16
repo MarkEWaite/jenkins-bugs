@@ -9,7 +9,7 @@ include:
 
 * No branch is defined in the workspace of the multibranch Pipeline
   unless the local branch extension is used.  Without a local branch
-  there is no obvious name to descrie the remote destination which
+  there is no obvious name to describe the remote destination which
   should receive commits that only exist locally
 
 * Protocol of origin repository URL may be either https or ssh.  If
