@@ -8,9 +8,17 @@ import sys
 #-----------------------------------------------------------------------
 
 def get_redundant_tags():
-    tags = subprocess.check_output(["git", "tag", "--list", "--sort=version:refname"]).splitlines()
-    redundant_tags = filter(lambda x: 'ZD-64922-' in x, tags)
-    return redundant_tags[:-1] # Return all but the last tag
+    # Get a sorted list of tag names as text strings
+    tags = subprocess.check_output(
+        ["git", "tag", "--list", "--sort=version:refname"],
+        text=True
+    ).splitlines()
+
+    # Filter tags that contain 'ZD-64922-'
+    redundant_tags = [t for t in tags if 'ZD-64922-' in t]
+
+    # Return all but the last matching tag
+    return redundant_tags[:-1]
 
 #-----------------------------------------------------------------------
 
