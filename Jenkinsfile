@@ -38,7 +38,7 @@ node('git-2.11+ && !windows') { // Would be enough to be git 2.3+, but that is n
           sh 'ant pipeline-info'
           // Fails to publish for unknown reason
           // Ant script in freestyle job succeeds
-          // sh 'ant publish'
+          sh 'ant publish'
         }
       }
     }
