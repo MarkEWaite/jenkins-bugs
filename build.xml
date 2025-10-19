@@ -21,14 +21,6 @@
     <exec executable="git">
       <arg value="push"/>
     </exec>
-    <exec executable="git">
-      <arg value="push"/>
-      <arg value="gitea-server"/>
-    </exec>
-    <exec executable="git">
-      <arg value="push"/>
-      <arg value="bare"/>
-    </exec>
   </target>
 
   <target name="info" description="Info report">
