@@ -36,8 +36,6 @@ node('git-2.11+ && !windows') { // Would be enough to be git 2.3+, but that is n
         withAnt(installation: 'ant-latest', jdk: 'jdk21') {
           /* Call the ant build. */
           sh 'ant pipeline-info'
-          // Fails to publish for unknown reason
-          // Ant script in freestyle job succeeds
           sh 'ant publish'
         }
       }
