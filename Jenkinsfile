@@ -13,7 +13,7 @@ properties([[$class: 'BuildDiscarderProperty',
 def scmVars
 
 // Need git-2.7 to understand GIT_SSH_COMMAND variable
-node('git-2.11+ && !windows') { // Would be enough to be git 2.3+, but that is not defined
+node('git-2.30+ && !windows') { // No longer support any operating system that provides git before 2.30
   stage('Checkout') {
     deleteDir() // Remove prior checkout
     scmVars = checkout([$class: 'GitSCM',
