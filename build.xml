@@ -23,7 +23,7 @@
     </exec>
     <exec executable="git">
       <arg value="push"/>
-      <arg value="cache"/>
+      <arg value="gitea-server"/>
     </exec>
     <exec executable="git">
       <arg value="push"/>
