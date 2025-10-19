@@ -31,7 +31,7 @@
     <git command="push"/>
     <git command="push">
       <args>
-        <arg value="cache"/>
+        <arg value="gitea-server"/>
       </args>
     </git>
     <!-- <echo>sleeping 13 seconds</echo> -->
@@ -57,7 +57,7 @@
     <git command="push"/>
     <git command="push">
       <args>
-        <arg value="cache"/>
+        <arg value="gitea-server"/>
       </args>
     </git>
   </target>
