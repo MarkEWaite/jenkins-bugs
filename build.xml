@@ -23,6 +23,12 @@
         <arg value="--tags"/>
       </args>
     </git>
+    <git command="push">
+      <args>
+        <arg value="gitea-server"/>
+        <arg value="--tags"/>
+      </args>
+    </git>
   </target>
 
   <!-- Info about this repository -->
