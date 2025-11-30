@@ -7,7 +7,7 @@ import com.markwaite.Build
 /* Only keep the 10 most recent builds. */
 properties([[$class: 'BuildDiscarderProperty', strategy: [$class: 'LogRotator', numToKeepStr: '10']]])
 
-def branch = 'JENKINS-75288'
+def branch = 'JENKINS-76158'
 
 def userRemoteConfigsIn = scm.userRemoteConfigs
 
@@ -22,17 +22,6 @@ def branchesIn = scm.branches
 
 def branchesIn_name = scm.branches[0].name
 
-def doGenerateSubmoduleConfigurationsIn = scm.doGenerateSubmoduleConfigurations // untested with 'true' value, no known uses
-
-def submoduleCfgIn = scm.submoduleCfg
-
-if (submoduleCfgIn) {
-    def submoduleCfgIn_submoduleName = scm.submoduleCfg[0]?.submoduleName
-    def submoduleCfgIn_branches0     = scm.submoduleCfg[0]?.branches[0]
-} else {
-    echo 'No scm.submoduleCfg, did not read properties'
-}
-
 def gitToolIn = scm.gitTool
 
 def extensionsIn = scm.extensions
@@ -43,11 +32,6 @@ for (extension in extensionsIn) {
     echo "extension is ${extension}"
 }
 
-// JENKINS-75288 - RejectedAccessException despite method being whitelisted
-// Needs more work to read nested choice of objects assigned to browser
-// Needs to be whitelisted on the hudson.scm.SCM object, not the git plugin
-def browserIn = scm.browser
-
 node {
   stage('Checkout') {
     checkout scmGit(
@@ -57,9 +41,8 @@ node {
                                     refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}"
                                  ]],
               branches: branchesIn,
-              browser: browserIn,
               // Use shallow clone and honor refspec for speed, this branch does not need full depth clone
-              // Use local branch because later assertion requires it
+              // Use local branch because it is easier to push from a branch
               extensions: extensionsIn + [cloneOption(honorRefspec: true, noTags: true, shallow: true, depth: 1), localBranch()],
               gitTool: scm.gitTool
     )
