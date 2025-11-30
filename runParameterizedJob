@@ -9,8 +9,8 @@ usage() { echo "Usage: $0 [-s jenkins_server_url] [ -j jenkins_build_url ]" 1>&2
 
 failed() { echo Failed querying $1; exit 2; }
 
-SERVER=
-JENKINS_BUILD_URL=
+SERVER=http://mark-pc2.markwaite.net:8080
+JENKINS_BUILD_URL=${SERVER}/job/Bugs-Individual/job/Bugs-70-000-to-79-999/job/JENKINS-76158-git-parameter-invalid-when-new-tag-and-api-schedules-job
 
 while getopts ":s:j:" o; do
     case "${o}" in
