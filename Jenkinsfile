@@ -56,5 +56,5 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    NS-my_check.logContains(".*.exec. JENKINS-76158-.*", 'No tags reported') }
+    my_check.logContains(".*.exec. JENKINS-76158-.*", 'No tags reported') }
 }
