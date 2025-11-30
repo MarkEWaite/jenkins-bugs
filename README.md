@@ -1,3 +1,3 @@
-# [JENKINS-75288](https://issues.jenkins.io/browse/JENKINS-42860) getBrowser method should be whitelisted for Pipeline use
+# [JENKINS-76158](https://issues.jenkins.io/browse/JENKINS-76158) git parameter plugin should resolve tags when job is launched by API
 
-Users would like to access the GitSCM getBrowser method to read the defined browser URL in the current workspace.
+Cache of tags was not created when the job was run with an API call
