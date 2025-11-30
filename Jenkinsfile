@@ -43,7 +43,7 @@ node {
               branches: branchesIn,
               // Use honor refspec for speed
               // Use local branch because it is easier to push from a branch
-              extensions: extensionsIn + [cloneOption(honorRefspec: true, noTags: true), localBranch()],
+              extensions: extensionsIn + [cloneOption(honorRefspec: true, noTags: false), localBranch()],
               gitTool: scm.gitTool
     )
   }
