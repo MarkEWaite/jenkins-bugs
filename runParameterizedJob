@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+
+# Run a parameterized job with a curl call
+#
+# Default Jenkins URL from JENKINS_URL environment variable
+# Default Jenkins job repo URL from BUILD_URL environment variable
+
+usage() { echo "Usage: $0 [-s jenkins_server_url] [ -j jenkins_build_url ]" 1>&2; exit 1; }
+
+failed() { echo Failed querying $1; exit 2; }
+
+SERVER=
+JENKINS_BUILD_URL=
+
+while getopts ":s:j:" o; do
+    case "${o}" in
+        s)
+            SERVER=${OPTARG}
+            ;;
+        j)
+            JENKINS_BUILD_URL=${OPTARG}
+            ;;
+        *)
+            usage
+            ;;
+    esac
+done
+shift $((OPTIND-1))
+
+# Assure URL of Jenkins server is set
+
+if [ -z "$SERVER" ]; then
+    SERVER=$JENKINS_URL
+fi
+if [ -z "$SERVER" ]; then
+    usage
+fi
+# remove trailing slash from SERVER, fails CSRF exclusion check
+SERVER=${SERVER%/}
+
+# Assure URL of job is set
+
+if [ -z "$JENKINS_BUILD_URL" ]; then
+    JENKINS_BUILD_URL=$BUILD_URL
+fi
+if [ -z "$JENKINS_BUILD_URL" ]; then
+    usage
+fi
+
+USER_ARG=""
+args_file=""
+if [ "$JENKINS_USERNAME" != "" ]; then
+    args_file=$(mktemp /tmp/JENKINS-76158-args.XXXXXX)
+    echo "-u $JENKINS_USERNAME:$JENKINS_APITOKEN" > $args_file
+    USER_ARG="-K $args_file"
+fi
+
+build_number=$(grep build.number= build.number | sed 's,^.*=,,g')
+echo "Build number is ${build_number}"
+
+curl -u mwaite:$JENKINS_APITOKEN -X POST $JENKINS_BUILD_URL/buildWithParameters?delay=0 -d "TAG_NAME=JENKINS-76158-${build_number}"
+
+# cat $query_output
