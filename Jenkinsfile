@@ -56,6 +56,5 @@ node {
 
   stage('Verify') {
     def my_check = new com.markwaite.Assert()
-    my_check.logContains(".*[*] ${branch}.*", 'Wrong branch reported')
-  }
+    NS-my_check.logContains(".*.exec. JENKINS-76158-.*", 'No tags reported') }
 }
