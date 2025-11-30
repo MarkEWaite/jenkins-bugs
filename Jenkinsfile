@@ -41,9 +41,9 @@ node {
                                     refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}"
                                  ]],
               branches: branchesIn,
-              // Use shallow clone and honor refspec for speed, this branch does not need full depth clone
+              // Use honor refspec for speed
               // Use local branch because it is easier to push from a branch
-              extensions: extensionsIn + [cloneOption(honorRefspec: true, noTags: true, shallow: true, depth: 1), localBranch()],
+              extensions: extensionsIn + [cloneOption(honorRefspec: true, noTags: true), localBranch()],
               gitTool: scm.gitTool
     )
   }

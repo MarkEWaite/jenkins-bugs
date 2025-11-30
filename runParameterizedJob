@@ -60,3 +60,4 @@ build_number=$((build_number - 1))
 echo "Build number is ${build_number}"
 
 curl -s -u $JENKINS_USERNAME:$JENKINS_APITOKEN -X POST $JENKINS_BUILD_URL/buildWithParameters?delay=0 -d "TAG_NAME=JENKINS-76158-${build_number}" | grep 'TAG_NAME.* is invalid' && exit 1
+exit 0
