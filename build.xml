@@ -1,4 +1,4 @@
-<project name="JENKINS-75288" default="increment" basedir=".">
+<project name="JENKINS-76158" default="increment" basedir=".">
 
   <target name="increment" description="Increment build number">
     <buildnumber/>
@@ -9,15 +9,34 @@
         <arg value="build.number"/>
       </args>
     </git>
+    <git command="tag">
+      <args>
+        <arg value="-a"/>
+        <arg value="-m"/>
+        <arg value="JENKINS-76158-${build.number} annotated tag"/>
+        <arg value="JENKINS-76158-${build.number}"/>
+      </args>
+    </git>
+    <git command="push">
+      <args>
+        <arg value="origin"/>
+        <arg value="--tags"/>
+      </args>
+    </git>
   </target>
 
   <!-- Info about this repository -->
   <target name="info" description="Report info about this repo">
     <echo>java is ${java.version}</echo>
     <echo>user dir is ${user.dir}</echo>
-    <git command="branch" />
-    <!-- JENKINS-75288 reports that methods which would be nice to use in
-         Pipeline need to be whitelisted.  -->
+    <!-- JENKINS-76158 reports that git parameter plugin does not cache
+         tag names for jobs that are started from the command line.  -->
+    <git command="tag">
+      <args>
+        <arg value="--list"/>
+        <arg value="JENKINS-76158-*"/>
+      </args>
+    </git>
   </target>
 
   <!-- From https://gist.github.com/davejlong/874521 -->
