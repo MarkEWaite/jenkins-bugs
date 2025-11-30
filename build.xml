@@ -29,6 +29,7 @@
         <arg value="--tags"/>
       </args>
     </git>
+    <exec executable="./runParameterizedJob" failonerror="true"/>
   </target>
 
   <!-- Info about this repository -->
