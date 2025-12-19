@@ -8,7 +8,7 @@ import com.markwaite.Build
 properties([[$class: 'BuildDiscarderProperty',
              strategy: [$class: 'LogRotator', numToKeepStr: '7']]])
 
-node('git-2.11+ && git-lfs') { // Required for git LFS
+node('git-2.30+ && git-lfs') { // Required for git LFS
   stage('Checkout') {
     def my_extensions
     echo "Repo URL is ${scm.userRemoteConfigs[0].url}"
