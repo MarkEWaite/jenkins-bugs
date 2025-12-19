@@ -10,7 +10,7 @@ properties([[$class: 'BuildDiscarderProperty',
 
 def changes
 
-node('git-2.11+') { // shallow clone fails on older git with 'git fetch-pack: expected shallow list'
+node('git-2.30+') { // shallow clone fails on older git with 'git fetch-pack: expected shallow list'
   stage('Checkout') {
     /* reduce clone data volume with reference repo, shallow clone, no
        tags, and honor the refspec */
