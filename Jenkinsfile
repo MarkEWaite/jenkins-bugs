@@ -4,7 +4,7 @@
 
 pipeline {
   agent {
-    label '!windows && git-2.11+' // Does not show the problem
+    label '!windows && git-2.30+' // Does not show the problem
   }
   tools {
     ant 'ant-latest'
