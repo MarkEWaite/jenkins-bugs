@@ -1,15 +1,8 @@
-# [JENKINS-xxxxx](https://issues.jenkins.io/browse/JENKINS-xxxxx) check public repository
+# [JENKINS-63653](https://issues.jenkins.io/browse/JENKINS-63653) - Check scm.branches has expected value
 
-Many of the bug reports on the Jenkins git plugin and the Jenkins git
-client plugin need a repository which contains specific configurations
-to duplicate the bug.  This repository publicly captures configurations
-so that automated tests can use this repository.
+The report says that scm.branches is assigned the name of the pull request.
+That is confirmed with git plugin 4.4.1 and expected with others.
+User reports that the value of scm.branches makes it so that the checkout fails because it cannot find a revision to checkout.
+User reports that if an extension clause is added to the checkout, it succeeds.
 
-This repository includes many branches with a Jenkinsfile pipeline
-definition where the pipeline definition can encapsulate a portion of the
-bug verification. It is an imperfect attempt to accelerate interactive
-testing of Jenkins bug reports while allowing some reuse of the work to
-test those bug reports.
-
-The master branch is used in several freestyle jobs and is branched to JENKINS-61120.
-Pull requests may be submitted against the master branch from JENKINS-61120.
+Assumed that the user is running the job from the GitHub branch source, but that needs to be confirmed.
