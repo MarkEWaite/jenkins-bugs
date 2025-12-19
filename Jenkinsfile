@@ -10,7 +10,7 @@ properties([[$class: 'BuildDiscarderProperty',
 
 def branch = 'JENKINS-60204'
 
-node('git-2.11+') {
+node('git-2.30+') {
   stage('Checkout') {
     deleteDir() // force a fresh clone into workspace
     checkout([$class: 'GitSCM',
