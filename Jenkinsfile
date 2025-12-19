@@ -10,7 +10,7 @@ properties([[$class: 'BuildDiscarderProperty',
 
 def branch = 'JENKINS-35687-pub'
 
-node('git-2.11+ && git-lfs') { // Required for git LFS
+node('git-2.30+ && git-lfs') { // Required for git LFS
   stage('Checkout') {
     def my_extensions
     echo "Repo URL is ${scm.userRemoteConfigs[0].url}"
