@@ -11,7 +11,7 @@ properties([[$class: 'BuildDiscarderProperty',
 def branch='JENKINS-22547'
 def repoUrl = scm.userRemoteConfigs[0].url
 
-node('git-2.11+') { // Shallow clone fails on git versions before 1.9
+node('git-2.30+') { // Shallow clone fails on git versions before 1.9
   stage('Checkout') {
     checkout([$class: 'GitSCM',
 	      userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}",
