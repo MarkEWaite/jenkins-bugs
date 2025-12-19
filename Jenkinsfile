@@ -10,7 +10,7 @@ properties([[$class: 'BuildDiscarderProperty',
 
 def branch="JENKINS-36507"
 
-node("git-2.11+") { // Shallow clone fails on git versions before 1.9
+node("git-2.30+") { // Shallow clone fails on git versions before 1.9
   stage('Checkout') {
     checkout([$class: 'GitSCM',
 	      userRemoteConfigs: [[name: 'origin',
