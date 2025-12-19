@@ -11,7 +11,7 @@ properties([[$class: 'BuildDiscarderProperty',
 def branch = 'JENKINS-59497'
 def isCliGit = true
 
-node('linux && git-2.11+') { // This specific reference syntax is limited to Unix file systems
+node('linux && git-2.30+') { // This specific reference syntax is limited to Unix file systems
   stage('Checkout') {
     deleteDir() // Force each run to be a fresh copy
     if (scm.gitTool == 'jgit') {
