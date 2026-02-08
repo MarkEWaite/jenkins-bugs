@@ -20,8 +20,7 @@ pipeline {
                 // echo "scm.userRemoteConfigs is ${scm.userRemoteConfigs}"
                 // echo "scm.userRemoteConfigs[0].url is ${scm.userRemoteConfigs[0].url}"
                 // sh "env | sort"
-                checkout(
-                  [ $class: 'GitSCM',
+                checkout scmGit(
                     branches: [[name: "refs/heads/${env.BRANCH_NAME}"]],
                     extensions: [
                       [ $class: 'CloneOption', depth: 1, honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: true],
@@ -34,7 +33,6 @@ pipeline {
                         url: scm.userRemoteConfigs[0].url
                       ]
                     ]
-                  ]
                 )
                 sh "ant info"
             }
