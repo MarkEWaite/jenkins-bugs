@@ -23,7 +23,7 @@ pipeline {
                 checkout scmGit(
                     branches: [[name: "refs/heads/${env.BRANCH_NAME}"]],
                     extensions: [
-                      [ $class: 'CloneOption', depth: 1, honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: true],
+                      [ $class: 'CloneOption', honorRefspec: true, noTags: true, reference: '/var/lib/git/mwaite/bugs/jenkins-bugs.git', shallow: true, depth: 1],
                       [ $class: 'LocalBranch', localBranch: env.BRANCH_NAME],
                       [ $class: 'PruneStaleBranch']
                     ],
