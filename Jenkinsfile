@@ -15,7 +15,7 @@ def tasks = [ : ]
 for (int i = 0; i < platforms.size(); ++i) {
   def label = platforms[i]
   tasks[label] = {
-    node("$label && git-2.30+") { // Needed for shallow clone
+    node(label) {
       stage("Checkout $label") {
       checkout([$class: 'GitSCM',
                 branches: [[name: 'origin-JENKINS-35501/JENKINS-35501']],
