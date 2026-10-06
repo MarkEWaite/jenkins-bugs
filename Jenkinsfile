@@ -4,7 +4,7 @@
 import com.markwaite.Assert
 import com.markwaite.Build
 
-def minutes_between_polls = 13
+def minutes_between_polls = 53
 
 properties([pipelineTriggers([pollSCM('*/' + minutes_between_polls + ' * * * *')])])
 
