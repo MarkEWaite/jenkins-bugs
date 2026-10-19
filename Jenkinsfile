@@ -6,7 +6,8 @@ import com.markwaite.Build
 
 def minutes_between_polls = 53
 
-properties([pipelineTriggers([pollSCM('*/' + minutes_between_polls + ' * * * *')])])
+// Uncomment this when ready to investigate repeated jobs on the same commit
+// properties([pipelineTriggers([pollSCM('*/' + minutes_between_polls + ' * * * *')])])
 
 def branch = 'JENKINS-50886'
 
