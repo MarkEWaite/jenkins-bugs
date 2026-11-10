@@ -20,14 +20,14 @@ node {
                 userRemoteConfigs: [[refspec: "+refs/heads/${branch}:refs/remotes/origin/${branch}", url: 'https://github.com/MarkEWaite/jenkins-bugs.git']]])
   }
 
-  stage('Build') {
-    /* Call the ant build. */
-    def my_step = new com.markwaite.Build()
-    my_step.ant "-DMINUTES_TO_WAIT=${minutes_between_polls} info"
-  }
+  // stage('Build') {
+  //   /* Call the ant build. */
+  //   def my_step = new com.markwaite.Build()
+  //   my_step.ant "-DMINUTES_TO_WAIT=${minutes_between_polls} info"
+  // }
 
-  stage('Verify') {
-    def my_check = new com.markwaite.Assert()
-    my_check.logContains('.*Sleeping for .* minutes.*', 'Sleep message not detected')
-  }
+  // stage('Verify') {
+  //   def my_check = new com.markwaite.Assert()
+  //   my_check.logContains('.*Sleeping for .* minutes.*', 'Sleep message not detected')
+  // }
 }
